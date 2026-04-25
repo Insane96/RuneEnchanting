@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:docs.neoforged.net)"
+      "WebFetch(domain:docs.neoforged.net)",
+      "Bash(xargs grep *)"
     ]
   }
 }

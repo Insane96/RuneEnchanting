@@ -33,11 +33,12 @@ public class RuneEnchanting {
 
     public RuneEnchanting(IEventBus modEventBus, ModContainer modContainer) {
         CONFIG = new ILModConfig(location("main"), "Single Module", ModConfig.Type.COMMON, modEventBus, RuneEnchanting.class.getClassLoader());
-        modContainer.registerConfig(ModConfig.Type.COMMON, CONFIG.spec, MOD_ID + "/common.toml");
+        modContainer.registerConfig(ModConfig.Type.COMMON, CONFIG.spec);
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(RERunes::registerRegistry);
         modEventBus.addListener(RuneEnchanting::gatherData);
         RERunes.RUNES.register(modEventBus);
+        RERunes.registerConfigs(modEventBus, modContainer);
         REItemComponents.REGISTRY.register(modEventBus);
         REItems.REGISTRY.register(modEventBus);
     }

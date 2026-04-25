@@ -1,5 +1,6 @@
 package insane96mcp.runeenchanting.data.runes;
 
+import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -7,9 +8,8 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 
 public class SharpnessRune extends Rune {
-    public SharpnessRune() {
-        super();
-    }
+    @Config
+    public static Double bonusDamage = 0.3d;
 
     @Override
     public void addAttributeModifiers(ItemAttributeModifierEvent event) {
