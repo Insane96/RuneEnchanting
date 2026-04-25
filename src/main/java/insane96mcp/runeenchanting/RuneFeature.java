@@ -5,6 +5,7 @@ import insane96mcp.insanelib.core.feature.LoadFeature;
 import insane96mcp.runeenchanting.data.MiningContext;
 import insane96mcp.runeenchanting.data.runes.Rune;
 import insane96mcp.runeenchanting.setup.REItemComponents;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.world.item.ItemStack;
@@ -44,7 +45,9 @@ public class RuneFeature extends Feature {
             return;
         event.getToolTip().add(CommonComponents.space());
         for (Holder<Rune> holder : runes) {
-            event.getToolTip().add(holder.value().getName());
+            event.getToolTip().add(holder.value().getName().withStyle(ChatFormatting.LIGHT_PURPLE));
+            if (event.getFlags().hasShiftDown())
+                event.getToolTip().add(CommonComponents.space().append(holder.value().getDescription()).withStyle(ChatFormatting.GRAY));
         }
     }
 

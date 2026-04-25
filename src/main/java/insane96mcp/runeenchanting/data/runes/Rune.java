@@ -8,6 +8,7 @@ import insane96mcp.runeenchanting.data.TickContext;
 import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
@@ -28,11 +29,11 @@ public abstract class Rune {
         this.priority = priority;
     }
 
-    public Component getName() {
+    public MutableComponent getName() {
         return Component.translatable(this.getNameLangId());
     }
 
-    public Component getDescription() {
+    public MutableComponent getDescription() {
         return Component.translatable(this.getDescriptionLangId());
     }
 

@@ -1,3 +1,6 @@
 {
-
+    "rune.runeenchanting.efficiency": "Efficiency",
+    "rune.runeenchanting.efficiency.description": "Increases mining speed",
+    "rune.runeenchanting.sharpness": "Sharpness",
+    "rune.runeenchanting.sharpness.description": "Increases damage dealt"
 }
