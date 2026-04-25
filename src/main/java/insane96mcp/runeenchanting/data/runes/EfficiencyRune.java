@@ -14,6 +14,10 @@ public class EfficiencyRune extends Rune {
     @Config
     public static Double bonusFlatMiningSpeed = 2.5d;
 
+    public EfficiencyRune(int priority) {
+        super(priority);
+    }
+
     @Override
     public void addAttributeModifiers(ItemAttributeModifierEvent event) {
         float miningSpeed = 0f;

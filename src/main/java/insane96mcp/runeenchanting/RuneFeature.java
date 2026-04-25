@@ -13,6 +13,8 @@ import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
+import javax.annotation.Nullable;
+import java.util.Comparator;
 import java.util.List;
 
 @LoadFeature(canBeDisabled = false)
@@ -26,7 +28,7 @@ public class RuneFeature extends Feature {
     @SubscribeEvent
     public void onStackAttributeModifiers(ItemAttributeModifierEvent event) {
         ItemStack stack = event.getItemStack();
-        List<Holder<Rune>> runes = stack.get(REItemComponents.RUNES.get());
+        List<Holder<Rune>> runes = getRunesByPriority(stack);
         if (runes == null)
             return;
         for (Holder<Rune> holder : runes) {
@@ -37,12 +39,21 @@ public class RuneFeature extends Feature {
     @SubscribeEvent
     public void onTooltip(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
-        List<Holder<Rune>> runes = stack.get(REItemComponents.RUNES.get());
+        List<Holder<Rune>> runes = getRunesByPriority(stack);
         if (runes == null)
             return;
         event.getToolTip().add(CommonComponents.space());
         for (Holder<Rune> holder : runes) {
             event.getToolTip().add(holder.value().getName());
         }
+    }
+
+    @Nullable
+    public static List<Holder<Rune>> getRunesByPriority(ItemStack stack) {
+        List<Holder<Rune>> runes = stack.get(REItemComponents.RUNES.get());
+        if (runes == null)
+            return null;
+        runes.sort(Comparator.comparingInt(holder -> holder.value().getPriority()));
+        return runes;
     }
 }

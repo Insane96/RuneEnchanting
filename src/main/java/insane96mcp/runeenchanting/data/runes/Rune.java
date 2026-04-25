@@ -19,13 +19,13 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public abstract class Rune {
-    private final int priority = 0;
+    private final int priority;
     @Nullable
     private String descriptionId;
     private final Map<Field, ModConfigSpec.ConfigValue<?>> configValues = new LinkedHashMap<>();
 
-    public Rune() {
-
+    public Rune(int priority) {
+        this.priority = priority;
     }
 
     public Component getName() {

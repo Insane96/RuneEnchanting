@@ -11,6 +11,10 @@ public class SharpnessRune extends Rune {
     @Config
     public static Double bonusDamage = 0.3d;
 
+    public SharpnessRune(int priority) {
+        super(priority);
+    }
+
     @Override
     public void addAttributeModifiers(ItemAttributeModifierEvent event) {
         event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(RuneEnchanting.location("sharpness"), 0.3d, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), EquipmentSlotGroup.MAINHAND);
