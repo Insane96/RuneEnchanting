@@ -14,10 +14,6 @@ public class SharpnessRune extends Rune {
     @Config
     public static Double bonusDamage = 0.3d;
 
-    public SharpnessRune(int priority) {
-        super(priority);
-    }
-
     @Override
     public String getName() {
         return "Sharpness";

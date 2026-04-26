@@ -12,10 +12,6 @@ public class LuckRune extends Rune {
     @Config(description = "This rune mimics Fortune, Looting and Luck of the Sea of this level")
     public static Integer enchantmentLevelEquivalent = 2;
 
-    public LuckRune(int priority) {
-        super(priority);
-    }
-
     @Override
     public String getName() {
         return "Luck";

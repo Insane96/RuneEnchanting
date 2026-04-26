@@ -7,10 +7,6 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.neoforged.neoforge.event.enchanting.GetEnchantmentLevelEvent;
 
 public class SilkTouchRune extends Rune {
-    public SilkTouchRune(int priority) {
-        super(priority);
-    }
-
     @Override
     public String getName() {
         return "Silk Touch";

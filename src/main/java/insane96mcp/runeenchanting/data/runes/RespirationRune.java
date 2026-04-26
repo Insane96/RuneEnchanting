@@ -14,10 +14,6 @@ public class RespirationRune extends Rune {
     @Config
     public static Double oxygenBonus = 1.5d;
 
-    public RespirationRune(int priority) {
-        super(priority);
-    }
-
     @Override
     public String getName() {
         return "Respiration";

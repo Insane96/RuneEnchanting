@@ -5,6 +5,8 @@
   "rune.runeenchanting.depth_strider.description": "Increases movement speed underwater",
   "rune.runeenchanting.efficiency": "Efficiency",
   "rune.runeenchanting.efficiency.description": "Increases mining speed",
+  "rune.runeenchanting.enduring": "Enduring",
+  "rune.runeenchanting.enduring.description": "Increases durability",
   "rune.runeenchanting.luck": "Luck",
   "rune.runeenchanting.luck.description": "Increases yield from blocks mined, entities killed and fishing",
   "rune.runeenchanting.respiration": "Respiration",

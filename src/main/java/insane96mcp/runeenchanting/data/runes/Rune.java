@@ -12,6 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import net.neoforged.neoforge.event.enchanting.GetEnchantmentLevelEvent;
@@ -30,6 +31,8 @@ public abstract class Rune {
 
     private boolean enabled = true;
     private ModConfigSpec.BooleanValue enabledValue;
+
+    public Rune() { this(0); }
 
     public Rune(int priority) {
         this.priority = priority;
@@ -85,6 +88,10 @@ public abstract class Rune {
 
     public void onLivingTick(TickContext context) {
 
+    }
+
+    public int modifyDurability(int original, ItemStack stack) {
+        return original;
     }
 
     public void onEnchantmentLevel(GetEnchantmentLevelEvent event) {}

@@ -10,10 +10,6 @@ import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 
 public class AquaAffinityRune extends Rune {
-    public AquaAffinityRune(int priority) {
-        super(priority);
-    }
-
     @Override
     public String getName() {
         return "Aqua Affinity";

@@ -25,13 +25,14 @@ public class RERunes {
 
     private static final List<Map.Entry<String, Rune>> RUNE_ENTRIES = new ArrayList<>();
 
-    public static final DeferredHolder<Rune, EfficiencyRune> EFFICIENCY = register("efficiency", new EfficiencyRune(0));
-    public static final DeferredHolder<Rune, LuckRune> LUCK = register("luck", new LuckRune(0));
-    public static final DeferredHolder<Rune, SilkTouchRune> SILK_TOUCH = register("silk_touch", new SilkTouchRune(0));
-    public static final DeferredHolder<Rune, SharpnessRune> SHARPNESS = register("sharpness", new SharpnessRune(0));
-    public static final DeferredHolder<Rune, RespirationRune> RESPIRATION = register("respiration", new RespirationRune(0));
-    public static final DeferredHolder<Rune, AquaAffinityRune> AQUA_AFFINITY = register("aqua_affinity", new AquaAffinityRune(0));
-    public static final DeferredHolder<Rune, DepthStriderRune> DEPTH_STRIDER = register("depth_strider", new DepthStriderRune(0));
+    public static final DeferredHolder<Rune, EfficiencyRune> EFFICIENCY = register("efficiency", new EfficiencyRune());
+    public static final DeferredHolder<Rune, LuckRune> LUCK = register("luck", new LuckRune());
+    public static final DeferredHolder<Rune, SilkTouchRune> SILK_TOUCH = register("silk_touch", new SilkTouchRune());
+    public static final DeferredHolder<Rune, SharpnessRune> SHARPNESS = register("sharpness", new SharpnessRune());
+    public static final DeferredHolder<Rune, RespirationRune> RESPIRATION = register("respiration", new RespirationRune());
+    public static final DeferredHolder<Rune, AquaAffinityRune> AQUA_AFFINITY = register("aqua_affinity", new AquaAffinityRune());
+    public static final DeferredHolder<Rune, DepthStriderRune> DEPTH_STRIDER = register("depth_strider", new DepthStriderRune());
+    public static final DeferredHolder<Rune, EnduringRune> ENDURING = register("enduring", new EnduringRune());
 
     private static <T extends Rune> DeferredHolder<Rune, T> register(String id, T instance) {
         RUNE_ENTRIES.add(Map.entry(id, instance));

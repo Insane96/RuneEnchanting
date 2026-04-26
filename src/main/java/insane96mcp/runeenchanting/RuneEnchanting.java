@@ -4,7 +4,7 @@ import com.mojang.logging.LogUtils;
 import insane96mcp.insanelib.setup.ILModConfig;
 import insane96mcp.runeenchanting.datagen.REItemTagProvider;
 import insane96mcp.runeenchanting.datagen.RELanguageProvider;
-import insane96mcp.runeenchanting.setup.REItemComponents;
+import insane96mcp.runeenchanting.setup.REDataComponents;
 import insane96mcp.runeenchanting.setup.REItems;
 import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.core.HolderLookup;
@@ -40,7 +40,7 @@ public class RuneEnchanting {
         modEventBus.addListener(RuneEnchanting::gatherData);
         RERunes.RUNES.register(modEventBus);
         RERunes.registerConfigs(modEventBus, modContainer);
-        REItemComponents.REGISTRY.register(modEventBus);
+        REDataComponents.REGISTRY.register(modEventBus);
         REItems.REGISTRY.register(modEventBus);
     }
 

@@ -12,7 +12,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.List;
 
-public class REItemComponents {
+public class REDataComponents {
     public static final DeferredRegister<DataComponentType<?>> REGISTRY =
             DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, RuneEnchanting.MOD_ID);
 

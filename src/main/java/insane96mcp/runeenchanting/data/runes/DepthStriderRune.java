@@ -14,10 +14,6 @@ public class DepthStriderRune extends Rune {
     @Config
     public static Double waterMovementEfficiency = 0.75d;
 
-    public DepthStriderRune(int priority) {
-        super(priority);
-    }
-
     @Override
     public String getName() {
         return "Depth Strider";
