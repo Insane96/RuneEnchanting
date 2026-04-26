@@ -6,5 +6,7 @@
     "rune.runeenchanting.respiration": "Respiration",
     "rune.runeenchanting.respiration.description": "Increases oxygen",
     "rune.runeenchanting.aqua_affinity": "Aqua Affinity",
-    "rune.runeenchanting.aqua_affinity.description": "Removes the mining speed penalty when underwater"
+    "rune.runeenchanting.aqua_affinity.description": "Removes the mining speed penalty when underwater",
+    "rune.runeenchanting.depth_strider": "Depth Strider",
+    "rune.runeenchanting.depth_strider.description": "Lowers the movement speed reduction that occurs when in water"
 }

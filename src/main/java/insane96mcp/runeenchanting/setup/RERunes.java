@@ -29,6 +29,7 @@ public class RERunes {
     public static final DeferredHolder<Rune, SharpnessRune> SHARPNESS = register("sharpness", new SharpnessRune(0));
     public static final DeferredHolder<Rune, RespirationRune> RESPIRATION = register("respiration", new RespirationRune(0));
     public static final DeferredHolder<Rune, AquaAffinityRune> AQUA_AFFINITY = register("aqua_affinity", new AquaAffinityRune(0));
+    public static final DeferredHolder<Rune, DepthStriderRune> DEPTH_STRIDER = register("depth_strider", new DepthStriderRune(0));
 
     private static <T extends Rune> DeferredHolder<Rune, T> register(String id, T instance) {
         RUNE_ENTRIES.add(Map.entry(id, instance));
