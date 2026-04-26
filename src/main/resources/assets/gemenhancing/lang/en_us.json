@@ -2,5 +2,7 @@
     "rune.runeenchanting.efficiency": "Efficiency",
     "rune.runeenchanting.efficiency.description": "Increases mining speed",
     "rune.runeenchanting.sharpness": "Sharpness",
-    "rune.runeenchanting.sharpness.description": "Increases damage dealt"
+    "rune.runeenchanting.sharpness.description": "Increases damage dealt",
+    "rune.runeenchanting.respiration": "Respiration",
+    "rune.runeenchanting.respiration.description": "Increases oxygen"
 }

@@ -10,22 +10,21 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 
-public class SharpnessRune extends Rune {
+public class RespirationRune extends Rune {
     @Config
-    public static Double bonusDamage = 0.3d;
+    public static Double oxygenBonus = 1.5d;
 
-    public SharpnessRune(int priority) {
+    public RespirationRune(int priority) {
         super(priority);
     }
 
     @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
-        appender.addTag(ItemTags.SWORDS)
-                .addTag(ItemTags.AXES);
+        appender.addTag(ItemTags.HEAD_ARMOR_ENCHANTABLE);
     }
 
     @Override
     public void addAttributeModifiers(ItemAttributeModifierEvent event) {
-        event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(RuneEnchanting.location("sharpness"), 0.3d, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), EquipmentSlotGroup.MAINHAND);
+        event.addModifier(Attributes.OXYGEN_BONUS, new AttributeModifier(RuneEnchanting.location("respiration"), oxygenBonus, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
     }
 }

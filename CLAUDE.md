@@ -36,13 +36,18 @@ No dedicated test task exists yet — use `runGameTestServer` for game tests.
 
 ### Rune System
 
-`data/enhancement/Rune.java` — abstract base class for all runes. Each rune has a `ResourceLocation` ID and a priority. The three override points are:
+`data/runes/Rune.java` — abstract base class for all runes. Each rune has a `ResourceLocation` ID and a priority. Override points:
 
-- `onMiningSpeed(MiningContext)` → returns a modified `float` speed
-- `onAttack(AttackContext)` → returns modified `float` damage
-- `onLivingTick(TickContext)` → side-effect hook, no return value
+- `onMiningSpeed(MiningContext)` → returns modified `float` speed (default: pass-through)
+- `onAttack(AttackContext)` → returns modified `float` damage (default: pass-through)
+- `onLivingTick(TickContext)` → side-effect hook, no return value (default: no-op)
+- `addAttributeModifiers(ItemAttributeModifierEvent)` → add attribute modifiers to the item (default: no-op)
 
-Default implementations are no-ops (pass-through). `Efficiency.java` is the only concrete rune: it returns `originalSpeed * 2 + 2.5`.
+Also has `getApplicableToItemTag()` and supports `@Config`-annotated fields processed at registry init.
+
+Concrete runes (both registered in `setup/RERunes.java`):
+- `EfficiencyRune.java` — implements `addAttributeModifiers()` to add `MINING_EFFICIENCY`; has `@Config` fields `bonusMiningSpeed` and `bonusFlatMiningSpeed`
+- `SharpnessRune.java` — implements `addAttributeModifiers()` to add `ATTACK_DAMAGE`; has `@Config` field `bonusDamage`
 
 ### Context Classes
 
@@ -52,15 +57,34 @@ Thin data holders passed to rune methods:
 - `AttackContext` — `attacker`, `attacked`, `damage`, `damageSource`, `isCritical`
 - `TickContext` — `ticker` (the `LivingEntity` being ticked)
 
+### Registry (`setup/RERunes.java`)
+
+Custom NeoForge registry with key `runeenchanting:runes`. Registers `EFFICIENCY` and `SHARPNESS` as `DeferredHolder`s. Also calls `registerConfigs()` which processes `@Config`-annotated fields on each rune for config generation.
+
+### Item Components (`setup/REItemComponents.java`)
+
+Registers two `DataComponentType`s:
+- `RUNES` — `List<Holder<Rune>>`, codec via `RERunes.REGISTRY.holderByNameCodec()`
+- `SOCKETS` — `Integer`
+
+### Items (`setup/REItems.java`)
+
+Registers `RUNE` — a basic `Item` with default properties.
+
+### Data Generation
+
+`datagen/REItemTagProvider.java` — generates `rune_appliable_to/<rune>` item tags. Efficiency targets `#minecraft:pickaxes/axes/shovels/hoes`; sharpness targets `#minecraft:swords/axes`.
+
+### Mixins
+
+`mixin/PlayerMixin.java` — `@Mixin(Player.class)` empty placeholder. Declared in `runeenchanting.mixins.json`.
+
 ### Current Development State
 
-Infrastructure is in place but incomplete:
-- `RuneFeature` creates `MiningContext` but doesn't yet pass it through any runes or write the result back to the event
-- `onAttack` and `onLivingTick` event listeners are not yet registered
-- No rune registry exists yet
-- `setup/REItemComponents.java` is an empty placeholder
-- `assets/runeenchanting/lang/en_us.json` is empty
-- No mixins are registered (config is ready)
+Infrastructure is mostly in place but some wiring is incomplete:
+- `RuneFeature` creates `MiningContext` but doesn't yet pass it through runes or write the result back to the `BreakSpeed` event
+- `RuneFeature` handles `ItemAttributeModifierEvent` (calls `addAttributeModifiers()`) and `ItemTooltipEvent` (calls `getName()`/`getDescription()`) correctly
+- `onAttack` and `onLivingTick` listeners are not yet registered (PlayerMixin is empty)
 
 Don't write code unless prompted or confirmed to do.
 Other mod's source, is in C:\Users\delvi\source\repos\Insane96\

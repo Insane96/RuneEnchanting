@@ -7,9 +7,11 @@ import insane96mcp.runeenchanting.data.MiningContext;
 import insane96mcp.runeenchanting.data.TickContext;
 import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.Util;
+import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 
@@ -55,8 +57,10 @@ public abstract class Rune {
 
     public ResourceLocation getApplicableToItemTag() {
         ResourceLocation id = RERunes.REGISTRY.getKey(this);
-        return ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "rune_appliable_to/" + id.getPath());
+        return ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "rune_applicable_to/" + id.getPath());
     }
+
+    public abstract void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender);
 
     public float onMiningSpeed(MiningContext context) {
         return context.originalSpeed;
@@ -124,6 +128,4 @@ public abstract class Rune {
         String spaced = fieldName.replaceAll("([A-Z])", " $1");
         return Character.toUpperCase(spaced.charAt(0)) + spaced.substring(1);
     }
-
-    //TODO Add a method to override that fills the default applicable to item tag
 }

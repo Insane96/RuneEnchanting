@@ -2,6 +2,7 @@ package insane96mcp.runeenchanting.setup;
 
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.data.runes.EfficiencyRune;
+import insane96mcp.runeenchanting.data.runes.RespirationRune;
 import insane96mcp.runeenchanting.data.runes.Rune;
 import insane96mcp.runeenchanting.data.runes.SharpnessRune;
 import net.minecraft.core.Registry;
@@ -29,6 +30,7 @@ public class RERunes {
 
     public static final DeferredHolder<Rune, EfficiencyRune> EFFICIENCY = register("efficiency", new EfficiencyRune(0));
     public static final DeferredHolder<Rune, SharpnessRune> SHARPNESS = register("sharpness", new SharpnessRune(0));
+    public static final DeferredHolder<Rune, RespirationRune> RESPIRATION = register("respiration", new RespirationRune(0));
 
     private static <T extends Rune> DeferredHolder<Rune, T> register(String id, T instance) {
         RUNE_ENTRIES.add(Map.entry(id, instance));

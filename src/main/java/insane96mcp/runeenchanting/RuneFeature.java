@@ -2,7 +2,6 @@ package insane96mcp.runeenchanting;
 
 import insane96mcp.insanelib.core.feature.Feature;
 import insane96mcp.insanelib.core.feature.LoadFeature;
-import insane96mcp.runeenchanting.data.MiningContext;
 import insane96mcp.runeenchanting.data.runes.Rune;
 import insane96mcp.runeenchanting.setup.REItemComponents;
 import net.minecraft.ChatFormatting;
@@ -12,7 +11,6 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
 import javax.annotation.Nullable;
 import java.util.Comparator;
@@ -20,12 +18,6 @@ import java.util.List;
 
 @LoadFeature(canBeDisabled = false)
 public class RuneFeature extends Feature {
-    @SubscribeEvent
-    public void onBreakSpeed(PlayerEvent.BreakSpeed event) {
-        MiningContext context = new MiningContext(event.getEntity(), event.getPosition(), event.getEntity().level(), event.getOriginalSpeed(), event.getNewSpeed());
-
-    }
-
     @SubscribeEvent
     public void onStackAttributeModifiers(ItemAttributeModifierEvent event) {
         ItemStack stack = event.getItemStack();
