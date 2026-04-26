@@ -1,6 +1,6 @@
 {
     "item": "#insanelib:equipment/wooden",
     "components": {
-        "runeenchanting:sockets": 5
+        "runeenchanting:sockets": 6
     }
 }
