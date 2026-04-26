@@ -56,7 +56,6 @@ public class RuneEnchanting {
         return Component.translatable(lang(path));
     }
 
-
     private void commonSetup(FMLCommonSetupEvent event) {
 
     }
