@@ -27,6 +27,6 @@ public class SwiftSneakRune extends Rune {
 
     @Override
     public void addAttributeModifiers(ItemAttributeModifierEvent event) {
-        event.addModifier(Attributes.SNEAKING_SPEED, new AttributeModifier(RuneEnchanting.location("swift_sneak"), 0.4, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.LEGS);
+        event.addModifier(Attributes.SNEAKING_SPEED, new AttributeModifier(RuneEnchanting.id("swift_sneak"), 0.4, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.LEGS);
     }
 }

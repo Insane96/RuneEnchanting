@@ -2,6 +2,7 @@ package insane96mcp.runeenchanting;
 
 import com.mojang.logging.LogUtils;
 import insane96mcp.insanelib.setup.ILModConfig;
+import insane96mcp.runeenchanting.datagen.REEntityTypeTagProvider;
 import insane96mcp.runeenchanting.datagen.REItemTagProvider;
 import insane96mcp.runeenchanting.datagen.RELanguageProvider;
 import insane96mcp.runeenchanting.setup.REDataComponents;
@@ -33,7 +34,7 @@ public class RuneEnchanting {
     public static final String CONFIG_FOLDER = "config/" + MOD_ID;
 
     public RuneEnchanting(IEventBus modEventBus, ModContainer modContainer) {
-        CONFIG = new ILModConfig(location("main"), "Single Module", ModConfig.Type.COMMON, modEventBus, RuneEnchanting.class.getClassLoader());
+        CONFIG = new ILModConfig(id("main"), "Single Module", ModConfig.Type.COMMON, modEventBus, RuneEnchanting.class.getClassLoader());
         modContainer.registerConfig(ModConfig.Type.COMMON, CONFIG.spec);
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(RERunes::registerRegistry);
@@ -44,7 +45,7 @@ public class RuneEnchanting {
         REItems.REGISTRY.register(modEventBus);
     }
 
-    public static ResourceLocation location(String path) {
+    public static ResourceLocation id(String path) {
         return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
     }
 
@@ -71,6 +72,8 @@ public class RuneEnchanting {
         event.getGenerator().addProvider(event.includeServer(), blockTagsProvider);
         event.getGenerator().addProvider(event.includeServer(),
                 new REItemTagProvider(output, lookupProvider, blockTagsProvider.contentsGetter(), MOD_ID, existingFileHelper));
+        event.getGenerator().addProvider(event.includeServer(),
+                new REEntityTypeTagProvider(output, lookupProvider, MOD_ID, existingFileHelper));
         event.getGenerator().addProvider(event.includeClient(),
                 new RELanguageProvider(output));
     }

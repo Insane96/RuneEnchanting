@@ -8,9 +8,15 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentTarget;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.enchanting.GetEnchantmentLevelEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
@@ -20,6 +26,11 @@ import java.util.List;
 
 @LoadFeature(canBeDisabled = false)
 public class RuneFeature extends Feature {
+    @SubscribeEvent
+    public void onRegisterCommands(RegisterCommandsEvent event) {
+        RECommands.register(event.getDispatcher());
+    }
+
     @SubscribeEvent
     public void onStackAttributeModifiers(ItemAttributeModifierEvent event) {
         ItemStack stack = event.getItemStack();
@@ -72,6 +83,28 @@ public class RuneFeature extends Feature {
             result = holder.value().modifyDurability(result, stack);
         }
         return result;
+    }
+
+    public static float onEnchantmentDamage(float enchantmentDamage, Player player, Entity attacked, float originalDamage, DamageSource damageSource, ItemStack stack) {
+        List<Holder<Rune>> runes = getRunesByPriority(stack);
+        if (runes == null)
+            return originalDamage;
+        float damage = originalDamage;
+        for (Holder<Rune> holder : runes) {
+            damage = holder.value().modifyEnchantmentDamage(player, attacked, damage, originalDamage, damageSource, stack);
+        }
+        return damage;
+    }
+
+    public static void onPostAttack(ServerLevel level, @Nullable ItemStack stack, EnchantmentTarget target, Entity attacked, DamageSource damageSource) {
+        if (stack == null)
+            return;
+        List<Holder<Rune>> runes = getRunesByPriority(stack);
+        if (runes == null)
+            return;
+        for (Holder<Rune> holder : runes) {
+            holder.value().onPostAttack(level, stack, target, attacked, damageSource);
+        }
     }
 
     @Nullable

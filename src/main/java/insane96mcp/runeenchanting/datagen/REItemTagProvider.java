@@ -1,13 +1,11 @@
 package insane96mcp.runeenchanting.datagen;
 
-import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
@@ -26,10 +24,6 @@ public class REItemTagProvider extends ItemTagsProvider {
             var tagKey = TagKey.create(Registries.ITEM, entry.getValue().getApplicableToItemTag());
             entry.getValue().addItemsToApplicableTag(tag(tagKey));
         }
-    }
-
-    private static TagKey<Item> runeApplicableTo(String runeId) {
-        return TagKey.create(Registries.ITEM, RuneEnchanting.location("rune_applicable_to/" + runeId));
     }
 
     @Override

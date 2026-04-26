@@ -1,6 +1,8 @@
 {
   "rune.runeenchanting.aqua_affinity": "Aqua Affinity",
   "rune.runeenchanting.aqua_affinity.description": "Increases mining speed underwater",
+  "rune.runeenchanting.bane_of_hissing": "Bane of Hissing",
+  "rune.runeenchanting.bane_of_hissing.description": "Increases damage dealt to hissing creatures",
   "rune.runeenchanting.depth_strider": "Depth Strider",
   "rune.runeenchanting.depth_strider.description": "Increases movement speed underwater",
   "rune.runeenchanting.efficiency": "Efficiency",
@@ -14,5 +16,7 @@
   "rune.runeenchanting.sharpness": "Sharpness",
   "rune.runeenchanting.sharpness.description": "Increases damage dealt",
   "rune.runeenchanting.silk_touch": "Silk Touch",
-  "rune.runeenchanting.silk_touch.description": "Makes blocks drop themselves"
+  "rune.runeenchanting.silk_touch.description": "Makes blocks drop themselves",
+  "rune.runeenchanting.swift_sneak": "Swift Sneak",
+  "rune.runeenchanting.swift_sneak.description": "Increases sneak movement speed"
 }

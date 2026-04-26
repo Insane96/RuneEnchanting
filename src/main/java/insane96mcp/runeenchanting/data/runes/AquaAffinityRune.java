@@ -27,6 +27,6 @@ public class AquaAffinityRune extends Rune {
 
     @Override
     public void addAttributeModifiers(ItemAttributeModifierEvent event) {
-        event.addModifier(Attributes.SUBMERGED_MINING_SPEED, new AttributeModifier(RuneEnchanting.location("aqua_affinity"), 4, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL), EquipmentSlotGroup.HEAD);
+        event.addModifier(Attributes.SUBMERGED_MINING_SPEED, new AttributeModifier(RuneEnchanting.id("aqua_affinity"), 4, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL), EquipmentSlotGroup.HEAD);
     }
 }

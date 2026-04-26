@@ -31,6 +31,6 @@ public class RespirationRune extends Rune {
 
     @Override
     public void addAttributeModifiers(ItemAttributeModifierEvent event) {
-        event.addModifier(Attributes.OXYGEN_BONUS, new AttributeModifier(RuneEnchanting.location("respiration"), oxygenBonus, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.HEAD);
+        event.addModifier(Attributes.OXYGEN_BONUS, new AttributeModifier(RuneEnchanting.id("respiration"), oxygenBonus, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.HEAD);
     }
 }

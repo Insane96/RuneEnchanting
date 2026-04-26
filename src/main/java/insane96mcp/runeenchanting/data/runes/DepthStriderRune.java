@@ -31,6 +31,6 @@ public class DepthStriderRune extends Rune {
 
     @Override
     public void addAttributeModifiers(ItemAttributeModifierEvent event) {
-        event.addModifier(Attributes.WATER_MOVEMENT_EFFICIENCY, new AttributeModifier(RuneEnchanting.location("depth_strider"), waterMovementEfficiency, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.FEET);
+        event.addModifier(Attributes.WATER_MOVEMENT_EFFICIENCY, new AttributeModifier(RuneEnchanting.id("depth_strider"), waterMovementEfficiency, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.FEET);
     }
 }

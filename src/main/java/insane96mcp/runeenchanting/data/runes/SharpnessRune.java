@@ -32,6 +32,6 @@ public class SharpnessRune extends Rune {
 
     @Override
     public void addAttributeModifiers(ItemAttributeModifierEvent event) {
-        event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(RuneEnchanting.location("sharpness"), bonusDamage, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), EquipmentSlotGroup.MAINHAND);
+        event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(RuneEnchanting.id("sharpness"), bonusDamage, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), EquipmentSlotGroup.MAINHAND);
     }
 }

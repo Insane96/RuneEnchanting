@@ -42,6 +42,6 @@ public class EfficiencyRune extends Rune {
         float miningSpeed = 0f;
         if (event.getItemStack().getItem() instanceof TieredItem tieredItem)
             miningSpeed = tieredItem.getTier().getSpeed() * bonusMiningSpeed.floatValue();
-        event.addModifier(Attributes.MINING_EFFICIENCY, new AttributeModifier(RuneEnchanting.location("efficiency"), miningSpeed + bonusFlatMiningSpeed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
+        event.addModifier(Attributes.MINING_EFFICIENCY, new AttributeModifier(RuneEnchanting.id("efficiency"), miningSpeed + bonusFlatMiningSpeed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
     }
 }

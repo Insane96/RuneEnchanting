@@ -1,15 +1,16 @@
 {
-  "required": true,
-  "package": "insane96mcp.runeenchanting.mixin",
-  "compatibilityLevel": "JAVA_21",
-  "mixins": [
-    "IItemExtensionMixin",
-    "PlayerMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  },
-  "overwrites": {
-    "requireAnnotations": true
+    "required": true,
+    "package": "insane96mcp.runeenchanting.mixin",
+    "compatibilityLevel": "JAVA_21",
+    "mixins": [
+        "EnchantmentHelperMixin",
+        "IItemExtensionMixin",
+        "PlayerMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    },
+    "overwrites": {
+        "requireAnnotations": true
   }
 }
