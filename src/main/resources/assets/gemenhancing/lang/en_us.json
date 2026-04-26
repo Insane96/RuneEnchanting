@@ -4,5 +4,7 @@
     "rune.runeenchanting.sharpness": "Sharpness",
     "rune.runeenchanting.sharpness.description": "Increases damage dealt",
     "rune.runeenchanting.respiration": "Respiration",
-    "rune.runeenchanting.respiration.description": "Increases oxygen"
+    "rune.runeenchanting.respiration.description": "Increases oxygen",
+    "rune.runeenchanting.aqua_affinity": "Aqua Affinity",
+    "rune.runeenchanting.aqua_affinity.description": "Removes the mining speed penalty when underwater"
 }
