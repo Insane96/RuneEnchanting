@@ -14,6 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
+import net.neoforged.neoforge.event.enchanting.GetEnchantmentLevelEvent;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.Field;
@@ -27,19 +28,31 @@ public abstract class Rune {
     private String descriptionId;
     private final Map<Field, ModConfigSpec.ConfigValue<?>> configValues = new LinkedHashMap<>();
 
+    private boolean enabled = true;
+    private ModConfigSpec.BooleanValue enabledValue;
+
     public Rune(int priority) {
         this.priority = priority;
     }
 
-    public MutableComponent getName() {
-        return Component.translatable(this.getNameLangId());
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public MutableComponent getDescription() {
-        return Component.translatable(this.getDescriptionLangId());
+    public MutableComponent getNameComponent() {
+        return Component.translatable(this.getNameTranslationKey());
     }
 
-    protected String getOrCreateNameLangId() {
+    public MutableComponent getDescriptionComponent() {
+        return Component.translatable(this.getDescriptionTranslationKey());
+    }
+
+    ///Used for data gen
+    public abstract String getName();
+    ///Used for data gen
+    public abstract String getDescription();
+
+    protected String getOrCreateNameTanslationKey() {
         if (this.descriptionId == null) {
             this.descriptionId = Util.makeDescriptionId("rune", RERunes.REGISTRY.getKey(this));
         }
@@ -47,12 +60,12 @@ public abstract class Rune {
         return this.descriptionId;
     }
 
-    public String getNameLangId() {
-        return this.getOrCreateNameLangId();
+    public String getNameTranslationKey() {
+        return this.getOrCreateNameTanslationKey();
     }
 
-    public String getDescriptionLangId() {
-        return this.getOrCreateNameLangId() + ".description";
+    public String getDescriptionTranslationKey() {
+        return this.getOrCreateNameTanslationKey() + ".description";
     }
 
     public ResourceLocation getApplicableToItemTag() {
@@ -74,6 +87,8 @@ public abstract class Rune {
 
     }
 
+    public void onEnchantmentLevel(GetEnchantmentLevelEvent event) {}
+
     public void addAttributeModifiers(ItemAttributeModifierEvent event) {
 
     }
@@ -83,6 +98,7 @@ public abstract class Rune {
     }
 
     public void loadConfig(ModConfigSpec.Builder builder) {
+        enabledValue = builder.define("Enabled", true);
         for (Field field : getClass().getDeclaredFields()) {
             Config annotation = field.getAnnotation(Config.class);
             if (annotation == null) continue;
@@ -103,6 +119,7 @@ public abstract class Rune {
     }
 
     public void readConfig() {
+        enabled = enabledValue.get();
         configValues.forEach((field, value) -> {
             try {
                 field.set(null, value.get());

@@ -1,0 +1,16 @@
+{
+  "rune.runeenchanting.aqua_affinity": "Aqua Affinity",
+  "rune.runeenchanting.aqua_affinity.description": "Increases mining speed underwater",
+  "rune.runeenchanting.depth_strider": "Depth Strider",
+  "rune.runeenchanting.depth_strider.description": "Increases movement speed underwater",
+  "rune.runeenchanting.efficiency": "Efficiency",
+  "rune.runeenchanting.efficiency.description": "Increases mining speed",
+  "rune.runeenchanting.luck": "Luck",
+  "rune.runeenchanting.luck.description": "Increases yield from blocks mined, entities killed and fishing",
+  "rune.runeenchanting.respiration": "Respiration",
+  "rune.runeenchanting.respiration.description": "Increases the time you can breathe underwater",
+  "rune.runeenchanting.sharpness": "Sharpness",
+  "rune.runeenchanting.sharpness.description": "Increases damage dealt",
+  "rune.runeenchanting.silk_touch": "Silk Touch",
+  "rune.runeenchanting.silk_touch.description": "Makes blocks drop themselves"
+}

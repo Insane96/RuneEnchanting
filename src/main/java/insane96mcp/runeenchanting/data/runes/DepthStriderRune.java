@@ -19,6 +19,16 @@ public class DepthStriderRune extends Rune {
     }
 
     @Override
+    public String getName() {
+        return "Depth Strider";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Increases movement speed underwater";
+    }
+
+    @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
         appender.addTag(ItemTags.FOOT_ARMOR_ENCHANTABLE);
     }

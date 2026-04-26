@@ -19,6 +19,16 @@ public class RespirationRune extends Rune {
     }
 
     @Override
+    public String getName() {
+        return "Respiration";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Increases the time you can breathe underwater";
+    }
+
+    @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
         appender.addTag(ItemTags.HEAD_ARMOR_ENCHANTABLE);
     }

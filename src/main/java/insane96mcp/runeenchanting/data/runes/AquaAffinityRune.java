@@ -15,6 +15,16 @@ public class AquaAffinityRune extends Rune {
     }
 
     @Override
+    public String getName() {
+        return "Aqua Affinity";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Increases mining speed underwater";
+    }
+
+    @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
         appender.addTag(ItemTags.HEAD_ARMOR_ENCHANTABLE);
     }

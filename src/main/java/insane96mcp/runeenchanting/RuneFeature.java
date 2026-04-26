@@ -37,9 +37,9 @@ public class RuneFeature extends Feature {
             return;
         event.getToolTip().add(CommonComponents.space());
         for (Holder<Rune> holder : runes) {
-            event.getToolTip().add(holder.value().getName().withStyle(ChatFormatting.LIGHT_PURPLE));
+            event.getToolTip().add(holder.value().getNameComponent().withStyle(ChatFormatting.LIGHT_PURPLE));
             if (event.getFlags().hasShiftDown())
-                event.getToolTip().add(CommonComponents.space().append(holder.value().getDescription()).withStyle(ChatFormatting.GRAY));
+                event.getToolTip().add(CommonComponents.space().append(holder.value().getDescriptionComponent()).withStyle(ChatFormatting.GRAY));
         }
     }
 
@@ -48,7 +48,10 @@ public class RuneFeature extends Feature {
         List<Holder<Rune>> runes = stack.get(REItemComponents.RUNES.get());
         if (runes == null)
             return null;
-        runes.sort(Comparator.comparingInt(holder -> holder.value().getPriority()));
+        runes = runes.stream()
+                .filter(holder -> holder.value().isEnabled())
+                .sorted(Comparator.comparingInt(holder -> holder.value().getPriority()))
+                .toList();
         return runes;
     }
 }

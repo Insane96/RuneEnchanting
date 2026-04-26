@@ -23,6 +23,16 @@ public class EfficiencyRune extends Rune {
     }
 
     @Override
+    public String getName() {
+        return "Efficiency";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Increases mining speed";
+    }
+
+    @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
         appender.addTag(ItemTags.PICKAXES)
                 .addTag(ItemTags.AXES)

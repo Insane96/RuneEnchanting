@@ -19,6 +19,16 @@ public class SharpnessRune extends Rune {
     }
 
     @Override
+    public String getName() {
+        return "Sharpness";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Increases damage dealt";
+    }
+
+    @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
         appender.addTag(ItemTags.SWORDS)
                 .addTag(ItemTags.AXES);
