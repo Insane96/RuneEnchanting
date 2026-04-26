@@ -1,0 +1,6 @@
+{
+    "item": "#insanelib:equipment/diamond",
+    "components": {
+        "runeenchanting:sockets": 2
+    }
+}

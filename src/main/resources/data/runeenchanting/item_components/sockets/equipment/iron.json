@@ -1,0 +1,6 @@
+{
+    "item": "#insanelib:equipment/iron",
+    "components": {
+        "runeenchanting:sockets": 3
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "item": "#insanelib:equipment/netherite",
+    "components": {
+        "runeenchanting:sockets": 1
+    }
+}

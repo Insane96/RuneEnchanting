@@ -46,11 +46,14 @@ public class RuneFeature extends Feature {
     public void onTooltip(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
         int sockets = stack.getOrDefault(REDataComponents.SOCKETS, 0);
-        if (sockets > 0) {
-            event.getToolTip().add(CommonComponents.space());
-            event.getToolTip().add(Component.translatable("sockets").withStyle(ChatFormatting.LIGHT_PURPLE));
-        }
         List<Holder<Rune>> runes = getRunesByPriority(stack);
+        int runesCount = runes == null ? 0 : runes.size();
+        if (sockets > 0) {
+            if (runesCount > 0 || event.getFlags().hasShiftDown()) {
+                event.getToolTip().add(CommonComponents.space());
+                event.getToolTip().add(Component.translatable("sockets", runesCount, sockets).withStyle(ChatFormatting.DARK_PURPLE));
+            }
+        }
         if (runes != null) {
             for (Holder<Rune> holder : runes) {
                 event.getToolTip().add(holder.value().getNameComponent().withStyle(ChatFormatting.LIGHT_PURPLE));

@@ -1,0 +1,6 @@
+{
+    "item": "#insanelib:equipment/wooden",
+    "components": {
+        "runeenchanting:sockets": 5
+    }
+}
