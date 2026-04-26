@@ -10,6 +10,7 @@ import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
+import net.neoforged.neoforge.event.enchanting.GetEnchantmentLevelEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
 import javax.annotation.Nullable;
@@ -26,6 +27,17 @@ public class RuneFeature extends Feature {
             return;
         for (Holder<Rune> holder : runes) {
             holder.value().addAttributeModifiers(event);
+        }
+    }
+
+    @SubscribeEvent
+    public void onGetEnchantmentLevel(GetEnchantmentLevelEvent event) {
+        ItemStack stack = event.getStack();
+        List<Holder<Rune>> runes = getRunesByPriority(stack);
+        if (runes == null)
+            return;
+        for (Holder<Rune> holder : runes) {
+            holder.value().onEnchantmentLevel(event);
         }
     }
 
