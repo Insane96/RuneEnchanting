@@ -21,6 +21,8 @@
   "rune.runeenchanting.lure.description": "Lowers the time it takes to lure fish",
   "rune.runeenchanting.multishot": "Multishot",
   "rune.runeenchanting.multishot.description": "Shot 3 arrows at once",
+  "rune.runeenchanting.piercing": "Piercing",
+  "rune.runeenchanting.piercing.description": "Arrows will pass through multiple entities",
   "rune.runeenchanting.quick_charge": "Quick Charge",
   "rune.runeenchanting.quick_charge.description": "Charge arrows faster",
   "rune.runeenchanting.respiration": "Respiration",
