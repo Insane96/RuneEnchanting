@@ -17,6 +17,8 @@
   "rune.runeenchanting.infinity.description": "Chance to not consume an arrow when using a bow",
   "rune.runeenchanting.luck": "Luck",
   "rune.runeenchanting.luck.description": "Increases yield from blocks mined, entities killed and fishing",
+  "rune.runeenchanting.lure": "Lure",
+  "rune.runeenchanting.lure.description": "Lowers the time it takes to lure fish",
   "rune.runeenchanting.multishot": "Multishot",
   "rune.runeenchanting.multishot.description": "Shot 3 arrows at once",
   "rune.runeenchanting.quick_charge": "Quick Charge",

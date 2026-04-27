@@ -31,7 +31,7 @@
 - [ ] loyalty
 - [x] luck_of_the_sea
   - Changed to luck, works for weapons, tools and fishing rods. Mimics the level II behavior.
-- [ ] lure
+- [x] lure
 - [ ] ~~mending~~
   - No xp, no mending
 - [x] multishot
@@ -41,7 +41,7 @@
 - [ ] projectile_protection
 - [ ] protection
 - [ ] punch
-- [ ] quick_charge
+- [x] quick_charge
 - [x] respiration
   - +150% oxygen
 - [ ] riptide
