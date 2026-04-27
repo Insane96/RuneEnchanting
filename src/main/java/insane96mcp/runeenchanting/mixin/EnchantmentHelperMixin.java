@@ -1,5 +1,6 @@
 package insane96mcp.runeenchanting.mixin;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import insane96mcp.runeenchanting.RuneFeature;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
@@ -37,5 +38,20 @@ public class EnchantmentHelperMixin {
     @Inject(method = "onProjectileSpawned", at = @At("TAIL"))
     private static void onProjectileSpawned(ServerLevel level, ItemStack firedFromWeapon, AbstractArrow arrow, Consumer<Item> onBreak, CallbackInfo ci) {
         RuneFeature.onProjectileSpawned(level, firedFromWeapon, arrow, onBreak);
+    }
+
+    @ModifyReturnValue(method = "processAmmoUse", at = @At("RETURN"))
+    private static int onProcessAmmoUse(int original, ServerLevel level, ItemStack weapon, ItemStack ammo, int count) {
+        return RuneFeature.modifyAmmoUse(level, weapon, ammo, original);
+    }
+
+    @ModifyReturnValue(method = "processProjectileCount", at = @At("RETURN"))
+    private static int onProcessProjectileCount(int original, ServerLevel level, ItemStack tool, Entity entity, int projectileCount) {
+        return RuneFeature.modifyProjectileCount(level, tool, entity, original);
+    }
+
+    @ModifyReturnValue(method = "processProjectileSpread", at = @At("RETURN"))
+    private static float onProcessProjectileSpread(float original, ServerLevel level, ItemStack tool, Entity entity, float projectileSpread) {
+        return RuneFeature.modifyProjectileSpread(level, tool, entity, original);
     }
 }

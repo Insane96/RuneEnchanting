@@ -29,7 +29,6 @@ import java.util.function.Consumer;
 
 @LoadFeature(canBeDisabled = false)
 public class RuneFeature extends Feature {
-
     @SubscribeEvent
     public void onRegisterCommands(RegisterCommandsEvent event) {
         RECommands.register(event.getDispatcher());
@@ -117,6 +116,38 @@ public class RuneFeature extends Feature {
         for (Holder<Rune> holder : runes) {
             holder.value().onPostAttack(level, stack, target, attacked, damageSource);
         }
+    }
+
+    public static int modifyAmmoUse(ServerLevel level, ItemStack weapon, ItemStack ammo, int originalCount) {
+        List<Holder<Rune>> runes = getRunesByPriority(weapon);
+        if (runes == null)
+            return originalCount;
+        int count = originalCount;
+        for (Holder<Rune> holder : runes) {
+            count = holder.value().modifyAmmoUse(level, weapon, ammo, originalCount, count);
+        }
+        return count;
+    }
+
+    public static int modifyProjectileCount(ServerLevel level, ItemStack tool, Entity entity, int originalCount) {
+        List<Holder<Rune>> runes = getRunesByPriority(tool);
+        if (runes == null)
+            return originalCount;
+        int count = originalCount;
+        for (Holder<Rune> holder : runes) {
+            count = holder.value().modifyProjectileCount(level, tool, entity, originalCount, count);
+        }
+        return count;
+    }
+    public static float modifyProjectileSpread(ServerLevel level, ItemStack tool, Entity entity, float originalSpread) {
+        List<Holder<Rune>> runes = getRunesByPriority(tool);
+        if (runes == null)
+            return originalSpread;
+        float spread = originalSpread;
+        for (Holder<Rune> holder : runes) {
+            spread = holder.value().modifyProjectileSpread(level, tool, entity, originalSpread, spread);
+        }
+        return spread;
     }
 
     @Nullable

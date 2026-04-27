@@ -32,10 +32,13 @@ public class RERunes {
     public static final DeferredHolder<Rune, BaneOfHissingRune> BANE_OF_HISSING = register("bane_of_hissing", new BaneOfHissingRune());
     public static final DeferredHolder<Rune, SmiteRune> SMITE = register("smite", new SmiteRune());
     public static final DeferredHolder<Rune, FlameRune> FLAME = register("flame", new FlameRune());
+    public static final DeferredHolder<Rune, InfinityRune> INFINITY = register("infinity", new InfinityRune());
+    public static final DeferredHolder<Rune, MultishotRune> MULTISHOT = register("multishot", new MultishotRune());
     public static final DeferredHolder<Rune, RespirationRune> RESPIRATION = register("respiration", new RespirationRune());
     public static final DeferredHolder<Rune, AquaAffinityRune> AQUA_AFFINITY = register("aqua_affinity", new AquaAffinityRune());
     public static final DeferredHolder<Rune, DepthStriderRune> DEPTH_STRIDER = register("depth_strider", new DepthStriderRune());
     public static final DeferredHolder<Rune, SwiftSneakRune> SWIFT_SNEAK = register("swift_sneak", new SwiftSneakRune());
+    public static final DeferredHolder<Rune, FrostWalkerRune> FROST_WALKER = register("frost_walker", new FrostWalkerRune());
     public static final DeferredHolder<Rune, EnduringRune> ENDURING = register("enduring", new EnduringRune());
 
     private static <T extends Rune> DeferredHolder<Rune, T> register(String id, T instance) {

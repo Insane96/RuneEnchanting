@@ -115,6 +115,18 @@ public abstract class Rune {
 
     }
 
+    public int modifyAmmoUse(ServerLevel level, ItemStack weapon, ItemStack ammo, int originalCount, int count) {
+        return count;
+    }
+
+    public int modifyProjectileCount(ServerLevel level, ItemStack tool, Entity entity, int originalCount, int count) {
+        return count;
+    }
+
+    public float modifyProjectileSpread(ServerLevel level, ItemStack tool, Entity entity, float originalSpread, float spread) {
+        return spread;
+    }
+
     public int getPriority() {
         return this.priority;
     }
