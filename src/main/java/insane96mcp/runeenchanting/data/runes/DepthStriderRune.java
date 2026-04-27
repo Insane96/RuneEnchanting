@@ -21,7 +21,7 @@ public class DepthStriderRune extends Rune {
 
     @Override
     public String getDescription() {
-        return "Increases movement speed underwater";
+        return "Reduces the movement speed reduction that occurs when in water";
     }
 
     @Override

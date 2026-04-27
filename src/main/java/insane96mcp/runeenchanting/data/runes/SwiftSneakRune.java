@@ -1,5 +1,6 @@
 package insane96mcp.runeenchanting.data.runes;
 
+import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.tags.ItemTags;
@@ -10,6 +11,9 @@ import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 
 public class SwiftSneakRune extends Rune {
+    @Config
+    public static Double bonusMovementSpeed = 0.4d;
+
     @Override
     public String getName() {
         return "Swift Sneak";
@@ -27,6 +31,6 @@ public class SwiftSneakRune extends Rune {
 
     @Override
     public void addAttributeModifiers(ItemAttributeModifierEvent event) {
-        event.addModifier(Attributes.SNEAKING_SPEED, new AttributeModifier(RuneEnchanting.id("swift_sneak"), 0.4, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.LEGS);
+        event.addModifier(Attributes.SNEAKING_SPEED, new AttributeModifier(RuneEnchanting.id("swift_sneak"), bonusMovementSpeed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.LEGS);
     }
 }

@@ -1,0 +1,61 @@
+# Minecraft 1.21.1 Enchantments
+
+- [x] aqua_affinity
+- [x] bane_of_arthropods
+  - Became bane_of_hissing and increases damage by 70% to hissing creatures.
+- [ ] binding_curse
+- [ ] blast_protection
+- [ ] breach
+- [ ] channeling
+- [ ] density
+- [x] depth_strider
+  - Reduces the movement speed reduction that occurs when in water by 75%.
+- [x] efficiency
+  - Doubles tool's mining speed + 2.5.
+- [ ] feather_falling
+- [x] fire_aspect
+  - Changed to flame, works for both weapons and bows. Mimics the level I behavior.
+- [ ] fire_protection
+- [x] flame
+  - Changed to work for both weapons and bows. Mimics the level I behavior.
+- [x] fortune
+  - Changed to luck, works for weapons, tools and fishing rods. Mimics the level II behavior.
+- [x] frost_walker
+  - Mimics the level III behavior.
+- [ ] impaling
+- [x] infinity
+  - Chance to not use an arrow
+- [ ] knockback
+- [x] looting
+  - Changed to luck, works for weapons, tools and fishing rods. Mimics the level II behavior.
+- [ ] loyalty
+- [x] luck_of_the_sea
+  - Changed to luck, works for weapons, tools and fishing rods. Mimics the level II behavior.
+- [ ] lure
+- [ ] ~~mending~~
+  - No xp, no mending
+- [x] multishot
+  - Actually loads 3 arrows.
+- [ ] piercing
+- [ ] power
+- [ ] projectile_protection
+- [ ] protection
+- [ ] punch
+- [ ] quick_charge
+- [x] respiration
+  - +150% oxygen
+- [ ] riptide
+- [x] sharpness
+  - Increases damage by 30%
+- [x] silk_touch
+- [x] smite
+  - Increases damage by 70% to undead and applies a strong weakness effect.
+- [ ] soul_speed
+- [ ] sweeping_edge
+- [x] swift_sneak
+  - Increases sneaking movement speed by 40%
+- [ ] thorns
+- [x] unbreaking
+  - Changed to enduring. Doubles item's durability + 80.
+- [ ] vanishing_curse
+- [ ] wind_burst
