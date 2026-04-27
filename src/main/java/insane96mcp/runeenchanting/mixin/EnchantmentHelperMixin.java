@@ -12,6 +12,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.EnchantmentTarget;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -53,5 +55,85 @@ public class EnchantmentHelperMixin {
     @ModifyReturnValue(method = "processProjectileSpread", at = @At("RETURN"))
     private static float onProcessProjectileSpread(float original, ServerLevel level, ItemStack tool, Entity entity, float projectileSpread) {
         return RuneFeature.modifyProjectileSpread(level, tool, entity, original);
+    }
+
+    @ModifyReturnValue(method = "processDurabilityChange", at = @At("RETURN"))
+    private static int onProcessDurabilityChange(int original, ServerLevel level, ItemStack stack, int damage) {
+        return RuneFeature.modifyDurabilityChange(level, stack, original);
+    }
+
+    @ModifyReturnValue(method = "processBlockExperience", at = @At("RETURN"))
+    private static int onProcessBlockExperience(int original, ServerLevel level, ItemStack stack, int experience) {
+        return RuneFeature.modifyBlockExperience(level, stack, original);
+    }
+
+    @ModifyReturnValue(method = "processMobExperience", at = @At("RETURN"))
+    private static int onProcessMobExperience(int original, ServerLevel level, @Nullable Entity killer, Entity mob, int experience) {
+        return RuneFeature.modifyMobExperience(original, level, killer, mob);
+    }
+
+    @ModifyReturnValue(method = "isImmuneToDamage", at = @At("RETURN"))
+    private static boolean onIsImmuneToDamage(boolean original, ServerLevel level, LivingEntity entity, DamageSource damageSource) {
+        return original || RuneFeature.isImmuneToDamage(level, entity, damageSource);
+    }
+
+    @ModifyReturnValue(method = "getDamageProtection", at = @At("RETURN"))
+    private static float onGetDamageProtection(float original, ServerLevel level, LivingEntity entity, DamageSource damageSource) {
+        return RuneFeature.modifyDamageProtection(original, level, entity, damageSource);
+    }
+
+    @ModifyReturnValue(method = "modifyDamage", at = @At("RETURN"))
+    private static float onModifyDamage(float original, ServerLevel level, ItemStack tool, Entity entity, DamageSource damageSource, float damage) {
+        return RuneFeature.modifyDamage(level, tool, entity, damageSource, original);
+    }
+
+    @ModifyReturnValue(method = "modifyFallBasedDamage", at = @At("RETURN"))
+    private static float onModifyFallBasedDamage(float original, ServerLevel level, ItemStack tool, Entity entity, DamageSource damageSource, float fallBasedDamage) {
+        return RuneFeature.modifyFallBasedDamage(level, tool, entity, damageSource, original);
+    }
+
+    @ModifyReturnValue(method = "modifyArmorEffectiveness", at = @At("RETURN"))
+    private static float onModifyArmorEffectiveness(float original, ServerLevel level, ItemStack tool, Entity entity, DamageSource damageSource, float armorEffectiveness) {
+        return RuneFeature.modifyArmorEffectiveness(level, tool, entity, damageSource, original);
+    }
+
+    @ModifyReturnValue(method = "modifyKnockback", at = @At("RETURN"))
+    private static float onModifyKnockback(float original, ServerLevel level, ItemStack tool, Entity entity, DamageSource damageSource, float knockback) {
+        return RuneFeature.modifyKnockback(level, tool, entity, damageSource, original);
+    }
+
+    @Inject(method = "tickEffects", at = @At("TAIL"))
+    private static void onTickEffects(ServerLevel level, LivingEntity entity, CallbackInfo ci) {
+        RuneFeature.tickEffects(level, entity);
+    }
+
+    @ModifyReturnValue(method = "getPiercingCount", at = @At("RETURN"))
+    private static int onGetPiercingCount(int original, ServerLevel level, ItemStack firedFromWeapon, ItemStack pickupItemStack) {
+        return RuneFeature.modifyPiercingCount(level, firedFromWeapon, pickupItemStack, original);
+    }
+
+    @Inject(method = "onHitBlock", at = @At("TAIL"))
+    private static void onOnHitBlock(ServerLevel level, ItemStack stack, @Nullable LivingEntity owner, Entity entity, @Nullable EquipmentSlot slot, Vec3 pos, BlockState state, Consumer<Item> onBreak, CallbackInfo ci) {
+        RuneFeature.onHitBlock(level, stack, owner, entity, slot, pos, state, onBreak);
+    }
+
+    @ModifyReturnValue(method = "getFishingTimeReduction", at = @At("RETURN"))
+    private static float onGetFishingTimeReduction(float original, ServerLevel level, ItemStack stack, Entity entity) {
+        return RuneFeature.modifyFishingTimeReduction(level, stack, entity, original);
+    }
+
+    @ModifyReturnValue(method = "getTridentReturnToOwnerAcceleration", at = @At("RETURN"))
+    private static int onGetTridentReturnToOwnerAcceleration(int original, ServerLevel level, ItemStack stack, Entity entity) {
+        return RuneFeature.modifyTridentReturnToOwnerAcceleration(level, stack, entity, original);
+    }
+
+    @ModifyReturnValue(method = "modifyCrossbowChargingTime", at = @At("RETURN"))
+    private static float onModifyCrossbowChargingTime(float original, ItemStack stack, LivingEntity entity, float crossbowChargingTime) {
+        return RuneFeature.modifyCrossbowChargingTime(stack, entity, original);
+    }
+
+    @ModifyReturnValue(method = "getTridentSpinAttackStrength", at = @At("RETURN"))
+    private static float onGetTridentSpinAttackStrength(float original, ItemStack stack, LivingEntity entity) {
+        return RuneFeature.modifyTridentSpinAttackStrength(stack, entity, original);
     }
 }

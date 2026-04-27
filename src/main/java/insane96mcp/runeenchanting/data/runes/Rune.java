@@ -4,7 +4,6 @@ import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.data.AttackContext;
 import insane96mcp.runeenchanting.data.MiningContext;
-import insane96mcp.runeenchanting.data.TickContext;
 import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.Util;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
@@ -14,11 +13,15 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentTarget;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import net.neoforged.neoforge.event.enchanting.GetEnchantmentLevelEvent;
@@ -93,9 +96,7 @@ public abstract class Rune {
         return context.damage;
     }
 
-    public void onLivingTick(TickContext context) {
-
-    }
+    public void tickEffects(ServerLevel level, ItemStack stack, LivingEntity entity) {}
 
     public int modifyDurability(int original, ItemStack stack) {
         return original;
@@ -125,6 +126,64 @@ public abstract class Rune {
 
     public float modifyProjectileSpread(ServerLevel level, ItemStack tool, Entity entity, float originalSpread, float spread) {
         return spread;
+    }
+
+    public int modifyDurabilityChange(ServerLevel level, ItemStack stack, int original, int damage) {
+        return damage;
+    }
+
+    public int modifyBlockExperience(ServerLevel level, ItemStack stack, int original, int experience) {
+        return experience;
+    }
+
+    public int modifyMobExperience(ServerLevel level, ItemStack stack, @Nullable Entity killer, Entity mob, int original, int experience) {
+        return experience;
+    }
+
+    public boolean isImmuneToDamage(ServerLevel level, ItemStack stack, LivingEntity entity, DamageSource damageSource) {
+        return false;
+    }
+
+    public float modifyDamageProtection(ServerLevel level, ItemStack stack, LivingEntity entity, DamageSource damageSource, float original, float protection) {
+        return protection;
+    }
+
+    public float modifyDamage(ServerLevel level, ItemStack tool, Entity entity, DamageSource damageSource, float original, float damage) {
+        return damage;
+    }
+
+    public float modifyFallBasedDamage(ServerLevel level, ItemStack tool, Entity entity, DamageSource damageSource, float original, float fallBasedDamage) {
+        return fallBasedDamage;
+    }
+
+    public float modifyArmorEffectiveness(ServerLevel level, ItemStack tool, Entity entity, DamageSource damageSource, float original, float armorEffectiveness) {
+        return armorEffectiveness;
+    }
+
+    public float modifyKnockback(ServerLevel level, ItemStack tool, Entity entity, DamageSource damageSource, float original, float knockback) {
+        return knockback;
+    }
+
+    public int modifyPiercingCount(ServerLevel level, ItemStack firedFromWeapon, ItemStack pickupItemStack, int original, int count) {
+        return count;
+    }
+
+    public void onHitBlock(ServerLevel level, ItemStack stack, @Nullable LivingEntity owner, Entity entity, @Nullable EquipmentSlot slot, Vec3 pos, BlockState state, Consumer<Item> onBreak) {}
+
+    public float modifyFishingTimeReduction(ServerLevel level, ItemStack stack, Entity entity, float original, float reduction) {
+        return reduction;
+    }
+
+    public int modifyTridentReturnToOwnerAcceleration(ServerLevel level, ItemStack stack, Entity entity, int original, int acceleration) {
+        return acceleration;
+    }
+
+    public float modifyCrossbowChargingTime(ItemStack stack, LivingEntity entity, float original, float chargingTime) {
+        return chargingTime;
+    }
+
+    public float modifyTridentSpinAttackStrength(ItemStack stack, LivingEntity entity, float original, float strength) {
+        return strength;
     }
 
     public int getPriority() {
