@@ -30,6 +30,7 @@ public class RERunes {
     public static final DeferredHolder<Rune, SilkTouchRune> SILK_TOUCH = register("silk_touch", new SilkTouchRune());
     public static final DeferredHolder<Rune, SharpnessRune> SHARPNESS = register("sharpness", new SharpnessRune());
     public static final DeferredHolder<Rune, BaneOfHissingRune> BANE_OF_HISSING = register("bane_of_hissing", new BaneOfHissingRune());
+    public static final DeferredHolder<Rune, SmiteRune> SMITE = register("smite", new SmiteRune());
     public static final DeferredHolder<Rune, RespirationRune> RESPIRATION = register("respiration", new RespirationRune());
     public static final DeferredHolder<Rune, AquaAffinityRune> AQUA_AFFINITY = register("aqua_affinity", new AquaAffinityRune());
     public static final DeferredHolder<Rune, DepthStriderRune> DEPTH_STRIDER = register("depth_strider", new DepthStriderRune());

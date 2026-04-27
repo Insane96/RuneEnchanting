@@ -2,6 +2,7 @@ package insane96mcp.runeenchanting.datagen;
 
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.data.runes.BaneOfHissingRune;
+import insane96mcp.runeenchanting.data.runes.SmiteRune;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
@@ -23,6 +24,8 @@ public class REEntityTypeTagProvider extends EntityTypeTagsProvider {
         tag(BaneOfHissingRune.SENSITIVE)
                 .addTag(EntityTypeTags.SENSITIVE_TO_BANE_OF_ARTHROPODS)
                 .add(EntityType.CREEPER);
+        tag(SmiteRune.SENSITIVE)
+                .addTag(EntityTypeTags.SENSITIVE_TO_SMITE);
     }
 
     @Override
