@@ -31,12 +31,12 @@ public class RuneHelper {
         List<Holder<Rune>> runes = new ArrayList<>(stack.getOrDefault(REDataComponents.RUNES.get(), List.of()));
         if (!runes.remove(rune))
             return false;
-        if (runes.isEmpty())
+        if (runes.isEmpty()) {
             stack.remove(REDataComponents.RUNES.get());
+            stack.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, false);
+        }
         else
             stack.set(REDataComponents.RUNES.get(), runes);
-        if (stack.isEmpty())
-            stack.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, false);
         return true;
     }
 }

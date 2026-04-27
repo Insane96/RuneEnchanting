@@ -23,6 +23,8 @@
   "rune.runeenchanting.multishot.description": "Shot 3 arrows at once",
   "rune.runeenchanting.piercing": "Piercing",
   "rune.runeenchanting.piercing.description": "Arrows will pass through multiple entities",
+  "rune.runeenchanting.power": "Power",
+  "rune.runeenchanting.power.description": "Increases damage dealt by the arrow",
   "rune.runeenchanting.quick_charge": "Quick Charge",
   "rune.runeenchanting.quick_charge.description": "Charge arrows faster",
   "rune.runeenchanting.respiration": "Respiration",

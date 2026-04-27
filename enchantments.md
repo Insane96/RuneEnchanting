@@ -36,7 +36,7 @@
   - No xp, no mending
 - [x] multishot
   - Actually loads 3 arrows.
-- [ ] piercing
+- [x] piercing
 - [ ] power
 - [ ] projectile_protection
 - [ ] protection

@@ -217,35 +217,35 @@ public class RuneFeature extends Feature {
         return protection;
     }
 
-    public static float modifyDamage(ServerLevel level, ItemStack tool, Entity entity, DamageSource damageSource, float original) {
+    public static float modifyDamage(ServerLevel level, ItemStack tool, Entity entity, DamageSource damageSource, float originalDamage) {
         List<Holder<Rune>> runes = getRunesByPriority(tool);
         if (runes == null)
-            return original;
-        float damage = original;
+            return originalDamage;
+        float damage = originalDamage;
         for (Holder<Rune> holder : runes) {
-            damage = holder.value().modifyDamage(level, tool, entity, damageSource, original, damage);
+            damage = holder.value().modifyDamage(level, tool, entity, damageSource, originalDamage, damage);
         }
         return damage;
     }
 
-    public static float modifyFallBasedDamage(ServerLevel level, ItemStack tool, Entity entity, DamageSource damageSource, float original) {
+    public static float modifyFallBasedDamage(ServerLevel level, ItemStack tool, Entity entity, DamageSource damageSource, float originalDamage) {
         List<Holder<Rune>> runes = getRunesByPriority(tool);
         if (runes == null)
-            return original;
-        float fallBasedDamage = original;
+            return originalDamage;
+        float fallBasedDamage = originalDamage;
         for (Holder<Rune> holder : runes) {
-            fallBasedDamage = holder.value().modifyFallBasedDamage(level, tool, entity, damageSource, original, fallBasedDamage);
+            fallBasedDamage = holder.value().modifyFallBasedDamage(level, tool, entity, damageSource, originalDamage, fallBasedDamage);
         }
         return fallBasedDamage;
     }
 
-    public static float modifyArmorEffectiveness(ServerLevel level, ItemStack tool, Entity entity, DamageSource damageSource, float original) {
+    public static float modifyArmorEffectiveness(ServerLevel level, ItemStack tool, Entity entity, DamageSource damageSource, float originalArmorEffectiveness) {
         List<Holder<Rune>> runes = getRunesByPriority(tool);
         if (runes == null)
-            return original;
-        float armorEffectiveness = original;
+            return originalArmorEffectiveness;
+        float armorEffectiveness = originalArmorEffectiveness;
         for (Holder<Rune> holder : runes) {
-            armorEffectiveness = holder.value().modifyArmorEffectiveness(level, tool, entity, damageSource, original, armorEffectiveness);
+            armorEffectiveness = holder.value().modifyArmorEffectiveness(level, tool, entity, damageSource, originalArmorEffectiveness, armorEffectiveness);
         }
         return armorEffectiveness;
     }
