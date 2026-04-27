@@ -6,6 +6,8 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.EnchantmentTarget;
@@ -15,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import javax.annotation.Nullable;
+import java.util.function.Consumer;
 
 @Mixin(EnchantmentHelper.class)
 public class EnchantmentHelperMixin {
@@ -29,5 +32,10 @@ public class EnchantmentHelperMixin {
         if (itemSource != null && damageSource.getEntity() instanceof LivingEntity livingDamageSource) {
             RuneFeature.onPostAttack(level, itemSource, EnchantmentTarget.ATTACKER, attacked, damageSource);
         }
+    }
+
+    @Inject(method = "onProjectileSpawned", at = @At("TAIL"))
+    private static void onProjectileSpawned(ServerLevel level, ItemStack firedFromWeapon, AbstractArrow arrow, Consumer<Item> onBreak, CallbackInfo ci) {
+        RuneFeature.onProjectileSpawned(level, firedFromWeapon, arrow, onBreak);
     }
 }

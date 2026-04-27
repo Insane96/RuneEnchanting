@@ -59,6 +59,7 @@ public class BaneOfHissingRune extends Rune {
     @Override
     public void onPostAttack(ServerLevel level, @Nullable ItemStack stack, EnchantmentTarget target, Entity attacked, DamageSource damageSource) {
         if (target != EnchantmentTarget.ATTACKER
+                || damageSource.getDirectEntity() != damageSource.getEntity()
                 || !attacked.getType().is(SENSITIVE)
                 || !(attacked instanceof LivingEntity livingEntity))
             return;

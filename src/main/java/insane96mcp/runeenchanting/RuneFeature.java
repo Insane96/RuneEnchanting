@@ -12,6 +12,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentTarget;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -23,9 +25,11 @@ import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import javax.annotation.Nullable;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Consumer;
 
 @LoadFeature(canBeDisabled = false)
 public class RuneFeature extends Feature {
+
     @SubscribeEvent
     public void onRegisterCommands(RegisterCommandsEvent event) {
         RECommands.register(event.getDispatcher());
@@ -94,6 +98,14 @@ public class RuneFeature extends Feature {
             damage = holder.value().modifyEnchantmentDamage(player, attacked, damage, originalDamage, damageSource, stack);
         }
         return damage;
+    }
+    public static void onProjectileSpawned(ServerLevel level, ItemStack stack, AbstractArrow arrow, Consumer<Item> onBreak) {
+        List<Holder<Rune>> runes = getRunesByPriority(stack);
+        if (runes == null)
+            return;
+        for (Holder<Rune> holder : runes) {
+            holder.value().onProjectileSpawned(level, stack, arrow, onBreak);
+        }
     }
 
     public static void onPostAttack(ServerLevel level, @Nullable ItemStack stack, EnchantmentTarget target, Entity attacked, DamageSource damageSource) {

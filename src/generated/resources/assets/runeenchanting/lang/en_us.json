@@ -9,6 +9,8 @@
   "rune.runeenchanting.efficiency.description": "Increases mining speed",
   "rune.runeenchanting.enduring": "Enduring",
   "rune.runeenchanting.enduring.description": "Increases durability",
+  "rune.runeenchanting.flame": "Flame",
+  "rune.runeenchanting.flame.description": "Sets the entity or arrows on fire",
   "rune.runeenchanting.luck": "Luck",
   "rune.runeenchanting.luck.description": "Increases yield from blocks mined, entities killed and fishing",
   "rune.runeenchanting.respiration": "Respiration",

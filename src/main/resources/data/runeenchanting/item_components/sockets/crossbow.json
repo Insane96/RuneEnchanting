@@ -1,0 +1,6 @@
+{
+    "item": "minecraft:crossbow",
+    "components": {
+        "runeenchanting:sockets": 3
+    }
+}
