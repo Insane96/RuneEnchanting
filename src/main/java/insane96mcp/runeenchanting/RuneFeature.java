@@ -2,9 +2,11 @@ package insane96mcp.runeenchanting;
 
 import insane96mcp.insanelib.core.feature.Feature;
 import insane96mcp.insanelib.core.feature.LoadFeature;
+import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.data.runes.Rune;
 import insane96mcp.runeenchanting.network.message.ClientboundDisableExperienceMessage;
 import insane96mcp.runeenchanting.setup.REDataComponents;
+import insane96mcp.runeenchanting.setup.REItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
@@ -51,6 +53,9 @@ public class RuneFeature extends Feature {
         RuneFeature.disableExperience = booleanValue.get();
         ClientboundDisableExperienceMessage.sync(booleanValue.get());
     }));
+
+    @Config
+    public static Boolean hideCurses = true;
 
     public static Boolean disableExperience = false;
 
@@ -122,19 +127,29 @@ public class RuneFeature extends Feature {
     public void onTooltip(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
         int sockets = stack.getOrDefault(REDataComponents.SOCKETS, 0);
-        List<Holder<Rune>> runes = getRunesByPriority(stack);
+        List<Holder<Rune>> runes = getRunesByPriority(stack, false);
         int runesCount = runes == null ? 0 : runes.size();
-        if (sockets > 0) {
+        if (sockets > 0 && !stack.is(REItems.RUNE)) {
             if (runesCount > 0 || event.getFlags().hasShiftDown()) {
                 event.getToolTip().add(CommonComponents.space());
                 event.getToolTip().add(Component.translatable("sockets", runesCount, sockets).withStyle(ChatFormatting.DARK_PURPLE));
             }
         }
+        boolean isCursed = false;
         if (runes != null) {
             for (Holder<Rune> holder : runes) {
-                event.getToolTip().add(CommonComponents.space().append(holder.value().getNameComponent().withStyle(ChatFormatting.LIGHT_PURPLE)));
+                if (holder.value().isCurse() && hideCurses)
+                    isCursed = true;
+                else {
+                    event.getToolTip().add(CommonComponents.space().append(holder.value().getNameComponent().withStyle(ChatFormatting.LIGHT_PURPLE)));
+                    if (event.getFlags().hasShiftDown())
+                        event.getToolTip().add(CommonComponents.space().append(holder.value().getDescriptionComponent()).withStyle(ChatFormatting.GRAY));
+                }
+            }
+            if (isCursed) {
+                event.getToolTip().add(CommonComponents.space().append(Component.translatable("cursed").withStyle(ChatFormatting.RED)));
                 if (event.getFlags().hasShiftDown())
-                    event.getToolTip().add(CommonComponents.space().append(holder.value().getDescriptionComponent()).withStyle(ChatFormatting.GRAY));
+                    event.getToolTip().add(CommonComponents.space().append(Component.translatable("cursed_info")).withStyle(ChatFormatting.GRAY));
             }
         }
     }
@@ -396,9 +411,20 @@ public class RuneFeature extends Feature {
 
     @Nullable
     public static List<Holder<Rune>> getRunesByPriority(ItemStack stack) {
+        return getRunesByPriority(stack, true);
+    }
+
+    @Nullable
+    public static List<Holder<Rune>> getRunesByPriority(ItemStack stack, boolean ignoreStoredRune) {
         List<Holder<Rune>> runes = stack.get(REDataComponents.RUNES.get());
-        if (runes == null)
-            return null;
+        if (runes == null) {
+            if (ignoreStoredRune)
+                return null;
+            Holder<Rune> storedRune = stack.get(REDataComponents.STORED_RUNE.get());
+            if (storedRune == null)
+                return null;
+            runes = List.of(storedRune);
+        }
         runes = runes.stream()
                 .filter(holder -> holder.value().isEnabled())
                 .sorted(Comparator.comparingInt(holder -> holder.value().getPriority()))
