@@ -2,7 +2,9 @@ package insane96mcp.runeenchanting;
 
 import insane96mcp.insanelib.core.feature.Feature;
 import insane96mcp.insanelib.core.feature.LoadFeature;
+import insane96mcp.insanelib.core.feature.Module;
 import insane96mcp.insanelib.core.feature.config.Config;
+import insane96mcp.insanelib.util.IntegratedPack;
 import insane96mcp.runeenchanting.data.runes.Rune;
 import insane96mcp.runeenchanting.network.message.ClientboundDisableExperienceMessage;
 import insane96mcp.runeenchanting.setup.REDataComponents;
@@ -56,8 +58,16 @@ public class RuneFeature extends Feature {
 
     @Config
     public static Boolean hideCurses = true;
+    @Config
+    public static Boolean integratedDataPack = true;
 
     public static Boolean disableExperience = false;
+
+    @Override
+    public void init(Module module, boolean enabledByDefault, boolean canBeDisabled) {
+        super.init(module, enabledByDefault, canBeDisabled);
+        IntegratedPack.addServerPack(RuneEnchanting.MOD_ID, "enchantment_changes", "Rune Enchanting vanilla changes", () -> integratedDataPack);
+    }
 
     @SubscribeEvent(priority = EventPriority.HIGH)
     public void onEntityJoinLevel(EntityJoinLevelEvent event) {

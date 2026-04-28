@@ -1,6 +1,6 @@
 {
     "pack": {
-        "description": "Changes enchantments used by the runes.",
+        "description": "Disables vanilla related enchanting stuff",
         "pack_format": 48
     }
 }
