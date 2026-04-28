@@ -112,7 +112,8 @@
 - [ ] gravity_defying
 
 ### Tools and Weapons
-- [ ] smartness
+- [x] ~~smartness~~
+  - No xp
 - [ ] reach
 - [ ] adrenaline
 - [ ] knowledgeable
@@ -127,7 +128,8 @@
 - [ ] weathering
 
 ### Curses
-- [ ] curse_of_experience
+- [x] ~~curse_of_experience~~
+  - No xp
 - [ ] curse_of_tear
 - [ ] curse_of_blood_pact
 - [ ] curse_of_unhurried

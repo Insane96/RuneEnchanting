@@ -69,6 +69,8 @@ public class RuneFeature extends Feature {
     public static Boolean hideCurses = true;
     @Config
     public static Boolean extractCurses = false;
+    @Config(description = "Vanilla uses enchant_with_levels loot function for loot tables and mobs equipment. The mod takes the levels specified by the loot function and will divide them by this value, resulting in how many runes will be applied to the item (limited by the sockets). Decimal portions are treated as a chance for a +1 rune (so if the result of the division is 1.8, there's 20% chance to have 1 rune and 80% for 2)")
+    public static Double enchantWithLevelsFunctionRatio = 15d;
     @Config
     public static Boolean integratedDataPack = true;
 
