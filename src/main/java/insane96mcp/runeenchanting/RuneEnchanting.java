@@ -5,6 +5,7 @@ import insane96mcp.insanelib.setup.ILModConfig;
 import insane96mcp.runeenchanting.datagen.REEntityTypeTagProvider;
 import insane96mcp.runeenchanting.datagen.REItemTagProvider;
 import insane96mcp.runeenchanting.datagen.RELanguageProvider;
+import insane96mcp.runeenchanting.network.NetworkHandler;
 import insane96mcp.runeenchanting.setup.REDataComponents;
 import insane96mcp.runeenchanting.setup.REItems;
 import insane96mcp.runeenchanting.setup.RERunes;
@@ -39,6 +40,7 @@ public class RuneEnchanting {
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(RERunes::registerRegistry);
         modEventBus.addListener(RuneEnchanting::gatherData);
+        modEventBus.addListener(NetworkHandler::register);
         RERunes.RUNES.register(modEventBus);
         RERunes.registerConfigs(modEventBus, modContainer);
         REDataComponents.REGISTRY.register(modEventBus);

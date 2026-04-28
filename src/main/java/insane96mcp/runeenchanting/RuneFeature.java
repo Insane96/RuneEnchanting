@@ -3,28 +3,42 @@ package insane96mcp.runeenchanting;
 import insane96mcp.insanelib.core.feature.Feature;
 import insane96mcp.insanelib.core.feature.LoadFeature;
 import insane96mcp.runeenchanting.data.runes.Rune;
+import insane96mcp.runeenchanting.network.message.ClientboundDisableExperienceMessage;
 import insane96mcp.runeenchanting.setup.REDataComponents;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentTarget;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
+import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.enchanting.GetEnchantmentLevelEvent;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 import javax.annotation.Nullable;
 import java.util.Comparator;
@@ -33,6 +47,50 @@ import java.util.function.Consumer;
 
 @LoadFeature(canBeDisabled = false)
 public class RuneFeature extends Feature {
+    public static final GameRules.Key<GameRules.BooleanValue> RULE_DISABLEEXPERIENCE = GameRules.register("runeenchanting:disable_experience", GameRules.Category.PLAYER, GameRules.BooleanValue.create(true, (server, booleanValue) -> {
+        RuneFeature.disableExperience = booleanValue.get();
+        ClientboundDisableExperienceMessage.sync(booleanValue.get());
+    }));
+
+    public static Boolean disableExperience = false;
+
+    @SubscribeEvent(priority = EventPriority.HIGH)
+    public void onEntityJoinLevel(EntityJoinLevelEvent event) {
+        if (!(event.getEntity() instanceof ExperienceOrb)
+                || !disableExperience)
+            return;
+        event.setCanceled(true);
+    }
+
+    @SubscribeEvent
+    public void onRightClickItem(PlayerInteractEvent.RightClickItem event) {
+        if (!disableExperience
+                || !event.getItemStack().is(Items.EXPERIENCE_BOTTLE))
+            return;
+
+        event.setCanceled(true);
+    }
+
+    @SubscribeEvent
+    public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
+        ClientboundDisableExperienceMessage.sync((ServerPlayer) event.getEntity(), event.getEntity().level().getGameRules().getBoolean(RULE_DISABLEEXPERIENCE));
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @SubscribeEvent(priority = EventPriority.HIGH)
+    public void removeExperienceBar(final RenderGuiLayerEvent.Pre event) {
+        if (!disableExperience)
+            return;
+
+        if (event.getName().equals(VanillaGuiLayers.EXPERIENCE_BAR) || event.getName().equals(VanillaGuiLayers.EXPERIENCE_LEVEL)) {
+            event.setCanceled(true);
+            if (event.getName().equals(VanillaGuiLayers.EXPERIENCE_BAR)) {
+                Minecraft.getInstance().gui.leftHeight -= 6;
+                Minecraft.getInstance().gui.rightHeight -= 6;
+            }
+        }
+    }
+
     @SubscribeEvent
     public void onRegisterCommands(RegisterCommandsEvent event) {
         RECommands.register(event.getDispatcher());
