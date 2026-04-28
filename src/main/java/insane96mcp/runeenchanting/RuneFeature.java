@@ -68,6 +68,8 @@ public class RuneFeature extends Feature {
     @Config
     public static Boolean hideCurses = true;
     @Config
+    public static Boolean extractCurses = false;
+    @Config
     public static Boolean integratedDataPack = true;
 
     public static Boolean disableExperience = false;
@@ -139,7 +141,7 @@ public class RuneFeature extends Feature {
                 || !event.getBottomItem().isEmpty())
             return;
         ItemStack output = event.getTopItem().copy();
-        List<Holder<Rune>> removedRunes = RuneHelper.clearRunes(output, false);
+        List<Holder<Rune>> removedRunes = RuneHelper.clearRunes(output, extractCurses);
         if (removedRunes.isEmpty())
             return;
         event.setOutput(output);
@@ -152,7 +154,7 @@ public class RuneFeature extends Feature {
                 || !event.getBottomItem().isEmpty())
             return;
         ItemStack output = event.getTopItem().copy();
-        List<Holder<Rune>> removedRunes = RuneHelper.clearRunes(output, false);
+        List<Holder<Rune>> removedRunes = RuneHelper.clearRunes(output, extractCurses);
         if (removedRunes.isEmpty())
             return;
         event.getContainerAccess().execute((world, pos) -> {
