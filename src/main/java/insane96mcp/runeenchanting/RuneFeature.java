@@ -12,6 +12,7 @@ import insane96mcp.runeenchanting.setup.REItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -21,6 +22,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.Item;
@@ -36,6 +38,8 @@ import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
+import net.neoforged.neoforge.event.AnvilUpdateEvent;
+import net.neoforged.neoforge.event.GrindstoneEvent;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.enchanting.GetEnchantmentLevelEvent;
@@ -53,6 +57,12 @@ public class RuneFeature extends Feature {
     public static final GameRules.Key<GameRules.BooleanValue> RULE_DISABLEEXPERIENCE = GameRules.register("runeenchanting:disable_experience", GameRules.Category.PLAYER, GameRules.BooleanValue.create(true, (server, booleanValue) -> {
         RuneFeature.disableExperience = booleanValue.get();
         ClientboundDisableExperienceMessage.sync(booleanValue.get());
+        server.getPlayerList().getPlayers().forEach(player -> {
+            if (booleanValue.get())
+                player.setExperienceLevels(9999);
+            else
+                player.setExperienceLevels(0);
+        });
     }));
 
     @Config
@@ -87,7 +97,11 @@ public class RuneFeature extends Feature {
 
     @SubscribeEvent
     public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
-        ClientboundDisableExperienceMessage.sync((ServerPlayer) event.getEntity(), event.getEntity().level().getGameRules().getBoolean(RULE_DISABLEEXPERIENCE));
+        ClientboundDisableExperienceMessage.sync((ServerPlayer) event.getEntity(), disableExperience);
+        if (disableExperience)
+            ((ServerPlayer) event.getEntity()).setExperienceLevels(9999);
+        else
+            ((ServerPlayer) event.getEntity()).setExperienceLevels(0);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -103,6 +117,52 @@ public class RuneFeature extends Feature {
                 Minecraft.getInstance().gui.rightHeight -= 6;
             }
         }
+    }
+
+    @SubscribeEvent
+    public void onAnvilUpdate(AnvilUpdateEvent event) {
+        if (event.getLeft().isEmpty() || !event.getRight().is(REItems.RUNE))
+            return;
+        ItemStack output = event.getLeft().copy();
+        Holder<Rune> toApply = event.getRight().get(REDataComponents.STORED_RUNE.value());
+        if (toApply == null)
+            return;
+        if (!RuneHelper.addRune(output, toApply))
+            return;
+        event.setOutput(output);
+        event.setCost(1);
+    }
+
+    @SubscribeEvent
+    public void onGrindstonePlaceItem(GrindstoneEvent.OnPlaceItem event) {
+        if (event.getTopItem().isEmpty()
+                || !event.getBottomItem().isEmpty())
+            return;
+        ItemStack output = event.getTopItem().copy();
+        List<Holder<Rune>> removedRunes = RuneHelper.clearRunes(output, false);
+        if (removedRunes.isEmpty())
+            return;
+        event.setOutput(output);
+        event.setXp(0);
+    }
+
+    @SubscribeEvent
+    public void onGrindstoneTakeItem(GrindstoneEvent.OnTakeItem event) {
+        if (event.getTopItem().isEmpty()
+                || !event.getBottomItem().isEmpty())
+            return;
+        ItemStack output = event.getTopItem().copy();
+        List<Holder<Rune>> removedRunes = RuneHelper.clearRunes(output, false);
+        if (removedRunes.isEmpty())
+            return;
+        event.getContainerAccess().execute((world, pos) -> {
+            for (Holder<Rune> holder : removedRunes) {
+                ItemStack runeStack = new ItemStack(REItems.RUNE, 1, DataComponentPatch.builder().set(REDataComponents.STORED_RUNE.value(), holder).build());
+                ItemEntity itemEntity = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.1, pos.getZ() + 0.5, runeStack);
+                itemEntity.setDefaultPickUpDelay();
+                world.addFreshEntity(itemEntity);
+            }
+        });
     }
 
     @SubscribeEvent
