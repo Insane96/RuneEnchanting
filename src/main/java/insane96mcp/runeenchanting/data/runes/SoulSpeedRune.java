@@ -7,18 +7,18 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.neoforged.neoforge.event.enchanting.GetEnchantmentLevelEvent;
 
-public class FrostWalkerRune extends Rune {
-    @Config(description = "This rune mimics vanilla Frost Walker of this level")
-    public static Integer enchantmentLevelEquivalent = 3;
+public class SoulSpeedRune extends Rune {
+    @Config(description = "This rune mimics Soul Speed enchantment of this level")
+    public static Integer enchantmentLevelEquivalent = 1;
 
     @Override
     public String getName() {
-        return "Frost Walker";
+        return "Soul Speed";
     }
 
     @Override
     public String getDescription() {
-        return "Create ice when walking near water";
+        return "Speed up walking on soul blocks";
     }
 
     @Override
@@ -28,7 +28,9 @@ public class FrostWalkerRune extends Rune {
 
     @Override
     public void onEnchantmentLevel(GetEnchantmentLevelEvent event) {
-        event.getHolder(Enchantments.FROST_WALKER).ifPresent(frostWalker -> event.getEnchantments().set(frostWalker, enchantmentLevelEquivalent));
+        var registry = event.getLookup();
+        registry.get(Enchantments.SOUL_SPEED).ifPresent(soulSpeed ->
+                event.getEnchantments().set(soulSpeed, enchantmentLevelEquivalent));
     }
 
     @Override

@@ -1,0 +1,6 @@
+{
+    "item": "#insanelib:equipment/chainmail",
+    "components": {
+        "runeenchanting:sockets": 4
+    }
+}

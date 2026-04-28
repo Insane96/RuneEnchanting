@@ -1,0 +1,6 @@
+{
+    "item": "#insanelib:equipment/leather",
+    "components": {
+        "runeenchanting:sockets": 6
+    }
+}

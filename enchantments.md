@@ -37,7 +37,8 @@
 - [x] multishot
   - Actually loads 3 arrows.
 - [x] piercing
-- [ ] power
+  - Pierces 3 entities
+- [x] power
 - [ ] projectile_protection
 - [ ] protection
 - [ ] punch
@@ -50,7 +51,8 @@
 - [x] silk_touch
 - [x] smite
   - Increases damage by 70% to undead and applies a strong weakness effect.
-- [ ] soul_speed
+- [x] soul_speed
+  - Mimics the level I behavior.
 - [ ] sweeping_edge
 - [x] swift_sneak
   - Increases sneaking movement speed by 40%

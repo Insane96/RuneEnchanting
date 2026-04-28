@@ -1,0 +1,6 @@
+{
+    "item": "#insanelib:equipment/turtle",
+    "components": {
+        "runeenchanting:sockets": 4
+    }
+}

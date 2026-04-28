@@ -42,6 +42,7 @@ public class RERunes {
     public static final DeferredHolder<Rune, DepthStriderRune> DEPTH_STRIDER = register("depth_strider", new DepthStriderRune());
     public static final DeferredHolder<Rune, SwiftSneakRune> SWIFT_SNEAK = register("swift_sneak", new SwiftSneakRune());
     public static final DeferredHolder<Rune, FrostWalkerRune> FROST_WALKER = register("frost_walker", new FrostWalkerRune());
+    public static final DeferredHolder<Rune, SoulSpeedRune> SOUL_SPEED = register("soul_speed", new SoulSpeedRune());
     public static final DeferredHolder<Rune, LureRune> LURE = register("lure", new LureRune());
     public static final DeferredHolder<Rune, EnduringRune> ENDURING = register("enduring", new EnduringRune());
 

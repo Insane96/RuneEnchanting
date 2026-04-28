@@ -52,6 +52,14 @@ public abstract class Rune {
         return enabled;
     }
 
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public boolean canGenerateRandomly() {
+        return true;
+    }
+
     public MutableComponent getNameComponent() {
         return Component.translatable(this.getNameTranslationKey());
     }

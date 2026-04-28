@@ -35,6 +35,8 @@
   "rune.runeenchanting.silk_touch.description": "Makes blocks drop themselves",
   "rune.runeenchanting.smite": "Smite",
   "rune.runeenchanting.smite.description": "Increases damage dealt to undead creatures",
+  "rune.runeenchanting.soul_speed": "Soul Speed",
+  "rune.runeenchanting.soul_speed.description": "Speed up walking on soul blocks",
   "rune.runeenchanting.swift_sneak": "Swift Sneak",
   "rune.runeenchanting.swift_sneak.description": "Increases sneak movement speed"
 }
