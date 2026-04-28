@@ -13,7 +13,7 @@ public class BlastProtectionRune extends DamageReductionRune {
     @Config
     public static Double damageReduction = 0.40d;
     @Config
-    public static Double explosionKnockbackReduction = 0.50d;
+    public static Double explosionKnockbackReduction = 0.30d;
 
     @Override
     public String getName() {

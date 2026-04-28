@@ -51,6 +51,9 @@ public class RERunes {
     public static final DeferredHolder<Rune, LureRune> LURE = register("lure", new LureRune());
     public static final DeferredHolder<Rune, EnduringRune> ENDURING = register("enduring", new EnduringRune());
 
+    public static final DeferredHolder<Rune, CurseOfBindingRune> CURSE_OF_BINDING = register("curse_of_binding", new CurseOfBindingRune());
+    public static final DeferredHolder<Rune, CurseOfVanishingRune> CURSE_OF_VANISHING = register("curse_of_vanishing", new CurseOfVanishingRune());
+
     private static <T extends Rune> DeferredHolder<Rune, T> register(String id, T instance) {
         RUNE_ENTRIES.add(Map.entry(id, instance));
         return RUNES.register(id, () -> instance);

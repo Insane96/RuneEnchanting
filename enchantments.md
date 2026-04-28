@@ -2,22 +2,22 @@
 
 - [x] aqua_affinity
 - [x] bane_of_arthropods
-  - Became bane_of_hissing and increases damage by 70% to hissing creatures.
-- [ ] binding_curse
+  - Became bane_of_hissing and increases damage to hissing creatures.
+- [x] binding_curse
 - [x] blast_protection
 - [ ] breach
 - [ ] channeling
 - [ ] density
 - [x] depth_strider
-  - Reduces the movement speed reduction that occurs when in water by 75%.
+  - Reduces the movement speed reduction that occurs when in water.
 - [x] efficiency
-  - Increases tool's mining speed + flat bonus.
+  - Increases tool's mining speed by a percentage + flat bonus.
 - [ ] feather_falling
 - [x] fire_aspect
-  - Changed to flame, works for both weapons and bows. Mimics the level I behavior.
+  - Changed to flame, works for both weapons and bows.
 - [x] fire_protection
 - [x] flame
-  - Changed to work for both weapons and bows. Mimics the level I behavior.
+  - Changed to work for both weapons and bows.
 - [x] fortune
   - Changed to luck, works for weapons, tools and fishing rods. Mimics the level II behavior.
 - [x] frost_walker
@@ -49,17 +49,17 @@
   - +150% oxygen
 - [ ] riptide
 - [x] sharpness
-  - Increases damage by 30%
+  - Increases damage by a percentage
 - [x] silk_touch
 - [x] smite
-  - Increases damage by 70% to undead and applies a strong weakness effect.
+  - Increases damage to undead and applies a strong weakness effect.
 - [x] soul_speed
   - Mimics the level I behavior.
 - [ ] sweeping_edge
 - [x] swift_sneak
-  - Increases sneaking movement speed by 40%
+  - Increases sneaking movement speed
 - [ ] thorns
 - [x] unbreaking
-  - Changed to enduring. Increases item's durability + a flat bonus.
-- [ ] vanishing_curse
+  - Changed to enduring. Increases item's durability by a percentage + a flat bonus.
+- [x] vanishing_curse
 - [ ] wind_burst
