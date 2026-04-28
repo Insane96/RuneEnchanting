@@ -36,7 +36,7 @@ public class RuneHelper {
         List<Holder<Rune>> runes = new ArrayList<>(stack.getOrDefault(REDataComponents.RUNES.get(), List.of()));
         if (runes.contains(rune))
             return false;
-        if (runes.size() >= stack.getOrDefault(REDataComponents.SOCKETS, 0))
+        if (countRunes(stack) >= stack.getOrDefault(REDataComponents.SOCKETS, 0))
             return false;
         runes.add(rune);
         stack.set(REDataComponents.RUNES.get(), runes);
@@ -61,9 +61,20 @@ public class RuneHelper {
         return true;
     }
 
-    public static void clearRunes(ItemStack stack) {
-        stack.remove(REDataComponents.RUNES.get());
+    public static List<Holder<Rune>> clearRunes(ItemStack stack, boolean clearCurses) {
+        List<Holder<Rune>> runes = new ArrayList<>(stack.getOrDefault(REDataComponents.RUNES.get(), List.of()));
+        if (clearCurses) {
+            stack.remove(REDataComponents.RUNES.get());
+        }
+        else {
+            List<Holder<Rune>> cleared = new ArrayList<>(runes);
+            cleared.removeIf(rune -> !rune.value().isCurse());
+            stack.set(REDataComponents.RUNES.get(), cleared);
+
+            runes.removeIf(rune -> rune.value().isCurse());
+        }
         stack.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, false);
+        return runes;
     }
 
     public static ItemStack createRandomRuneItem(RandomSource random, Optional<HolderSet<Enchantment>> options) {

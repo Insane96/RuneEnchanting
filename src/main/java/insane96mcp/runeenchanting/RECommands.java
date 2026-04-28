@@ -87,7 +87,7 @@ public class RECommands {
             ctx.getSource().sendFailure(Component.literal("No item in main hand"));
             return 0;
         }
-        RuneHelper.clearRunes(stack);
+        RuneHelper.clearRunes(stack, true);
         ctx.getSource().sendSuccess(() -> Component.literal("Cleared all runes"), false);
         return 1;
     }
