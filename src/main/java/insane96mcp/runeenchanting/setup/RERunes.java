@@ -70,8 +70,11 @@ public class RERunes {
             entry.getValue().loadConfig(builder);
             builder.pop();
         }
-        modContainer.registerConfig(ModConfig.Type.COMMON, builder.build(), RuneEnchanting.MOD_ID + "/runes.toml");
+        ModConfigSpec runeSpec = builder.build();
+        modContainer.registerConfig(ModConfig.Type.COMMON, runeSpec, RuneEnchanting.MOD_ID + "/runes.toml");
         modEventBus.addListener((ModConfigEvent event) -> {
+            if (event.getConfig().getSpec() != runeSpec)
+                return;
             for (var entry : RUNE_ENTRIES)
                 entry.getValue().readConfig();
         });
