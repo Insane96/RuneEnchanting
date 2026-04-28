@@ -11,7 +11,7 @@
 - [x] depth_strider
   - Reduces the movement speed reduction that occurs when in water by 75%.
 - [x] efficiency
-  - Doubles tool's mining speed + 2.5.
+  - Increases tool's mining speed + flat bonus.
 - [ ] feather_falling
 - [x] fire_aspect
   - Changed to flame, works for both weapons and bows. Mimics the level I behavior.
@@ -25,7 +25,8 @@
 - [ ] impaling
 - [x] infinity
   - Chance to not use an arrow
-- [ ] knockback
+- [x] knockback
+  - Works for both weapons and bows.
 - [x] looting
   - Changed to luck, works for weapons, tools and fishing rods. Mimics the level II behavior.
 - [ ] loyalty
@@ -41,7 +42,8 @@
 - [x] power
 - [ ] projectile_protection
 - [ ] protection
-- [ ] punch
+- [x] punch
+  - Changed to knockback. Works for both weapons and bows.
 - [x] quick_charge
 - [x] respiration
   - +150% oxygen
@@ -58,6 +60,6 @@
   - Increases sneaking movement speed by 40%
 - [ ] thorns
 - [x] unbreaking
-  - Changed to enduring. Doubles item's durability + 80.
+  - Changed to enduring. Increases item's durability + a flat bonus.
 - [ ] vanishing_curse
 - [ ] wind_burst

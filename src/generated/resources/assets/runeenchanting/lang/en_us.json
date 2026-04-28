@@ -15,6 +15,8 @@
   "rune.runeenchanting.frost_walker.description": "Create ice when walking near water",
   "rune.runeenchanting.infinity": "Infinity",
   "rune.runeenchanting.infinity.description": "Chance to not consume an arrow when using a bow",
+  "rune.runeenchanting.knockback": "Knockback",
+  "rune.runeenchanting.knockback.description": "Increases knockback of weapons and arrows",
   "rune.runeenchanting.luck": "Luck",
   "rune.runeenchanting.luck.description": "Increases yield from blocks mined, entities killed and fishing",
   "rune.runeenchanting.lure": "Lure",
