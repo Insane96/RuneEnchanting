@@ -9,6 +9,9 @@
         "IItemExtensionMixin",
         "PlayerMixin"
     ],
+    "client": [
+        "client.GuiGraphicsMixin"
+    ],
     "injectors": {
         "defaultRequire": 1
     },
