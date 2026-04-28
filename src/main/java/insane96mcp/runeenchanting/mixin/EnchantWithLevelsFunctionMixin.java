@@ -36,7 +36,6 @@ public class EnchantWithLevelsFunctionMixin {
         RuneHelper.addRandomRunes(stack, amount, randomSource, this.options);
         if (RuneFeature.disableExperience) {
             cir.setReturnValue(stack);
-            cir.cancel();
         }
     }
 }
