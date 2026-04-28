@@ -38,6 +38,10 @@ public class RERunes {
     public static final DeferredHolder<Rune, PiercingRune> PIERCING = register("piercing", new PiercingRune());
     public static final DeferredHolder<Rune, QuickChargeRune> QUICK_CHARGE = register("quick_charge", new QuickChargeRune());
     public static final DeferredHolder<Rune, MultishotRune> MULTISHOT = register("multishot", new MultishotRune());
+    public static final DeferredHolder<Rune, ProtectionRune> PROTECTION = register("protection", new ProtectionRune());
+    public static final DeferredHolder<Rune, BlastProtectionRune> BLAST_PROTECTION = register("blast_protection", new BlastProtectionRune());
+    public static final DeferredHolder<Rune, FireProtectionRune> FIRE_PROTECTION = register("fire_protection", new FireProtectionRune());
+    public static final DeferredHolder<Rune, ProjectileProtectionRune> PROJECTILE_PROTECTION = register("projectile_protection", new ProjectileProtectionRune());
     public static final DeferredHolder<Rune, RespirationRune> RESPIRATION = register("respiration", new RespirationRune());
     public static final DeferredHolder<Rune, AquaAffinityRune> AQUA_AFFINITY = register("aqua_affinity", new AquaAffinityRune());
     public static final DeferredHolder<Rune, DepthStriderRune> DEPTH_STRIDER = register("depth_strider", new DepthStriderRune());

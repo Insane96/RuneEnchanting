@@ -14,6 +14,9 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.Equipable;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -78,5 +81,15 @@ public class RuneEnchanting {
                 new REEntityTypeTagProvider(output, lookupProvider, MOD_ID, existingFileHelper));
         event.getGenerator().addProvider(event.includeClient(),
                 new RELanguageProvider(output));
+    }
+
+    public static EquipmentSlot getEquipmentSlotForItem(ItemStack stack) {
+        final EquipmentSlot slot = stack.getEquipmentSlot();
+        if (slot != null) return slot; // FORGE: Allow modders to set a non-default equipment slot for a stack; e.g. a non-armor chestplate-slot item
+        Equipable equipable = Equipable.get(stack);
+        if (equipable != null)
+            return equipable.getEquipmentSlot();
+
+        return EquipmentSlot.MAINHAND;
     }
 }

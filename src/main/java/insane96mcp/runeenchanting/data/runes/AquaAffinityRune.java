@@ -17,7 +17,7 @@ public class AquaAffinityRune extends Rune {
 
     @Override
     public String getDescription() {
-        return "Increases mining speed underwater";
+        return "Negates the mining speed penalty when underwater";
     }
 
     @Override

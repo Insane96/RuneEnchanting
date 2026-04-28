@@ -4,7 +4,7 @@
 - [x] bane_of_arthropods
   - Became bane_of_hissing and increases damage by 70% to hissing creatures.
 - [ ] binding_curse
-- [ ] blast_protection
+- [x] blast_protection
 - [ ] breach
 - [ ] channeling
 - [ ] density
@@ -15,7 +15,7 @@
 - [ ] feather_falling
 - [x] fire_aspect
   - Changed to flame, works for both weapons and bows. Mimics the level I behavior.
-- [ ] fire_protection
+- [x] fire_protection
 - [x] flame
   - Changed to work for both weapons and bows. Mimics the level I behavior.
 - [x] fortune
@@ -40,8 +40,8 @@
 - [x] piercing
   - Pierces 3 entities
 - [x] power
-- [ ] projectile_protection
-- [ ] protection
+- [x] projectile_protection
+- [x] protection
 - [x] punch
   - Changed to knockback. Works for both weapons and bows.
 - [x] quick_charge

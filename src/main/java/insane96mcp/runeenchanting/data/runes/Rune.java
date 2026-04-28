@@ -60,6 +60,10 @@ public abstract class Rune {
         return true;
     }
 
+    public boolean isCurse() {
+        return false;
+    }
+
     public MutableComponent getNameComponent() {
         return Component.translatable(this.getNameTranslationKey());
     }
