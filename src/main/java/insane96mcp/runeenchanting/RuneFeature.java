@@ -156,7 +156,10 @@ public class RuneFeature extends Feature {
                 }
             }
             if (isCursed) {
-                event.getToolTip().add(CommonComponents.space().append(Component.translatable("cursed").withStyle(ChatFormatting.RED)));
+                if (stack.is(REItems.RUNE))
+                    event.getToolTip().add(CommonComponents.space().append(Component.translatable("curse").withStyle(ChatFormatting.RED)));
+                else
+                    event.getToolTip().add(CommonComponents.space().append(Component.translatable("cursed").withStyle(ChatFormatting.RED)));
                 if (event.getFlags().hasShiftDown())
                     event.getToolTip().add(CommonComponents.space().append(Component.translatable("cursed_info")).withStyle(ChatFormatting.GRAY));
             }

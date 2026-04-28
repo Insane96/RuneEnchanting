@@ -21,6 +21,7 @@ public class RELanguageProvider extends LanguageProvider {
 
         add("item.runeenchanting.rune", "Rune");
         add("sockets", "Sockets: %d/%d");
+        add("curse", "Curse");
         add("cursed", "Cursed");
         add("cursed_info", "+1 Socket");
     }
