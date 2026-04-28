@@ -2,6 +2,7 @@ package insane96mcp.runeenchanting;
 
 import com.mojang.logging.LogUtils;
 import insane96mcp.insanelib.setup.ILModConfig;
+import insane96mcp.runeenchanting.data.EnchantmentToRuneReloadListener;
 import insane96mcp.runeenchanting.datagen.REEntityTypeTagProvider;
 import insane96mcp.runeenchanting.datagen.REItemTagProvider;
 import insane96mcp.runeenchanting.datagen.RELanguageProvider;
@@ -22,9 +23,11 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import org.slf4j.Logger;
 
 import java.util.concurrent.CompletableFuture;
@@ -42,6 +45,7 @@ public class RuneEnchanting {
         modContainer.registerConfig(ModConfig.Type.COMMON, CONFIG.spec);
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(RERunes::registerRegistry);
+        NeoForge.EVENT_BUS.addListener(this::onAddReloadListeners);
         modEventBus.addListener(RuneEnchanting::gatherData);
         modEventBus.addListener(NetworkHandler::register);
         RERunes.RUNES.register(modEventBus);
@@ -63,7 +67,10 @@ public class RuneEnchanting {
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
+    }
 
+    private void onAddReloadListeners(AddReloadListenerEvent event) {
+        event.addListener(EnchantmentToRuneReloadListener.INSTANCE);
     }
 
     public static void gatherData(GatherDataEvent event) {

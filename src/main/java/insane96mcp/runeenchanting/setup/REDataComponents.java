@@ -27,4 +27,10 @@ public class REDataComponents {
                     .persistent(Codec.INT)
                     .networkSynchronized(ByteBufCodecs.INT)
                     .build());
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Holder<Rune>>> STORED_RUNE =
+            REGISTRY.register("stored_rune", () -> DataComponentType.<Holder<Rune>>builder()
+                    .persistent(RERunes.REGISTRY.holderByNameCodec())
+                    .networkSynchronized(ByteBufCodecs.holderRegistry(RERunes.REGISTRY_KEY))
+                    .build());
 }

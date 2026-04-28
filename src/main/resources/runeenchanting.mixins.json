@@ -4,6 +4,8 @@
     "compatibilityLevel": "JAVA_21",
     "mixins": [
         "EnchantmentHelperMixin",
+        "EnchantRandomlyFunctionMixin",
+        "EnchantWithLevelsFunctionMixin",
         "IItemExtensionMixin",
         "PlayerMixin"
     ],

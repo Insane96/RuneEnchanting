@@ -32,40 +32,25 @@ No dedicated test task exists yet — use `runGameTestServer` for game tests.
 
 ### Feature System
 
-`RuneFeature.java` extends InsaneLib's `Feature` class and is annotated `@LoadFeature(canBeDisabled = false)`. It registers NeoForge event listeners. Currently it listens to `PlayerEvent.BreakSpeed` and builds a `MiningContext` — but the rune application logic is not yet wired in.
+`RuneFeature.java` extends InsaneLib's `Feature` class (`@LoadFeature(canBeDisabled = false)`). Handles NeoForge events: `ItemAttributeModifierEvent`, `GetEnchantmentLevelEvent`, `ItemTooltipEvent`, `RegisterCommandsEvent`, and a `disableExperience` GameRule that cancels XP orbs, XP bottles, the experience bar, and vanilla enchanting. Also exposes static dispatcher methods (e.g. `onGetMaxDamage`, `onEnchantmentDamage`, `tickEffects`, `modifyDamageProtection`, …) called from mixins. `getRunesByPriority` is the central helper that reads `REDataComponents.RUNES`, filters disabled runes, and sorts by priority.
 
 ### Rune System
 
-`data/runes/Rune.java` — abstract base class for all runes. Each rune has a `ResourceLocation` ID and a priority. Override points:
+`data/runes/Rune.java` — abstract base class for all runes. Each rune has a `ResourceLocation` ID and a priority. Provides many override points covering mining, damage, projectiles, durability, protection, experience, fishing, and per-tick effects. Supports `@Config`-annotated static fields and an `Enabled` toggle processed via `loadConfig`/`readConfig`. Has `isCurse()` and `canGenerateRandomly()` flags.
 
-- `onMiningSpeed(MiningContext)` → returns modified `float` speed (default: pass-through)
-- `onAttack(AttackContext)` → returns modified `float` damage (default: pass-through)
-- `onLivingTick(TickContext)` → side-effect hook, no return value (default: no-op)
-- `addAttributeModifiers(ItemAttributeModifierEvent)` → add attribute modifiers to the item (default: no-op)
-
-Also has `getApplicableToItemTag()` and supports `@Config`-annotated fields processed at registry init.
-
-Concrete runes (both registered in `setup/RERunes.java`):
-- `EfficiencyRune.java` — implements `addAttributeModifiers()` to add `MINING_EFFICIENCY`; has `@Config` fields `bonusMiningSpeed` and `bonusFlatMiningSpeed`
-- `SharpnessRune.java` — implements `addAttributeModifiers()` to add `ATTACK_DAMAGE`; has `@Config` field `bonusDamage`
+Concrete runes are in `data/runes/` and registered in `setup/RERunes.java`. Rune configs are written to `runeenchanting/runes.toml`.
 
 ### Context Classes
 
-Thin data holders passed to rune methods:
-
-- `MiningContext` — `miner`, `Optional<BlockPos> pos`, `level`, `originalSpeed`, `newSpeed`
-- `AttackContext` — `attacker`, `attacked`, `damage`, `damageSource`, `isCritical`
-- `TickContext` — `ticker` (the `LivingEntity` being ticked)
+`MiningContext` and `AttackContext` — thin data holders still present in `data/`, used by legacy `onMiningSpeed`/`onAttack` overrides on `Rune`.
 
 ### Registry (`setup/RERunes.java`)
 
-Custom NeoForge registry with key `runeenchanting:runes`. Registers `EFFICIENCY` and `SHARPNESS` as `DeferredHolder`s. Also calls `registerConfigs()` which processes `@Config`-annotated fields on each rune for config generation.
+Custom NeoForge registry with key `runeenchanting:runes`. All rune `DeferredHolder`s are registered here. `registerConfigs()` processes `@Config`-annotated fields on each rune and writes to `runeenchanting/runes.toml`.
 
-### Item Components (`setup/REItemComponents.java`)
+### Item Components (`setup/REDataComponents.java`)
 
-Registers two `DataComponentType`s:
-- `RUNES` — `List<Holder<Rune>>`, codec via `RERunes.REGISTRY.holderByNameCodec()`
-- `SOCKETS` — `Integer`
+Registers two `DataComponentType`s: `RUNES` (`List<Holder<Rune>>`) and `SOCKETS` (`Integer`), both persistent and network-synchronized.
 
 ### Items (`setup/REItems.java`)
 
@@ -73,18 +58,29 @@ Registers `RUNE` — a basic `Item` with default properties.
 
 ### Data Generation
 
-`datagen/REItemTagProvider.java` — generates `rune_appliable_to/<rune>` item tags. Efficiency targets `#minecraft:pickaxes/axes/shovels/hoes`; sharpness targets `#minecraft:swords/axes`.
+- `REItemTagProvider.java` — generates `rune_applicable_to/<rune>` item tags per rune.
+- `REEntityTypeTagProvider.java` — generates entity type tags used by runes.
+- `RELanguageProvider.java` — generates language entries for rune names/descriptions.
 
 ### Mixins
 
-`mixin/PlayerMixin.java` — `@Mixin(Player.class)` empty placeholder. Declared in `runeenchanting.mixins.json`.
+Three mixins, all declared in `runeenchanting.mixins.json`:
+- `PlayerMixin` — `@Mixin(Player.class)` wraps `getEnchantedDamage` in `Player.attack` to call `RuneFeature.onEnchantmentDamage`.
+- `IItemExtensionMixin` — `@Mixin(IItemExtension.class)` hooks `getMaxDamage` → `RuneFeature.onGetMaxDamage`.
+- `EnchantmentHelperMixin` — `@Mixin(EnchantmentHelper.class)` hooks virtually all `EnchantmentHelper` static methods (damage, protection, projectiles, durability, experience, fishing, etc.) to dispatch to `RuneFeature` static methods. Also cancels `enchantItem`/`enchantItemFromProvider` when `disableExperience` is active.
+
+### Utilities
+
+- `RuneHelper.java` — `hasRune`, `addRune`, `removeRune` helpers that read/write `REDataComponents.RUNES` and manage `ENCHANTMENT_GLINT_OVERRIDE`.
+- `RECommands.java` — command registration (registered via `RuneFeature.onRegisterCommands`).
+
+### Network
+
+`network/NetworkHandler.java` + `network/message/ClientboundDisableExperienceMessage.java` — syncs the `disableExperience` GameRule value to clients on login and on change.
 
 ### Current Development State
 
-Infrastructure is mostly in place but some wiring is incomplete:
-- `RuneFeature` creates `MiningContext` but doesn't yet pass it through runes or write the result back to the `BreakSpeed` event
-- `RuneFeature` handles `ItemAttributeModifierEvent` (calls `addAttributeModifiers()`) and `ItemTooltipEvent` (calls `getName()`/`getDescription()`) correctly
-- `onAttack` and `onLivingTick` listeners are not yet registered (PlayerMixin is empty)
+The system is largely wired in. The legacy `onMiningSpeed(MiningContext)` and `onAttack(AttackContext)` hooks on `Rune` exist but are not called by `RuneFeature` — mining speed via `BreakSpeed` event is not yet plumbed through.
 
 Don't write code unless prompted or confirmed to do.
 Other mod's source, is in C:\Users\delvi\source\repos\Insane96\

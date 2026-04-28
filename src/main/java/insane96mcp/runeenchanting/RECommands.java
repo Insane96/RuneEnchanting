@@ -31,6 +31,8 @@ public class RECommands {
                     .then(Commands.argument("rune", ResourceLocationArgument.id())
                         .suggests((ctx, builder) -> SharedSuggestionProvider.suggestResource(RERunes.REGISTRY.keySet(), builder))
                         .executes(RECommands::removeRune)))
+                .then(Commands.literal("clear")
+                    .executes(RECommands::clearRunes))
         );
     }
 
@@ -75,6 +77,18 @@ public class RECommands {
             return 0;
         }
         ctx.getSource().sendSuccess(() -> Component.literal("Removed ").append(runeHolder.value().getNameComponent()), false);
+        return 1;
+    }
+
+    private static int clearRunes(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
+        Player player = ctx.getSource().getPlayerOrException();
+        ItemStack stack = player.getMainHandItem();
+        if (stack.isEmpty()) {
+            ctx.getSource().sendFailure(Component.literal("No item in main hand"));
+            return 0;
+        }
+        RuneHelper.clearRunes(stack);
+        ctx.getSource().sendSuccess(() -> Component.literal("Cleared all runes"), false);
         return 1;
     }
 }

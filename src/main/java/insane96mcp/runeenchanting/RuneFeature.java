@@ -132,7 +132,7 @@ public class RuneFeature extends Feature {
         }
         if (runes != null) {
             for (Holder<Rune> holder : runes) {
-                event.getToolTip().add(holder.value().getNameComponent().withStyle(ChatFormatting.LIGHT_PURPLE));
+                event.getToolTip().add(CommonComponents.space().append(holder.value().getNameComponent().withStyle(ChatFormatting.LIGHT_PURPLE)));
                 if (event.getFlags().hasShiftDown())
                     event.getToolTip().add(CommonComponents.space().append(holder.value().getDescriptionComponent()).withStyle(ChatFormatting.GRAY));
             }
