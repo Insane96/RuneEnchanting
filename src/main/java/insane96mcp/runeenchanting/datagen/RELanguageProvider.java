@@ -18,5 +18,10 @@ public class RELanguageProvider extends LanguageProvider {
             add(rune.getNameTranslationKey(), rune.getName());
             add(rune.getDescriptionTranslationKey(), rune.getDescription());
         }
+
+        add("item.runeenchanting.rune", "Rune");
+        add("sockets", "Sockets: %d/%d");
+        add("cursed", "Cursed");
+        add("cursed_info", "+1 Socket");
     }
 }
