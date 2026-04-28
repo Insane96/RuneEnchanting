@@ -63,3 +63,89 @@
   - Changed to enduring. Increases item's durability by a percentage + a flat bonus.
 - [x] vanishing_curse
 - [ ] wind_burst
+
+## IguanaTweaksExpanded Enchantments
+
+### Tools
+- [ ] blasting
+- [ ] expanded
+- [ ] veining
+- [ ] exchange
+- [ ] haste
+- [ ] earthbend
+- [ ] dwarfing
+
+### Armor
+- [ ] magic_protection
+- [ ] melee_protection
+- [ ] flat_protection
+- [ ] absorption
+- [ ] healthy
+- [ ] vindication
+- [ ] recovery
+- [ ] air_born
+- [ ] step_up
+- [ ] zippy
+- [ ] hoppy
+- [ ] charged_jump
+- [ ] sprint_pact
+- [ ] magnetic
+- [ ] retreat
+- [ ] double_jump
+- [ ] enlightened
+- [ ] invulnerability
+- [ ] fire_guardian
+- [ ] steady_fall
+
+### Weapons
+- [ ] water_coolant
+- [ ] bane_of_noses
+- [ ] rage
+- [ ] fire_surge
+- [ ] swift_strike
+- [ ] padding
+- [ ] part_breaker
+- [ ] air_stealer
+- [ ] armor_piercer
+- [ ] cryo_aspect
+- [ ] explosive
+- [ ] gravity_defying
+
+### Tools and Weapons
+- [ ] smartness
+- [ ] reach
+- [ ] adrenaline
+- [ ] knowledgeable
+
+### Fishing Rods
+- [ ] juicy_bait
+
+### General
+- [ ] soulbound
+- [ ] enduring
+- [ ] keego
+- [ ] weathering
+
+### Curses
+- [ ] curse_of_experience
+- [ ] curse_of_tear
+- [ ] curse_of_blood_pact
+- [ ] curse_of_unhurried
+- [ ] curse_of_slow_strike
+- [ ] curse_of_inefficiency
+- [ ] curse_of_short_arm
+- [ ] curse_of_fragility
+- [ ] curse_of_ender
+- [ ] curse_of_walking
+- [ ] curse_of_steel_fall
+- [ ] curse_of_the_void
+- [ ] curse_of_slow_charge
+- [ ] curse_of_dumbness
+- [ ] curse_of_hop
+- [ ] curse_of_obscurity
+- [ ] curse_of_frenzy
+- [ ] curse_of_unstable_motion
+- [ ] curse_of_static_charge
+- [ ] curse_of_anchor
+- [ ] curse_of_sinking
+- [ ] curse_of_explosion
