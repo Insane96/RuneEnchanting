@@ -14,16 +14,22 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import javax.annotation.Nullable;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class RuneHelper {
     public static boolean hasRune(ItemStack stack, Holder<Rune> rune) {
         List<Holder<Rune>> runes = stack.get(REDataComponents.RUNES.get());
         return runes != null && runes.contains(rune);
+    }
+
+    public static int countRunes(ItemStack stack) {
+        List<Holder<Rune>> runes = stack.get(REDataComponents.RUNES.get());
+        if (runes == null)
+            return 0;
+        runes = runes.stream().filter(rune -> rune.value().isEnabled() && !rune.value().isCurse()).toList();
+        return runes.size();
     }
 
     public static boolean addRune(ItemStack stack, Holder<Rune> rune) {
@@ -110,5 +116,28 @@ public class RuneHelper {
             addRune(stack, eligibleRunes.get(idx));
             eligibleRunes.remove(idx);
         }
+    }
+
+    @Nullable
+    public static List<Holder<Rune>> getRunesByPriority(ItemStack stack) {
+        return getRunesByPriority(stack, true);
+    }
+
+    @Nullable
+    public static List<Holder<Rune>> getRunesByPriority(ItemStack stack, boolean ignoreStoredRune) {
+        List<Holder<Rune>> runes = stack.get(REDataComponents.RUNES.get());
+        if (runes == null) {
+            if (ignoreStoredRune)
+                return null;
+            Holder<Rune> storedRune = stack.get(REDataComponents.STORED_RUNE.get());
+            if (storedRune == null)
+                return null;
+            runes = List.of(storedRune);
+        }
+        runes = runes.stream()
+                .filter(holder -> holder.value().isEnabled())
+                .sorted(Comparator.comparingInt(holder -> holder.value().getPriority()))
+                .toList();
+        return runes;
     }
 }

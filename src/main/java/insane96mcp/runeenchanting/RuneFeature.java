@@ -45,7 +45,6 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 import javax.annotation.Nullable;
-import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -114,7 +113,7 @@ public class RuneFeature extends Feature {
     @SubscribeEvent
     public void onStackAttributeModifiers(ItemAttributeModifierEvent event) {
         ItemStack stack = event.getItemStack();
-        List<Holder<Rune>> runes = getRunesByPriority(stack);
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
         if (runes == null)
             return;
         for (Holder<Rune> holder : runes) {
@@ -125,7 +124,7 @@ public class RuneFeature extends Feature {
     @SubscribeEvent
     public void onGetEnchantmentLevel(GetEnchantmentLevelEvent event) {
         ItemStack stack = event.getStack();
-        List<Holder<Rune>> runes = getRunesByPriority(stack);
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
         if (runes == null)
             return;
         for (Holder<Rune> holder : runes) {
@@ -137,8 +136,8 @@ public class RuneFeature extends Feature {
     public void onTooltip(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
         int sockets = stack.getOrDefault(REDataComponents.SOCKETS, 0);
-        List<Holder<Rune>> runes = getRunesByPriority(stack, false);
-        int runesCount = runes == null ? 0 : runes.size();
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack, false);
+        int runesCount = RuneHelper.countRunes(stack);
         if (sockets > 0 && !stack.is(REItems.RUNE)) {
             if (runesCount > 0 || event.getFlags().hasShiftDown()) {
                 event.getToolTip().add(CommonComponents.space());
@@ -165,7 +164,7 @@ public class RuneFeature extends Feature {
     }
 
     public static int onGetMaxDamage(int original, ItemStack stack) {
-        List<Holder<Rune>> runes = getRunesByPriority(stack);
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
         if (runes == null)
             return original;
         int result = original;
@@ -176,7 +175,7 @@ public class RuneFeature extends Feature {
     }
 
     public static float onEnchantmentDamage(float enchantmentDamage, Player player, Entity attacked, float originalDamage, DamageSource damageSource, ItemStack stack) {
-        List<Holder<Rune>> runes = getRunesByPriority(stack);
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
         if (runes == null)
             return originalDamage;
         float damage = originalDamage;
@@ -186,7 +185,7 @@ public class RuneFeature extends Feature {
         return damage;
     }
     public static void onProjectileSpawned(ServerLevel level, ItemStack stack, AbstractArrow arrow, Consumer<Item> onBreak) {
-        List<Holder<Rune>> runes = getRunesByPriority(stack);
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
         if (runes == null)
             return;
         for (Holder<Rune> holder : runes) {
@@ -197,7 +196,7 @@ public class RuneFeature extends Feature {
     public static void onPostAttack(ServerLevel level, @Nullable ItemStack stack, EnchantmentTarget target, Entity attacked, DamageSource damageSource) {
         if (stack == null)
             return;
-        List<Holder<Rune>> runes = getRunesByPriority(stack);
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
         if (runes == null)
             return;
         for (Holder<Rune> holder : runes) {
@@ -206,7 +205,7 @@ public class RuneFeature extends Feature {
     }
 
     public static int modifyAmmoUse(ServerLevel level, ItemStack weapon, ItemStack ammo, int originalCount) {
-        List<Holder<Rune>> runes = getRunesByPriority(weapon);
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(weapon);
         if (runes == null)
             return originalCount;
         int count = originalCount;
@@ -217,7 +216,7 @@ public class RuneFeature extends Feature {
     }
 
     public static int modifyProjectileCount(ServerLevel level, ItemStack tool, Entity entity, int originalCount) {
-        List<Holder<Rune>> runes = getRunesByPriority(tool);
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(tool);
         if (runes == null)
             return originalCount;
         int count = originalCount;
@@ -227,7 +226,7 @@ public class RuneFeature extends Feature {
         return count;
     }
     public static float modifyProjectileSpread(ServerLevel level, ItemStack tool, Entity entity, float originalSpread) {
-        List<Holder<Rune>> runes = getRunesByPriority(tool);
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(tool);
         if (runes == null)
             return originalSpread;
         float spread = originalSpread;
@@ -238,7 +237,7 @@ public class RuneFeature extends Feature {
     }
 
     public static int modifyDurabilityChange(ServerLevel level, ItemStack stack, int original) {
-        List<Holder<Rune>> runes = getRunesByPriority(stack);
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
         if (runes == null)
             return original;
         int damage = original;
@@ -249,7 +248,7 @@ public class RuneFeature extends Feature {
     }
 
     public static int modifyBlockExperience(ServerLevel level, ItemStack stack, int original) {
-        List<Holder<Rune>> runes = getRunesByPriority(stack);
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
         if (runes == null)
             return original;
         int experience = original;
@@ -265,7 +264,7 @@ public class RuneFeature extends Feature {
         int experience = original;
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             ItemStack stack = livingKiller.getItemBySlot(slot);
-            List<Holder<Rune>> runes = getRunesByPriority(stack);
+            List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
             if (runes == null) continue;
             for (Holder<Rune> holder : runes) {
                 experience = holder.value().modifyMobExperience(level, stack, killer, mob, original, experience);
@@ -277,7 +276,7 @@ public class RuneFeature extends Feature {
     public static boolean isImmuneToDamage(ServerLevel level, LivingEntity entity, DamageSource damageSource) {
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             ItemStack stack = entity.getItemBySlot(slot);
-            List<Holder<Rune>> runes = getRunesByPriority(stack);
+            List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
             if (runes == null) continue;
             for (Holder<Rune> holder : runes) {
                 if (holder.value().isImmuneToDamage(level, stack, entity, damageSource))
@@ -291,7 +290,7 @@ public class RuneFeature extends Feature {
         float protection = original;
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             ItemStack stack = entity.getItemBySlot(slot);
-            List<Holder<Rune>> runes = getRunesByPriority(stack);
+            List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
             if (runes == null) continue;
             for (Holder<Rune> holder : runes) {
                 protection = holder.value().modifyDamageProtection(level, stack, entity, damageSource, original, protection);
@@ -301,7 +300,7 @@ public class RuneFeature extends Feature {
     }
 
     public static float modifyDamage(ServerLevel level, ItemStack tool, Entity entity, DamageSource damageSource, float originalDamage) {
-        List<Holder<Rune>> runes = getRunesByPriority(tool);
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(tool);
         if (runes == null)
             return originalDamage;
         float damage = originalDamage;
@@ -312,7 +311,7 @@ public class RuneFeature extends Feature {
     }
 
     public static float modifyFallBasedDamage(ServerLevel level, ItemStack tool, Entity entity, DamageSource damageSource, float originalDamage) {
-        List<Holder<Rune>> runes = getRunesByPriority(tool);
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(tool);
         if (runes == null)
             return originalDamage;
         float fallBasedDamage = originalDamage;
@@ -323,7 +322,7 @@ public class RuneFeature extends Feature {
     }
 
     public static float modifyArmorEffectiveness(ServerLevel level, ItemStack tool, Entity entity, DamageSource damageSource, float originalArmorEffectiveness) {
-        List<Holder<Rune>> runes = getRunesByPriority(tool);
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(tool);
         if (runes == null)
             return originalArmorEffectiveness;
         float armorEffectiveness = originalArmorEffectiveness;
@@ -334,7 +333,7 @@ public class RuneFeature extends Feature {
     }
 
     public static float modifyKnockback(ServerLevel level, ItemStack tool, Entity entity, DamageSource damageSource, float original) {
-        List<Holder<Rune>> runes = getRunesByPriority(tool);
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(tool);
         if (runes == null)
             return original;
         float knockback = original;
@@ -347,7 +346,7 @@ public class RuneFeature extends Feature {
     public static void tickEffects(ServerLevel level, LivingEntity entity) {
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             ItemStack stack = entity.getItemBySlot(slot);
-            List<Holder<Rune>> runes = getRunesByPriority(stack);
+            List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
             if (runes == null) continue;
             for (Holder<Rune> holder : runes) {
                 holder.value().tickEffects(level, stack, entity);
@@ -356,7 +355,7 @@ public class RuneFeature extends Feature {
     }
 
     public static int modifyPiercingCount(ServerLevel level, ItemStack firedFromWeapon, ItemStack pickupItemStack, int original) {
-        List<Holder<Rune>> runes = getRunesByPriority(firedFromWeapon);
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(firedFromWeapon);
         if (runes == null)
             return original;
         int count = original;
@@ -367,7 +366,7 @@ public class RuneFeature extends Feature {
     }
 
     public static void onHitBlock(ServerLevel level, ItemStack stack, @Nullable LivingEntity owner, Entity entity, @Nullable EquipmentSlot slot, Vec3 pos, BlockState state, Consumer<Item> onBreak) {
-        List<Holder<Rune>> runes = getRunesByPriority(stack);
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
         if (runes == null)
             return;
         for (Holder<Rune> holder : runes) {
@@ -376,7 +375,7 @@ public class RuneFeature extends Feature {
     }
 
     public static float modifyFishingTimeReduction(ServerLevel level, ItemStack stack, Entity entity, float original) {
-        List<Holder<Rune>> runes = getRunesByPriority(stack);
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
         if (runes == null)
             return original;
         float reduction = original;
@@ -387,7 +386,7 @@ public class RuneFeature extends Feature {
     }
 
     public static int modifyTridentReturnToOwnerAcceleration(ServerLevel level, ItemStack stack, Entity entity, int original) {
-        List<Holder<Rune>> runes = getRunesByPriority(stack);
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
         if (runes == null)
             return original;
         int acceleration = original;
@@ -398,7 +397,7 @@ public class RuneFeature extends Feature {
     }
 
     public static float modifyCrossbowChargingTime(ItemStack stack, LivingEntity entity, float original) {
-        List<Holder<Rune>> runes = getRunesByPriority(stack);
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
         if (runes == null)
             return original;
         float chargingTime = original;
@@ -409,7 +408,7 @@ public class RuneFeature extends Feature {
     }
 
     public static float modifyTridentSpinAttackStrength(ItemStack stack, LivingEntity entity, float original) {
-        List<Holder<Rune>> runes = getRunesByPriority(stack);
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
         if (runes == null)
             return original;
         float strength = original;
@@ -419,26 +418,4 @@ public class RuneFeature extends Feature {
         return strength;
     }
 
-    @Nullable
-    public static List<Holder<Rune>> getRunesByPriority(ItemStack stack) {
-        return getRunesByPriority(stack, true);
-    }
-
-    @Nullable
-    public static List<Holder<Rune>> getRunesByPriority(ItemStack stack, boolean ignoreStoredRune) {
-        List<Holder<Rune>> runes = stack.get(REDataComponents.RUNES.get());
-        if (runes == null) {
-            if (ignoreStoredRune)
-                return null;
-            Holder<Rune> storedRune = stack.get(REDataComponents.STORED_RUNE.get());
-            if (storedRune == null)
-                return null;
-            runes = List.of(storedRune);
-        }
-        runes = runes.stream()
-                .filter(holder -> holder.value().isEnabled())
-                .sorted(Comparator.comparingInt(holder -> holder.value().getPriority()))
-                .toList();
-        return runes;
-    }
 }
