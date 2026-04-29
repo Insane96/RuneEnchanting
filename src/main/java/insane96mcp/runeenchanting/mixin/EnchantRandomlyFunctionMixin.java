@@ -28,11 +28,11 @@ public class EnchantRandomlyFunctionMixin {
     private void runeenchanting$onRun(ItemStack stack, LootContext context, CallbackInfoReturnable<ItemStack> cir) {
         RandomSource random = context.getRandom();
         if (stack.is(Items.BOOK)) {
-            cir.setReturnValue(RuneHelper.createRandomRuneItem(random, this.options));
+            cir.setReturnValue(RuneHelper.createRandomRuneItem(random, Optional.empty() /*this.options*/));
             cir.cancel();
             return;
         }
-        RuneHelper.addRandomRunes(stack, 1, random, this.options);
+        RuneHelper.addRandomRunes(stack, 1, random, Optional.empty() /*this.options*/);
         if (RuneFeature.disableExperience) {
             cir.setReturnValue(stack);
             cir.cancel();

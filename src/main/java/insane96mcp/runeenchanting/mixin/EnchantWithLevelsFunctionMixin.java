@@ -33,7 +33,7 @@ public class EnchantWithLevelsFunctionMixin {
     private void runeenchanting$onRun(ItemStack stack, LootContext context, CallbackInfoReturnable<ItemStack> cir) {
         RandomSource randomSource = context.getRandom();
         int amount = MathHelper.getAmountWithDecimalChance(randomSource, this.levels.getFloat(context) / RuneFeature.enchantWithLevelsFunctionRatio.floatValue());
-        RuneHelper.addRandomRunes(stack, amount, randomSource, this.options);
+        RuneHelper.addRandomRunes(stack, amount, randomSource, Optional.empty() /*this.options*/);
         if (RuneFeature.disableExperience)
             cir.setReturnValue(stack);
     }
