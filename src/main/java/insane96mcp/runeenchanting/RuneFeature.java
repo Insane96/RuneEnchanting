@@ -5,10 +5,12 @@ import insane96mcp.insanelib.core.feature.LoadFeature;
 import insane96mcp.insanelib.core.feature.Module;
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.insanelib.util.IntegratedPack;
+import insane96mcp.runeenchanting.data.runes.ProjectileProtectionRune;
 import insane96mcp.runeenchanting.data.runes.Rune;
 import insane96mcp.runeenchanting.network.message.ClientboundDisableExperienceMessage;
 import insane96mcp.runeenchanting.setup.REDataComponents;
 import insane96mcp.runeenchanting.setup.REItems;
+import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
@@ -44,6 +46,7 @@ import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.enchanting.GetEnchantmentLevelEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.entity.living.LivingEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
@@ -486,4 +489,10 @@ public class RuneFeature extends Feature {
         return strength;
     }
 
+    @SubscribeEvent
+    public void onFollowRange(LivingEvent.LivingVisibilityEvent event) {
+        if (!RuneHelper.hasRuneOnArmor(event.getEntity(), RERunes.PROJECTILE_PROTECTION))
+            return;
+        event.modifyVisibility(ProjectileProtectionRune.sightModifier);
+    }
 }

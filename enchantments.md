@@ -13,7 +13,7 @@
   - Reduces the movement speed reduction that occurs when in water.
 - [x] efficiency
   - Increases tool's mining speed by a percentage + flat bonus.
-- [ ] feather_falling
+- [x] feather_falling
 - [x] fire_aspect
   - Changed to flame, works for both weapons and bows.
 - [x] fire_protection
@@ -43,6 +43,7 @@
   - Pierces 3 entities
 - [x] power
 - [x] projectile_protection
+  - Also reduces the range at which entities can see you
 - [x] protection
 - [x] punch
   - Changed to knockback. Works for both weapons and bows.

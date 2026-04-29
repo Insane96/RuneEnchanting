@@ -11,6 +11,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 
@@ -22,6 +23,17 @@ public class RuneHelper {
     public static boolean hasRune(ItemStack stack, Holder<Rune> rune) {
         List<Holder<Rune>> runes = stack.get(REDataComponents.RUNES.get());
         return runes != null && runes.contains(rune);
+    }
+
+    public static boolean hasRuneOnArmor(LivingEntity entity, Holder<Rune> rune) {
+        for (ItemStack stack : entity.getArmorSlots()) {
+            List<Holder<Rune>> runes = stack.get(REDataComponents.RUNES.get());
+            if (runes == null)
+                continue;
+            if (runes.contains(rune))
+                return true;
+        }
+        return false;
     }
 
     public static int countRunes(ItemStack stack) {

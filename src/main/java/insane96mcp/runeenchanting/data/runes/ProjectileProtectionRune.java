@@ -7,6 +7,8 @@ import net.minecraft.world.damagesource.DamageSource;
 public class ProjectileProtectionRune extends DamageReductionRune {
     @Config
     public static Double damageReduction = 0.40d;
+    @Config(description = "Mobs follow range will be multiplied by this before checking if they can see the entity")
+    public static Double sightModifier = 0.80d;
 
     @Override
     public String getName() {
