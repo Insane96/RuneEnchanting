@@ -25,44 +25,72 @@ public class RERunes {
 
     private static final List<Map.Entry<String, Rune>> RUNE_ENTRIES = new ArrayList<>();
 
+    // Tools
     public static final DeferredHolder<Rune, EfficiencyRune> EFFICIENCY = register("efficiency", new EfficiencyRune());
+    public static final DeferredHolder<Rune, EarthbendRune> EARTHBEND = register("earthbend", new EarthbendRune());
+    public static final DeferredHolder<Rune, SilkTouchRune> SILK_TOUCH = register("silk_touch", new SilkTouchRune());
+
+    // Pickaxe
     public static final DeferredHolder<Rune, BlastingRune> BLASTING = register("blasting", new BlastingRune());
     public static final DeferredHolder<Rune, DwarfingRune> DWARFING = register("dwarfing", new DwarfingRune());
-    public static final DeferredHolder<Rune, EarthbendRune> EARTHBEND = register("earthbend", new EarthbendRune());
+
+    // Tools, Weapons and Fishing Rods
     public static final DeferredHolder<Rune, LuckRune> LUCK = register("luck", new LuckRune());
-    public static final DeferredHolder<Rune, SilkTouchRune> SILK_TOUCH = register("silk_touch", new SilkTouchRune());
+
+    // Weapons
     public static final DeferredHolder<Rune, SharpnessRune> SHARPNESS = register("sharpness", new SharpnessRune());
     public static final DeferredHolder<Rune, BaneOfHissingRune> BANE_OF_HISSING = register("bane_of_hissing", new BaneOfHissingRune());
     public static final DeferredHolder<Rune, ImpalingRune> IMPALING = register("impaling", new ImpalingRune());
     public static final DeferredHolder<Rune, WaterCoolantRune> WATER_COOLANT = register("water_coolant", new WaterCoolantRune());
     public static final DeferredHolder<Rune, SmiteRune> SMITE = register("smite", new SmiteRune());
+
+    // Weapons and Bows
     public static final DeferredHolder<Rune, FlameRune> FLAME = register("flame", new FlameRune());
     public static final DeferredHolder<Rune, KnockbackRune> KNOCKBACK = register("knockback", new KnockbackRune());
+
+    // Bows
     public static final DeferredHolder<Rune, PowerRune> POWER = register("power", new PowerRune());
     public static final DeferredHolder<Rune, InfinityRune> INFINITY = register("infinity", new InfinityRune());
+
+    // Crossbow
     public static final DeferredHolder<Rune, PiercingRune> PIERCING = register("piercing", new PiercingRune());
     public static final DeferredHolder<Rune, QuickChargeRune> QUICK_CHARGE = register("quick_charge", new QuickChargeRune());
     public static final DeferredHolder<Rune, MultishotRune> MULTISHOT = register("multishot", new MultishotRune());
+
+    // Armor
     public static final DeferredHolder<Rune, ProtectionRune> PROTECTION = register("protection", new ProtectionRune());
     public static final DeferredHolder<Rune, BlastProtectionRune> BLAST_PROTECTION = register("blast_protection", new BlastProtectionRune());
     public static final DeferredHolder<Rune, FireProtectionRune> FIRE_PROTECTION = register("fire_protection", new FireProtectionRune());
     public static final DeferredHolder<Rune, ProjectileProtectionRune> PROJECTILE_PROTECTION = register("projectile_protection", new ProjectileProtectionRune());
     public static final DeferredHolder<Rune, MeleeProtectionRune> MELEE_PROTECTION = register("melee_protection", new MeleeProtectionRune());
     public static final DeferredHolder<Rune, MagicProtectionRune> MAGIC_PROTECTION = register("magic_protection", new MagicProtectionRune());
-    public static final DeferredHolder<Rune, FeatherFallingRune> FEATHER_FALLING = register("feather_falling", new FeatherFallingRune());
     public static final DeferredHolder<Rune, HealthyRune> HEALTHY = register("healthy", new HealthyRune());
     public static final DeferredHolder<Rune, ThornsRune> THORNS = register("thorns", new ThornsRune());
+
+    // Helmet
     public static final DeferredHolder<Rune, RespirationRune> RESPIRATION = register("respiration", new RespirationRune());
     public static final DeferredHolder<Rune, AquaAffinityRune> AQUA_AFFINITY = register("aqua_affinity", new AquaAffinityRune());
-    public static final DeferredHolder<Rune, DepthStriderRune> DEPTH_STRIDER = register("depth_strider", new DepthStriderRune());
+
+    // Leggings
     public static final DeferredHolder<Rune, SwiftSneakRune> SWIFT_SNEAK = register("swift_sneak", new SwiftSneakRune());
+    public static final DeferredHolder<Rune, StepUpRune> STEP_UP = register("step_up", new StepUpRune());
+
+    // Boots
+    public static final DeferredHolder<Rune, FeatherFallingRune> FEATHER_FALLING = register("feather_falling", new FeatherFallingRune());
+    public static final DeferredHolder<Rune, DepthStriderRune> DEPTH_STRIDER = register("depth_strider", new DepthStriderRune());
     public static final DeferredHolder<Rune, FrostWalkerRune> FROST_WALKER = register("frost_walker", new FrostWalkerRune());
     public static final DeferredHolder<Rune, SoulSpeedRune> SOUL_SPEED = register("soul_speed", new SoulSpeedRune());
-    public static final DeferredHolder<Rune, StepUpRune> STEP_UP = register("step_up", new StepUpRune());
+
+    // Trident
     public static final DeferredHolder<Rune, ChannelingRune> CHANNELING = register("channeling", new ChannelingRune());
+
+    // Fishing Rods
     public static final DeferredHolder<Rune, LureRune> LURE = register("lure", new LureRune());
+
+    // Vanishable
     public static final DeferredHolder<Rune, EnduringRune> ENDURING = register("enduring", new EnduringRune());
 
+    // Curse
     public static final DeferredHolder<Rune, CurseOfBindingRune> CURSE_OF_BINDING = register("curse_of_binding", new CurseOfBindingRune());
     public static final DeferredHolder<Rune, CurseOfVanishingRune> CURSE_OF_VANISHING = register("curse_of_vanishing", new CurseOfVanishingRune());
 
