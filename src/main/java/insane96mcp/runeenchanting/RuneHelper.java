@@ -36,7 +36,7 @@ public class RuneHelper {
         List<Holder<Rune>> runes = new ArrayList<>(stack.getOrDefault(REDataComponents.RUNES.get(), List.of()));
         if (runes.contains(rune))
             return false;
-        if (countRunes(stack) >= stack.getOrDefault(REDataComponents.SOCKETS, 0))
+        if (countRunes(stack) >= stack.getOrDefault(REDataComponents.SOCKETS, 0) && !rune.value().isCurse())
             return false;
         runes.add(rune);
         stack.set(REDataComponents.RUNES.get(), runes);
