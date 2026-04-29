@@ -25,6 +25,8 @@
   "rune.runeenchanting.flame.description": "Sets the entity or arrows on fire",
   "rune.runeenchanting.frost_walker": "Frost Walker",
   "rune.runeenchanting.frost_walker.description": "Create ice when walking near water",
+  "rune.runeenchanting.impaling": "Impaling",
+  "rune.runeenchanting.impaling.description": "Increases damage dealt to creatures touched by water or rain",
   "rune.runeenchanting.infinity": "Infinity",
   "rune.runeenchanting.infinity.description": "Chance to not consume an arrow when using a bow",
   "rune.runeenchanting.knockback": "Knockback",
@@ -57,5 +59,7 @@
   "rune.runeenchanting.soul_speed.description": "Speed up walking on soul blocks",
   "rune.runeenchanting.swift_sneak": "Swift Sneak",
   "rune.runeenchanting.swift_sneak.description": "Increases sneak movement speed",
+  "rune.runeenchanting.water_coolant": "Water Coolant",
+  "rune.runeenchanting.water_coolant.description": "Increases damage dealt to water sensitive creatures",
   "sockets": "Sockets: %d/%d"
 }
