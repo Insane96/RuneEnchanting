@@ -61,7 +61,8 @@
 - [ ] sweeping_edge
 - [x] swift_sneak
   - Increases sneaking movement speed
-- [ ] thorns
+- [x] thorns
+  - No longer limited to the chestplate armor slot. Multiple stack. No longer damages the item.
 - [x] unbreaking
   - Changed to enduring. Increases item's durability by a percentage + a flat bonus.
 - [x] vanishing_curse
@@ -79,7 +80,8 @@
 - [ ] dwarfing
 
 ### Armor
-- [ ] magic_protection
+- [x] magic_protection
+  - Reduces magic damage and decreases negative effects duration.
 - [x] melee_protection
   - Reduces melee damage and increases attack speed
 - [ ] flat_protection

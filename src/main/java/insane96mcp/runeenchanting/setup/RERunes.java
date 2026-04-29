@@ -47,6 +47,7 @@ public class RERunes {
     public static final DeferredHolder<Rune, MeleeProtectionRune> MELEE_PROTECTION = register("melee_protection", new MeleeProtectionRune());
     public static final DeferredHolder<Rune, MagicProtectionRune> MAGIC_PROTECTION = register("magic_protection", new MagicProtectionRune());
     public static final DeferredHolder<Rune, FeatherFallingRune> FEATHER_FALLING = register("feather_falling", new FeatherFallingRune());
+    public static final DeferredHolder<Rune, ThornsRune> THORNS = register("thorns", new ThornsRune());
     public static final DeferredHolder<Rune, RespirationRune> RESPIRATION = register("respiration", new RespirationRune());
     public static final DeferredHolder<Rune, AquaAffinityRune> AQUA_AFFINITY = register("aqua_affinity", new AquaAffinityRune());
     public static final DeferredHolder<Rune, DepthStriderRune> DEPTH_STRIDER = register("depth_strider", new DepthStriderRune());

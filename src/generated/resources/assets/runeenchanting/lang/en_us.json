@@ -67,6 +67,8 @@
   "rune.runeenchanting.soul_speed.description": "Speed up walking on soul blocks",
   "rune.runeenchanting.swift_sneak": "Swift Sneak",
   "rune.runeenchanting.swift_sneak.description": "Increases sneak movement speed",
+  "rune.runeenchanting.thorns": "Thorns",
+  "rune.runeenchanting.thorns.description": "Chance to damage attackers",
   "rune.runeenchanting.water_coolant": "Water Coolant",
   "rune.runeenchanting.water_coolant.description": "Increases damage dealt to water sensitive creatures",
   "sockets": "Sockets: %d/%d"
