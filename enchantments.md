@@ -89,7 +89,7 @@
 - [ ] vindication
 - [ ] recovery
 - [ ] air_born
-- [ ] step_up
+- [x] step_up
 - [ ] zippy
 - [ ] hoppy
 - [ ] charged_jump
