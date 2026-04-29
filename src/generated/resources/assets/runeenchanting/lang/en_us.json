@@ -19,6 +19,8 @@
   "rune.runeenchanting.curse_of_vanishing.description": "Destroys the item on death",
   "rune.runeenchanting.depth_strider": "Depth Strider",
   "rune.runeenchanting.depth_strider.description": "Reduces the movement speed reduction that occurs when in water",
+  "rune.runeenchanting.earthbend": "Earthbend",
+  "rune.runeenchanting.earthbend.description": "Increases mining speed for blocks that don't require a tool",
   "rune.runeenchanting.efficiency": "Efficiency",
   "rune.runeenchanting.efficiency.description": "Increases mining speed",
   "rune.runeenchanting.enduring": "Enduring",

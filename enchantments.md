@@ -71,11 +71,10 @@
 ## IguanaTweaksExpanded Enchantments
 
 ### Tools
-- [ ] blasting
+- [x] blasting
 - [ ] expanded
 - [ ] veining
 - [ ] exchange
-- [ ] haste
 - [ ] earthbend
 - [ ] dwarfing
 
