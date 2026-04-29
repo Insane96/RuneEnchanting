@@ -22,7 +22,7 @@ public class BlastingRune extends Rune {
 
     @Override
     public String getDescription() {
-        return "Increases mining speed the lower the explosion resistance of the block";
+        return "Increases mining speed. The lower the explosion resistance of the block, the higher the mining speed";
     }
 
     @Override

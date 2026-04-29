@@ -10,7 +10,7 @@
   "rune.runeenchanting.blast_protection": "Blast Protection",
   "rune.runeenchanting.blast_protection.description": "Reduces damage and knockback taken by explosions",
   "rune.runeenchanting.blasting": "Blasting",
-  "rune.runeenchanting.blasting.description": "Increases mining speed the lower the explosion resistance of the block",
+  "rune.runeenchanting.blasting.description": "Increases mining speed. The lower the explosion resistance of the block, the higher the mining speed",
   "rune.runeenchanting.channeling": "Channeling",
   "rune.runeenchanting.channeling.description": "Summon a lightning bolt on entity or lightning rod hit",
   "rune.runeenchanting.curse_of_binding": "Curse of Binding",
