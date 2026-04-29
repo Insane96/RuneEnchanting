@@ -30,6 +30,7 @@ public class KnockbackRune extends Rune {
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
         appender.addTag(ItemTags.SWORDS)
                 .addTag(ItemTags.AXES)
+                .add(Items.TRIDENT)
                 .add(Items.BOW);
     }
 

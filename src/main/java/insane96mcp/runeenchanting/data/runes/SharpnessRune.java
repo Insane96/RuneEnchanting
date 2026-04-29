@@ -8,6 +8,7 @@ import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 
 public class SharpnessRune extends Rune {
@@ -27,7 +28,8 @@ public class SharpnessRune extends Rune {
     @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
         appender.addTag(ItemTags.SWORDS)
-                .addTag(ItemTags.AXES);
+                .addTag(ItemTags.AXES)
+                .add(Items.TRIDENT);
     }
 
     @Override

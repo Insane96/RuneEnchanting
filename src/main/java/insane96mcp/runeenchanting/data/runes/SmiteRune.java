@@ -17,6 +17,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentTarget;
 
 import javax.annotation.Nullable;
@@ -46,7 +47,8 @@ public class SmiteRune extends Rune {
     @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
         appender.addTag(ItemTags.SWORDS)
-                .addTag(ItemTags.AXES);
+                .addTag(ItemTags.AXES)
+                .add(Items.TRIDENT);
     }
 
     @Override

@@ -42,7 +42,7 @@ public class RuneEnchanting {
 
     public RuneEnchanting(IEventBus modEventBus, ModContainer modContainer) {
         CONFIG = new ILModConfig(id("main"), "Single Module", ModConfig.Type.COMMON, modEventBus, RuneEnchanting.class.getClassLoader());
-        modContainer.registerConfig(ModConfig.Type.COMMON, CONFIG.spec);
+        modContainer.registerConfig(ModConfig.Type.COMMON, CONFIG.spec, MOD_ID + "/main.toml");
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(RERunes::registerRegistry);
         NeoForge.EVENT_BUS.addListener(this::onAddReloadListeners);

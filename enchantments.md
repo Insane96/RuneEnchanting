@@ -2,7 +2,7 @@
 
 - [x] aqua_affinity
 - [x] bane_of_arthropods
-  - Became bane_of_hissing and increases damage to hissing creatures.
+  - Became bane_of_hissing and increases damage to hissing creatures. Can be applied to tridents.
 - [x] binding_curse
 - [x] blast_protection
 - [ ] breach
@@ -19,19 +19,20 @@
 - [x] flame
   - Changed to work for both weapons and bows.
 - [x] fortune
-  - Changed to luck, works for weapons, tools and fishing rods. Mimics the level II behavior.
+  - Changed to luck, works for weapons, tridents, tools and fishing rods. Mimics the level II behavior.
 - [x] frost_walker
   - Mimics the level III behavior.
-- [ ] impaling
+- [x] impaling
+  - Increases damage against creatures in contact with water. Can be applied to swords and axes too.
 - [x] infinity
   - Chance to not use an arrow
 - [x] knockback
-  - Works for both weapons and bows.
+  - Works for weapons, tridents and bows.
 - [x] looting
-  - Changed to luck, works for weapons, tools and fishing rods. Mimics the level II behavior.
+  - Changed to luck, works for weapons, tridents, tools and fishing rods. Mimics the level II behavior.
 - [ ] loyalty
 - [x] luck_of_the_sea
-  - Changed to luck, works for weapons, tools and fishing rods. Mimics the level II behavior.
+  - Changed to luck, works for weapons, tridents, tools and fishing rods. Mimics the level II behavior.
 - [x] lure
 - [ ] ~~mending~~
   - No xp, no mending
@@ -49,10 +50,10 @@
   - +150% oxygen
 - [ ] riptide
 - [x] sharpness
-  - Increases damage by a percentage
+  - Increases damage by a percentage. Can be applied to tridents.
 - [x] silk_touch
 - [x] smite
-  - Increases damage to undead and applies a strong weakness effect.
+  - Increases damage to undead and applies a strong weakness effect. Can be applied to tridents.
 - [x] soul_speed
   - Mimics the level I behavior.
 - [ ] sweeping_edge
