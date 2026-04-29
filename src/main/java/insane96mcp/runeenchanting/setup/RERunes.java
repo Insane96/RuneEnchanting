@@ -26,6 +26,7 @@ public class RERunes {
     private static final List<Map.Entry<String, Rune>> RUNE_ENTRIES = new ArrayList<>();
 
     public static final DeferredHolder<Rune, EfficiencyRune> EFFICIENCY = register("efficiency", new EfficiencyRune());
+    public static final DeferredHolder<Rune, BlastingRune> BLASTING = register("blasting", new BlastingRune());
     public static final DeferredHolder<Rune, LuckRune> LUCK = register("luck", new LuckRune());
     public static final DeferredHolder<Rune, SilkTouchRune> SILK_TOUCH = register("silk_touch", new SilkTouchRune());
     public static final DeferredHolder<Rune, SharpnessRune> SHARPNESS = register("sharpness", new SharpnessRune());

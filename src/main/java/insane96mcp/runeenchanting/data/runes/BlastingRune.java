@@ -2,46 +2,46 @@ package insane96mcp.runeenchanting.data.runes;
 
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.RuneEnchanting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.TieredItem;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
+import org.jetbrains.annotations.Nullable;
 
 public class BlastingRune extends Rune {
     @Config(description = "Percentage bonus mining speed")
-    public static Double bonusMiningSpeed = 1d;
-    @Config
-    public static Double bonusFlatMiningSpeed = 2.5d;
+    public static Double bonusMiningSpeed = 2.5d;
 
     @Override
     public String getName() {
-        return "Efficiency";
+        return "Blasting";
     }
 
     @Override
     public String getDescription() {
-        return "Increases mining speed";
+        return "Increases mining speed the lower the explosion resistance of the block";
     }
 
     @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
-        appender.addTag(ItemTags.PICKAXES)
-                .addTag(ItemTags.AXES)
-                .addTag(ItemTags.SHOVELS)
-                .addTag(ItemTags.HOES)
-                .add(Items.SHEARS);
+        appender.addTag(ItemTags.PICKAXES);
     }
 
     @Override
-    public void addAttributeModifiers(ItemAttributeModifierEvent event) {
-        float miningSpeed = 0f;
-        if (event.getItemStack().getItem() instanceof TieredItem tieredItem)
-            miningSpeed = tieredItem.getTier().getSpeed() * bonusMiningSpeed.floatValue();
-        event.addModifier(Attributes.MINING_EFFICIENCY, new AttributeModifier(RuneEnchanting.id("efficiency"), miningSpeed + bonusFlatMiningSpeed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
+    public float onMiningSpeed(Player player, ItemStack stack, BlockState state, @Nullable BlockPos pos, float original, float speed) {
+        if (state == null)
+            return 0f;
+        if (!stack.isCorrectToolForDrops(state))
+            return 0f;
+        if (!(stack.getItem() instanceof DiggerItem diggerItem))
+            return 0f;
+
+        return speed + (Math.max(0.04f, (7f - state.getBlock().getExplosionResistance()) * bonusMiningSpeed.floatValue()) * diggerItem.getTier().getSpeed());
     }
 }
