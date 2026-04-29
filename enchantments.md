@@ -85,7 +85,7 @@
   - Reduces melee damage and increases attack speed
 - [ ] flat_protection
 - [ ] absorption
-- [ ] healthy
+- [x] healthy
 - [ ] vindication
 - [ ] recovery
 - [ ] air_born
