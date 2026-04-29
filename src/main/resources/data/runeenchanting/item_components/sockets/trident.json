@@ -1,6 +1,6 @@
 {
-    "item": "minecraft:shears",
+    "item": "minecraft:trident",
     "components": {
-        "runeenchanting:sockets": 2
+        "runeenchanting:sockets": 3
     }
 }
