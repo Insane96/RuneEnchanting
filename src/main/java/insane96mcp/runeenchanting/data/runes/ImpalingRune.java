@@ -27,7 +27,7 @@ public class ImpalingRune extends Rune {
 
     @Override
     public String getDescription() {
-        return "Increases damage dealt to creatures touched by water";
+        return "Increases damage dealt to creatures touched by water or rain";
     }
 
     @Override
@@ -40,7 +40,7 @@ public class ImpalingRune extends Rune {
     @Override
     public float modifyEnchantmentDamage(Player player, Entity attacked, float damage, float originalDamage, DamageSource damageSource, ItemStack stack) {
         if (!attacked.isInWaterOrRain())
-            return super.modifyEnchantmentDamage(player, attacked, originalDamage, damage, damageSource, stack);
+            return super.modifyEnchantmentDamage(player, attacked, damage, originalDamage, damageSource, stack);
         return (float) (damage + (originalDamage * bonusDamage));
     }
 

@@ -51,7 +51,7 @@ public class WaterCoolantRune extends Rune {
     @Override
     public float modifyEnchantmentDamage(Player player, Entity attacked, float damage, float originalDamage, DamageSource damageSource, ItemStack stack) {
         if (!attacked.getType().is(SENSITIVE))
-            return super.modifyEnchantmentDamage(player, attacked, originalDamage, damage, damageSource, stack);
+            return super.modifyEnchantmentDamage(player, attacked, damage, originalDamage, damageSource, stack);
         return (float) (damage + (originalDamage * bonusDamage));
     }
 
