@@ -17,7 +17,7 @@ public class ProjectileProtectionRune extends DamageReductionRune {
 
     @Override
     public String getDescription() {
-        return "Reduces damage taken by projectiles";
+        return "Reduces damage taken by projectiles and mobs sight";
     }
 
 

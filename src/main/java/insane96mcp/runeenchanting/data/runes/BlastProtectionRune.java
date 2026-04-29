@@ -22,7 +22,7 @@ public class BlastProtectionRune extends DamageReductionRune {
 
     @Override
     public String getDescription() {
-        return "Reduces damage taken by explosions";
+        return "Reduces damage and knockback taken by explosions";
     }
 
 

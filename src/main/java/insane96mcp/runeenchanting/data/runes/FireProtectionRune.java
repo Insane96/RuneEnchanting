@@ -22,7 +22,7 @@ public class FireProtectionRune extends DamageReductionRune {
 
     @Override
     public String getDescription() {
-        return "Reduces damage taken by lava and fire";
+        return "Reduces damage taken by lava and fire and reduces time on fire";
     }
 
 
