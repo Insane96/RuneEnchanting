@@ -81,5 +81,7 @@
   "rune.runeenchanting.thorns.description": "Chance to damage attackers",
   "rune.runeenchanting.water_coolant": "Water Coolant",
   "rune.runeenchanting.water_coolant.description": "Increases damage dealt to water sensitive creatures",
+  "rune.runeenchanting.zippy": "Zippy",
+  "rune.runeenchanting.zippy.description": "Increased movement speed",
   "sockets": "Sockets: %d/%d"
 }
