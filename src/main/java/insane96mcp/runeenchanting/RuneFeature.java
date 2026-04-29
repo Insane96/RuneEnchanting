@@ -5,8 +5,10 @@ import insane96mcp.insanelib.core.feature.LoadFeature;
 import insane96mcp.insanelib.core.feature.Module;
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.insanelib.util.IntegratedPack;
+import insane96mcp.runeenchanting.data.runes.MagicProtectionRune;
 import insane96mcp.runeenchanting.data.runes.ProjectileProtectionRune;
 import insane96mcp.runeenchanting.data.runes.Rune;
+import insane96mcp.runeenchanting.mixin.MobEffectInstanceAccessor;
 import insane96mcp.runeenchanting.network.message.ClientboundDisableExperienceMessage;
 import insane96mcp.runeenchanting.setup.REDataComponents;
 import insane96mcp.runeenchanting.setup.REItems;
@@ -47,9 +49,11 @@ import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.enchanting.GetEnchantmentLevelEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
+import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.event.server.ServerStartedEvent;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -109,6 +113,11 @@ public class RuneFeature extends Feature {
             ((ServerPlayer) event.getEntity()).setExperienceLevels(9999);
         else
             ((ServerPlayer) event.getEntity()).setExperienceLevels(0);
+    }
+
+    @SubscribeEvent
+    public void onServerStart(ServerStartedEvent event) {
+        disableExperience = event.getServer().getGameRules().getBoolean(RULE_DISABLEEXPERIENCE);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -494,5 +503,13 @@ public class RuneFeature extends Feature {
         if (!RuneHelper.hasRuneOnArmor(event.getEntity(), RERunes.PROJECTILE_PROTECTION))
             return;
         event.modifyVisibility(ProjectileProtectionRune.sightModifier);
+    }
+
+    @SubscribeEvent
+    public void onEffectApplied(MobEffectEvent.Added event) {
+        if (event.getEffectInstance().isInfiniteDuration()
+                || !RuneHelper.hasRuneOnArmor(event.getEntity(), RERunes.MAGIC_PROTECTION))
+            return;
+        ((MobEffectInstanceAccessor) event.getEffectInstance()).setDuration((int) (event.getEffectInstance().getDuration() * MagicProtectionRune.negativeEffectsDurationMultiplier));
     }
 }

@@ -39,6 +39,8 @@
   "rune.runeenchanting.luck.description": "Increases yield from blocks mined, entities killed and fishing",
   "rune.runeenchanting.lure": "Lure",
   "rune.runeenchanting.lure.description": "Lowers the time it takes to lure fish",
+  "rune.runeenchanting.magic_protection": "Magic Protection",
+  "rune.runeenchanting.magic_protection.description": "Reduces damage taken by magic attacks and decreases the duration of negative effects",
   "rune.runeenchanting.melee_protection": "Melee Protection",
   "rune.runeenchanting.melee_protection.description": "Reduces damage taken by melee attacks and increases attack speed",
   "rune.runeenchanting.multishot": "Multishot",
