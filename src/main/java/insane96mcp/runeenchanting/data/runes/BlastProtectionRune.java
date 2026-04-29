@@ -12,7 +12,7 @@ import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 public class BlastProtectionRune extends DamageReductionRune {
     @Config
     public static Double damageReduction = 0.40d;
-    @Config
+    @Config(description = "Multiple runes don't increase this multiple times")
     public static Double explosionKnockbackReduction = 0.30d;
 
     @Override
