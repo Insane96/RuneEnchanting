@@ -3,6 +3,7 @@ package insane96mcp.runeenchanting.datagen;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.data.runes.BaneOfHissingRune;
 import insane96mcp.runeenchanting.data.runes.SmiteRune;
+import insane96mcp.runeenchanting.data.runes.WaterCoolantRune;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
@@ -26,6 +27,16 @@ public class REEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(EntityType.CREEPER);
         tag(SmiteRune.SENSITIVE)
                 .addTag(EntityTypeTags.SENSITIVE_TO_SMITE);
+        tag(WaterCoolantRune.SENSITIVE)
+                .add(EntityType.BLAZE)
+                .add(EntityType.ENDERMAN)
+                .add(EntityType.GHAST)
+                .add(EntityType.MAGMA_CUBE)
+                .add(EntityType.STRIDER)
+                .add(EntityType.WITHER)
+                .add(EntityType.WITHER_SKELETON)
+                .add(EntityType.ZOGLIN)
+                .add(EntityType.ZOMBIFIED_PIGLIN);
     }
 
     @Override

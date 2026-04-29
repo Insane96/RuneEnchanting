@@ -99,7 +99,8 @@
 - [ ] steady_fall
 
 ### Weapons
-- [ ] water_coolant
+- [x] water_coolant
+  - Increases damage to water-sensitive creatures and applies a freezing. Can be applied to tridents.
 - [ ] bane_of_noses
 - [ ] rage
 - [ ] fire_surge

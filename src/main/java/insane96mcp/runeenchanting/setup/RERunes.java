@@ -31,6 +31,7 @@ public class RERunes {
     public static final DeferredHolder<Rune, SharpnessRune> SHARPNESS = register("sharpness", new SharpnessRune());
     public static final DeferredHolder<Rune, BaneOfHissingRune> BANE_OF_HISSING = register("bane_of_hissing", new BaneOfHissingRune());
     public static final DeferredHolder<Rune, ImpalingRune> IMPALING = register("impaling", new ImpalingRune());
+    public static final DeferredHolder<Rune, WaterCoolantRune> WATER_COOLANT = register("water_coolant", new WaterCoolantRune());
     public static final DeferredHolder<Rune, SmiteRune> SMITE = register("smite", new SmiteRune());
     public static final DeferredHolder<Rune, FlameRune> FLAME = register("flame", new FlameRune());
     public static final DeferredHolder<Rune, KnockbackRune> KNOCKBACK = register("knockback", new KnockbackRune());
