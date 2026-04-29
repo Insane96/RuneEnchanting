@@ -6,7 +6,8 @@
 - [x] binding_curse
 - [x] blast_protection
 - [ ] breach
-- [ ] channeling
+- [x] channeling
+  - Also works when raining
 - [ ] density
 - [x] depth_strider
   - Reduces the movement speed reduction that occurs when in water.

@@ -9,6 +9,8 @@
   "rune.runeenchanting.bane_of_hissing.description": "Increases damage dealt to hissing creatures",
   "rune.runeenchanting.blast_protection": "Blast Protection",
   "rune.runeenchanting.blast_protection.description": "Reduces damage taken by explosions",
+  "rune.runeenchanting.channeling": "Channeling",
+  "rune.runeenchanting.channeling.description": "Summon a lightning bolt on entity or lightning rod hit",
   "rune.runeenchanting.curse_of_binding": "Curse of Binding",
   "rune.runeenchanting.curse_of_binding.description": "Prevents the item from being unequipped",
   "rune.runeenchanting.curse_of_vanishing": "Curse of Vanishing",
