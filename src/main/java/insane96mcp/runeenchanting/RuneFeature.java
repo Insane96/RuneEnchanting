@@ -57,7 +57,7 @@ import java.util.function.Consumer;
 
 @LoadFeature(canBeDisabled = false)
 public class RuneFeature extends Feature {
-    public static final GameRules.Key<GameRules.BooleanValue> RULE_DISABLEEXPERIENCE = GameRules.register("runeenchanting:disable_experience", GameRules.Category.PLAYER, GameRules.BooleanValue.create(true, (server, booleanValue) -> {
+    public static final GameRules.Key<GameRules.BooleanValue> RULE_DISABLEEXPERIENCE = GameRules.register("runeenchanting:disable_experience", GameRules.Category.PLAYER, GameRules.BooleanValue.create(false, (server, booleanValue) -> {
         RuneFeature.disableExperience = booleanValue.get();
         ClientboundDisableExperienceMessage.sync(booleanValue.get());
         server.getPlayerList().getPlayers().forEach(player -> {
