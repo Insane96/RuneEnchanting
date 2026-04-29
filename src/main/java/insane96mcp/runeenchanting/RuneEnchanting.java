@@ -3,6 +3,7 @@ package insane96mcp.runeenchanting;
 import com.mojang.logging.LogUtils;
 import insane96mcp.insanelib.setup.ILModConfig;
 import insane96mcp.runeenchanting.data.EnchantmentToRuneReloadListener;
+import insane96mcp.runeenchanting.datagen.REEnchantmentTagProvider;
 import insane96mcp.runeenchanting.datagen.REEntityTypeTagProvider;
 import insane96mcp.runeenchanting.datagen.REItemTagProvider;
 import insane96mcp.runeenchanting.datagen.RELanguageProvider;
@@ -86,6 +87,8 @@ public class RuneEnchanting {
                 new REItemTagProvider(output, lookupProvider, blockTagsProvider.contentsGetter(), MOD_ID, existingFileHelper));
         event.getGenerator().addProvider(event.includeServer(),
                 new REEntityTypeTagProvider(output, lookupProvider, MOD_ID, existingFileHelper));
+        event.getGenerator().addProvider(event.includeServer(),
+                new REEnchantmentTagProvider(output, lookupProvider, MOD_ID, existingFileHelper));
         event.getGenerator().addProvider(event.includeClient(),
                 new RELanguageProvider(output));
     }
