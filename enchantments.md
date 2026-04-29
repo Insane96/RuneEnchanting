@@ -75,8 +75,8 @@
 - [ ] expanded
 - [ ] veining
 - [ ] exchange
-- [ ] earthbend
-- [ ] dwarfing
+- [x] earthbend
+- [x] dwarfing
 
 ### Armor
 - [x] magic_protection

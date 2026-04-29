@@ -27,6 +27,7 @@ public class RERunes {
 
     public static final DeferredHolder<Rune, EfficiencyRune> EFFICIENCY = register("efficiency", new EfficiencyRune());
     public static final DeferredHolder<Rune, BlastingRune> BLASTING = register("blasting", new BlastingRune());
+    public static final DeferredHolder<Rune, DwarfingRune> DWARFING = register("dwarfing", new DwarfingRune());
     public static final DeferredHolder<Rune, EarthbendRune> EARTHBEND = register("earthbend", new EarthbendRune());
     public static final DeferredHolder<Rune, LuckRune> LUCK = register("luck", new LuckRune());
     public static final DeferredHolder<Rune, SilkTouchRune> SILK_TOUCH = register("silk_touch", new SilkTouchRune());
