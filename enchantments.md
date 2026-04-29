@@ -80,7 +80,8 @@
 
 ### Armor
 - [ ] magic_protection
-- [ ] melee_protection
+- [x] melee_protection
+  - Reduces melee damage and increases attack speed
 - [ ] flat_protection
 - [ ] absorption
 - [ ] healthy
