@@ -2,10 +2,9 @@ package insane96mcp.runeenchanting.data.runes;
 
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.RuneEnchanting;
-import insane96mcp.runeenchanting.data.AttackContext;
-import insane96mcp.runeenchanting.data.MiningContext;
 import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
@@ -107,12 +106,8 @@ public abstract class Rune {
 
     public abstract void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender);
 
-    public float onMiningSpeed(MiningContext context) {
-        return context.originalSpeed;
-    }
-
-    public float onAttack(AttackContext context) {
-        return context.damage;
+    public float onMiningSpeed(Player player, ItemStack stack, BlockState state, @Nullable BlockPos pos, float original, float speed) {
+        return speed;
     }
 
     public void tickEffects(ServerLevel level, ItemStack stack, LivingEntity entity) {}

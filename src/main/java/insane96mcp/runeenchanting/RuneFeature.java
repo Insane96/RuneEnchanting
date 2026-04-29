@@ -34,6 +34,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentTarget;
 import net.minecraft.world.level.GameRules;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
@@ -264,6 +265,17 @@ public class RuneFeature extends Feature {
         }
         return damage;
     }
+    public static float onMiningSpeed(float original, Player player, ItemStack stack, BlockState state, @Nullable BlockPos pos) {
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
+        if (runes == null)
+            return original;
+        float speed = original;
+        for (Holder<Rune> holder : runes) {
+            speed = holder.value().onMiningSpeed(player, stack, state, pos, original, speed);
+        }
+        return speed;
+    }
+
     public static void onProjectileSpawned(ServerLevel level, ItemStack stack, AbstractArrow arrow, Consumer<Item> onBreak) {
         List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
         if (runes == null)
