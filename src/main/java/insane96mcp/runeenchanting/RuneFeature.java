@@ -129,7 +129,8 @@ public class RuneFeature extends Feature {
             return;
         ItemStack output = event.getLeft().copy();
         Holder<Rune> toApply = event.getRight().get(REDataComponents.STORED_RUNE.value());
-        if (toApply == null)
+        if (toApply == null
+                || !toApply.value().canBeAppliedTo(output))
             return;
         if (!RuneHelper.addRune(output, toApply))
             return;

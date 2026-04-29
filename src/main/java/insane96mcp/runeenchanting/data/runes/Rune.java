@@ -6,11 +6,13 @@ import insane96mcp.runeenchanting.data.AttackContext;
 import insane96mcp.runeenchanting.data.MiningContext;
 import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.Util;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -96,6 +98,11 @@ public abstract class Rune {
     public ResourceLocation getApplicableToItemTag() {
         ResourceLocation id = RERunes.REGISTRY.getKey(this);
         return ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "rune_applicable_to/" + id.getPath());
+    }
+
+    public boolean canBeAppliedTo(ItemStack stack) {
+        TagKey<Item> tag = TagKey.create(Registries.ITEM, getApplicableToItemTag());
+        return stack.is(tag);
     }
 
     public abstract void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender);
