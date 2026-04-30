@@ -26,6 +26,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import net.neoforged.neoforge.event.enchanting.GetEnchantmentLevelEvent;
+import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.Field;
@@ -117,6 +118,8 @@ public abstract class Rune {
     }
 
     public void onEnchantmentLevel(GetEnchantmentLevelEvent event) {}
+
+    public void onLivingFall(LivingFallEvent event, ItemStack stack) {}
 
     public void addAttributeModifiers(ItemAttributeModifierEvent event) {}
 
