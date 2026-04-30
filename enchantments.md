@@ -90,8 +90,8 @@
 - [ ] recovery
 - [ ] air_born
 - [x] step_up
-- [ ] zippy
-- [ ] hoppy
+- [x] zippy
+- [x] hoppy
 - [ ] charged_jump
 - [ ] sprint_pact
 - [ ] magnetic
