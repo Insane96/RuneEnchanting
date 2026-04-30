@@ -266,6 +266,7 @@ public class RuneFeature extends Feature {
         }
         return damage;
     }
+
     public static float onMiningSpeed(float original, Player player, ItemStack stack, BlockState state, @Nullable BlockPos pos) {
         List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
         if (runes == null)
@@ -275,6 +276,17 @@ public class RuneFeature extends Feature {
             speed = holder.value().onMiningSpeed(player, stack, state, pos, original, speed);
         }
         return speed;
+    }
+
+    public static float onOffGroundMiningSpeedPenalty(float originalSpeedPenalty, Player player, ItemStack stack, BlockState state, BlockPos pos) {
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
+        if (runes == null)
+            return originalSpeedPenalty;
+        float speedPenalty = originalSpeedPenalty;
+        for (Holder<Rune> holder : runes) {
+            speedPenalty = holder.value().onOffGroundMiningSpeedPenalty(player, stack, state, pos, originalSpeedPenalty, speedPenalty);
+        }
+        return speedPenalty;
     }
 
     public static void onProjectileSpawned(ServerLevel level, ItemStack stack, AbstractArrow arrow, Consumer<Item> onBreak) {

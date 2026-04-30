@@ -1,5 +1,6 @@
 package insane96mcp.runeenchanting.mixin;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -29,5 +30,11 @@ public class PlayerMixin {
         float f = original.call(inventory, state);
         Player player = (Player) (Object) this;
         return RuneFeature.onMiningSpeed(f, player, player.getMainHandItem(), state, pos);
+    }
+
+    @ModifyExpressionValue(method = "getDigSpeed", at = @At(value = "CONSTANT", args = "floatValue=5.0"))
+    public float runeenchanting$onOffGroundMiningSpeedPenalty(float original, BlockState state, @Nullable BlockPos pos) {
+        Player player = (Player) (Object) this;
+        return RuneFeature.onOffGroundMiningSpeedPenalty(original, player, player.getMainHandItem(), state, pos);
     }
 }

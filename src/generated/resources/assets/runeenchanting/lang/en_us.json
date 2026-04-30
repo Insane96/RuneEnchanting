@@ -3,6 +3,8 @@
   "cursed": "Cursed",
   "cursed_info": "+1 Socket",
   "item.runeenchanting.rune": "Rune",
+  "rune.runeenchanting.air_affinity": "Air Affinity",
+  "rune.runeenchanting.air_affinity.description": "Negates the mining speed penalty when off ground",
   "rune.runeenchanting.aqua_affinity": "Aqua Affinity",
   "rune.runeenchanting.aqua_affinity.description": "Negates the mining speed penalty when underwater",
   "rune.runeenchanting.bane_of_hissing": "Bane of Hissing",

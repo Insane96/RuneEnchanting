@@ -255,4 +255,8 @@ public abstract class Rune {
         String spaced = fieldName.replaceAll("([A-Z])", " $1");
         return Character.toUpperCase(spaced.charAt(0)) + spaced.substring(1);
     }
+
+    public float onOffGroundMiningSpeedPenalty(Player player, ItemStack stack, BlockState state, BlockPos pos, float original, float speedPenalty) {
+        return speedPenalty;
+    }
 }

@@ -88,7 +88,8 @@
 - [x] healthy
 - [ ] vindication
 - [ ] recovery
-- [ ] air_born
+- [x] air_born
+  - Renamed to air_affinity
 - [x] step_up
 - [x] zippy
 - [x] hoppy
