@@ -31,7 +31,7 @@
   - Works for weapons, tridents and bows.
 - [x] looting
   - Changed to luck, works for weapons, tridents, tools and fishing rods. Mimics the level II behavior.
-- [ ] loyalty
+- [x] loyalty
 - [x] luck_of_the_sea
   - Changed to luck, works for weapons, tridents, tools and fishing rods. Mimics the level II behavior.
 - [x] lure
@@ -50,7 +50,7 @@
 - [x] quick_charge
 - [x] respiration
   - +150% oxygen
-- [ ] riptide
+- [x] riptide
 - [x] sharpness
   - Increases damage by a percentage. Can be applied to tridents.
 - [x] silk_touch

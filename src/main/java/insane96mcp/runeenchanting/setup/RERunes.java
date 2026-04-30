@@ -85,6 +85,8 @@ public class RERunes {
 
     // Trident
     public static final DeferredHolder<Rune, ChannelingRune> CHANNELING = register("channeling", new ChannelingRune());
+    public static final DeferredHolder<Rune, LoyaltyRune> LOYALTY = register("loyalty", new LoyaltyRune());
+    public static final DeferredHolder<Rune, RiptideRune> RIPTIDE = register("riptide", new RiptideRune());
 
     // Fishing Rods
     public static final DeferredHolder<Rune, LureRune> LURE = register("lure", new LureRune());
