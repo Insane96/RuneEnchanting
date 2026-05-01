@@ -26,6 +26,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import net.neoforged.neoforge.event.enchanting.GetEnchantmentLevelEvent;
+import insane96mcp.insanelib.event.PlayerSprintEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
 
@@ -264,4 +265,6 @@ public abstract class Rune {
     public float onOffGroundMiningSpeedPenalty(Player player, ItemStack stack, BlockState state, BlockPos pos, float original, float speedPenalty) {
         return speedPenalty;
     }
+
+    public void onSprintCheck(PlayerSprintEvent event, ItemStack stack) {}
 }

@@ -346,7 +346,7 @@ public class RuneHooks extends Feature {
         return strength;
     }
 
-    private static void forRunes(ItemStack stack, Consumer<Rune> action) {
+    static void forRunes(ItemStack stack, Consumer<Rune> action) {
         List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
         if (runes == null)
             return;
