@@ -93,7 +93,7 @@
 - [x] step_up
 - [x] zippy
 - [x] hoppy
-- [ ] charged_jump
+- [x] charged_jump
 - [x] sprint_pact
 - [ ] magnetic
 - [ ] retreat
