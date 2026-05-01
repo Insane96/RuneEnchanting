@@ -8,6 +8,7 @@ import insane96mcp.runeenchanting.datagen.REEntityTypeTagProvider;
 import insane96mcp.runeenchanting.datagen.REItemTagProvider;
 import insane96mcp.runeenchanting.datagen.RELanguageProvider;
 import insane96mcp.runeenchanting.network.NetworkHandler;
+import insane96mcp.runeenchanting.setup.REAttributes;
 import insane96mcp.runeenchanting.setup.REDataComponents;
 import insane96mcp.runeenchanting.setup.REItems;
 import insane96mcp.runeenchanting.setup.RERunes;
@@ -16,6 +17,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Equipable;
 import net.minecraft.world.item.ItemStack;
@@ -29,6 +31,7 @@ import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
 import org.slf4j.Logger;
 
 import java.util.concurrent.CompletableFuture;
@@ -48,9 +51,11 @@ public class RuneEnchanting {
         modEventBus.addListener(RERunes::registerRegistry);
         NeoForge.EVENT_BUS.addListener(this::onAddReloadListeners);
         modEventBus.addListener(RuneEnchanting::gatherData);
+        modEventBus.addListener(RuneEnchanting::onEntityAttributeModification);
         modEventBus.addListener(NetworkHandler::register);
         RERunes.RUNES.register(modEventBus);
         RERunes.registerConfigs(modEventBus, modContainer);
+        REAttributes.REGISTRY.register(modEventBus);
         REDataComponents.REGISTRY.register(modEventBus);
         REItems.REGISTRY.register(modEventBus);
     }
@@ -68,6 +73,10 @@ public class RuneEnchanting {
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
+    }
+
+    public static void onEntityAttributeModification(EntityAttributeModificationEvent event) {
+        event.add(EntityType.PLAYER, REAttributes.OFF_GROUND_MINING_SPEED);
     }
 
     private void onAddReloadListeners(AddReloadListenerEvent event) {

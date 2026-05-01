@@ -1,12 +1,13 @@
 package insane96mcp.runeenchanting.data.runes;
 
-import net.minecraft.core.BlockPos;
+import insane96mcp.runeenchanting.RuneEnchanting;
+import insane96mcp.runeenchanting.setup.REAttributes;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 
 public class AirAffinityRune extends Rune {
     @Override
@@ -25,7 +26,7 @@ public class AirAffinityRune extends Rune {
     }
 
     @Override
-    public float onOffGroundMiningSpeedPenalty(Player player, ItemStack stack, BlockState state, BlockPos pos, float original, float speedPenalty) {
-        return 1f;
+    public void addAttributeModifiers(ItemAttributeModifierEvent event) {
+        event.addModifier(REAttributes.OFF_GROUND_MINING_SPEED, new AttributeModifier(RuneEnchanting.id("air_affinity"), 4, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL), EquipmentSlotGroup.bySlot(RuneEnchanting.getEquipmentSlotForItem(event.getItemStack())));
     }
 }
