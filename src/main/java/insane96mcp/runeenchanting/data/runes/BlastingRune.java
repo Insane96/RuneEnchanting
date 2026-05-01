@@ -37,6 +37,7 @@ public class BlastingRune extends Rune {
                 || !(stack.getItem() instanceof DiggerItem diggerItem))
             return super.onMiningSpeed(player, stack, state, pos, original, speed);
 
+        //noinspection deprecation
         return speed + (Math.max(0.20f, (6f - state.getBlock().getExplosionResistance()) * bonusMiningSpeed.floatValue()) * diggerItem.getTier().getSpeed());
     }
 }
