@@ -23,12 +23,12 @@ public class MagneticRune extends Rune {
 
     @Override
     public String getName() {
-        return "Charged Jump";
+        return "Magnetic";
     }
 
     @Override
     public String getDescription() {
-        return "Crouch for a few seconds to charge up a strong jump";
+        return "Attracts nearby items";
     }
 
     @Override
