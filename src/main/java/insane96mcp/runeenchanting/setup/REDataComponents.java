@@ -45,4 +45,10 @@ public class REDataComponents {
                     .persistent(Codec.FLOAT)
                     .networkSynchronized(ByteBufCodecs.FLOAT)
                     .build());
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> CHARGED_JUMP =
+            REGISTRY.register("charged_jump", () -> DataComponentType.<Integer>builder()
+                    .persistent(Codec.INT)
+                    .networkSynchronized(ByteBufCodecs.INT)
+                    .build());
 }

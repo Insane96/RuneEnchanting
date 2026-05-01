@@ -17,6 +17,8 @@
   "rune.runeenchanting.blasting.description": "Increases mining speed. The lower the explosion resistance of the block, the higher the mining speed",
   "rune.runeenchanting.channeling": "Channeling",
   "rune.runeenchanting.channeling.description": "Summon a lightning bolt on entity or lightning rod hit",
+  "rune.runeenchanting.charged_jump": "Charged Jump",
+  "rune.runeenchanting.charged_jump.description": "Crouch for a few seconds to charge up a strong jump",
   "rune.runeenchanting.curse_of_binding": "Curse of Binding",
   "rune.runeenchanting.curse_of_binding.description": "Prevents the item from being unequipped",
   "rune.runeenchanting.curse_of_vanishing": "Curse of Vanishing",
