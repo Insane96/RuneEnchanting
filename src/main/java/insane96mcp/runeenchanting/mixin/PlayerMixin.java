@@ -4,7 +4,7 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import insane96mcp.runeenchanting.RuneFeature;
+import insane96mcp.runeenchanting.RuneHooks;
 import insane96mcp.runeenchanting.setup.REAttributes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.damagesource.DamageSource;
@@ -24,14 +24,14 @@ public class PlayerMixin {
     @WrapOperation(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;getEnchantedDamage(Lnet/minecraft/world/entity/Entity;FLnet/minecraft/world/damagesource/DamageSource;)F"))
     public float runeenchanting$modifyDamage(Player player, Entity attacked, float damage, DamageSource damageSource, Operation<Float> original, @Local ItemStack stack) {
         float enchantmentDamage = original.call(player, attacked, damage, damageSource);
-        return RuneFeature.onEnchantmentDamage(enchantmentDamage, player, attacked, damage, damageSource, stack);
+        return RuneHooks.onEnchantmentDamage(enchantmentDamage, player, attacked, damage, damageSource, stack);
     }
 
     @WrapOperation(method = "getDigSpeed", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Inventory;getDestroySpeed(Lnet/minecraft/world/level/block/state/BlockState;)F"))
     public float runeenchanting$modifyDigSpeed(Inventory inventory, BlockState state, Operation<Float> original, @Local(argsOnly = true) @Nullable BlockPos pos) {
         float f = original.call(inventory, state);
         Player player = (Player) (Object) this;
-        return RuneFeature.onMiningSpeed(f, player, player.getMainHandItem(), state, pos);
+        return RuneHooks.onMiningSpeed(f, player, player.getMainHandItem(), state, pos);
     }
 
     @ModifyExpressionValue(method = "getDigSpeed", at = @At(value = "CONSTANT", args = "floatValue=5.0"))
