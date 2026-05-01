@@ -31,23 +31,18 @@ import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 @LoadFeature(canBeDisabled = false)
 public class RuneHooks extends Feature {
     @SubscribeEvent
     public void onLivingDamagePre(LivingDamageEvent.Pre event) {
-        if (event.getEntity() instanceof LivingEntity attacked) {
-            for (EquipmentSlot equipmentslot : EquipmentSlot.values()) {
-                forRunes(attacked.getItemBySlot(equipmentslot), rune -> rune.onLivingDamagePre(event, attacked.getItemBySlot(equipmentslot), EnchantmentTarget.VICTIM));
-            }
-        }
+        if (event.getEntity() instanceof LivingEntity attacked)
+            forEquipmentForRunes(attacked, (stack, rune) -> rune.onLivingDamagePre(event, stack, EnchantmentTarget.VICTIM));
 
-        if (event.getSource().getEntity() instanceof LivingEntity attacker) {
-            for (EquipmentSlot equipmentslot : EquipmentSlot.values()) {
-                forRunes(attacker.getItemBySlot(equipmentslot), rune -> rune.onLivingDamagePre(event, attacker.getItemBySlot(equipmentslot), EnchantmentTarget.ATTACKER));
-            }
-        }
+        if (event.getSource().getEntity() instanceof LivingEntity attacker)
+            forEquipmentForRunes(attacker, (stack, rune) -> rune.onLivingDamagePre(event, stack, EnchantmentTarget.ATTACKER));
     }
 
     @SubscribeEvent
@@ -62,13 +57,9 @@ public class RuneHooks extends Feature {
 
     @SubscribeEvent
     public void onLivingFall(LivingFallEvent event) {
-        if (!(event.getEntity().level() instanceof ServerLevel level))
+        if (!(event.getEntity().level() instanceof ServerLevel))
             return;
-        LivingEntity entity = event.getEntity();
-        for (EquipmentSlot slot : EquipmentSlot.values()) {
-            ItemStack stack = entity.getItemBySlot(slot);
-            forRunes(stack, rune -> rune.onLivingFall(event, stack));
-        }
+        forEquipmentForRunes(event.getEntity(), (stack, rune) -> rune.onLivingFall(event, stack));
     }
 
     @SubscribeEvent
@@ -281,10 +272,7 @@ public class RuneHooks extends Feature {
     }
 
     public static void tickEffects(ServerLevel level, LivingEntity entity) {
-        for (EquipmentSlot slot : EquipmentSlot.values()) {
-            ItemStack stack = entity.getItemBySlot(slot);
-            forRunes(stack, rune -> rune.tickEffects(level, stack, entity));
-        }
+        forEquipmentForRunes(entity, (stack, rune) -> rune.tickEffects(level, stack, entity));
     }
 
     public static int modifyPiercingCount(ServerLevel level, ItemStack firedFromWeapon, ItemStack pickupItemStack, int original) {
@@ -352,6 +340,13 @@ public class RuneHooks extends Feature {
             return;
         for (Holder<Rune> holder : runes) {
             action.accept(holder.value());
+        }
+    }
+
+    static void forEquipmentForRunes(LivingEntity entity, BiConsumer<ItemStack, Rune> action) {
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
+            ItemStack stack = entity.getItemBySlot(slot);
+            forRunes(stack, rune -> action.accept(stack, rune));
         }
     }
 }
