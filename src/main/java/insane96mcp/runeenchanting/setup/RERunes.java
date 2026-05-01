@@ -67,6 +67,7 @@ public class RERunes {
     public static final DeferredHolder<Rune, MagicProtectionRune> MAGIC_PROTECTION = register("magic_protection", new MagicProtectionRune());
     public static final DeferredHolder<Rune, HealthyRune> HEALTHY = register("healthy", new HealthyRune());
     public static final DeferredHolder<Rune, ThornsRune> THORNS = register("thorns", new ThornsRune());
+    public static final DeferredHolder<Rune, MagneticRune> MAGNETIC = register("magnetic", new MagneticRune());
 
     // Helmet
     public static final DeferredHolder<Rune, RespirationRune> RESPIRATION = register("respiration", new RespirationRune());
