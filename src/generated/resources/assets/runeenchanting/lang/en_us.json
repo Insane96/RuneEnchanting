@@ -71,6 +71,8 @@
   "rune.runeenchanting.protection.description": "Reduces damage taken",
   "rune.runeenchanting.quick_charge": "Quick Charge",
   "rune.runeenchanting.quick_charge.description": "Charge arrows faster",
+  "rune.runeenchanting.recovery": "Recovery",
+  "rune.runeenchanting.recovery.description": "Recover some health back overtime when attacked",
   "rune.runeenchanting.respiration": "Respiration",
   "rune.runeenchanting.respiration.description": "Increases the time you can breathe underwater",
   "rune.runeenchanting.riptide": "Riptide",

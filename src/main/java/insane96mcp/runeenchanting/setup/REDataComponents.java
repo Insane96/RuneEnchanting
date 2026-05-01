@@ -39,4 +39,10 @@ public class REDataComponents {
                     .persistent(Codec.FLOAT)
                     .networkSynchronized(ByteBufCodecs.FLOAT)
                     .build());
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> STORED_DAMAGE =
+            REGISTRY.register("stored_damage", () -> DataComponentType.<Float>builder()
+                    .persistent(Codec.FLOAT)
+                    .networkSynchronized(ByteBufCodecs.FLOAT)
+                    .build());
 }
