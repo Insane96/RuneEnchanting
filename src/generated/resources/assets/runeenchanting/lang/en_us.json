@@ -85,6 +85,8 @@
   "rune.runeenchanting.smite.description": "Increases damage dealt to undead creatures",
   "rune.runeenchanting.soul_speed": "Soul Speed",
   "rune.runeenchanting.soul_speed.description": "Speed up walking on soul blocks",
+  "rune.runeenchanting.sprint_pact": "Sprint Pact",
+  "rune.runeenchanting.sprint_pact.description": "Increased movement speed but can no longer sprint",
   "rune.runeenchanting.step_up": "Step Up",
   "rune.runeenchanting.step_up.description": "Climb up full blocks",
   "rune.runeenchanting.swift_sneak": "Swift Sneak",

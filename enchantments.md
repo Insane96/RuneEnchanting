@@ -94,7 +94,7 @@
 - [x] zippy
 - [x] hoppy
 - [ ] charged_jump
-- [ ] sprint_pact
+- [x] sprint_pact
 - [ ] magnetic
 - [ ] retreat
 - [ ] double_jump

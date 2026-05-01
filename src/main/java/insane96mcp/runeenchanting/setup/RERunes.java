@@ -81,6 +81,7 @@ public class RERunes {
     public static final DeferredHolder<Rune, SwiftSneakRune> SWIFT_SNEAK = register("swift_sneak", new SwiftSneakRune());
     public static final DeferredHolder<Rune, StepUpRune> STEP_UP = register("step_up", new StepUpRune());
     public static final DeferredHolder<Rune, ZippyRune> ZIPPY = register("zippy", new ZippyRune());
+    public static final DeferredHolder<Rune, SprintPactRune> SPRINT_PACT = register("sprint_pact", new SprintPactRune());
 
     // Boots
     public static final DeferredHolder<Rune, FeatherFallingRune> FEATHER_FALLING = register("feather_falling", new FeatherFallingRune());
