@@ -1,1 +1,0 @@
-claude -p "Commit the current changes. Make multiple commits if necessary"
