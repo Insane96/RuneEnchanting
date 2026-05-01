@@ -24,6 +24,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import net.neoforged.neoforge.event.enchanting.GetEnchantmentLevelEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
@@ -35,25 +36,28 @@ import java.util.function.Consumer;
 @LoadFeature(canBeDisabled = false)
 public class RuneHooks extends Feature {
     @SubscribeEvent
-    public void onStackAttributeModifiers(ItemAttributeModifierEvent event) {
-        ItemStack stack = event.getItemStack();
-        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
-        if (runes == null)
-            return;
-        for (Holder<Rune> holder : runes) {
-            holder.value().addAttributeModifiers(event);
+    public void onLivingDamagePre(LivingDamageEvent.Pre event) {
+        if (event.getEntity() instanceof LivingEntity attacked) {
+            for (EquipmentSlot equipmentslot : EquipmentSlot.values()) {
+                forRunes(attacked.getItemBySlot(equipmentslot), rune -> rune.onLivingDamagePre(event, attacked.getItemBySlot(equipmentslot), EnchantmentTarget.VICTIM));
+            }
+        }
+
+        if (event.getSource().getEntity() instanceof LivingEntity attacker) {
+            for (EquipmentSlot equipmentslot : EquipmentSlot.values()) {
+                forRunes(attacker.getItemBySlot(equipmentslot), rune -> rune.onLivingDamagePre(event, attacker.getItemBySlot(equipmentslot), EnchantmentTarget.ATTACKER));
+            }
         }
     }
 
     @SubscribeEvent
+    public void onStackAttributeModifiers(ItemAttributeModifierEvent event) {
+        forRunes(event.getItemStack(), rune -> rune.addAttributeModifiers(event));
+    }
+
+    @SubscribeEvent
     public void onGetEnchantmentLevel(GetEnchantmentLevelEvent event) {
-        ItemStack stack = event.getStack();
-        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
-        if (runes == null)
-            return;
-        for (Holder<Rune> holder : runes) {
-            holder.value().onEnchantmentLevel(event);
-        }
+        forRunes(event.getStack(), rune -> rune.onEnchantmentLevel(event));
     }
 
     @SubscribeEvent
@@ -63,11 +67,7 @@ public class RuneHooks extends Feature {
         LivingEntity entity = event.getEntity();
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             ItemStack stack = entity.getItemBySlot(slot);
-            List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
-            if (runes == null) continue;
-            for (Holder<Rune> holder : runes) {
-                holder.value().onLivingFall(event, stack);
-            }
+            forRunes(stack, rune -> rune.onLivingFall(event, stack));
         }
     }
 
@@ -131,23 +131,13 @@ public class RuneHooks extends Feature {
     }
 
     public static void onProjectileSpawned(ServerLevel level, ItemStack stack, AbstractArrow arrow, Consumer<Item> onBreak) {
-        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
-        if (runes == null)
-            return;
-        for (Holder<Rune> holder : runes) {
-            holder.value().onProjectileSpawned(level, stack, arrow, onBreak);
-        }
+        forRunes(stack, rune -> rune.onProjectileSpawned(level, stack, arrow, onBreak));
     }
 
     public static void onPostAttack(ServerLevel level, @Nullable ItemStack stack, EnchantmentTarget target, Entity attacked, DamageSource damageSource) {
         if (stack == null)
             return;
-        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
-        if (runes == null)
-            return;
-        for (Holder<Rune> holder : runes) {
-            holder.value().onPostAttack(level, stack, target, attacked, damageSource);
-        }
+        forRunes(stack, rune -> rune.onPostAttack(level, stack, target, attacked, damageSource));
     }
 
     public static int modifyAmmoUse(ServerLevel level, ItemStack weapon, ItemStack ammo, int originalCount) {
@@ -293,11 +283,7 @@ public class RuneHooks extends Feature {
     public static void tickEffects(ServerLevel level, LivingEntity entity) {
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             ItemStack stack = entity.getItemBySlot(slot);
-            List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
-            if (runes == null) continue;
-            for (Holder<Rune> holder : runes) {
-                holder.value().tickEffects(level, stack, entity);
-            }
+            forRunes(stack, rune -> rune.tickEffects(level, stack, entity));
         }
     }
 
@@ -313,12 +299,7 @@ public class RuneHooks extends Feature {
     }
 
     public static void onHitBlock(ServerLevel level, ItemStack stack, @Nullable LivingEntity owner, Entity entity, @Nullable EquipmentSlot slot, Vec3 pos, BlockState state, Consumer<Item> onBreak) {
-        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
-        if (runes == null)
-            return;
-        for (Holder<Rune> holder : runes) {
-            holder.value().onHitBlock(level, stack, owner, entity, slot, pos, state, onBreak);
-        }
+        forRunes(stack, rune -> rune.onHitBlock(level, stack, owner, entity, slot, pos, state, onBreak));
     }
 
     public static float modifyFishingTimeReduction(ServerLevel level, ItemStack stack, Entity entity, float original) {
@@ -363,5 +344,14 @@ public class RuneHooks extends Feature {
             strength = holder.value().modifyTridentSpinAttackStrength(stack, entity, original, strength);
         }
         return strength;
+    }
+
+    private static void forRunes(ItemStack stack, Consumer<Rune> action) {
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
+        if (runes == null)
+            return;
+        for (Holder<Rune> holder : runes) {
+            action.accept(holder.value());
+        }
     }
 }
