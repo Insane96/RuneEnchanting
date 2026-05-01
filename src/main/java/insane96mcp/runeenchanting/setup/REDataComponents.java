@@ -33,4 +33,10 @@ public class REDataComponents {
                     .persistent(RERunes.REGISTRY.holderByNameCodec())
                     .networkSynchronized(ByteBufCodecs.holderRegistry(RERunes.REGISTRY_KEY))
                     .build());
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> STACKED_DAMAGE =
+            REGISTRY.register("stacked_damage", () -> DataComponentType.<Float>builder()
+                    .persistent(Codec.FLOAT)
+                    .networkSynchronized(ByteBufCodecs.FLOAT)
+                    .build());
 }

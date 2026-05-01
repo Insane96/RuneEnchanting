@@ -86,7 +86,7 @@
 - [ ] flat_protection
 - [ ] absorption
 - [x] healthy
-- [ ] vindication
+- [x] vindication
 - [ ] recovery
 - [x] air_born
   - Renamed to air_affinity

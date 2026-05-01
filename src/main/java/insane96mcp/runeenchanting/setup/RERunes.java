@@ -73,6 +73,7 @@ public class RERunes {
 
     // Chestplate
     public static final DeferredHolder<Rune, AirAffinityRune> AIR_AFFINITY = register("air_affinity", new AirAffinityRune());
+    public static final DeferredHolder<Rune, VindicationRune> VINDICATION = register("vindication", new VindicationRune());
 
     // Leggings
     public static final DeferredHolder<Rune, SwiftSneakRune> SWIFT_SNEAK = register("swift_sneak", new SwiftSneakRune());
