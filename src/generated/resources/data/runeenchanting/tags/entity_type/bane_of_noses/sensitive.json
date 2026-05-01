@@ -1,0 +1,12 @@
+{
+  "values": [
+    "minecraft:villager",
+    "minecraft:zombie_villager",
+    "minecraft:iron_golem",
+    "minecraft:witch",
+    "minecraft:pillager",
+    "minecraft:vindicator",
+    "minecraft:evoker",
+    "minecraft:illusioner"
+  ]
+}

@@ -2,6 +2,7 @@ package insane96mcp.runeenchanting.datagen;
 
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.data.runes.BaneOfHissingRune;
+import insane96mcp.runeenchanting.data.runes.BaneOfNosesRune;
 import insane96mcp.runeenchanting.data.runes.SmiteRune;
 import insane96mcp.runeenchanting.data.runes.WaterCoolantRune;
 import net.minecraft.core.HolderLookup;
@@ -37,6 +38,15 @@ public class REEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(EntityType.WITHER_SKELETON)
                 .add(EntityType.ZOGLIN)
                 .add(EntityType.ZOMBIFIED_PIGLIN);
+        tag(BaneOfNosesRune.SENSITIVE)
+                .add(EntityType.VILLAGER)
+                .add(EntityType.ZOMBIE_VILLAGER)
+                .add(EntityType.IRON_GOLEM)
+                .add(EntityType.WITCH)
+                .add(EntityType.PILLAGER)
+                .add(EntityType.VINDICATOR)
+                .add(EntityType.EVOKER)
+                .add(EntityType.ILLUSIONER);
     }
 
     @Override
