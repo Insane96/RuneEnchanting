@@ -192,6 +192,8 @@ public class RuneHooks extends Feature {
         int experience = original;
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             ItemStack stack = livingKiller.getItemBySlot(slot);
+            EquipmentSlot naturalSlot = RuneEnchanting.getEquipmentSlotForItem(stack);
+            if (naturalSlot != EquipmentSlot.MAINHAND && naturalSlot != slot) continue;
             List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
             if (runes == null) continue;
             for (Holder<Rune> holder : runes) {
@@ -204,6 +206,8 @@ public class RuneHooks extends Feature {
     public static boolean isImmuneToDamage(ServerLevel level, LivingEntity entity, DamageSource damageSource) {
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             ItemStack stack = entity.getItemBySlot(slot);
+            EquipmentSlot naturalSlot = RuneEnchanting.getEquipmentSlotForItem(stack);
+            if (naturalSlot != EquipmentSlot.MAINHAND && naturalSlot != slot) continue;
             List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
             if (runes == null) continue;
             for (Holder<Rune> holder : runes) {
@@ -218,6 +222,8 @@ public class RuneHooks extends Feature {
         float protection = original;
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             ItemStack stack = entity.getItemBySlot(slot);
+            EquipmentSlot naturalSlot = RuneEnchanting.getEquipmentSlotForItem(stack);
+            if (naturalSlot != EquipmentSlot.MAINHAND && naturalSlot != slot) continue;
             List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
             if (runes == null) continue;
             for (Holder<Rune> holder : runes) {
@@ -343,10 +349,22 @@ public class RuneHooks extends Feature {
         }
     }
 
+    static void forRunes(ItemStack stack, EquipmentSlot currentSlot, Consumer<Rune> action) {
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
+        if (runes == null)
+            return;
+        EquipmentSlot naturalSlot = RuneEnchanting.getEquipmentSlotForItem(stack);
+        if (naturalSlot != EquipmentSlot.MAINHAND && naturalSlot != currentSlot)
+            return;
+        for (Holder<Rune> holder : runes) {
+            action.accept(holder.value());
+        }
+    }
+
     static void forEquipmentForRunes(LivingEntity entity, BiConsumer<ItemStack, Rune> action) {
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             ItemStack stack = entity.getItemBySlot(slot);
-            forRunes(stack, rune -> action.accept(stack, rune));
+            forRunes(stack, slot, rune -> action.accept(stack, rune));
         }
     }
 }

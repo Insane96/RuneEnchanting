@@ -14,7 +14,7 @@ public class RuneHooksClient {
         LocalPlayer player = event.getPlayer();
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             ItemStack stack = player.getItemBySlot(slot);
-            RuneHooks.forRunes(stack, rune -> rune.onSprintCheck(event, stack));
+            RuneHooks.forRunes(stack, slot, rune -> rune.onSprintCheck(event, stack));
         }
     }
 }
