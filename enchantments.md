@@ -83,11 +83,11 @@
   - Reduces magic damage and decreases negative effects duration.
 - [x] melee_protection
   - Reduces melee damage and increases attack speed
-- [ ] flat_protection
-- [ ] absorption
+- [ ] ~~flat_protection~~
+- [ ] ~~absorption~~
 - [x] healthy
 - [x] vindication
-- [ ] recovery
+- [x] recovery
 - [x] air_born
   - Renamed to air_affinity
 - [x] step_up
