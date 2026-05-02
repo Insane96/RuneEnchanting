@@ -81,7 +81,7 @@
   "rune.runeenchanting.melee_protection.description": "Reduces damage taken by melee attacks and increases attack speed",
   "rune.runeenchanting.melee_protection.info": "Damage reduction: %s%%",
   "rune.runeenchanting.multishot": "Multishot",
-  "rune.runeenchanting.multishot.description": "Shot 3 arrows at once",
+  "rune.runeenchanting.multishot.description": "Load and shot 3 arrows at once",
   "rune.runeenchanting.multishot.info": "Arrows shot: %s. Spread: %s°",
   "rune.runeenchanting.piercing": "Piercing",
   "rune.runeenchanting.piercing.description": "Arrows will pass through multiple entities",
@@ -131,7 +131,7 @@
   "rune.runeenchanting.vindication.info": "Stacks %s%% of damage taken (max %s)",
   "rune.runeenchanting.water_coolant": "Water Coolant",
   "rune.runeenchanting.water_coolant.description": "Increases damage dealt to water sensitive creatures",
-  "rune.runeenchanting.water_coolant.info": "Bonus damage: %s%%. Freeze amount: %s",
+  "rune.runeenchanting.water_coolant.info": "Bonus damage: %s%%. Freeze time: %ss",
   "rune.runeenchanting.zippy": "Zippy",
   "rune.runeenchanting.zippy.description": "Increased movement speed",
   "sockets": "Sockets: %d/%d"

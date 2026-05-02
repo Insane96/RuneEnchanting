@@ -25,7 +25,7 @@ public class MultishotRune extends Rune {
 
     @Override
     public String getDescription() {
-        return "Shot 3 arrows at once";
+        return "Load and shot 3 arrows at once";
     }
 
     @Override
