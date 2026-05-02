@@ -1,7 +1,10 @@
 package insane96mcp.runeenchanting.data.runes;
 
 import insane96mcp.insanelib.core.feature.config.Config;
+import javax.annotation.Nullable;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -9,6 +12,7 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.neoforged.neoforge.common.extensions.IAttributeExtension;
 
 public class PowerRune extends Rune {
     @Config(description = "Percentage bonus damage")
@@ -34,5 +38,15 @@ public class PowerRune extends Rune {
         if (!(damageSource.getDirectEntity() instanceof AbstractArrow))
             return damage;
         return (float) (damage + (originalDamage * bonusDamage));
+    }
+
+    @Override
+    public @Nullable String getInfo() {
+        return "Bonus damage: %s%%";
+    }
+
+    @Override
+    public MutableComponent getInfoComponent() {
+        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(bonusDamage * 100));
     }
 }

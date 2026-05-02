@@ -3,6 +3,8 @@ package insane96mcp.runeenchanting.data.runes;
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.setup.REDataComponents;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -12,7 +14,9 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.common.extensions.IAttributeExtension;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class MagneticRune extends Rune {
@@ -32,6 +36,11 @@ public class MagneticRune extends Rune {
     }
 
     @Override
+    public @Nullable String getInfo() {
+        return "Range: %s, Pull Strength: %s";
+    }
+
+    @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
         appender.addTag(ItemTags.ARMOR_ENCHANTABLE);
     }
@@ -44,5 +53,10 @@ public class MagneticRune extends Rune {
             itemEntity.setDeltaMovement(itemEntity.getDeltaMovement().add(vecToEntity.normalize().scale(strength)));
             itemEntity.hurtMarked = true;
         }
+    }
+
+    @Override
+    public MutableComponent getInfoComponent() {
+        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(range), IAttributeExtension.FORMAT.format(strength * 100));
     }
 }

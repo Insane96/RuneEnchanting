@@ -158,3 +158,5 @@
 - [ ] curse_of_anchor
 - [ ] curse_of_sinking
 - [ ] curse_of_explosion
+
+Attack cooldown based effects

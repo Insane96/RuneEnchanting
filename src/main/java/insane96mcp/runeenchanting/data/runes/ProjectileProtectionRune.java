@@ -1,8 +1,12 @@
 package insane96mcp.runeenchanting.data.runes;
 
 import insane96mcp.insanelib.core.feature.config.Config;
+import javax.annotation.Nullable;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
+import net.neoforged.neoforge.common.extensions.IAttributeExtension;
 
 public class ProjectileProtectionRune extends DamageReductionRune {
     @Config
@@ -29,5 +33,15 @@ public class ProjectileProtectionRune extends DamageReductionRune {
     @Override
     public boolean shouldApply(DamageSource damageSource) {
         return super.shouldApply(damageSource) && damageSource.is(DamageTypeTags.IS_PROJECTILE);
+    }
+
+    @Override
+    public @Nullable String getInfo() {
+        return "Damage reduction: %s%%. Mob sight range: -%s%%";
+    }
+
+    @Override
+    public MutableComponent getInfoComponent() {
+        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(damageReduction * 100), IAttributeExtension.FORMAT.format((1d - sightModifier) * 100));
     }
 }

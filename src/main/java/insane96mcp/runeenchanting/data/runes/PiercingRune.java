@@ -1,7 +1,10 @@
 package insane96mcp.runeenchanting.data.runes;
 
 import insane96mcp.insanelib.core.feature.config.Config;
+import javax.annotation.Nullable;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -29,5 +32,15 @@ public class PiercingRune extends Rune {
     @Override
     public int modifyPiercingCount(ServerLevel level, ItemStack firedFromWeapon, ItemStack pickupItemStack, int original, int count) {
         return count + entitiesToPassThrough;
+    }
+
+    @Override
+    public @Nullable String getInfo() {
+        return "Entities pierced: %s";
+    }
+
+    @Override
+    public MutableComponent getInfoComponent() {
+        return Component.translatable(getInfoTranslationKey(), entitiesToPassThrough);
     }
 }

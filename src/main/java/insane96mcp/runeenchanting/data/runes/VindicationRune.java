@@ -5,7 +5,10 @@ import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.setup.REAttributes;
 import insane96mcp.runeenchanting.setup.REDataComponents;
+import javax.annotation.Nullable;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlotGroup;
@@ -15,6 +18,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.EnchantmentTarget;
+import net.neoforged.neoforge.common.extensions.IAttributeExtension;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 
@@ -67,5 +71,15 @@ public class VindicationRune extends Rune {
             return;
         event.setNewDamage(event.getNewDamage() + stackedDamage);
         stack.set(REDataComponents.STACKED_DAMAGE, 0f);
+    }
+
+    @Override
+    public @Nullable String getInfo() {
+        return "Stacks %s%% of damage taken (max %s)";
+    }
+
+    @Override
+    public MutableComponent getInfoComponent() {
+        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(stackedDamageMultiplier * 100), IAttributeExtension.FORMAT.format(stackedDamageMax));
     }
 }

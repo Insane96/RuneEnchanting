@@ -4,6 +4,8 @@ import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.ItemTags;
@@ -20,6 +22,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentTarget;
+import net.neoforged.neoforge.common.extensions.IAttributeExtension;
 
 import javax.annotation.Nullable;
 
@@ -39,6 +42,11 @@ public class WaterCoolantRune extends Rune {
     @Override
     public String getDescription() {
         return "Increases damage dealt to water sensitive creatures";
+    }
+
+    @Override
+    public @Nullable String getInfo() {
+        return "Bonus damage: %s%%. Freeze time: %ss";
     }
 
     @Override
@@ -62,5 +70,10 @@ public class WaterCoolantRune extends Rune {
             return;
 
         livingEntity.setTicksFrozen(Entity.BASE_TICKS_REQUIRED_TO_FREEZE + 10 + (Entity.FREEZE_HURT_FREQUENCY * 2 * freezeAmount));
+    }
+
+    @Override
+    public MutableComponent getInfoComponent() {
+        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(bonusDamage * 100), freezeAmount);
     }
 }
