@@ -38,8 +38,6 @@ public class FireProtectionRune extends DamageReductionRune {
 
     @Override
     public void addAttributeModifiers(ItemAttributeModifierEvent event) {
-        if (event.getItemStack().getEquipmentSlot() == null)
-            return;
         event.addModifier(Attributes.BURNING_TIME, new AttributeModifier(RuneEnchanting.id("fire_protection"), -burningDurationReduction, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), EquipmentSlotGroup.bySlot(RuneEnchanting.getEquipmentSlotForItem(event.getItemStack())));
     }
 }

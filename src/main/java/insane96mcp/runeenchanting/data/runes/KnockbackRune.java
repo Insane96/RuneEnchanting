@@ -2,6 +2,8 @@ package insane96mcp.runeenchanting.data.runes;
 
 import insane96mcp.insanelib.core.feature.config.Config;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.damagesource.DamageSource;
@@ -9,6 +11,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.neoforged.neoforge.common.extensions.IAttributeExtension;
+
+import javax.annotation.Nullable;
 
 public class KnockbackRune extends Rune {
     @Config
@@ -27,6 +32,11 @@ public class KnockbackRune extends Rune {
     }
 
     @Override
+    public @Nullable String getInfo() {
+        return "Melee bonus knockback: %s. Arrow: %s";
+    }
+
+    @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
         appender.addTag(ItemTags.SWORDS)
                 .addTag(ItemTags.AXES)
@@ -39,5 +49,10 @@ public class KnockbackRune extends Rune {
         if (damageSource.getDirectEntity() != damageSource.getEntity())
             return knockback + arrowKnockback.floatValue();
         return knockback + meleeKnockback.floatValue();
+    }
+
+    @Override
+    public MutableComponent getInfoComponent() {
+        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(meleeKnockback), IAttributeExtension.FORMAT.format(arrowKnockback));
     }
 }

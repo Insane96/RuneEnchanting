@@ -4,6 +4,8 @@ import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -19,6 +21,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentTarget;
+import net.neoforged.neoforge.common.extensions.IAttributeExtension;
 
 import javax.annotation.Nullable;
 
@@ -45,6 +48,11 @@ public class SmiteRune extends Rune {
     }
 
     @Override
+    public @Nullable String getInfo() {
+        return "Bonus damage: %s%%, Applies Weakness %s for %ss~%ss";
+    }
+
+    @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
         appender.addTag(ItemTags.SWORDS)
                 .addTag(ItemTags.AXES)
@@ -67,5 +75,10 @@ public class SmiteRune extends Rune {
             return;
 
         livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, (int) (Mth.nextDouble(level.random, weaknessDurationMin, weaknessDurationMax) * 20f), weaknessAmplifier));
+    }
+
+    @Override
+    public MutableComponent getInfoComponent() {
+        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(bonusDamage * 100), Component.translatable("potion.potency." + weaknessAmplifier), weaknessDurationMin, weaknessDurationMax);
     }
 }

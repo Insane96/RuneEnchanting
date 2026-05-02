@@ -4,6 +4,8 @@ import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.setup.REDataComponents;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
@@ -16,7 +18,10 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.common.extensions.IAttributeExtension;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
+
+import javax.annotation.Nullable;
 
 public class ChargedJumpRune extends Rune {
     @Config
@@ -32,6 +37,11 @@ public class ChargedJumpRune extends Rune {
     @Override
     public String getDescription() {
         return "Crouch for a few seconds to charge up a strong jump";
+    }
+
+    @Override
+    public @Nullable String getInfo() {
+        return "Time to full charge: %ss. Max jump boost: %s";
     }
 
     @Override
@@ -60,5 +70,10 @@ public class ChargedJumpRune extends Rune {
 
     public static boolean isReadyToJump(ItemStack stack) {
         return stack.getOrDefault(REDataComponents.CHARGED_JUMP, 0) >= timeToCharge;
+    }
+
+    @Override
+    public MutableComponent getInfoComponent() {
+        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(timeToCharge * (maxJumpBoostAmplifier + 1) / 20f), Component.translatable("potion.potency." + maxJumpBoostAmplifier));
     }
 }

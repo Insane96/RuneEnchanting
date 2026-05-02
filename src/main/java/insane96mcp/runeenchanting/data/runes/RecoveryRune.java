@@ -3,19 +3,24 @@ package insane96mcp.runeenchanting.data.runes;
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.setup.REDataComponents;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentTarget;
+import net.neoforged.neoforge.common.extensions.IAttributeExtension;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import org.jetbrains.annotations.Nullable;
 
 import static insane96mcp.runeenchanting.data.runes.VindicationRune.stackedDamageMax;
 
 public class RecoveryRune extends Rune {
     @Config
-    public static Double damageToRegenRatio = 0.5d;
+    public static Double damageToRegenRatio = 0.4d;
     @Config(description = "Per second")
     public static Double regenSpeed = 0.35d;
 
@@ -27,6 +32,11 @@ public class RecoveryRune extends Rune {
     @Override
     public String getDescription() {
         return "Recover some health back overtime when attacked";
+    }
+
+    @Override
+    public @Nullable String getInfo() {
+        return "Stored healing: %s. Damage to regen: %s%%. Regen speed: %s/s";
     }
 
     @Override
@@ -64,5 +74,10 @@ public class RecoveryRune extends Rune {
         entity.heal(toRegen);
         damageToRegenStored -= toRegen;
         stack.set(REDataComponents.STORED_DAMAGE, damageToRegenStored);
+    }
+
+    @Override
+    public MutableComponent getInfoComponent(ItemStack stack, @Nullable Player player) {
+        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(stack.getOrDefault(REDataComponents.STORED_DAMAGE, 0f)), damageToRegenRatio * 100f, IAttributeExtension.FORMAT.format(regenSpeed));
     }
 }
