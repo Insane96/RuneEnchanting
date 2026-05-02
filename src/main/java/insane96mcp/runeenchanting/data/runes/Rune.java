@@ -7,8 +7,11 @@ import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
@@ -34,6 +37,7 @@ import javax.annotation.Nullable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -267,4 +271,20 @@ public abstract class Rune {
     }
 
     public void onSprintCheck(PlayerSprintEvent event, ItemStack stack) {}
+
+    @Nullable
+    public String getInfo() { return null; }
+
+    public String getInfoTranslationKey() { return getOrCreateNameTanslationKey() + ".info"; }
+
+    public MutableComponent getInfoComponent() { return Component.translatable(getInfoTranslationKey()); }
+
+    public void addInfo(List<Component> tooltip, @Nullable Player player) {
+        tooltip.add(CommonComponents.space().append(getInfoComponent()).withStyle(ChatFormatting.GRAY));
+    }
+
+    public void addTooltip(ItemStack stack, List<Component> tooltip, TooltipFlag flag, @Nullable Player player) {
+        if (getInfo() != null && flag.hasShiftDown())
+            addInfo(tooltip, player);
+    }
 }

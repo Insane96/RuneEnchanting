@@ -17,6 +17,8 @@ public class RELanguageProvider extends LanguageProvider {
             var rune = entry.getValue();
             add(rune.getNameTranslationKey(), rune.getName());
             add(rune.getDescriptionTranslationKey(), rune.getDescription());
+            if (rune.getInfo() != null)
+                add(rune.getInfoTranslationKey(), rune.getInfo());
         }
 
         add("item.runeenchanting.rune", "Rune");

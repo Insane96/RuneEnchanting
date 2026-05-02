@@ -187,6 +187,7 @@ public class RuneFeature extends Feature {
                     event.getToolTip().add(CommonComponents.space().append(holder.value().getNameComponent().withStyle(ChatFormatting.LIGHT_PURPLE)));
                     if (event.getFlags().hasShiftDown())
                         event.getToolTip().add(CommonComponents.space().append(holder.value().getDescriptionComponent()).withStyle(ChatFormatting.GRAY));
+                    holder.value().addTooltip(stack, event.getToolTip(), event.getFlags(), event.getEntity());
                 }
             }
             if (isCursed) {
