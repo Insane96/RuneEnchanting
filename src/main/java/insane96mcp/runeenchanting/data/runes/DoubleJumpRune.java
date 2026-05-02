@@ -7,18 +7,15 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.neoforged.neoforge.event.enchanting.GetEnchantmentLevelEvent;
 
-public class SoulSpeedRune extends Rune {
-    @Config(description = "This rune mimics Soul Speed enchantment of this level")
-    public static Integer enchantmentLevelEquivalent = 1;
-
+public class DoubleJumpRune extends Rune {
     @Override
     public String getName() {
-        return "Soul Speed";
+        return "Double Jump";
     }
 
     @Override
     public String getDescription() {
-        return "Speed up walking on soul blocks";
+        return "Does exactly what you think";
     }
 
     @Override
@@ -26,15 +23,5 @@ public class SoulSpeedRune extends Rune {
         appender.addTag(ItemTags.FOOT_ARMOR_ENCHANTABLE);
     }
 
-    @Override
-    public void onEnchantmentLevel(GetEnchantmentLevelEvent event) {
-        var registry = event.getLookup();
-        registry.get(Enchantments.SOUL_SPEED).ifPresent(soulSpeed ->
-                event.getEnchantments().set(soulSpeed, enchantmentLevelEquivalent));
-    }
-
-    @Override
-    public boolean canGenerateRandomly() {
-        return false;
-    }
+    
 }
