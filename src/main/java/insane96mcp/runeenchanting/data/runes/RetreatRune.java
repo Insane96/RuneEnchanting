@@ -19,6 +19,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.neoforged.neoforge.common.extensions.IAttributeExtension;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -46,7 +47,7 @@ public class RetreatRune extends Rune {
 
     @Override
     public @Nullable String getInfo() {
-        return "Bonus movement speed: %.1f%%";
+        return "Bonus movement speed: %s%%";
     }
 
     @Override
@@ -71,7 +72,7 @@ public class RetreatRune extends Rune {
     public MutableComponent getInfoComponent(ItemStack stack, @Nullable Player player) {
         if (player == null)
             return Component.empty();
-        return Component.translatable(getInfoTranslationKey(), String.format("%.1f", getBonusSpeed(player) * 100f));
+        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(getBonusSpeed(player) * 100f));
     }
 
     private float getBonusSpeed(LivingEntity entity) {
