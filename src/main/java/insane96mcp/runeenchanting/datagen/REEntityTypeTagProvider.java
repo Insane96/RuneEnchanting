@@ -42,6 +42,7 @@ public class REEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(EntityType.VILLAGER)
                 .add(EntityType.ZOMBIE_VILLAGER)
                 .add(EntityType.IRON_GOLEM)
+                .add(EntityType.WANDERING_TRADER)
                 .add(EntityType.WITCH)
                 .add(EntityType.PILLAGER)
                 .add(EntityType.VINDICATOR)
