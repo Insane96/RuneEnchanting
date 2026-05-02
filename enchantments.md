@@ -95,8 +95,8 @@
 - [x] hoppy
 - [x] charged_jump
 - [x] sprint_pact
-- [ ] magnetic
-- [ ] retreat
+- [x] magnetic
+- [x] retreat
 - [ ] double_jump
 - [ ] enlightened
 - [ ] invulnerability
