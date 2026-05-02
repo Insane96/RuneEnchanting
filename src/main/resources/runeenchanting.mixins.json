@@ -8,7 +8,8 @@
         "EnchantWithLevelsFunctionMixin",
         "IItemExtensionMixin",
         "MobEffectInstanceAccessor",
-        "PlayerMixin"
+        "PlayerMixin",
+        "ProjectileWeaponItemMixin"
     ],
     "client": [
         "client.GuiGraphicsMixin"
