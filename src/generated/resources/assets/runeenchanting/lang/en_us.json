@@ -30,6 +30,8 @@
   "rune.runeenchanting.curse_of_vanishing.description": "Destroys the item on death",
   "rune.runeenchanting.depth_strider": "Depth Strider",
   "rune.runeenchanting.depth_strider.description": "Reduces the movement speed reduction that occurs when in water",
+  "rune.runeenchanting.double_jump": "Double Jump",
+  "rune.runeenchanting.double_jump.description": "Press jump while in the air to jump again",
   "rune.runeenchanting.dwarfing": "Dwarfing",
   "rune.runeenchanting.dwarfing.description": "Increases mining speed. The deeper you mine, the higher the mining speed",
   "rune.runeenchanting.dwarfing.info": "Current bonus mining speed: %s",
