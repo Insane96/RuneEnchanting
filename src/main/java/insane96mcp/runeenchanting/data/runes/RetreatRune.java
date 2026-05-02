@@ -7,6 +7,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
@@ -67,12 +68,10 @@ public class RetreatRune extends Rune {
     }
 
     @Override
-    public void addInfo(List<Component> tooltip, @Nullable Player player) {
+    public MutableComponent getInfoComponent(ItemStack stack, @Nullable Player player) {
         if (player == null)
-            return;
-        tooltip.add(CommonComponents.space()
-                .append(Component.translatable(getInfoTranslationKey(), String.format("%.1f", getBonusSpeed(player) * 100f)))
-                .withStyle(ChatFormatting.GRAY));
+            return Component.empty();
+        return Component.translatable(getInfoTranslationKey(), String.format("%.1f", getBonusSpeed(player) * 100f));
     }
 
     private float getBonusSpeed(LivingEntity entity) {

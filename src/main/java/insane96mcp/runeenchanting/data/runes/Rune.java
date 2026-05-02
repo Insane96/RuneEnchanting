@@ -279,12 +279,15 @@ public abstract class Rune {
 
     public MutableComponent getInfoComponent() { return Component.translatable(getInfoTranslationKey()); }
 
-    public void addInfo(List<Component> tooltip, @Nullable Player player) {
-        tooltip.add(CommonComponents.space().append(getInfoComponent()).withStyle(ChatFormatting.GRAY));
+    public MutableComponent getInfoComponent(ItemStack stack, @Nullable Player player) { return getInfoComponent(); }
+
+    public void addInfo(ItemStack stack, List<Component> tooltip, @Nullable Player player) {
+        if (getInfo() == null) return;
+        tooltip.add(CommonComponents.space().append(getInfoComponent(stack, player)).withStyle(ChatFormatting.GRAY));
     }
 
     public void addTooltip(ItemStack stack, List<Component> tooltip, TooltipFlag flag, @Nullable Player player) {
-        if (getInfo() != null && flag.hasShiftDown())
-            addInfo(tooltip, player);
+        if (flag.hasShiftDown())
+            addInfo(stack, tooltip, player);
     }
 }
