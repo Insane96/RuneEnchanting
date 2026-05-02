@@ -27,6 +27,7 @@ import net.minecraft.world.item.enchantment.EnchantmentTarget;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.ModConfigSpec;
+import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import net.neoforged.neoforge.event.enchanting.GetEnchantmentLevelEvent;
 import insane96mcp.insanelib.event.PlayerSprintEvent;
@@ -271,6 +272,8 @@ public abstract class Rune {
     }
 
     public void onSprintCheck(PlayerSprintEvent event, ItemStack stack) {}
+
+    public void onKeyInput(InputEvent.Key event, ItemStack stack) {}
 
     @Nullable
     public String getInfo() { return null; }
