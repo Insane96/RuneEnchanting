@@ -92,6 +92,7 @@ public class RERunes {
     public static final DeferredHolder<Rune, FrostWalkerRune> FROST_WALKER = register("frost_walker", new FrostWalkerRune());
     public static final DeferredHolder<Rune, SoulSpeedRune> SOUL_SPEED = register("soul_speed", new SoulSpeedRune());
     public static final DeferredHolder<Rune, HoppyRune> HOPPY = register("hoppy", new HoppyRune());
+    public static final DeferredHolder<Rune, DoubleJumpRune> DOUBLE_JUMP = register("double_jump", new DoubleJumpRune());
 
     // Trident
     public static final DeferredHolder<Rune, ChannelingRune> CHANNELING = register("channeling", new ChannelingRune());

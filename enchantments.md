@@ -97,7 +97,7 @@
 - [x] sprint_pact
 - [x] magnetic
 - [x] retreat
-- [ ] double_jump
+- [x] double_jump
 - [ ] enlightened
 - [ ] invulnerability
 - [ ] fire_guardian
