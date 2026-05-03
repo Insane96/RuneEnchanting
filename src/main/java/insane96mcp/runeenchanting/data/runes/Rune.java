@@ -286,7 +286,7 @@ public abstract class Rune {
 
     public void addInfo(ItemStack stack, List<Component> tooltip, @Nullable Player player) {
         if (getInfo() == null) return;
-        tooltip.add(CommonComponents.space().append(getInfoComponent(stack, player)).withStyle(ChatFormatting.GRAY));
+        tooltip.add(CommonComponents.space().append(getInfoComponent(stack, player)).withStyle(ChatFormatting.BLUE).withStyle(ChatFormatting.ITALIC));
     }
 
     public void addTooltip(ItemStack stack, List<Component> tooltip, TooltipFlag flag, @Nullable Player player) {

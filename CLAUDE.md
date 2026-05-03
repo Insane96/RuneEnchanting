@@ -84,4 +84,4 @@ The system is largely wired in. The legacy `onMiningSpeed(MiningContext)` and `o
 
 Don't write code unless prompted or confirmed to do.
 Other mod's source, is in C:\Users\delvi\source\repos\Insane96\
-If you need Minecraft/Neo code ask instead of going into a rabbit hole try to read it, so I can provide it.
+If you need Minecraft/Neo code ask, instead of going into a rabbit hole try to read it, so I can provide it.
