@@ -101,7 +101,7 @@
 - [ ] enlightened
 - [ ] invulnerability
 - [ ] fire_guardian
-- [ ] steady_fall
+- [x] steady_fall
 
 ### Weapons
 - [x] water_coolant
