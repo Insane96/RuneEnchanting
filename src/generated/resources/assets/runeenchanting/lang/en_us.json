@@ -43,6 +43,7 @@
   "rune.runeenchanting.efficiency.description": "Increases mining speed",
   "rune.runeenchanting.enduring": "Enduring",
   "rune.runeenchanting.enduring.description": "Increases durability",
+  "rune.runeenchanting.enduring.info": "Bonus durability: %s%% + %s",
   "rune.runeenchanting.feather_falling": "Feather Falling",
   "rune.runeenchanting.feather_falling.description": "Reduces damage taken by falls",
   "rune.runeenchanting.fire_protection": "Fire Protection",
