@@ -18,6 +18,7 @@ public class RERuneTagProvider extends TagsProvider<Rune> {
     public static final TagKey<Rune> CURSE = TagKey.create(RERunes.REGISTRY_KEY, RuneEnchanting.id("curse"));
     public static final TagKey<Rune> VANISHABLE = TagKey.create(RERunes.REGISTRY_KEY, RuneEnchanting.id("vanishable"));
     public static final TagKey<Rune> LOOT_ABANDONED_MINESHAFT = TagKey.create(RERunes.REGISTRY_KEY, loot("abandoned_mineshaft"));
+    public static final TagKey<Rune> LOOT_IGLOO_CHEST = TagKey.create(RERunes.REGISTRY_KEY, loot("igloo_chest"));
 
     public RERuneTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, String modId, @Nullable ExistingFileHelper existingFileHelper) {
         super(output, RERunes.REGISTRY_KEY, lookupProvider, modId, existingFileHelper);
@@ -41,6 +42,9 @@ public class RERuneTagProvider extends TagsProvider<Rune> {
                 RERunes.DWARFING,
                 RERunes.LUCK)
                 .addTag(VANISHABLE);
+
+        add(LOOT_IGLOO_CHEST,
+                RERunes.FROST_WALKER);
     }
 
     @Override
