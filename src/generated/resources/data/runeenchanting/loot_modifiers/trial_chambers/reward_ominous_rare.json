@@ -1,0 +1,18 @@
+{
+  "type": "runeenchanting:rune_loot",
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:chests/trial_chambers/reward_ominous_rare"
+    }
+  ],
+  "rune_tags": [
+    {
+      "tag": "runeenchanting:loot/trial_chambers/reward_ominous_rare",
+      "weight": 3
+    },
+    {
+      "weight": 1
+    }
+  ]
+}

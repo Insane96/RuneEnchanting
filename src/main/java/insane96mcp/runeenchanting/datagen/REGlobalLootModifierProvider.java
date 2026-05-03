@@ -30,7 +30,11 @@ public class REGlobalLootModifierProvider extends GlobalLootModifierProvider {
                 new RuneLootModifier.WeightedTag(Optional.of(RERuneTagProvider.LOOT_ANCIENT_CITY), 1)
         ));
         addRuneLootModifier("bastion_other", List.of(
-                new RuneLootModifier.WeightedTag(Optional.of(RERuneTagProvider.BASTION_OTHER_SPECIFIC), 3),
+                new RuneLootModifier.WeightedTag(Optional.of(RERuneTagProvider.LOOT_BASTION_OTHER_SPECIFIC), 3),
+                new RuneLootModifier.WeightedTag(Optional.empty(), 1)
+        ));
+        addRuneLootModifier("trial_chambers/reward_ominous_rare", List.of(
+                new RuneLootModifier.WeightedTag(Optional.of(RERuneTagProvider.LOOT_TRIAL_CHAMBERS_REWARD_OMINOUS_RARE), 3),
                 new RuneLootModifier.WeightedTag(Optional.empty(), 1)
         ));
         addRuneLootModifier("igloo_chest", RERuneTagProvider.LOOT_IGLOO_CHEST);
@@ -52,9 +56,5 @@ public class REGlobalLootModifierProvider extends GlobalLootModifierProvider {
                 conditions(ResourceLocation.parse("minecraft:chests/" + lootTable)),
                 List.of(new RuneLootModifier.WeightedTag(Optional.of(runesTag), 1))
         ));
-    }
-
-    public void addRuneLootModifier(String lootTable) {
-        add(lootTable, new RuneLootModifier(conditions(ResourceLocation.parse("minecraft:chests/" + lootTable)), List.of()));
     }
 }
