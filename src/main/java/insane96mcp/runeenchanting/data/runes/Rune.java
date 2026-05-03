@@ -82,7 +82,7 @@ public abstract class Rune {
     ///Used for data gen
     public abstract String getDescription();
 
-    protected String getOrCreateNameTanslationKey() {
+    protected String getOrCreateNameTranslationKey() {
         if (this.descriptionId == null) {
             this.descriptionId = Util.makeDescriptionId("rune", RERunes.REGISTRY.getKey(this));
         }
@@ -91,11 +91,11 @@ public abstract class Rune {
     }
 
     public String getNameTranslationKey() {
-        return this.getOrCreateNameTanslationKey();
+        return this.getOrCreateNameTranslationKey();
     }
 
     public String getDescriptionTranslationKey() {
-        return this.getOrCreateNameTanslationKey() + ".description";
+        return this.getOrCreateNameTranslationKey() + ".description";
     }
 
     public ResourceLocation getApplicableToItemTag() {
@@ -274,7 +274,7 @@ public abstract class Rune {
     @Nullable
     public String getInfo() { return null; }
 
-    public String getInfoTranslationKey() { return getOrCreateNameTanslationKey() + ".info"; }
+    public String getInfoTranslationKey() { return getOrCreateNameTranslationKey() + ".info"; }
 
     public MutableComponent getInfoComponent() { return Component.translatable(getInfoTranslationKey()); }
 
