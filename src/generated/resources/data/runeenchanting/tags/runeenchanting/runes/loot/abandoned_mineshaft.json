@@ -1,0 +1,11 @@
+{
+  "values": [
+    "runeenchanting:efficiency",
+    "runeenchanting:blasting",
+    "runeenchanting:silk_touch",
+    "runeenchanting:earthbend",
+    "runeenchanting:dwarfing",
+    "runeenchanting:luck",
+    "#runeenchanting:vanishable"
+  ]
+}
