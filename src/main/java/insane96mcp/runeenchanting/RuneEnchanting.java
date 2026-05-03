@@ -12,6 +12,7 @@ import insane96mcp.runeenchanting.network.NetworkHandler;
 import insane96mcp.runeenchanting.setup.REAttributes;
 import insane96mcp.runeenchanting.setup.REDataComponents;
 import insane96mcp.runeenchanting.setup.REItems;
+import insane96mcp.runeenchanting.setup.RELootModifiers;
 import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -59,6 +60,7 @@ public class RuneEnchanting {
         REAttributes.REGISTRY.register(modEventBus);
         REDataComponents.REGISTRY.register(modEventBus);
         REItems.REGISTRY.register(modEventBus);
+        RELootModifiers.REGISTRY.register(modEventBus);
     }
 
     public static ResourceLocation id(String path) {

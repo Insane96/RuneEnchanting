@@ -107,6 +107,43 @@ public class RuneHelper {
         return runeItem;
     }
 
+    public static void addRandomRunes(ItemStack stack, int amount, RandomSource random, List<? extends Holder<Rune>> runePool) {
+        if (amount <= 0) return;
+
+        List<Holder<Rune>> eligible = runePool.stream()
+                .filter(holder -> {
+                    Rune rune = holder.value();
+                    return rune.isEnabled() && rune.canGenerateRandomly()
+                            && stack.is(TagKey.create(Registries.ITEM, rune.getApplicableToItemTag()));
+                })
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        if (eligible.isEmpty()) return;
+
+        int freeSlots = stack.getOrDefault(REDataComponents.SOCKETS.get(), 0)
+                - stack.getOrDefault(REDataComponents.RUNES.get(), List.of()).size();
+        if (freeSlots <= 0) return;
+
+        int toAdd = Math.min(Math.min(amount, freeSlots), eligible.size());
+        for (int i = 0; i < toAdd; i++) {
+            int idx = random.nextInt(eligible.size());
+            addRune(stack, eligible.get(idx));
+            eligible.remove(idx);
+        }
+    }
+
+    public static ItemStack createRandomRuneItem(RandomSource random, List<? extends Holder<Rune>> runePool) {
+        List<Holder<Rune>> eligible = runePool.stream()
+                .filter(h -> h.value().isEnabled() && h.value().canGenerateRandomly())
+                .collect(Collectors.toCollection(ArrayList::new));
+        if (eligible.isEmpty())
+            return ItemStack.EMPTY;
+        Holder<Rune> picked = eligible.get(random.nextInt(eligible.size()));
+        ItemStack runeItem = new ItemStack(REItems.RUNE.get());
+        runeItem.set(REDataComponents.STORED_RUNE.get(), picked);
+        return runeItem;
+    }
+
     public static void addRandomRunes(ItemStack stack, int amount, RandomSource random, Optional<HolderSet<Enchantment>> options) {
         if (amount <= 0) return;
 
