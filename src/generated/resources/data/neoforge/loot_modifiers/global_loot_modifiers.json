@@ -1,7 +1,8 @@
 {
-  "replace": false,
   "entries": [
     "runeenchanting:abandoned_mineshaft",
+    "runeenchanting:igloo_chest",
     "runeenchanting:catch_all"
-  ]
+  ],
+  "replace": false
 }

@@ -30,7 +30,7 @@ public class RuneLootModifier extends LootModifier {
 
     private final TagKey<Rune> runeTag;
 
-    protected RuneLootModifier(LootItemCondition[] conditions, ResourceLocation runeTagId) {
+    public RuneLootModifier(LootItemCondition[] conditions, ResourceLocation runeTagId) {
         super(conditions);
         this.runeTag = TagKey.create(RERunes.REGISTRY_KEY, runeTagId);
     }

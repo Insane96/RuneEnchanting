@@ -5,6 +5,7 @@ import insane96mcp.insanelib.setup.ILModConfig;
 import insane96mcp.runeenchanting.data.EnchantmentToRuneReloadListener;
 import insane96mcp.runeenchanting.datagen.REEnchantmentTagProvider;
 import insane96mcp.runeenchanting.datagen.REEntityTypeTagProvider;
+import insane96mcp.runeenchanting.datagen.REGlobalLootModifierProvider;
 import insane96mcp.runeenchanting.datagen.REItemTagProvider;
 import insane96mcp.runeenchanting.datagen.RELanguageProvider;
 import insane96mcp.runeenchanting.datagen.RERuneTagProvider;
@@ -103,6 +104,8 @@ public class RuneEnchanting {
                 new REEnchantmentTagProvider(output, lookupProvider, MOD_ID, existingFileHelper));
         event.getGenerator().addProvider(event.includeServer(),
                 new RERuneTagProvider(output, lookupProvider, MOD_ID, existingFileHelper));
+        event.getGenerator().addProvider(event.includeServer(),
+                new REGlobalLootModifierProvider(output, lookupProvider));
         event.getGenerator().addProvider(event.includeClient(),
                 new RELanguageProvider(output));
     }

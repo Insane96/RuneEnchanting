@@ -3,8 +3,8 @@
   "conditions": [
     {
       "condition": "neoforge:loot_table_id",
-      "loot_table_id": "minecraft:chests/abandoned_mineshaft"
+      "loot_table_id": "minecraft:chests/igloo_chest"
     }
   ],
-  "rune_tag": "runeenchanting:loot/abandoned_mineshaft"
+  "rune_tag": "runeenchanting:loot/igloo_chest"
 }

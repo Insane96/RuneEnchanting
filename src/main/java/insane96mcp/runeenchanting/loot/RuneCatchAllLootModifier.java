@@ -23,7 +23,7 @@ public class RuneCatchAllLootModifier extends LootModifier {
     public static final MapCodec<RuneCatchAllLootModifier> CODEC = RecordCodecBuilder.mapCodec(inst ->
             codecStart(inst).apply(inst, RuneCatchAllLootModifier::new));
 
-    protected RuneCatchAllLootModifier(LootItemCondition[] conditions) {
+    public RuneCatchAllLootModifier(LootItemCondition[] conditions) {
         super(conditions);
     }
 
