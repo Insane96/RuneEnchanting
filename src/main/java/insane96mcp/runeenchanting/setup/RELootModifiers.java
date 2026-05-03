@@ -2,6 +2,7 @@ package insane96mcp.runeenchanting.setup;
 
 import com.mojang.serialization.MapCodec;
 import insane96mcp.runeenchanting.RuneEnchanting;
+import insane96mcp.runeenchanting.loot.ExperienceBottleToRuneLootModifier;
 import insane96mcp.runeenchanting.loot.RuneCatchAllLootModifier;
 import insane96mcp.runeenchanting.loot.RuneLootModifier;
 import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
@@ -18,4 +19,7 @@ public class RELootModifiers {
 
     public static final DeferredHolder<MapCodec<? extends IGlobalLootModifier>, MapCodec<RuneCatchAllLootModifier>> RUNE_CATCH_ALL =
             REGISTRY.register("rune_catch_all", () -> RuneCatchAllLootModifier.CODEC);
+
+    public static final DeferredHolder<MapCodec<? extends IGlobalLootModifier>, MapCodec<ExperienceBottleToRuneLootModifier>> EXPERIENCE_BOTTLE_TO_RUNE =
+            REGISTRY.register("experience_bottle_to_rune", () -> ExperienceBottleToRuneLootModifier.CODEC);
 }

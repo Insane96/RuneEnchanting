@@ -65,10 +65,6 @@ public abstract class Rune {
         this.enabled = enabled;
     }
 
-    public boolean canGenerateRandomly() {
-        return true;
-    }
-
     public boolean isCurse() {
         return false;
     }

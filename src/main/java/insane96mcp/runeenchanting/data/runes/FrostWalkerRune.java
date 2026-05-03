@@ -30,9 +30,4 @@ public class FrostWalkerRune extends Rune {
     public void onEnchantmentLevel(GetEnchantmentLevelEvent event) {
         event.getHolder(Enchantments.FROST_WALKER).ifPresent(frostWalker -> event.getEnchantments().set(frostWalker, enchantmentLevelEquivalent));
     }
-
-    /*@Override
-    public boolean canGenerateRandomly() {
-        return false;
-    }*/
 }

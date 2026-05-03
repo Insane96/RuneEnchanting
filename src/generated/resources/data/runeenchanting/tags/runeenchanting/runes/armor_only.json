@@ -1,0 +1,17 @@
+{
+  "values": [
+    "runeenchanting:protection",
+    "runeenchanting:blast_protection",
+    "runeenchanting:fire_protection",
+    "runeenchanting:projectile_protection",
+    "runeenchanting:melee_protection",
+    "runeenchanting:magic_protection",
+    "runeenchanting:healthy",
+    "runeenchanting:thorns",
+    "runeenchanting:magnetic",
+    "#runeenchanting:armor_head_only",
+    "#runeenchanting:armor_chest_only",
+    "#runeenchanting:armor_legs_only",
+    "#runeenchanting:armor_feet_only"
+  ]
+}

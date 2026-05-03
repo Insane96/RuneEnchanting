@@ -1,7 +1,10 @@
 {
   "entries": [
     "runeenchanting:abandoned_mineshaft",
+    "runeenchanting:ancient_city",
+    "runeenchanting:bastion_bridge",
     "runeenchanting:igloo_chest",
+    "runeenchanting:experience_bottle_to_rune",
     "runeenchanting:catch_all"
   ],
   "replace": false

@@ -6,5 +6,10 @@
       "loot_table_id": "minecraft:chests/abandoned_mineshaft"
     }
   ],
-  "rune_tag": "runeenchanting:loot/abandoned_mineshaft"
+  "rune_tags": [
+    {
+      "tag": "runeenchanting:loot/abandoned_mineshaft",
+      "weight": 1
+    }
+  ]
 }

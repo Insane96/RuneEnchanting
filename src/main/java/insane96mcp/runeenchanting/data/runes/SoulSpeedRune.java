@@ -32,9 +32,4 @@ public class SoulSpeedRune extends Rune {
         registry.get(Enchantments.SOUL_SPEED).ifPresent(soulSpeed ->
                 event.getEnchantments().set(soulSpeed, enchantmentLevelEquivalent));
     }
-
-    @Override
-    public boolean canGenerateRandomly() {
-        return false;
-    }
 }

@@ -89,31 +89,13 @@ public class RuneHelper {
         return runes;
     }
 
-    public static ItemStack createRandomRuneItem(RandomSource random, Optional<HolderSet<Enchantment>> options) {
-        List<Holder<Rune>> eligible = options.<List<Holder<Rune>>>map(holders -> holders.stream()
-                .map(EnchantmentToRuneReloadListener::getRuneForEnchantment)
-                .filter(Objects::nonNull)
-                .filter(h -> h.value().isEnabled() && h.value().canGenerateRandomly())
-                .distinct()
-                .collect(Collectors.toCollection(ArrayList::new)))
-                .orElseGet(() -> RERunes.REGISTRY.holders()
-                        .filter(h -> h.value().isEnabled() && h.value().canGenerateRandomly())
-                        .collect(Collectors.toCollection(ArrayList::new)));
-        if (eligible.isEmpty())
-            return ItemStack.EMPTY;
-        Holder<Rune> picked = eligible.get(random.nextInt(eligible.size()));
-        ItemStack runeItem = new ItemStack(REItems.RUNE.get());
-        runeItem.set(REDataComponents.STORED_RUNE.get(), picked);
-        return runeItem;
-    }
-
     public static void addRandomRunes(ItemStack stack, int amount, RandomSource random, List<? extends Holder<Rune>> runePool) {
         if (amount <= 0) return;
 
         List<Holder<Rune>> eligible = runePool.stream()
                 .filter(holder -> {
                     Rune rune = holder.value();
-                    return rune.isEnabled() && rune.canGenerateRandomly()
+                    return rune.isEnabled()
                             && stack.is(TagKey.create(Registries.ITEM, rune.getApplicableToItemTag()));
                 })
                 .collect(Collectors.toCollection(ArrayList::new));
@@ -134,7 +116,7 @@ public class RuneHelper {
 
     public static ItemStack createRandomRuneItem(RandomSource random, List<? extends Holder<Rune>> runePool) {
         List<Holder<Rune>> eligible = runePool.stream()
-                .filter(h -> h.value().isEnabled() && h.value().canGenerateRandomly())
+                .filter(h -> h.value().isEnabled())
                 .collect(Collectors.toCollection(ArrayList::new));
         if (eligible.isEmpty())
             return ItemStack.EMPTY;
@@ -142,40 +124,6 @@ public class RuneHelper {
         ItemStack runeItem = new ItemStack(REItems.RUNE.get());
         runeItem.set(REDataComponents.STORED_RUNE.get(), picked);
         return runeItem;
-    }
-
-    public static void addRandomRunes(ItemStack stack, int amount, RandomSource random, Optional<HolderSet<Enchantment>> options) {
-        if (amount <= 0) return;
-
-        List<Holder<Rune>> eligibleRunes = options.<List<Holder<Rune>>>map(holders -> holders.stream()
-                .map(EnchantmentToRuneReloadListener::getRuneForEnchantment)
-                .filter(Objects::nonNull)
-                .filter(holder -> {
-                    Rune rune = holder.value();
-                    return rune.isEnabled() && rune.canGenerateRandomly()
-                            && stack.is(TagKey.create(Registries.ITEM, rune.getApplicableToItemTag()));
-                })
-                .distinct()
-                .collect(Collectors.toCollection(ArrayList::new))).orElseGet(() -> RERunes.REGISTRY.holders()
-                .filter(holder -> {
-                    Rune rune = holder.value();
-                    return rune.isEnabled() && rune.canGenerateRandomly()
-                            && stack.is(TagKey.create(Registries.ITEM, rune.getApplicableToItemTag()));
-                })
-                .collect(Collectors.toCollection(ArrayList::new)));
-
-        if (eligibleRunes.isEmpty()) return;
-
-        int freeSlots = stack.getOrDefault(REDataComponents.SOCKETS, 0)
-                - stack.getOrDefault(REDataComponents.RUNES.get(), List.of()).size();
-        if (freeSlots <= 0) return;
-
-        int toAdd = Math.min(amount, freeSlots);
-        for (int i = 0; i < toAdd && !eligibleRunes.isEmpty(); i++) {
-            int idx = random.nextInt(eligibleRunes.size());
-            addRune(stack, eligibleRunes.get(idx));
-            eligibleRunes.remove(idx);
-        }
     }
 
     @Nullable
