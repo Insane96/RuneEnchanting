@@ -26,6 +26,7 @@ public class RERuneTagProvider extends TagsProvider<Rune> {
     public static final TagKey<Rune> LOOT_IGLOO_CHEST = TagKey.create(RERunes.REGISTRY_KEY, loot("igloo_chest"));
     public static final TagKey<Rune> LOOT_ANCIENT_CITY_SPECIFIC = TagKey.create(RERunes.REGISTRY_KEY, loot("ancient_city_specific"));
     public static final TagKey<Rune> LOOT_ANCIENT_CITY = TagKey.create(RERunes.REGISTRY_KEY, loot("ancient_city"));
+    public static final TagKey<Rune> BASTION_OTHER_SPECIFIC = TagKey.create(RERunes.REGISTRY_KEY, loot("ancient_city_specific"));
 
     public RERuneTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, String modId, @Nullable ExistingFileHelper existingFileHelper) {
         super(output, RERunes.REGISTRY_KEY, lookupProvider, modId, existingFileHelper);
@@ -97,6 +98,9 @@ public class RERuneTagProvider extends TagsProvider<Rune> {
                 RERunes.SWIFT_SNEAK);
         add(LOOT_ANCIENT_CITY)
                 .addTag(ARMOR_LEGS_ONLY);
+
+        add(BASTION_OTHER_SPECIFIC,
+                RERunes.SOUL_SPEED);
     }
 
     @Override

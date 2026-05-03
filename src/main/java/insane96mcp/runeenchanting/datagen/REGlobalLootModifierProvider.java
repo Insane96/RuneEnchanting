@@ -29,7 +29,10 @@ public class REGlobalLootModifierProvider extends GlobalLootModifierProvider {
                 new RuneLootModifier.WeightedTag(Optional.of(RERuneTagProvider.LOOT_ANCIENT_CITY_SPECIFIC), 3),
                 new RuneLootModifier.WeightedTag(Optional.of(RERuneTagProvider.LOOT_ANCIENT_CITY), 1)
         ));
-        addRuneLootModifier("bastion_bridge");
+        addRuneLootModifier("bastion_other", List.of(
+                new RuneLootModifier.WeightedTag(Optional.of(RERuneTagProvider.BASTION_OTHER_SPECIFIC), 3),
+                new RuneLootModifier.WeightedTag(Optional.empty(), 1)
+        ));
         addRuneLootModifier("igloo_chest", RERuneTagProvider.LOOT_IGLOO_CHEST);
 
         add("experience_bottle_to_rune", new ExperienceBottleToRuneLootModifier(new LootItemCondition[0]));
