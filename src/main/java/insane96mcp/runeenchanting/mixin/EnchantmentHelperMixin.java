@@ -1,13 +1,8 @@
 package insane96mcp.runeenchanting.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import insane96mcp.runeenchanting.RuneFeature;
 import insane96mcp.runeenchanting.RuneHooks;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -15,10 +10,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.EnchantmentTarget;
-import net.minecraft.world.item.enchantment.providers.EnchantmentProvider;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,7 +21,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import javax.annotation.Nullable;
-import java.util.Optional;
 import java.util.function.Consumer;
 
 @Mixin(EnchantmentHelper.class)
@@ -146,17 +138,5 @@ public class EnchantmentHelperMixin {
         return RuneHooks.modifyTridentSpinAttackStrength(stack, entity, original);
     }
 
-    @Inject(method = "enchantItem(Lnet/minecraft/util/RandomSource;Lnet/minecraft/world/item/ItemStack;ILnet/minecraft/core/RegistryAccess;Ljava/util/Optional;)Lnet/minecraft/world/item/ItemStack;", at = @At("HEAD"), cancellable = true)
-    private static void runeenchanting$enchantItem(RandomSource random, ItemStack stack, int level, RegistryAccess registryAccess, Optional<Enchantment> enchantment, CallbackInfoReturnable<ItemStack> cir) {
-        if (!RuneFeature.disableExperience)
-            return;
-        cir.setReturnValue(stack);
-    }
-
-    @Inject(method = "enchantItemFromProvider", at = @At("HEAD"), cancellable = true)
-    private static void runeenchanting$enchantItemFromProvider(ItemStack stack, RegistryAccess registries, ResourceKey<EnchantmentProvider> key, DifficultyInstance difficulty, RandomSource random, CallbackInfo ci) {
-        if (!RuneFeature.disableExperience)
-            return;
-        ci.cancel();
-    }
+    // enchantItem and enchantItemFromProvider are intentionally not cancelled: loot GLMs handle conversion.
 }

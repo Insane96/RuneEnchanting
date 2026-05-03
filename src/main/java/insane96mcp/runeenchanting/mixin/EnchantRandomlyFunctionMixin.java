@@ -24,18 +24,4 @@ public class EnchantRandomlyFunctionMixin {
     @Final
     private Optional<HolderSet<Enchantment>> options;
 
-    @Inject(method = "run", at = @At("HEAD"), cancellable = true)
-    private void runeenchanting$onRun(ItemStack stack, LootContext context, CallbackInfoReturnable<ItemStack> cir) {
-        RandomSource random = context.getRandom();
-        if (stack.is(Items.BOOK)) {
-            cir.setReturnValue(RuneHelper.createRandomRuneItem(random, Optional.empty() /*this.options*/));
-            cir.cancel();
-            return;
-        }
-        RuneHelper.addRandomRunes(stack, 1, random, Optional.empty() /*this.options*/);
-        if (RuneFeature.disableExperience) {
-            cir.setReturnValue(stack);
-            cir.cancel();
-        }
-    }
 }
