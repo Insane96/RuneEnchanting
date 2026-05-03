@@ -7,6 +7,7 @@ import insane96mcp.runeenchanting.datagen.REEnchantmentTagProvider;
 import insane96mcp.runeenchanting.datagen.REEntityTypeTagProvider;
 import insane96mcp.runeenchanting.datagen.REItemTagProvider;
 import insane96mcp.runeenchanting.datagen.RELanguageProvider;
+import insane96mcp.runeenchanting.datagen.RERuneTagProvider;
 import insane96mcp.runeenchanting.network.NetworkHandler;
 import insane96mcp.runeenchanting.setup.REAttributes;
 import insane96mcp.runeenchanting.setup.REDataComponents;
@@ -98,6 +99,8 @@ public class RuneEnchanting {
                 new REEntityTypeTagProvider(output, lookupProvider, MOD_ID, existingFileHelper));
         event.getGenerator().addProvider(event.includeServer(),
                 new REEnchantmentTagProvider(output, lookupProvider, MOD_ID, existingFileHelper));
+        event.getGenerator().addProvider(event.includeServer(),
+                new RERuneTagProvider(output, lookupProvider, MOD_ID, existingFileHelper));
         event.getGenerator().addProvider(event.includeClient(),
                 new RELanguageProvider(output));
     }
