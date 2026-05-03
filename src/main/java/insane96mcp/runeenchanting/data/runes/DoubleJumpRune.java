@@ -2,9 +2,12 @@ package insane96mcp.runeenchanting.data.runes;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import insane96mcp.insanelib.core.feature.config.Config;
+import insane96mcp.runeenchanting.network.message.ServerboundDoubleJumpMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
@@ -16,11 +19,16 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.event.InputEvent;
+import net.neoforged.neoforge.common.extensions.IAttributeExtension;
 import org.lwjgl.glfw.GLFW;
+
+import javax.annotation.Nullable;
 
 public class DoubleJumpRune extends Rune {
     @Config
     public static Integer extraJumps = 1;
+    @Config(min = 0, max = 1, description = "Percentage")
+    public static Double durabilityConsumed = 0.02d;
 
     private static final String DOUBLE_JUMPS_KEY = "runeenchanting:double_jumps";
 
@@ -32,6 +40,11 @@ public class DoubleJumpRune extends Rune {
     @Override
     public String getDescription() {
         return "Press jump while in the air to jump again";
+    }
+
+    @Override
+    public @Nullable String getInfo() {
+        return "Durability consumed per double jump: %s%%";
     }
 
     @Override
@@ -61,6 +74,7 @@ public class DoubleJumpRune extends Rune {
         player.jumpFromGround();
         player.getPersistentData().putInt(DOUBLE_JUMPS_KEY, jumpsUsed + 1);
         player.fallDistance = 0f;
+        ServerboundDoubleJumpMessage.send();
 
         RandomSource random = player.level().getRandom();
         for (int i = 0; i < 5; i++) {
@@ -75,5 +89,10 @@ public class DoubleJumpRune extends Rune {
     public void tickEffects(ServerLevel level, ItemStack stack, LivingEntity entity) {
         if (entity.onGround())
             entity.getPersistentData().remove(DOUBLE_JUMPS_KEY);
+    }
+
+    @Override
+    public MutableComponent getInfoComponent() {
+        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(durabilityConsumed));
     }
 }
