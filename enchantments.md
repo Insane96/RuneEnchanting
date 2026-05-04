@@ -105,18 +105,19 @@
 
 ### Weapons
 - [x] water_coolant
-  - Increases damage to water-sensitive creatures and applies a freezing. Can be applied to tridents.
+  - Increases damage to water-sensitive creatures and applies freezing. Can be applied to tridents.
 - [x] bane_of_noses
 - [x] rage
 - [x] fire_surge
 - [x] swift_strike
 - [ ] padding
-- [ ] part_breaker
-- [ ] air_stealer
-- [ ] armor_piercer
-- [ ] cryo_aspect
-- [ ] explosive
-- [ ] gravity_defying
+- [x] part_breaker
+- [x] air_stealer
+- [ ] ~~armor_piercer~~
+  - To add from ISO
+- [ ] ~~cryo_aspect~~
+- [x] explosive
+- [x] gravity_defying
 
 ### Tools and Weapons
 - [x] ~~smartness~~

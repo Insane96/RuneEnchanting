@@ -2,6 +2,7 @@ package insane96mcp.runeenchanting;
 
 import insane96mcp.insanelib.core.feature.Feature;
 import insane96mcp.insanelib.core.feature.LoadFeature;
+import insane96mcp.runeenchanting.data.runes.ExplosiveRune;
 import insane96mcp.runeenchanting.data.runes.MagicProtectionRune;
 import insane96mcp.runeenchanting.data.runes.ProjectileProtectionRune;
 import insane96mcp.runeenchanting.data.runes.Rune;
@@ -24,11 +25,9 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import net.neoforged.neoforge.event.enchanting.GetEnchantmentLevelEvent;
-import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
-import net.neoforged.neoforge.event.entity.living.LivingEvent;
-import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
-import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
+import net.neoforged.neoforge.event.entity.living.*;
 import net.neoforged.neoforge.event.level.BlockEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -76,6 +75,30 @@ public class RuneHooks extends Feature {
                 || !RuneHelper.hasRuneOnArmor(event.getEntity(), RERunes.MAGIC_PROTECTION))
             return;
         ((MobEffectInstanceAccessor) event.getEffectInstance()).setDuration((int) (event.getEffectInstance().getDuration() * MagicProtectionRune.negativeEffectsDurationMultiplier));
+    }
+
+    @SubscribeEvent
+    public void onLivingTick(EntityTickEvent.Pre event) {
+        if (!(event.getEntity().level() instanceof ServerLevel level)
+                || !(event.getEntity() instanceof LivingEntity living))
+            return;
+        ExplosiveRune.tick(level, living);
+    }
+
+    @SubscribeEvent
+    public void onLivingDeath(LivingDeathEvent event) {
+        if (!(event.getEntity().level() instanceof ServerLevel level)) return;
+        if (!(event.getSource().getEntity() instanceof LivingEntity killer)) return;
+        ItemStack weapon = killer.getMainHandItem();
+        forRunes(weapon, rune -> rune.onKill(level, weapon, event.getEntity(), event.getSource()));
+    }
+
+    @SubscribeEvent
+    public void onLivingDrops(LivingDropsEvent event) {
+        if (!(event.getEntity().level() instanceof ServerLevel level)) return;
+        if (!(event.getSource().getEntity() instanceof LivingEntity killer)) return;
+        ItemStack weapon = killer.getMainHandItem();
+        forRunes(weapon, rune -> rune.onLivingDrops(event, weapon));
     }
 
     @SubscribeEvent

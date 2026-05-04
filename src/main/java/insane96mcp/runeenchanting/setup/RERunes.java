@@ -51,6 +51,9 @@ public class RERunes {
     public static final DeferredHolder<Rune, RageRune> RAGE = register("rage", new RageRune());
     public static final DeferredHolder<Rune, FireSurgeRune> FIRE_SURGE = register("fire_surge", new FireSurgeRune());
     public static final DeferredHolder<Rune, SwiftStrikeRune> SWIFT_STRIKE = register("swift_strike", new SwiftStrikeRune());
+    public static final DeferredHolder<Rune, AirStealerRune> AIR_STEALER = register("air_stealer", new AirStealerRune());
+    public static final DeferredHolder<Rune, ExplosiveRune> EXPLOSIVE = register("explosive", new ExplosiveRune());
+    public static final DeferredHolder<Rune, PartBreakerRune> PART_BREAKER = register("part_breaker", new PartBreakerRune());
 
     // Weapons and Bows
     public static final DeferredHolder<Rune, FlameRune> FLAME = register("flame", new FlameRune());
@@ -59,6 +62,7 @@ public class RERunes {
     // Bows
     public static final DeferredHolder<Rune, PowerRune> POWER = register("power", new PowerRune());
     public static final DeferredHolder<Rune, InfinityRune> INFINITY = register("infinity", new InfinityRune());
+    public static final DeferredHolder<Rune, GravityDefyingRune> GRAVITY_DEFYING = register("gravity_defying", new GravityDefyingRune());
 
     // Crossbow
     public static final DeferredHolder<Rune, PiercingRune> PIERCING = register("piercing", new PiercingRune());
