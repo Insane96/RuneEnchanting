@@ -28,6 +28,7 @@ import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
+import net.neoforged.neoforge.event.level.BlockEvent;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -75,6 +76,19 @@ public class RuneHooks extends Feature {
                 || !RuneHelper.hasRuneOnArmor(event.getEntity(), RERunes.MAGIC_PROTECTION))
             return;
         ((MobEffectInstanceAccessor) event.getEffectInstance()).setDuration((int) (event.getEffectInstance().getDuration() * MagicProtectionRune.negativeEffectsDurationMultiplier));
+    }
+
+    @SubscribeEvent
+    public void onBlockBreak(BlockEvent.BreakEvent event) {
+        if (!(event.getLevel() instanceof ServerLevel))
+            return;
+        ItemStack stack = event.getPlayer().getMainHandItem();
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
+        if (runes == null) return;
+        for (Holder<Rune> holder : runes) {
+            holder.value().onBlockBreak(event, stack);
+            if (event.isCanceled()) break;
+        }
     }
 
     public static int onGetMaxDamage(int original, ItemStack stack) {

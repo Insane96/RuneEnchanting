@@ -51,4 +51,10 @@ public class REDataComponents {
                     .persistent(Codec.INT)
                     .networkSynchronized(ByteBufCodecs.INT)
                     .build());
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Long>> FIRE_GUARDIAN_LAST_USED =
+            REGISTRY.register("fire_guardian_last_used", () -> DataComponentType.<Long>builder()
+                    .persistent(Codec.LONG)
+                    .networkSynchronized(ByteBufCodecs.VAR_LONG)
+                    .build());
 }

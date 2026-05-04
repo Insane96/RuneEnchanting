@@ -7,12 +7,14 @@
         "EnchantRandomlyFunctionMixin",
         "EnchantWithLevelsFunctionMixin",
         "IItemExtensionMixin",
+        "LivingEntityMixin",
         "MobEffectInstanceAccessor",
         "PlayerMixin",
         "ProjectileWeaponItemMixin"
     ],
     "client": [
         "client.GuiGraphicsMixin",
+        "client.LevelRendererAccessor",
         "client.LightTextureMixin"
     ],
     "injectors": {

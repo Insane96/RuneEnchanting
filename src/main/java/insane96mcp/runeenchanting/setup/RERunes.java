@@ -29,6 +29,11 @@ public class RERunes {
     public static final DeferredHolder<Rune, EfficiencyRune> EFFICIENCY = register("efficiency", new EfficiencyRune());
     public static final DeferredHolder<Rune, EarthbendRune> EARTHBEND = register("earthbend", new EarthbendRune());
     public static final DeferredHolder<Rune, SilkTouchRune> SILK_TOUCH = register("silk_touch", new SilkTouchRune());
+    public static final DeferredHolder<Rune, VeiningRune> VEINING = register("veining", new VeiningRune());
+    public static final DeferredHolder<Rune, ExchangeRune> EXCHANGE = register("exchange", new ExchangeRune());
+
+    // Pickaxe + Shovel
+    public static final DeferredHolder<Rune, ExpandedRune> EXPANDED = register("expanded", new ExpandedRune());
 
     // Pickaxe
     public static final DeferredHolder<Rune, BlastingRune> BLASTING = register("blasting", new BlastingRune());
@@ -78,6 +83,8 @@ public class RERunes {
     public static final DeferredHolder<Rune, AirAffinityRune> AIR_AFFINITY = register("air_affinity", new AirAffinityRune());
     public static final DeferredHolder<Rune, VindicationRune> VINDICATION = register("vindication", new VindicationRune());
     public static final DeferredHolder<Rune, RecoveryRune> RECOVERY = register("recovery", new RecoveryRune());
+    public static final DeferredHolder<Rune, InvulnerabilityRune> INVULNERABILITY = register("invulnerability", new InvulnerabilityRune());
+    public static final DeferredHolder<Rune, FireGuardianRune> FIRE_GUARDIAN = register("fire_guardian", new FireGuardianRune());
 
     // Leggings
     public static final DeferredHolder<Rune, SwiftSneakRune> SWIFT_SNEAK = register("swift_sneak", new SwiftSneakRune());

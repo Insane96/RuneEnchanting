@@ -24,8 +24,12 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentTarget;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
@@ -33,6 +37,7 @@ import net.neoforged.neoforge.event.enchanting.GetEnchantmentLevelEvent;
 import insane96mcp.insanelib.event.PlayerSprintEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
+import net.neoforged.neoforge.event.level.BlockEvent;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.Field;
@@ -112,6 +117,12 @@ public abstract class Rune {
 
     public float onMiningSpeed(Player player, ItemStack stack, BlockState state, @Nullable BlockPos pos, float original, float speed) {
         return speed;
+    }
+
+    public void onBlockBreak(BlockEvent.BreakEvent event, ItemStack stack) {}
+
+    public List<BlockPos> getClientAffectedBlocks(Level level, Player player, BlockPos targetPos, BlockState targetState, Direction face, Vec3 clickLocation) {
+        return List.of();
     }
 
     public void onLivingDamagePre(LivingDamageEvent.Pre event, ItemStack stack, EnchantmentTarget target) {
