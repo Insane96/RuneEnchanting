@@ -1,6 +1,5 @@
 package insane96mcp.runeenchanting.data.runes;
 
-import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -22,7 +21,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.common.extensions.IAttributeExtension;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,8 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExpandedRune extends Rune {
-    @Config(min = 1, max = 10, description = "Number of additional blocks to mine in the column")
-    public static Integer additionalBlocks = 2;
+    /*@Config(min = 1, max = 10, description = "Number of additional blocks to mine in the column")
+    public static Integer additionalBlocks = 2;*/
 
     public ExpandedRune() {
         super(-1);
@@ -49,12 +47,16 @@ public class ExpandedRune extends Rune {
 
     @Override
     public String getInfo() {
-        return "Additional blocks: %s. Mining speed penalty: %s%%";
+        return "Mining speed penalty: %s%%";
     }
 
     @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
         appender.addTag(ItemTags.PICKAXES).addTag(ItemTags.SHOVELS);
+    }
+
+    public static int additionalBlocks() {
+        return 2;
     }
 
     @Override
@@ -76,7 +78,7 @@ public class ExpandedRune extends Rune {
         List<BlockPos> candidates = getColumnCandidates(player, targetPos);
         List<BlockPos> result = new ArrayList<>();
         for (BlockPos candidate : candidates) {
-            if (result.size() >= additionalBlocks) break;
+            if (result.size() >= additionalBlocks()) break;
             BlockState candidateState = level.getBlockState(candidate);
             if (candidateState.getDestroySpeed(level, candidate) > 0
                     && stack.isCorrectToolForDrops(candidateState)
@@ -127,7 +129,7 @@ public class ExpandedRune extends Rune {
         List<BlockPos> candidates = getClientColumnCandidates(player, targetPos, face, clickLocation);
         List<BlockPos> result = new ArrayList<>();
         for (BlockPos candidate : candidates) {
-            if (result.size() >= additionalBlocks) break;
+            if (result.size() >= additionalBlocks()) break;
             BlockState candidateState = level.getBlockState(candidate);
             if (candidateState.getDestroySpeed(level, candidate) > 0
                     && stack.isCorrectToolForDrops(candidateState)
@@ -162,13 +164,13 @@ public class ExpandedRune extends Rune {
     }
 
     public float getMiningSpeedPenalty() {
-        float divider = additionalBlocks + 1f;
+        float divider = additionalBlocks() + 1f;
         divider -= divider * 0.05f;
         return 1f / divider;
     }
 
     @Override
     public MutableComponent getInfoComponent() {
-        return Component.translatable(getInfoTranslationKey(), additionalBlocks, RuneEnchanting.NO_DECIMAL_FORMATTER.format((1f - getMiningSpeedPenalty()) * -100));
+        return Component.translatable(getInfoTranslationKey(), additionalBlocks(), RuneEnchanting.NO_DECIMAL_FORMATTER.format((1f - getMiningSpeedPenalty()) * -100));
     }
 }

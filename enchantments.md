@@ -74,7 +74,7 @@
 - [x] blasting
 - [x] expanded
 - [x] veining
-- [x] exchange
+- [ ] ~~exchange~~
 - [x] earthbend
 - [x] dwarfing
 
