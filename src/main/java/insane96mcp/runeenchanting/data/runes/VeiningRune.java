@@ -1,6 +1,7 @@
 package insane96mcp.runeenchanting.data.runes;
 
 import insane96mcp.insanelib.core.feature.config.Config;
+import insane96mcp.runeenchanting.RuneEnchanting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
@@ -21,7 +22,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.common.extensions.IAttributeExtension;
 import net.neoforged.neoforge.event.level.BlockEvent;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -31,8 +34,8 @@ import java.util.List;
 import java.util.Set;
 
 public class VeiningRune extends Rune {
-    @Config(min = 1, max = 64, description = "Maximum number of additional connected blocks to mine")
-    public static Integer maxBlocks = 8;
+    @Config(min = 1, max = 256, description = "Maximum number of additional connected blocks to mine")
+    public static Integer maxBlocks = 4;
 
     @Override
     public String getName() {
@@ -46,7 +49,7 @@ public class VeiningRune extends Rune {
 
     @Override
     public String getInfo() {
-        return "Max additional blocks: %s";
+        return "Mined blocks: %s. Mining speed penalty: %s%%";
     }
 
     @Override
@@ -117,7 +120,18 @@ public class VeiningRune extends Rune {
     }
 
     @Override
+    public float onMiningSpeed(Player player, ItemStack stack, BlockState state, @Nullable BlockPos pos, float original, float speed) {
+        return speed * getMiningSpeedPenalty();
+    }
+
+    public float getMiningSpeedPenalty() {
+        float divider = maxBlocks + 1f;
+        divider -= divider * 0.5f;
+        return 1f / divider;
+    }
+
+    @Override
     public MutableComponent getInfoComponent() {
-        return Component.translatable(getInfoTranslationKey(), maxBlocks);
+        return Component.translatable(getInfoTranslationKey(), maxBlocks + 1, RuneEnchanting.NO_DECIMAL_FORMATTER.format((1f - getMiningSpeedPenalty()) * -100));
     }
 }

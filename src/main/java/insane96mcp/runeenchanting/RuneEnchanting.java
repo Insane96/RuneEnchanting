@@ -15,6 +15,7 @@ import insane96mcp.runeenchanting.setup.REDataComponents;
 import insane96mcp.runeenchanting.setup.REItems;
 import insane96mcp.runeenchanting.setup.RELootModifiers;
 import insane96mcp.runeenchanting.setup.RERunes;
+import net.minecraft.Util;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
@@ -37,6 +38,9 @@ import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
 import org.slf4j.Logger;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 
 @Mod(RuneEnchanting.MOD_ID)
@@ -46,6 +50,9 @@ public class RuneEnchanting {
 
     public static ILModConfig CONFIG;
     public static final String CONFIG_FOLDER = "config/" + MOD_ID;
+
+    public static final DecimalFormat ONE_DECIMAL_FORMATTER = Util.make(new DecimalFormat("#.#"), fmt -> fmt.setDecimalFormatSymbols(DecimalFormatSymbols.getInstance(Locale.ROOT)));
+    public static final DecimalFormat NO_DECIMAL_FORMATTER = Util.make(new DecimalFormat("#"), fmt -> fmt.setDecimalFormatSymbols(DecimalFormatSymbols.getInstance(Locale.ROOT)));
 
     public RuneEnchanting(IEventBus modEventBus, ModContainer modContainer) {
         CONFIG = new ILModConfig(id("main"), "Single Module", ModConfig.Type.COMMON, modEventBus, RuneEnchanting.class.getClassLoader());
