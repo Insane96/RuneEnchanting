@@ -6,11 +6,10 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import insane96mcp.insanelib.event.PlayerSprintEvent;
 import insane96mcp.runeenchanting.data.runes.Rune;
 import insane96mcp.runeenchanting.mixin.client.LevelRendererAccessor;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderBuffers;
 import net.minecraft.client.renderer.RenderType;
@@ -26,7 +25,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.shapes.CollisionContext;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.InputEvent;
@@ -34,8 +32,7 @@ import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.SortedMap;
+import java.util.SortedSet;
 
 @EventBusSubscriber
 public class RuneHooksClient {
@@ -61,7 +58,8 @@ public class RuneHooksClient {
 
     @SubscribeEvent
     public static void onRenderLevelStage(RenderLevelStageEvent event) {
-        if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_SOLID_BLOCKS)
+        RenderLevelStageEvent.Stage stage = event.getStage();
+        if (stage != RenderLevelStageEvent.Stage.AFTER_SOLID_BLOCKS && stage != RenderLevelStageEvent.Stage.AFTER_BLOCK_ENTITIES)
             return;
 
         Minecraft mc = Minecraft.getInstance();
@@ -101,42 +99,38 @@ public class RuneHooksClient {
         LevelRendererAccessor accessor = (LevelRendererAccessor) event.getLevelRenderer();
         RenderBuffers renderBuffers = accessor.getRenderBuffers();
 
-        renderCrackOverlay(poseStack, renderBuffers.crumblingBufferSource(), targetPos, mc.level, xOff, yOff, zOff, accessor.getDestroyingBlocks(), affectedBlocks);
-        renderOutlines(poseStack, renderBuffers.bufferSource(), mc.player, mc.level, xOff, yOff, zOff, affectedBlocks);
+        if (stage == RenderLevelStageEvent.Stage.AFTER_SOLID_BLOCKS) {
+            renderOutlines(poseStack, renderBuffers.bufferSource(), accessor, mc.player, xOff, yOff, zOff, affectedBlocks, mc.level);
+        } else {
+            renderCrackOverlay(poseStack, renderBuffers.crumblingBufferSource(), targetPos, mc.level, xOff, yOff, zOff, accessor.getDestructionProgress(), affectedBlocks);
+        }
     }
 
-    private static void renderCrackOverlay(PoseStack poseStack, MultiBufferSource.BufferSource bufferSource, BlockPos targetPos, Level level, double xOff, double yOff, double zOff, Int2ObjectMap<BlockDestructionProgress> destroyingBlocks, List<BlockPos> affectedBlocks) {
-        BlockDestructionProgress progress = null;
-        for (Int2ObjectMap.Entry<BlockDestructionProgress> entry : destroyingBlocks.int2ObjectEntrySet()) {
-            if (entry.getValue().getPos().equals(targetPos)) {
-                progress = entry.getValue();
-                break;
-            }
-        }
-        if (progress == null)
+    private static void renderCrackOverlay(PoseStack poseStack, MultiBufferSource.BufferSource bufferSource, BlockPos targetPos, Level level, double xOff, double yOff, double zOff, Long2ObjectMap<SortedSet<BlockDestructionProgress>> destructionProgress, List<BlockPos> affectedBlocks) {
+        SortedSet<BlockDestructionProgress> set = destructionProgress.get(targetPos.asLong());
+        if (set == null || set.isEmpty())
             return;
 
-        VertexConsumer crumblingConsumer = bufferSource.getBuffer(ModelBakery.DESTROY_TYPES.get(progress.getProgress()));
+        int progress = set.last().getProgress();
+        VertexConsumer crumblingConsumer = bufferSource.getBuffer(ModelBakery.DESTROY_TYPES.get(progress));
         BlockRenderDispatcher dispatcher = Minecraft.getInstance().getBlockRenderer();
 
         for (BlockPos pos : affectedBlocks) {
             poseStack.pushPose();
             poseStack.translate(pos.getX() - xOff, pos.getY() - yOff, pos.getZ() - zOff);
             PoseStack.Pose poseEntry = poseStack.last();
-            //VertexConsumer blockConsumer = new SheetedDecalTextureGenerator(crumblingConsumer, poseEntry.pose(), poseEntry.normal(), 1f);
-            //dispatcher.renderBreakingTexture(level.getBlockState(pos), pos, level, poseStack, blockConsumer);
+            VertexConsumer blockConsumer = new SheetedDecalTextureGenerator(crumblingConsumer, poseEntry, 1.0F);
+            dispatcher.renderBreakingTexture(level.getBlockState(pos), pos, level, poseStack, blockConsumer, level.getModelData(pos));
             poseStack.popPose();
         }
         bufferSource.endBatch();
     }
 
-    private static void renderOutlines(PoseStack poseStack, MultiBufferSource.BufferSource bufferSource, Player player, Level level, double xOff, double yOff, double zOff, List<BlockPos> affectedBlocks) {
+    private static void renderOutlines(PoseStack poseStack, MultiBufferSource.BufferSource bufferSource, LevelRendererAccessor accessor, Player player, double xOff, double yOff, double zOff, List<BlockPos> affectedBlocks, Level level) {
         VertexConsumer lineConsumer = bufferSource.getBuffer(RenderType.lines());
         for (BlockPos pos : affectedBlocks) {
-            poseStack.pushPose();
             BlockState state = level.getBlockState(pos);
-            //LevelRenderer.renderShape(poseStack, lineConsumer, state.getShape(level, pos, CollisionContext.of(player)), pos.getX() - xOff, pos.getY() - yOff, pos.getZ() - zOff, 0.0F, 0.0F, 0.0F, 0.4F);
-            poseStack.popPose();
+            accessor.invokeRenderHitOutline(poseStack, lineConsumer, player, xOff, yOff, zOff, pos, state);
         }
     }
 }

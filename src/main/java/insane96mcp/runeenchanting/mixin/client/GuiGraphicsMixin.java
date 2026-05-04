@@ -24,7 +24,7 @@ public class GuiGraphicsMixin {
     @Inject(method = "renderItemDecorations(Lnet/minecraft/client/gui/Font;Lnet/minecraft/world/item/ItemStack;IILjava/lang/String;)V", at = @At("TAIL"))
     private void runeenchanting$renderCurseIcon(Font font, ItemStack stack, int x, int y, @Nullable String text, CallbackInfo ci) {
         List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack, false);
-        if (runes == null || runes.stream().noneMatch(h -> h.value().isCurse()))
+        if (runes == null || runes.stream().noneMatch(Rune::isCurse))
             return;
         GuiGraphics self = (GuiGraphics) (Object) this;
         self.blit(CURSE_ICON, x, y, 200, 0.0f, 0.0f, 4, 4, 4, 4);

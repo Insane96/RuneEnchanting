@@ -181,7 +181,7 @@ public class RuneFeature extends Feature {
         boolean isCursed = false;
         if (runes != null) {
             for (Holder<Rune> holder : runes) {
-                if (holder.value().isCurse() && hideCurses)
+                if (Rune.isCurse(holder) && hideCurses)
                     isCursed = true;
                 else {
                     event.getToolTip().add(CommonComponents.space().append(holder.value().getNameComponent().withStyle(ChatFormatting.LIGHT_PURPLE)));

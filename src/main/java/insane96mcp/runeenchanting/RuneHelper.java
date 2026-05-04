@@ -1,22 +1,20 @@
 package insane96mcp.runeenchanting;
 
-import insane96mcp.runeenchanting.data.EnchantmentToRuneReloadListener;
 import insane96mcp.runeenchanting.data.runes.Rune;
 import insane96mcp.runeenchanting.setup.REDataComponents;
 import insane96mcp.runeenchanting.setup.REItems;
-import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantment;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class RuneHelper {
@@ -40,7 +38,7 @@ public class RuneHelper {
         List<Holder<Rune>> runes = stack.get(REDataComponents.RUNES.get());
         if (runes == null)
             return 0;
-        runes = runes.stream().filter(rune -> rune.value().isEnabled() && !rune.value().isCurse()).toList();
+        runes = runes.stream().filter(rune -> rune.value().isEnabled() && !Rune.isCurse(rune)).toList();
         return runes.size();
     }
 
@@ -48,12 +46,12 @@ public class RuneHelper {
         List<Holder<Rune>> runes = new ArrayList<>(stack.getOrDefault(REDataComponents.RUNES.get(), List.of()));
         if (runes.contains(rune))
             return false;
-        if (countRunes(stack) >= stack.getOrDefault(REDataComponents.SOCKETS, 0) && !rune.value().isCurse())
+        if (countRunes(stack) >= stack.getOrDefault(REDataComponents.SOCKETS, 0) && !Rune.isCurse(rune))
             return false;
         runes.add(rune);
         stack.set(REDataComponents.RUNES.get(), runes);
         stack.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true);
-        if (rune.value().isCurse() && stack.getOrDefault(REDataComponents.SOCKETS, 0) > 0)
+        if (Rune.isCurse(rune) && stack.getOrDefault(REDataComponents.SOCKETS, 0) > 0)
             stack.set(REDataComponents.SOCKETS, stack.getOrDefault(REDataComponents.SOCKETS.get(), 0) + 1);
         return true;
     }
@@ -68,7 +66,7 @@ public class RuneHelper {
         }
         else
             stack.set(REDataComponents.RUNES.get(), runes);
-        if (rune.value().isCurse() && stack.getOrDefault(REDataComponents.SOCKETS, 0) > 0)
+        if (Rune.isCurse(rune) && stack.getOrDefault(REDataComponents.SOCKETS, 0) > 0)
             stack.set(REDataComponents.SOCKETS, stack.getOrDefault(REDataComponents.SOCKETS.get(), 0) + 1);
         return true;
     }
@@ -80,10 +78,10 @@ public class RuneHelper {
         }
         else {
             List<Holder<Rune>> cleared = new ArrayList<>(runes);
-            cleared.removeIf(rune -> !rune.value().isCurse());
+            cleared.removeIf(rune -> !Rune.isCurse(rune));
             stack.set(REDataComponents.RUNES.get(), cleared);
 
-            runes.removeIf(rune -> rune.value().isCurse());
+            runes.removeIf(Rune::isCurse);
         }
         stack.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, false);
         return runes;

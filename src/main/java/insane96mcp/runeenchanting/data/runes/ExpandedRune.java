@@ -90,21 +90,18 @@ public class ExpandedRune extends Rune {
     }
 
     private static List<BlockPos> getColumnCandidates(ServerPlayer player, BlockPos targetPos) {
-        float pitch = player.getXRot();
-        if (Math.abs(pitch) > 60f) {
+        int blockY = targetPos.getY();
+        int playerFeetY = player.getBlockY();
+        if (blockY < playerFeetY || blockY > playerFeetY + 1) {
             Direction facing = player.getDirection();
             return List.of(
                 targetPos.relative(facing),
-                targetPos.relative(facing.getOpposite()),
-                targetPos.relative(facing, 2),
-                targetPos.relative(facing.getOpposite(), 2)
+                targetPos.relative(facing.getOpposite())
             );
         }
         return List.of(
             targetPos.above(),
-            targetPos.below(),
-            targetPos.above(2),
-            targetPos.below(2)
+            targetPos.below()
         );
     }
 
@@ -171,6 +168,6 @@ public class ExpandedRune extends Rune {
 
     @Override
     public MutableComponent getInfoComponent() {
-        return Component.translatable(getInfoTranslationKey(), additionalBlocks(), RuneEnchanting.NO_DECIMAL_FORMATTER.format((1f - getMiningSpeedPenalty()) * -100));
+        return Component.translatable(getInfoTranslationKey(), RuneEnchanting.NO_DECIMAL_FORMATTER.format((1f - getMiningSpeedPenalty()) * -100));
     }
 }
