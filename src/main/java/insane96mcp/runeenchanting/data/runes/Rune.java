@@ -1,17 +1,20 @@
 package insane96mcp.runeenchanting.data.runes;
 
 import insane96mcp.insanelib.core.feature.config.Config;
+import insane96mcp.insanelib.event.PlayerSprintEvent;
 import insane96mcp.runeenchanting.RuneEnchanting;
+import insane96mcp.runeenchanting.datagen.RERuneTagProvider;
 import insane96mcp.runeenchanting.setup.RERunes;
+import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
@@ -23,18 +26,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.enchantment.EnchantmentTarget;
-import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.client.event.InputEvent;
+import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import net.neoforged.neoforge.event.enchanting.GetEnchantmentLevelEvent;
-import insane96mcp.insanelib.event.PlayerSprintEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
@@ -56,6 +56,8 @@ public abstract class Rune {
     private boolean enabled = true;
     private ModConfigSpec.BooleanValue enabledValue;
 
+    private final Holder.Reference<Rune> builtInRegistryHolder = RERunes.REGISTRY.createIntrusiveHolder(this);
+
     public Rune() { this(0); }
 
     public Rune(int priority) {
@@ -71,7 +73,7 @@ public abstract class Rune {
     }
 
     public boolean isCurse() {
-        return false;
+        return this.builtInRegistryHolder.is(RERuneTagProvider.CURSE);
     }
 
     public MutableComponent getNameComponent() {

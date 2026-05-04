@@ -26,9 +26,4 @@ public class CurseOfBindingRune extends Rune {
     public void onEnchantmentLevel(GetEnchantmentLevelEvent event) {
         event.getHolder(Enchantments.BINDING_CURSE).ifPresent(bindingCurse -> event.getEnchantments().set(bindingCurse, 1));
     }
-
-    @Override
-    public boolean isCurse() {
-        return true;
-    }
 }

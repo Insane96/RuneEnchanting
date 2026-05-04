@@ -26,9 +26,4 @@ public class CurseOfVanishingRune extends Rune {
     public void onEnchantmentLevel(GetEnchantmentLevelEvent event) {
         event.getHolder(Enchantments.VANISHING_CURSE).ifPresent(vanishingCurse -> event.getEnchantments().set(vanishingCurse, 1));
     }
-
-    @Override
-    public boolean isCurse() {
-        return true;
-    }
 }
