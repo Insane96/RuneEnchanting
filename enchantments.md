@@ -98,7 +98,7 @@
 - [x] magnetic
 - [x] retreat
 - [x] double_jump
-- [ ] enlightened
+- [x] enlightened
 - [ ] invulnerability
 - [ ] fire_guardian
 - [x] steady_fall

@@ -12,7 +12,8 @@
         "ProjectileWeaponItemMixin"
     ],
     "client": [
-        "client.GuiGraphicsMixin"
+        "client.GuiGraphicsMixin",
+        "client.LightTextureMixin"
     ],
     "injectors": {
         "defaultRequire": 1

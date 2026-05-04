@@ -72,6 +72,7 @@ public class RERunes {
     // Helmet
     public static final DeferredHolder<Rune, RespirationRune> RESPIRATION = register("respiration", new RespirationRune());
     public static final DeferredHolder<Rune, AquaAffinityRune> AQUA_AFFINITY = register("aqua_affinity", new AquaAffinityRune());
+    public static final DeferredHolder<Rune, EnlightenedRune> ENLIGHTENED = register("enlightened", new EnlightenedRune());
 
     // Chestplate
     public static final DeferredHolder<Rune, AirAffinityRune> AIR_AFFINITY = register("air_affinity", new AirAffinityRune());
