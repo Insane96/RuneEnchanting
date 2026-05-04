@@ -46,8 +46,6 @@
   "rune.runeenchanting.enduring.info": "Bonus durability: %s%% + %s",
   "rune.runeenchanting.enlightened": "Enlightened",
   "rune.runeenchanting.enlightened.description": "Slightly increases dark vision",
-  "rune.runeenchanting.exchange": "Exchange",
-  "rune.runeenchanting.exchange.description": "Places the block held in the offhand in place of the mined block",
   "rune.runeenchanting.expanded": "Expanded",
   "rune.runeenchanting.expanded.description": "Mines additional blocks in a column when mining",
   "rune.runeenchanting.expanded.info": "Additional blocks: %s. Mining speed penalty: %s%%",

@@ -30,7 +30,6 @@ public class RERunes {
     public static final DeferredHolder<Rune, EarthbendRune> EARTHBEND = register("earthbend", new EarthbendRune());
     public static final DeferredHolder<Rune, SilkTouchRune> SILK_TOUCH = register("silk_touch", new SilkTouchRune());
     public static final DeferredHolder<Rune, VeiningRune> VEINING = register("veining", new VeiningRune());
-    public static final DeferredHolder<Rune, ExchangeRune> EXCHANGE = register("exchange", new ExchangeRune());
 
     // Pickaxe + Shovel
     public static final DeferredHolder<Rune, ExpandedRune> EXPANDED = register("expanded", new ExpandedRune());
