@@ -102,13 +102,13 @@ public class RuneHooks extends Feature {
         return result;
     }
 
-    public static float onEnchantmentDamage(float enchantmentDamage, Player player, Entity attacked, float originalDamage, DamageSource damageSource, ItemStack stack) {
+    public static float onEnchantmentDamage(float enchantmentDamage, LivingEntity attacker, Entity attacked, float originalDamage, DamageSource damageSource, ItemStack stack) {
         List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
         if (runes == null)
             return originalDamage;
         float damage = originalDamage;
         for (Holder<Rune> holder : runes) {
-            damage = holder.value().modifyEnchantmentDamage(player, attacked, damage, originalDamage, damageSource, stack);
+            damage = holder.value().modifyEnchantmentDamage(attacker, attacked, damage, originalDamage, damageSource, stack);
         }
         return damage;
     }

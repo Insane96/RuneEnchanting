@@ -141,7 +141,7 @@ public abstract class Rune {
 
     public void addAttributeModifiers(ItemAttributeModifierEvent event) {}
 
-    public float modifyEnchantmentDamage(Player player, Entity attacked, float damage, float originalDamage, DamageSource damageSource, ItemStack stack) {
+    public float modifyEnchantmentDamage(LivingEntity attacker, Entity attacked, float damage, float originalDamage, DamageSource damageSource, ItemStack stack) {
         return damage;
     }
 
