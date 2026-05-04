@@ -107,7 +107,7 @@
 - [x] water_coolant
   - Increases damage to water-sensitive creatures and applies a freezing. Can be applied to tridents.
 - [x] bane_of_noses
-- [ ] rage
+- [x] rage
 - [ ] fire_surge
 - [ ] swift_strike
 - [ ] padding
