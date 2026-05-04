@@ -108,8 +108,8 @@
   - Increases damage to water-sensitive creatures and applies a freezing. Can be applied to tridents.
 - [x] bane_of_noses
 - [x] rage
-- [ ] fire_surge
-- [ ] swift_strike
+- [x] fire_surge
+- [x] swift_strike
 - [ ] padding
 - [ ] part_breaker
 - [ ] air_stealer

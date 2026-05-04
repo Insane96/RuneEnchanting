@@ -147,6 +147,8 @@
   "rune.runeenchanting.step_up.description": "Climb up full blocks",
   "rune.runeenchanting.swift_sneak": "Swift Sneak",
   "rune.runeenchanting.swift_sneak.description": "Increases sneak movement speed",
+  "rune.runeenchanting.swift_strike": "Swift Strike",
+  "rune.runeenchanting.swift_strike.description": "Increases attack speed",
   "rune.runeenchanting.thorns": "Thorns",
   "rune.runeenchanting.thorns.description": "Chance to damage attackers",
   "rune.runeenchanting.thorns.info": "Chance %.1f%%, Damage %.1f-%.1f",
