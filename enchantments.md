@@ -72,9 +72,9 @@
 
 ### Tools
 - [x] blasting
-- [ ] expanded
-- [ ] veining
-- [ ] exchange
+- [x] expanded
+- [x] veining
+- [x] exchange
 - [x] earthbend
 - [x] dwarfing
 
@@ -99,8 +99,8 @@
 - [x] retreat
 - [x] double_jump
 - [x] enlightened
-- [ ] invulnerability
-- [ ] fire_guardian
+- [x] invulnerability
+- [x] fire_guardian
 - [x] steady_fall
 
 ### Weapons
