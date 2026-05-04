@@ -7,7 +7,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -48,9 +48,9 @@ public class ImpalingRune extends Rune {
     }
 
     @Override
-    public float modifyEnchantmentDamage(Player player, Entity attacked, float damage, float originalDamage, DamageSource damageSource, ItemStack stack) {
+    public float modifyEnchantmentDamage(LivingEntity attacker, Entity attacked, float damage, float originalDamage, DamageSource damageSource, ItemStack stack) {
         if (!attacked.isInWaterOrRain())
-            return super.modifyEnchantmentDamage(player, attacked, damage, originalDamage, damageSource, stack);
+            return super.modifyEnchantmentDamage(attacker, attacked, damage, originalDamage, damageSource, stack);
         return (float) (damage + (originalDamage * bonusDamage));
     }
 

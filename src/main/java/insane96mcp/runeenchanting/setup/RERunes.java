@@ -49,6 +49,7 @@ public class RERunes {
     public static final DeferredHolder<Rune, SmiteRune> SMITE = register("smite", new SmiteRune());
     public static final DeferredHolder<Rune, BaneOfNosesRune> BANE_OF_NOSES = register("bane_of_noses", new BaneOfNosesRune());
     public static final DeferredHolder<Rune, RageRune> RAGE = register("rage", new RageRune());
+    public static final DeferredHolder<Rune, FireSurgeRune> FIRE_SURGE = register("fire_surge", new FireSurgeRune());
 
     // Weapons and Bows
     public static final DeferredHolder<Rune, FlameRune> FLAME = register("flame", new FlameRune());

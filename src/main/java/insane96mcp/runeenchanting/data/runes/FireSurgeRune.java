@@ -7,6 +7,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -16,18 +17,18 @@ import net.minecraft.world.item.Items;
 
 import javax.annotation.Nullable;
 
-public class RageRune extends Rune {
+public class FireSurgeRune extends Rune {
     @Config
     public static Double maxBonusDamage = 1d;
 
     @Override
     public String getName() {
-        return "Rage";
+        return "Fire Surge";
     }
 
     @Override
     public String getDescription() {
-        return "Increases damage dealt based on missing health";
+        return "Increases damage dealt when on fire";
     }
 
     @Override
@@ -48,8 +49,12 @@ public class RageRune extends Rune {
     }
 
     public float getBonusDamage(LivingEntity attacker) {
-        float ratio = Math.min(1f, 1f - ((attacker.getHealth() - 1) / attacker.getMaxHealth()));
-        return maxBonusDamage.floatValue() * (ratio * ratio * 0.9f + 0.1f);
+        if (!attacker.isOnFire())
+            return 0f;
+        float ratio = 1;
+        if (attacker.hasEffect(MobEffects.FIRE_RESISTANCE))
+            ratio = 0.2f;
+        return maxBonusDamage.floatValue() * ratio;
     }
 
     @Override

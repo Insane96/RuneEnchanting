@@ -6,21 +6,15 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.EnchantmentTarget;
 import net.neoforged.neoforge.common.extensions.IAttributeExtension;
 
 import javax.annotation.Nullable;
@@ -54,9 +48,9 @@ public class BaneOfNosesRune extends Rune {
     }
 
     @Override
-    public float modifyEnchantmentDamage(Player player, Entity attacked, float damage, float originalDamage, DamageSource damageSource, ItemStack stack) {
+    public float modifyEnchantmentDamage(LivingEntity attacker, Entity attacked, float damage, float originalDamage, DamageSource damageSource, ItemStack stack) {
         if (!attacked.getType().is(SENSITIVE))
-            return super.modifyEnchantmentDamage(player, attacked, damage, originalDamage, damageSource, stack);
+            return super.modifyEnchantmentDamage(attacker, attacked, damage, originalDamage, damageSource, stack);
         return (float) (damage + (originalDamage * bonusDamage));
     }
 

@@ -9,6 +9,7 @@
         "IItemExtensionMixin",
         "LivingEntityMixin",
         "MobEffectInstanceAccessor",
+        "MobMixin",
         "PlayerMixin",
         "ProjectileWeaponItemMixin"
     ],
