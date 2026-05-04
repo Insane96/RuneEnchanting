@@ -22,16 +22,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.common.extensions.IAttributeExtension;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class VeiningRune extends Rune {
     @Config(min = 1, max = 256, description = "Maximum number of additional connected blocks to mine")
@@ -126,7 +120,7 @@ public class VeiningRune extends Rune {
 
     public float getMiningSpeedPenalty() {
         float divider = maxBlocks + 1f;
-        divider -= divider * 0.5f;
+        divider -= divider * 0.25f;
         return 1f / divider;
     }
 
