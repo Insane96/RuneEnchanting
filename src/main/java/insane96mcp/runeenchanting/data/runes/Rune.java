@@ -56,8 +56,6 @@ public abstract class Rune {
     private boolean enabled = true;
     private ModConfigSpec.BooleanValue enabledValue;
 
-    private final Holder.Reference<Rune> builtInRegistryHolder = RERunes.REGISTRY.createIntrusiveHolder(this);
-
     public Rune() { this(0); }
 
     public Rune(int priority) {
@@ -72,8 +70,8 @@ public abstract class Rune {
         this.enabled = enabled;
     }
 
-    public boolean isCurse() {
-        return this.builtInRegistryHolder.is(RERuneTagProvider.CURSE);
+    public static boolean isCurse(Holder<Rune> rune) {
+        return rune.is(RERuneTagProvider.CURSE);
     }
 
     public MutableComponent getNameComponent() {
@@ -228,7 +226,7 @@ public abstract class Rune {
     }
 
     public void loadConfig(ModConfigSpec.Builder builder) {
-        enabledValue = builder.define("Enabled", true);
+        enabledValue = builder.define("Enabled", enabled);
         for (Field field : getClass().getDeclaredFields()) {
             Config annotation = field.getAnnotation(Config.class);
             if (annotation == null) continue;

@@ -7,6 +7,11 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.neoforged.neoforge.event.enchanting.GetEnchantmentLevelEvent;
 
 public class CurseOfBindingRune extends Rune {
+    public CurseOfBindingRune() {
+        super();
+        this.setEnabled(false);
+    }
+
     @Override
     public String getName() {
         return "Curse of Binding";
