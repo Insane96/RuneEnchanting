@@ -6,6 +6,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import insane96mcp.insanelib.event.PlayerSprintEvent;
 import insane96mcp.runeenchanting.data.runes.Rune;
 import insane96mcp.runeenchanting.mixin.client.LevelRendererAccessor;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -104,9 +105,9 @@ public class RuneHooksClient {
         renderOutlines(poseStack, renderBuffers.bufferSource(), mc.player, mc.level, xOff, yOff, zOff, affectedBlocks);
     }
 
-    private static void renderCrackOverlay(PoseStack poseStack, MultiBufferSource.BufferSource bufferSource, BlockPos targetPos, Level level, double xOff, double yOff, double zOff, SortedMap<Integer, BlockDestructionProgress> destroyingBlocks, List<BlockPos> affectedBlocks) {
+    private static void renderCrackOverlay(PoseStack poseStack, MultiBufferSource.BufferSource bufferSource, BlockPos targetPos, Level level, double xOff, double yOff, double zOff, Int2ObjectMap<BlockDestructionProgress> destroyingBlocks, List<BlockPos> affectedBlocks) {
         BlockDestructionProgress progress = null;
-        for (Map.Entry<Integer, BlockDestructionProgress> entry : destroyingBlocks.entrySet()) {
+        for (Int2ObjectMap.Entry<BlockDestructionProgress> entry : destroyingBlocks.int2ObjectEntrySet()) {
             if (entry.getValue().getPos().equals(targetPos)) {
                 progress = entry.getValue();
                 break;
@@ -122,8 +123,8 @@ public class RuneHooksClient {
             poseStack.pushPose();
             poseStack.translate(pos.getX() - xOff, pos.getY() - yOff, pos.getZ() - zOff);
             PoseStack.Pose poseEntry = poseStack.last();
-            VertexConsumer blockConsumer = new SheetedDecalTextureGenerator(crumblingConsumer, poseEntry.pose(), poseEntry.normal(), 1f);
-            dispatcher.renderBreakingTexture(level.getBlockState(pos), pos, level, poseStack, blockConsumer);
+            //VertexConsumer blockConsumer = new SheetedDecalTextureGenerator(crumblingConsumer, poseEntry.pose(), poseEntry.normal(), 1f);
+            //dispatcher.renderBreakingTexture(level.getBlockState(pos), pos, level, poseStack, blockConsumer);
             poseStack.popPose();
         }
         bufferSource.endBatch();
@@ -134,7 +135,7 @@ public class RuneHooksClient {
         for (BlockPos pos : affectedBlocks) {
             poseStack.pushPose();
             BlockState state = level.getBlockState(pos);
-            LevelRenderer.renderShape(poseStack, lineConsumer, state.getShape(level, pos, CollisionContext.of(player)), pos.getX() - xOff, pos.getY() - yOff, pos.getZ() - zOff, 0.0F, 0.0F, 0.0F, 0.4F);
+            //LevelRenderer.renderShape(poseStack, lineConsumer, state.getShape(level, pos, CollisionContext.of(player)), pos.getX() - xOff, pos.getY() - yOff, pos.getZ() - zOff, 0.0F, 0.0F, 0.0F, 0.4F);
             poseStack.popPose();
         }
     }

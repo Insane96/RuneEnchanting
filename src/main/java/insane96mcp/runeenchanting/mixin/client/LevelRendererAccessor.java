@@ -1,5 +1,6 @@
 package insane96mcp.runeenchanting.mixin.client;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.RenderBuffers;
 import net.minecraft.server.level.BlockDestructionProgress;
@@ -11,7 +12,7 @@ import java.util.SortedMap;
 @Mixin(LevelRenderer.class)
 public interface LevelRendererAccessor {
     @Accessor("destroyingBlocks")
-    SortedMap<Integer, BlockDestructionProgress> getDestroyingBlocks();
+    Int2ObjectMap<BlockDestructionProgress> getDestroyingBlocks();
 
     @Accessor("renderBuffers")
     RenderBuffers getRenderBuffers();
