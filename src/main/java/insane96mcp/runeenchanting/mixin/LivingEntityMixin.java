@@ -1,7 +1,7 @@
 package insane96mcp.runeenchanting.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import insane96mcp.runeenchanting.data.runes.InvulnerabilityRune;
+import insane96mcp.runeenchanting.runes.InvulnerabilityRune;
 import net.minecraft.world.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

@@ -2,11 +2,11 @@ package insane96mcp.runeenchanting;
 
 import insane96mcp.insanelib.core.feature.Feature;
 import insane96mcp.insanelib.core.feature.LoadFeature;
-import insane96mcp.runeenchanting.data.runes.ExplosiveRune;
-import insane96mcp.runeenchanting.data.runes.MagicProtectionRune;
-import insane96mcp.runeenchanting.data.runes.ProjectileProtectionRune;
-import insane96mcp.runeenchanting.data.runes.Rune;
 import insane96mcp.runeenchanting.mixin.MobEffectInstanceAccessor;
+import insane96mcp.runeenchanting.runes.ExplosiveRune;
+import insane96mcp.runeenchanting.runes.MagicProtectionRune;
+import insane96mcp.runeenchanting.runes.ProjectileProtectionRune;
+import insane96mcp.runeenchanting.runes.Rune;
 import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;

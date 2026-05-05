@@ -156,8 +156,7 @@
 - [ ] curse_of_frenzy
 - [ ] curse_of_unstable_motion
 - [ ] curse_of_static_charge
-- [ ] curse_of_anchor
-- [ ] curse_of_sinking
 - [ ] curse_of_explosion
+  - Blow up on attack like Explosive rune
 
 Attack cooldown-based effects

@@ -1,7 +1,7 @@
 package insane96mcp.runeenchanting.mixin.client;
 
 import insane96mcp.runeenchanting.RuneHelper;
-import insane96mcp.runeenchanting.data.runes.Rune;
+import insane96mcp.runeenchanting.runes.Rune;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.Holder;

@@ -2,9 +2,9 @@ package insane96mcp.runeenchanting.setup;
 
 import com.mojang.serialization.MapCodec;
 import insane96mcp.runeenchanting.RuneEnchanting;
-import insane96mcp.runeenchanting.loot.ExperienceBottleToRuneLootModifier;
-import insane96mcp.runeenchanting.loot.RuneCatchAllLootModifier;
-import insane96mcp.runeenchanting.loot.RuneLootModifier;
+import insane96mcp.runeenchanting.data.loot.ExperienceBottleToRuneLootModifier;
+import insane96mcp.runeenchanting.data.loot.RuneCatchAllLootModifier;
+import insane96mcp.runeenchanting.data.loot.RuneLootModifier;
 import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;

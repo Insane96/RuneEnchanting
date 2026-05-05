@@ -1,6 +1,6 @@
 package insane96mcp.runeenchanting;
 
-import insane96mcp.runeenchanting.data.runes.Rune;
+import insane96mcp.runeenchanting.runes.Rune;
 import insane96mcp.runeenchanting.setup.REDataComponents;
 import insane96mcp.runeenchanting.setup.REItems;
 import net.minecraft.core.Holder;

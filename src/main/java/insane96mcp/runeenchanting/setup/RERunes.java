@@ -1,7 +1,7 @@
 package insane96mcp.runeenchanting.setup;
 
 import insane96mcp.runeenchanting.RuneEnchanting;
-import insane96mcp.runeenchanting.data.runes.*;
+import insane96mcp.runeenchanting.runes.*;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.neoforged.bus.api.IEventBus;

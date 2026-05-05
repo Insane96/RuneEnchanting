@@ -3,7 +3,7 @@ package insane96mcp.runeenchanting;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import insane96mcp.runeenchanting.data.runes.Rune;
+import insane96mcp.runeenchanting.runes.Rune;
 import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;

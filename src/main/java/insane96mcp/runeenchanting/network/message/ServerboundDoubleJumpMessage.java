@@ -2,7 +2,7 @@ package insane96mcp.runeenchanting.network.message;
 
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.RuneHelper;
-import insane96mcp.runeenchanting.data.runes.DoubleJumpRune;
+import insane96mcp.runeenchanting.runes.DoubleJumpRune;
 import insane96mcp.runeenchanting.setup.RERunes;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.StreamCodec;

@@ -1,6 +1,6 @@
 package insane96mcp.runeenchanting.mixin;
 
-import insane96mcp.runeenchanting.data.runes.GravityDefyingRune;
+import insane96mcp.runeenchanting.runes.GravityDefyingRune;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

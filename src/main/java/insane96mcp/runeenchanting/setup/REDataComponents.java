@@ -2,7 +2,7 @@ package insane96mcp.runeenchanting.setup;
 
 import com.mojang.serialization.Codec;
 import insane96mcp.runeenchanting.RuneEnchanting;
-import insane96mcp.runeenchanting.data.runes.Rune;
+import insane96mcp.runeenchanting.runes.Rune;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;

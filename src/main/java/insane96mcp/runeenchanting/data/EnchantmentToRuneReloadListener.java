@@ -3,7 +3,7 @@ package insane96mcp.runeenchanting.data;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import insane96mcp.runeenchanting.RuneEnchanting;
-import insane96mcp.runeenchanting.data.runes.Rune;
+import insane96mcp.runeenchanting.runes.Rune;
 import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
