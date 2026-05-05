@@ -120,6 +120,9 @@ public class RERunes {
     // Vanishable
     public static final DeferredHolder<Rune, EnduringRune> ENDURING = register("enduring", new EnduringRune());
 
+    // Tools and Weapons
+    public static final DeferredHolder<Rune, AdrenalineRune> ADRENALINE = register("adrenaline", new AdrenalineRune());
+
     // Tools, Weapons and Chestplate
     public static final DeferredHolder<Rune, ReachRune> REACH = register("reach", new ReachRune());
 

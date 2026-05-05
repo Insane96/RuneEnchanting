@@ -120,11 +120,12 @@
 - [x] gravity_defying
 
 ### Tools and Weapons
-- [x] ~~smartness~~
+- [ ] ~~smartness~~
   - No xp
-- [ ] reach
+- [x] reach
 - [ ] adrenaline
-- [ ] knowledgeable
+- [ ] ~~knowledgeable~~
+  - No xp
 
 ### Fishing Rods
 - [ ] juicy_bait

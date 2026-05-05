@@ -3,6 +3,6 @@
     "#minecraft:swords",
     "#minecraft:axes",
     "minecraft:trident",
-    "#minecraft:enchantable/armor"
+    "#minecraft:enchantable/chest_armor"
   ]
 }
