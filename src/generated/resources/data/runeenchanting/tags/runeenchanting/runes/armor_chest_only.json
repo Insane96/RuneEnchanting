@@ -2,6 +2,8 @@
   "values": [
     "runeenchanting:air_affinity",
     "runeenchanting:vindication",
-    "runeenchanting:recovery"
+    "runeenchanting:recovery",
+    "runeenchanting:invulnerability",
+    "runeenchanting:fire_guardian"
   ]
 }

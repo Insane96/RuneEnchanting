@@ -45,12 +45,15 @@ public class RERuneTagProvider extends TagsProvider<Rune> {
 
         add(ARMOR_HEAD_ONLY,
                 RERunes.RESPIRATION,
-                RERunes.AQUA_AFFINITY);
+                RERunes.AQUA_AFFINITY,
+                RERunes.ENLIGHTENED);
 
         add(ARMOR_CHEST_ONLY,
                 RERunes.AIR_AFFINITY,
                 RERunes.VINDICATION,
-                RERunes.RECOVERY);
+                RERunes.RECOVERY,
+                RERunes.INVULNERABILITY,
+                RERunes.FIRE_GUARDIAN);
 
         add(ARMOR_LEGS_ONLY,
                 RERunes.SWIFT_SNEAK,

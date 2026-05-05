@@ -17,6 +17,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.item.FishingRodItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentTarget;
@@ -26,6 +27,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import net.neoforged.neoforge.event.enchanting.GetEnchantmentLevelEvent;
 import net.neoforged.neoforge.event.entity.living.*;
+import net.neoforged.neoforge.event.entity.player.ItemFishedEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
@@ -112,6 +114,14 @@ public class RuneHooks extends Feature {
             holder.value().onBlockBreak(event, stack);
             if (event.isCanceled()) break;
         }
+    }
+
+    @SubscribeEvent
+    public void onItemFished(ItemFishedEvent event) {
+        ItemStack stack = event.getEntity().getItemBySlot(EquipmentSlot.MAINHAND).getItem() instanceof FishingRodItem
+                ? event.getEntity().getItemBySlot(EquipmentSlot.MAINHAND)
+                : event.getEntity().getItemBySlot(EquipmentSlot.OFFHAND);
+        forRunes(stack, rune -> rune.onItemFished(event, stack));
     }
 
     public static int onGetMaxDamage(int original, ItemStack stack) {

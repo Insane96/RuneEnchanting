@@ -38,6 +38,7 @@ import net.neoforged.neoforge.event.enchanting.GetEnchantmentLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
+import net.neoforged.neoforge.event.entity.player.ItemFishedEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 
 import javax.annotation.Nullable;
@@ -213,6 +214,8 @@ public abstract class Rune {
     public float modifyFishingTimeReduction(ServerLevel level, ItemStack stack, Entity entity, float original, float reduction) {
         return reduction;
     }
+
+    public void onItemFished(ItemFishedEvent event, ItemStack stack) {}
 
     public int modifyTridentReturnToOwnerAcceleration(ServerLevel level, ItemStack stack, Entity entity, int original, int acceleration) {
         return acceleration;

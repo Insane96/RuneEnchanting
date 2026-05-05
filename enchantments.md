@@ -128,12 +128,12 @@
   - No xp
 
 ### Fishing Rods
-- [ ] juicy_bait
+- [x] juicy_bait
 
 ### General
-- [ ] soulbound
-- [ ] keego
-- [ ] weathering
+- [ ] ~~soulbound~~
+- [x] keego
+- [x] weathering
 
 ### Curses
 - [x] ~~curse_of_experience~~
@@ -160,4 +160,4 @@
 - [ ] curse_of_sinking
 - [ ] curse_of_explosion
 
-Attack cooldown based effects
+Attack cooldown-based effects
