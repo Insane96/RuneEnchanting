@@ -120,6 +120,9 @@ public class RERunes {
     // Vanishable
     public static final DeferredHolder<Rune, EnduringRune> ENDURING = register("enduring", new EnduringRune());
 
+    // Tools, Weapons and Chestplate
+    public static final DeferredHolder<Rune, ReachRune> REACH = register("reach", new ReachRune());
+
     // Curse
     public static final DeferredHolder<Rune, CurseOfBindingRune> CURSE_OF_BINDING = register("curse_of_binding", new CurseOfBindingRune());
     public static final DeferredHolder<Rune, CurseOfVanishingRune> CURSE_OF_VANISHING = register("curse_of_vanishing", new CurseOfVanishingRune());
