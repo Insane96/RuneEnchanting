@@ -34,6 +34,8 @@
   "rune.runeenchanting.charged_jump.info": "Time to full charge: %ss. Max jump boost: %s",
   "rune.runeenchanting.curse_of_binding": "Curse of Binding",
   "rune.runeenchanting.curse_of_binding.description": "Prevents the item from being unequipped",
+  "rune.runeenchanting.curse_of_short_arm": "Curse of Short Arm",
+  "rune.runeenchanting.curse_of_short_arm.description": "Lowers entity and block interaction range",
   "rune.runeenchanting.curse_of_vanishing": "Curse of Vanishing",
   "rune.runeenchanting.curse_of_vanishing.description": "Destroys the item on death",
   "rune.runeenchanting.depth_strider": "Depth Strider",

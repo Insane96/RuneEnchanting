@@ -37,7 +37,8 @@ public class RERuneTagProvider extends TagsProvider<Rune> {
     protected void addTags(HolderLookup.Provider provider) {
         add(CURSE,
                 RERunes.CURSE_OF_BINDING,
-                RERunes.CURSE_OF_VANISHING);
+                RERunes.CURSE_OF_VANISHING,
+                RERunes.CURSE_OF_SHORT_ARM);
 
         add(VANISHABLE,
                 RERunes.CURSE_OF_VANISHING,

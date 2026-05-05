@@ -1,5 +1,6 @@
-package insane96mcp.runeenchanting.runes;
+package insane96mcp.runeenchanting.runes.curse;
 
+import insane96mcp.runeenchanting.runes.Rune;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;

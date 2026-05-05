@@ -2,6 +2,9 @@ package insane96mcp.runeenchanting.setup;
 
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.runes.*;
+import insane96mcp.runeenchanting.runes.curse.CurseOfBindingRune;
+import insane96mcp.runeenchanting.runes.curse.CurseOfShortArmRune;
+import insane96mcp.runeenchanting.runes.curse.CurseOfVanishingRune;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.neoforged.bus.api.IEventBus;
@@ -137,6 +140,7 @@ public class RERunes {
     // Curse
     public static final DeferredHolder<Rune, CurseOfBindingRune> CURSE_OF_BINDING = register("curse_of_binding", new CurseOfBindingRune());
     public static final DeferredHolder<Rune, CurseOfVanishingRune> CURSE_OF_VANISHING = register("curse_of_vanishing", new CurseOfVanishingRune());
+    public static final DeferredHolder<Rune, CurseOfShortArmRune> CURSE_OF_SHORT_ARM = register("curse_of_short_arm", new CurseOfShortArmRune());
 
     private static <T extends Rune> DeferredHolder<Rune, T> register(String id, T instance) {
         RUNE_ENTRIES.add(Map.entry(id, instance));
