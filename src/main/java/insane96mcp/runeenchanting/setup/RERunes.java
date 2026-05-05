@@ -122,9 +122,13 @@ public class RERunes {
 
     // Tools and Weapons
     public static final DeferredHolder<Rune, AdrenalineRune> ADRENALINE = register("adrenaline", new AdrenalineRune());
+    //public static final DeferredHolder<Rune, MomentumRune> MOMENTUM = register("momentum", new MomentumRune());
 
     // Tools, Weapons and Chestplate
     public static final DeferredHolder<Rune, ReachRune> REACH = register("reach", new ReachRune());
+
+    // All durability items
+    public static final DeferredHolder<Rune, AtmosphericRune> ATMOSPHERIC = register("atmospheric", new AtmosphericRune());
 
     // Curse
     public static final DeferredHolder<Rune, CurseOfBindingRune> CURSE_OF_BINDING = register("curse_of_binding", new CurseOfBindingRune());

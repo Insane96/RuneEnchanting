@@ -15,7 +15,7 @@ import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 
 public class EfficiencyRune extends Rune {
     @Config(description = "Percentage bonus mining speed")
-    public static Double bonusMiningSpeed = 1d;
+    public static Double bonusMiningSpeed = 0.8d;
     @Config
     public static Double bonusFlatMiningSpeed = 2.5d;
 
