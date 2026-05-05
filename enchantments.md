@@ -123,7 +123,7 @@
 - [ ] ~~smartness~~
   - No xp
 - [x] reach
-- [ ] adrenaline
+- [x] adrenaline
 - [ ] ~~knowledgeable~~
   - No xp
 
@@ -132,7 +132,6 @@
 
 ### General
 - [ ] soulbound
-- [ ] enduring
 - [ ] keego
 - [ ] weathering
 
