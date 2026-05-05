@@ -165,6 +165,8 @@
   "rune.runeenchanting.steady_fall.info": "Durability cost per absorbed damage: %s",
   "rune.runeenchanting.step_up": "Step Up",
   "rune.runeenchanting.step_up.description": "Climb up full blocks",
+  "rune.runeenchanting.sweeping_edge": "Sweeping Edge",
+  "rune.runeenchanting.sweeping_edge.description": "Increases damage dealt with sweep attack",
   "rune.runeenchanting.swift_sneak": "Swift Sneak",
   "rune.runeenchanting.swift_sneak.description": "Increases sneak movement speed",
   "rune.runeenchanting.swift_strike": "Swift Strike",
