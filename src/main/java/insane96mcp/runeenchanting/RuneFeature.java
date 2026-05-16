@@ -40,7 +40,7 @@ import java.util.List;
 
 @LoadFeature(canBeDisabled = false)
 public class RuneFeature extends Feature {
-    public static final GameRules.Key<GameRules.BooleanValue> RULE_DISABLEEXPERIENCE = GameRules.register("runeenchanting:disable_experience", GameRules.Category.PLAYER, GameRules.BooleanValue.create(true, (server, booleanValue) -> {
+    public static final GameRules.Key<GameRules.BooleanValue> RULE_DISABLEEXPERIENCE = GameRules.register(RuneEnchanting.MOD_ID + ":disable_experience", GameRules.Category.PLAYER, GameRules.BooleanValue.create(true, (server, booleanValue) -> {
         RuneFeature.disableExperience = booleanValue.get();
         ClientboundDisableExperienceMessage.sync(booleanValue.get());
         server.getPlayerList().getPlayers().forEach(player -> {
@@ -52,12 +52,11 @@ public class RuneFeature extends Feature {
     }));
 
     @Config
-    public static Boolean hideCurses = true;
-    @Config
     public static Boolean extractCurses = false;
-    @Config(description = "Vanilla uses enchant_with_levels loot function for loot tables and mobs equipment. The mod takes the levels specified by the loot function and will divide them by this value, resulting in how many runes will be applied to the item (limited by the sockets). Decimal portions are treated as a chance for a +1 rune (so if the result of the division is 1.8, there's 20% chance to have 1 rune and 80% for 2)")
-    public static Double enchantWithLevelsFunctionRatio = 15d;
-    @Config
+    @Config(description = """
+            A data pack will be enabled that changes the following:
+            * Removes the enchanting table recipe
+            * Changes Channeling enchantment (and subsequently the Channeling rune) to work in rain too""")
     public static Boolean integratedDataPack = true;
 
     public static Boolean disableExperience = false;
@@ -178,25 +177,18 @@ public class RuneFeature extends Feature {
                 event.getToolTip().add(Component.translatable("sockets", runesCount, sockets).withStyle(ChatFormatting.DARK_PURPLE));
             }
         }
-        boolean isCursed = false;
         if (runes != null) {
             for (Holder<Rune> holder : runes) {
-                if (Rune.isCurse(holder) && hideCurses)
-                    isCursed = true;
-                else {
-                    event.getToolTip().add(CommonComponents.space().append(holder.value().getNameComponent().withStyle(ChatFormatting.LIGHT_PURPLE)));
-                    if (event.getFlags().hasShiftDown())
-                        event.getToolTip().add(CommonComponents.space().append(holder.value().getDescriptionComponent()).withStyle(ChatFormatting.GRAY));
-                    holder.value().addTooltip(stack, event.getToolTip(), event.getFlags(), event.getEntity());
+                ChatFormatting color = ChatFormatting.LIGHT_PURPLE;
+                if (Rune.isCurse(holder))
+                    color = ChatFormatting.RED;
+                event.getToolTip().add(CommonComponents.space().append(holder.value().getNameComponent().withStyle(color)));
+                if (event.getFlags().hasShiftDown()) {
+                    event.getToolTip().add(CommonComponents.space().append(holder.value().getDescriptionComponent()).withStyle(ChatFormatting.GRAY));
+                    if (Rune.isCurse(holder))
+                        event.getToolTip().add(CommonComponents.space().append(Component.translatable("cursed_info")).withStyle(ChatFormatting.GRAY));
                 }
-            }
-            if (isCursed) {
-                if (stack.is(REItems.RUNE))
-                    event.getToolTip().add(CommonComponents.space().append(Component.translatable("curse").withStyle(ChatFormatting.RED)));
-                else
-                    event.getToolTip().add(CommonComponents.space().append(Component.translatable("cursed").withStyle(ChatFormatting.RED)));
-                if (event.getFlags().hasShiftDown())
-                    event.getToolTip().add(CommonComponents.space().append(Component.translatable("cursed_info")).withStyle(ChatFormatting.GRAY));
+                holder.value().addTooltip(stack, event.getToolTip(), event.getFlags(), event.getEntity());
             }
         }
     }
