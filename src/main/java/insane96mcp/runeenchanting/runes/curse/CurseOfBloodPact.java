@@ -38,7 +38,7 @@ public class CurseOfBloodPact extends Rune {
 
     @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
-        appender.addTag(ItemTags.VANISHING_ENCHANTABLE);
+        appender.addTag(ItemTags.DURABILITY_ENCHANTABLE);
     }
 
     @Override

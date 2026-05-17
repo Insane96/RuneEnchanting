@@ -145,7 +145,7 @@
 - [x] curse_of_slow_strike
 - [x] curse_of_inefficiency
 - [x] curse_of_short_arm
-- [ ] curse_of_fragility
+- [x] curse_of_fragility
 - [ ] curse_of_ender
 - [ ] curse_of_walking
 - [ ] curse_of_steel_fall
