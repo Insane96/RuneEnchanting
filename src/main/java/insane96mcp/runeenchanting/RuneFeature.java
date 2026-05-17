@@ -20,6 +20,7 @@ import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.GameRules;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -59,6 +60,9 @@ public class RuneFeature extends Feature {
             * Removes the enchanting table recipe
             * Changes Channeling enchantment (and subsequently the Channeling rune) to work in rain too""")
     public static Boolean integratedDataPack = true;
+    
+    @Config(description = "If true, infos that are usually shown only with shift held down, will always show instead")
+    public static Boolean alwaysShowExtraInfos = false;
 
     public static Boolean disableExperience = false;
 
@@ -175,7 +179,7 @@ public class RuneFeature extends Feature {
             runes = runes.stream().sorted(Comparator.comparingInt(h -> (Rune.isCurse(h) ? 1 : 0))).toList();
         int runesCount = RuneHelper.countRunes(stack);
         if (sockets > 0 && !stack.is(REItems.RUNE)) {
-            if (runesCount > 0 || event.getFlags().hasShiftDown()) {
+            if (runesCount > 0 || showExtraInfos(event.getFlags())) {
                 event.getToolTip().add(CommonComponents.space());
                 event.getToolTip().add(Component.translatable("sockets", runesCount, sockets).withStyle(ChatFormatting.DARK_PURPLE));
             }
@@ -186,7 +190,7 @@ public class RuneFeature extends Feature {
                 if (Rune.isCurse(holder))
                     color = ChatFormatting.RED;
                 event.getToolTip().add(CommonComponents.space().append(holder.value().getNameComponent().withStyle(color)));
-                if (event.getFlags().hasShiftDown()) {
+                if (showExtraInfos(event.getFlags())) {
                     event.getToolTip().add(CommonComponents.space().append(holder.value().getDescriptionComponent()).withStyle(ChatFormatting.GRAY));
                     if (Rune.isCurse(holder))
                         event.getToolTip().add(CommonComponents.space().append(Component.translatable("cursed_info")).withStyle(ChatFormatting.GRAY));
@@ -194,6 +198,10 @@ public class RuneFeature extends Feature {
                 holder.value().addTooltip(stack, event.getToolTip(), event.getFlags(), event.getEntity());
             }
         }
+    }
+    
+    public static boolean showExtraInfos(TooltipFlag flag) {
+        return flag.hasShiftDown() || alwaysShowExtraInfos;
     }
 
 }

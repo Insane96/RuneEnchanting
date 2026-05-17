@@ -4,6 +4,7 @@ import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.insanelib.event.HurtItemStackEvent;
 import insane96mcp.insanelib.event.PlayerSprintEvent;
 import insane96mcp.runeenchanting.RuneEnchanting;
+import insane96mcp.runeenchanting.RuneFeature;
 import insane96mcp.runeenchanting.data.provider.RERuneTagProvider;
 import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.ChatFormatting;
@@ -308,7 +309,7 @@ public abstract class Rune {
     }
 
     public void addTooltip(ItemStack stack, List<Component> tooltip, TooltipFlag flag, @Nullable Player player) {
-        if (flag.hasShiftDown())
+        if (RuneFeature.showExtraInfos(flag))
             addInfo(stack, tooltip, player);
     }
 }
