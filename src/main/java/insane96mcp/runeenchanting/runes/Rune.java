@@ -1,6 +1,7 @@
 package insane96mcp.runeenchanting.runes;
 
 import insane96mcp.insanelib.core.feature.config.Config;
+import insane96mcp.insanelib.event.HurtItemStackEvent;
 import insane96mcp.insanelib.event.PlayerSprintEvent;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.data.provider.RERuneTagProvider;
@@ -216,6 +217,8 @@ public abstract class Rune {
     }
 
     public void onItemFished(ItemFishedEvent event, ItemStack stack) {}
+
+    public void onItemHurt(HurtItemStackEvent event, ItemStack stack) {}
 
     public int modifyTridentReturnToOwnerAcceleration(ServerLevel level, ItemStack stack, Entity entity, int original, int acceleration) {
         return acceleration;

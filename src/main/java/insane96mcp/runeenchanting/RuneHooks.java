@@ -2,6 +2,7 @@ package insane96mcp.runeenchanting;
 
 import insane96mcp.insanelib.core.feature.Feature;
 import insane96mcp.insanelib.core.feature.LoadFeature;
+import insane96mcp.insanelib.event.HurtItemStackEvent;
 import insane96mcp.runeenchanting.mixin.MobEffectInstanceAccessor;
 import insane96mcp.runeenchanting.runes.ExplosiveRune;
 import insane96mcp.runeenchanting.runes.MagicProtectionRune;
@@ -114,6 +115,11 @@ public class RuneHooks extends Feature {
             holder.value().onBlockBreak(event, stack);
             if (event.isCanceled()) break;
         }
+    }
+
+    @SubscribeEvent
+    public void onHurtItemStack(HurtItemStackEvent event) {
+        forRunes(event.getStack(), rune -> rune.onItemHurt(event, event.getStack()));
     }
 
     @SubscribeEvent

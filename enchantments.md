@@ -140,10 +140,10 @@
   - No xp
 - [x] ~~curse_of_tear~~
   - No xp
-- [ ] curse_of_blood_pact
+- [x] curse_of_blood_pact
 - [x] curse_of_unhurried
 - [x] curse_of_slow_strike
-- [ ] curse_of_inefficiency
+- [x] curse_of_inefficiency
 - [x] curse_of_short_arm
 - [ ] curse_of_fragility
 - [ ] curse_of_ender
