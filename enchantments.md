@@ -131,19 +131,20 @@
 - [x] juicy_bait
 
 ### General
-- [ ] ~~soulbound~~
+- [x] ~~soulbound~~
 - [x] keego
 - [x] weathering
 
 ### Curses
 - [x] ~~curse_of_experience~~
   - No xp
-- [ ] curse_of_tear
+- [x] ~~curse_of_tear~~
+  - No xp
 - [ ] curse_of_blood_pact
-- [ ] curse_of_unhurried
-- [ ] curse_of_slow_strike
+- [x] curse_of_unhurried
+- [x] curse_of_slow_strike
 - [ ] curse_of_inefficiency
-- [ ] curse_of_short_arm
+- [x] curse_of_short_arm
 - [ ] curse_of_fragility
 - [ ] curse_of_ender
 - [ ] curse_of_walking

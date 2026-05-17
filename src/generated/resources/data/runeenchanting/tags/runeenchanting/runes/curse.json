@@ -2,6 +2,8 @@
   "values": [
     "runeenchanting:curse_of_binding",
     "runeenchanting:curse_of_vanishing",
-    "runeenchanting:curse_of_short_arm"
+    "runeenchanting:curse_of_short_arm",
+    "runeenchanting:curse_of_unhurried",
+    "runeenchanting:curse_of_slow_strike"
   ]
 }

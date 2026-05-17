@@ -38,7 +38,9 @@ public class RERuneTagProvider extends TagsProvider<Rune> {
         add(CURSE,
                 RERunes.CURSE_OF_BINDING,
                 RERunes.CURSE_OF_VANISHING,
-                RERunes.CURSE_OF_SHORT_ARM);
+                RERunes.CURSE_OF_SHORT_ARM,
+                RERunes.CURSE_OF_UNHURRIED,
+                RERunes.CURSE_OF_SLOW_STRIKE);
 
         add(VANISHABLE,
                 RERunes.CURSE_OF_VANISHING,
