@@ -36,6 +36,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
 
+import java.util.Comparator;
 import java.util.List;
 
 @LoadFeature(canBeDisabled = false)
@@ -170,6 +171,8 @@ public class RuneFeature extends Feature {
         ItemStack stack = event.getItemStack();
         int sockets = stack.getOrDefault(REDataComponents.SOCKETS, 0);
         List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack, false);
+        if (runes != null)
+            runes = runes.stream().sorted(Comparator.comparingInt(h -> (Rune.isCurse(h) ? 1 : 0))).toList();
         int runesCount = RuneHelper.countRunes(stack);
         if (sockets > 0 && !stack.is(REItems.RUNE)) {
             if (runesCount > 0 || event.getFlags().hasShiftDown()) {
