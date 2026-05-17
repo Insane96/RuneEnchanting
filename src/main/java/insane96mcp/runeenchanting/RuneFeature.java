@@ -177,11 +177,12 @@ public class RuneFeature extends Feature {
         List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack, false);
         if (runes != null)
             runes = runes.stream().sorted(Comparator.comparingInt(h -> (Rune.isCurse(h) ? 1 : 0))).toList();
-        int runesCount = RuneHelper.countRunes(stack);
+        int runesCount = RuneHelper.countRunes(stack, false);
+        int noCursesRunesCount = RuneHelper.countRunes(stack);
         if (sockets > 0 && !stack.is(REItems.RUNE)) {
             if (runesCount > 0 || showExtraInfos(event.getFlags())) {
                 event.getToolTip().add(CommonComponents.space());
-                event.getToolTip().add(Component.translatable("sockets", runesCount, sockets).withStyle(ChatFormatting.DARK_PURPLE));
+                event.getToolTip().add(Component.translatable("sockets", noCursesRunesCount, sockets).withStyle(ChatFormatting.DARK_PURPLE));
             }
         }
         if (runes != null) {

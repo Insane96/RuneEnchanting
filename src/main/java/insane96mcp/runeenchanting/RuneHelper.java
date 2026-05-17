@@ -35,10 +35,14 @@ public class RuneHelper {
     }
 
     public static int countRunes(ItemStack stack) {
+        return countRunes(stack, true);
+    }
+
+    public static int countRunes(ItemStack stack, boolean ignoreCurses) {
         List<Holder<Rune>> runes = stack.get(REDataComponents.RUNES.get());
         if (runes == null)
             return 0;
-        runes = runes.stream().filter(rune -> rune.value().isEnabled() && !Rune.isCurse(rune)).toList();
+        runes = runes.stream().filter(rune -> rune.value().isEnabled() && (!Rune.isCurse(rune) || !ignoreCurses)).toList();
         return runes.size();
     }
 
