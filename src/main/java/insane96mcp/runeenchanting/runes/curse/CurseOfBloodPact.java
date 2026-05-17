@@ -35,12 +35,12 @@ public class CurseOfBloodPact extends Rune {
         if (!(event.getLivingEntity() instanceof Player player))
             return;
 
-        float damageThrough = 0f;
+        float damageAmount = 0f;
         for (int i = 0; i < event.getAmount(); i++) {
             if (event.getRandom().nextInt(10) == 0)
-                damageThrough++;
+                damageAmount++;
         }
-        if (damageThrough > 0)
-            player.hurt(player.damageSources().source(DAMAGE_TYPE), damageThrough);
+        if (damageAmount > 0)
+            player.hurt(player.damageSources().source(DAMAGE_TYPE), damageAmount);
     }
 }

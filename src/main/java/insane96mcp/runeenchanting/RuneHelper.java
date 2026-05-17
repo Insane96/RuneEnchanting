@@ -50,7 +50,8 @@ public class RuneHelper {
             return false;
         runes.add(rune);
         stack.set(REDataComponents.RUNES.get(), runes);
-        stack.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true);
+        if (!Rune.isCurse(rune))
+            stack.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true);
         if (Rune.isCurse(rune) && stack.getOrDefault(REDataComponents.SOCKETS, 0) > 0)
             stack.set(REDataComponents.SOCKETS, stack.getOrDefault(REDataComponents.SOCKETS.get(), 0) + 1);
         return true;
