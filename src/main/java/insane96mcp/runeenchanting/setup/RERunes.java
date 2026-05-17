@@ -122,9 +122,6 @@ public class RERunes {
     public static final DeferredHolder<Rune, LureRune> LURE = register("lure", new LureRune());
     public static final DeferredHolder<Rune, JuicyBaitRune> JUICY_BAIT = register("juicy_bait", new JuicyBaitRune());
 
-    // Vanishable
-    public static final DeferredHolder<Rune, EnduringRune> ENDURING = register("enduring", new EnduringRune());
-
     // Tools and Weapons
     public static final DeferredHolder<Rune, AdrenalineRune> ADRENALINE = register("adrenaline", new AdrenalineRune());
     //public static final DeferredHolder<Rune, MomentumRune> MOMENTUM = register("momentum", new MomentumRune());
@@ -133,6 +130,7 @@ public class RERunes {
     public static final DeferredHolder<Rune, ReachRune> REACH = register("reach", new ReachRune());
 
     // All durability items
+    public static final DeferredHolder<Rune, EnduringRune> ENDURING = register("enduring", new EnduringRune());
     public static final DeferredHolder<Rune, AtmosphericRune> ATMOSPHERIC = register("atmospheric", new AtmosphericRune());
 
     // Curse
@@ -145,6 +143,7 @@ public class RERunes {
     public static final DeferredHolder<Rune, CurseOfSlowStrikeRune> CURSE_OF_SLOW_STRIKE = register("curse_of_slow_strike", new CurseOfSlowStrikeRune());
     public static final DeferredHolder<Rune, CurseOfFragility> CURSE_OF_FRAGILITY = register("curse_of_fragility", new CurseOfFragility());
     public static final DeferredHolder<Rune, CurseOfEnderRune> CURSE_OF_ENDER = register("curse_of_ender", new CurseOfEnderRune());
+    public static final DeferredHolder<Rune, CurseOfSteelFall> CURSE_OF_STEEL_FALL = register("curse_of_steel_fall", new CurseOfSteelFall());
 
     private static <T extends Rune> DeferredHolder<Rune, T> register(String id, T instance) {
         RUNE_ENTRIES.add(Map.entry(id, instance));

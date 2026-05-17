@@ -146,9 +146,9 @@
 - [x] curse_of_inefficiency
 - [x] curse_of_short_arm
 - [x] curse_of_fragility
-- [ ] curse_of_ender
+- [x] curse_of_ender
 - [ ] curse_of_walking
-- [ ] curse_of_steel_fall
+- [x] curse_of_steel_fall
 - [ ] curse_of_the_void
 - [ ] curse_of_slow_charge
 - [ ] curse_of_dumbness
