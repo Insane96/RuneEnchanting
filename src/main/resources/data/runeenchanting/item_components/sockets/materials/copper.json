@@ -1,0 +1,6 @@
+{
+    "item": "#insanelib:equipment/copper",
+    "components": {
+        "runeenchanting:sockets": 5
+    }
+}
