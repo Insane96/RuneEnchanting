@@ -154,11 +154,11 @@
 - [x] ~~curse_of_dumbness~~
   - No xp
 - [x] curse_of_hop
-- [ ] curse_of_obscurity
-- [ ] curse_of_frenzy
-- [ ] curse_of_unstable_motion
-- [ ] curse_of_static_charge
-- [ ] curse_of_explosion
+- [x] curse_of_obscurity
+- [x] curse_of_frenzy
+- [x] curse_of_unstable_motion
+- [x] curse_of_static_charge
+- [x] curse_of_explosion
   - Blow up on attack like Explosive rune
 
 Attack cooldown-based effects

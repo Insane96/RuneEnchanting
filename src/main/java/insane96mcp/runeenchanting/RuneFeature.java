@@ -133,6 +133,7 @@ public class RuneFeature extends Feature {
         if (!RuneHelper.addRune(output, toApply))
             return;
         event.setOutput(output);
+        event.setMaterialCost(1);
         event.setCost(1);
     }
 
