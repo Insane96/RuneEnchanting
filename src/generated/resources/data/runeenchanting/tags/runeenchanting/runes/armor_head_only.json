@@ -2,6 +2,8 @@
   "values": [
     "runeenchanting:respiration",
     "runeenchanting:aqua_affinity",
-    "runeenchanting:enlightened"
+    "runeenchanting:enlightened",
+    "runeenchanting:curse_of_obscurity",
+    "runeenchanting:curse_of_static_charge"
   ]
 }

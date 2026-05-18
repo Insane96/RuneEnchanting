@@ -17,6 +17,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.common.extensions.IAttributeExtension;
+import net.neoforged.neoforge.event.entity.living.LivingEquipmentChangeEvent;
 import org.jetbrains.annotations.Nullable;
 
 public class RetreatRune extends Rune {
@@ -68,6 +69,13 @@ public class RetreatRune extends Rune {
         if (player == null)
             return Component.empty();
         return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(getBonusSpeed(player) * 100f));
+    }
+
+    @Override
+    public void onEquipmentChange(LivingEquipmentChangeEvent event, ItemStack stack) {
+        AttributeInstance attr = event.getEntity().getAttribute(Attributes.MOVEMENT_SPEED);
+        if (attr != null)
+            attr.removeModifier(MODIFIER_ID);
     }
 
     private float getBonusSpeed(LivingEntity entity) {

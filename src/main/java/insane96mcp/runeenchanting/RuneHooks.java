@@ -89,6 +89,11 @@ public class RuneHooks extends Feature {
     }
 
     @SubscribeEvent
+    public void onEquipmentChange(LivingEquipmentChangeEvent event) {
+        forRunes(event.getFrom(), rune -> rune.onEquipmentChange(event, event.getFrom()));
+    }
+
+    @SubscribeEvent
     public void onLivingDeath(LivingDeathEvent event) {
         if (!(event.getEntity().level() instanceof ServerLevel level)) return;
         if (!(event.getSource().getEntity() instanceof LivingEntity killer)) return;

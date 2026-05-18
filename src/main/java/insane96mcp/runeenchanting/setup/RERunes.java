@@ -147,6 +147,11 @@ public class RERunes {
     public static final DeferredHolder<Rune, CurseOfTheVoidRune> CURSE_OF_THE_VOID = register("curse_of_the_void", new CurseOfTheVoidRune());
     public static final DeferredHolder<Rune, CurseOfSlowChargeRune> CURSE_OF_SLOW_CHARGE = register("curse_of_slow_charge", new CurseOfSlowChargeRune());
     public static final DeferredHolder<Rune, CurseOfHopRune> CURSE_OF_HOP = register("curse_of_hop", new CurseOfHopRune());
+    public static final DeferredHolder<Rune, CurseOfObscurityRune> CURSE_OF_OBSCURITY = register("curse_of_obscurity", new CurseOfObscurityRune());
+    public static final DeferredHolder<Rune, CurseOfFrenzyRune> CURSE_OF_FRENZY = register("curse_of_frenzy", new CurseOfFrenzyRune());
+    public static final DeferredHolder<Rune, CurseOfUnstableMotionRune> CURSE_OF_UNSTABLE_MOTION = register("curse_of_unstable_motion", new CurseOfUnstableMotionRune());
+    public static final DeferredHolder<Rune, CurseOfStaticChargeRune> CURSE_OF_STATIC_CHARGE = register("curse_of_static_charge", new CurseOfStaticChargeRune());
+    public static final DeferredHolder<Rune, CurseOfExplosionRune> CURSE_OF_EXPLOSION = register("curse_of_explosion", new CurseOfExplosionRune());
 
     private static <T extends Rune> DeferredHolder<Rune, T> register(String id, T instance) {
         RUNE_ENTRIES.add(Map.entry(id, instance));

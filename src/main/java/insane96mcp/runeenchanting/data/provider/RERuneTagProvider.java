@@ -48,7 +48,12 @@ public class RERuneTagProvider extends TagsProvider<Rune> {
                 RERunes.CURSE_OF_STEEL_FALL,
                 RERunes.CURSE_OF_THE_VOID,
                 RERunes.CURSE_OF_SLOW_CHARGE,
-                RERunes.CURSE_OF_HOP);
+                RERunes.CURSE_OF_HOP,
+                RERunes.CURSE_OF_OBSCURITY,
+                RERunes.CURSE_OF_FRENZY,
+                RERunes.CURSE_OF_UNSTABLE_MOTION,
+                RERunes.CURSE_OF_STATIC_CHARGE,
+                RERunes.CURSE_OF_EXPLOSION);
 
         add(VANISHABLE,
                 RERunes.CURSE_OF_VANISHING,
@@ -57,14 +62,17 @@ public class RERuneTagProvider extends TagsProvider<Rune> {
         add(ARMOR_HEAD_ONLY,
                 RERunes.RESPIRATION,
                 RERunes.AQUA_AFFINITY,
-                RERunes.ENLIGHTENED);
+                RERunes.ENLIGHTENED,
+                RERunes.CURSE_OF_OBSCURITY,
+                RERunes.CURSE_OF_STATIC_CHARGE);
 
         add(ARMOR_CHEST_ONLY,
                 RERunes.AIR_AFFINITY,
                 RERunes.VINDICATION,
                 RERunes.RECOVERY,
                 RERunes.INVULNERABILITY,
-                RERunes.FIRE_GUARDIAN);
+                RERunes.FIRE_GUARDIAN,
+                RERunes.CURSE_OF_FRENZY);
 
         add(ARMOR_LEGS_ONLY,
                 RERunes.SWIFT_SNEAK,
@@ -72,7 +80,8 @@ public class RERuneTagProvider extends TagsProvider<Rune> {
                 RERunes.ZIPPY,
                 RERunes.SPRINT_PACT,
                 RERunes.CHARGED_JUMP,
-                RERunes.RETREAT);
+                RERunes.RETREAT,
+                RERunes.CURSE_OF_UNSTABLE_MOTION);
 
         add(ARMOR_FEET_ONLY,
                 RERunes.FEATHER_FALLING,
