@@ -15,6 +15,11 @@ public class CurseOfFragility extends Rune {
     @Config(min = 0, max = 1)
     public static Double durabilityMultiplier = 0.5d;
 
+    public CurseOfFragility() {
+        //Run after all the other durability runes
+        super(1);
+    }
+
     @Override
     public String getName() {
         return "Curse of Fragility";
@@ -33,12 +38,6 @@ public class CurseOfFragility extends Rune {
     @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
         appender.addTag(ItemTags.DURABILITY_ENCHANTABLE);
-    }
-
-    //Run after all the other durability runes
-    @Override
-    public int getPriority() {
-        return -1;
     }
 
     @Override

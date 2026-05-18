@@ -19,6 +19,11 @@ public class CurseOfInefficiency extends Rune {
     @Config(min = 0, max = 1)
     public static Double miningSpeedReduction = 0.5d;
 
+    public CurseOfInefficiency() {
+        //Run after all the other efficiency runes
+        super(1);
+    }
+
     @Override
     public String getName() {
         return "Curse of Inefficiency";
@@ -39,14 +44,10 @@ public class CurseOfInefficiency extends Rune {
         appender.addTag(ItemTags.MINING_ENCHANTABLE);
     }
 
-    //Run after all the other efficiency runes
-    @Override
-    public int getPriority() {
-        return -1;
-    }
-
     @Override
     public float onMiningSpeed(Player player, ItemStack stack, BlockState state, @Nullable BlockPos pos, float original, float speed) {
+        if (!stack.isCorrectToolForDrops(state))
+            return speed;
         return speed * 0.5f;
     }
 
