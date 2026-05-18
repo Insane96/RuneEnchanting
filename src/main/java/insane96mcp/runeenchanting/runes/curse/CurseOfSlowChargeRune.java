@@ -13,7 +13,7 @@ import net.neoforged.neoforge.common.extensions.IAttributeExtension;
 
 import javax.annotation.Nullable;
 
-public class CurseOfSlowCharge extends Rune {
+public class CurseOfSlowChargeRune extends Rune {
     @Config
     public static Double secondsIncrease = 0.5d;
 

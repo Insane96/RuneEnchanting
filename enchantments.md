@@ -150,8 +150,9 @@
 - [ ] curse_of_walking
 - [x] curse_of_steel_fall
 - [x] curse_of_the_void
-- [ ] curse_of_slow_charge
-- [ ] curse_of_dumbness
+- [x] curse_of_slow_charge
+- [x] ~~curse_of_dumbness~~
+  - No xp
 - [ ] curse_of_hop
 - [ ] curse_of_obscurity
 - [ ] curse_of_frenzy

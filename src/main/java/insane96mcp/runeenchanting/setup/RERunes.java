@@ -136,16 +136,16 @@ public class RERunes {
     // Curse
     public static final DeferredHolder<Rune, CurseOfBindingRune> CURSE_OF_BINDING = register("curse_of_binding", new CurseOfBindingRune());
     public static final DeferredHolder<Rune, CurseOfVanishingRune> CURSE_OF_VANISHING = register("curse_of_vanishing", new CurseOfVanishingRune());
-    public static final DeferredHolder<Rune, CurseOfBloodPact> CURSE_OF_BLOOD_PACT = register("curse_of_blood_pact", new CurseOfBloodPact());
-    public static final DeferredHolder<Rune, CurseOfInefficiency> CURSE_OF_INEFFICIENCY = register("curse_of_inefficiency", new CurseOfInefficiency());
+    public static final DeferredHolder<Rune, CurseOfBloodPactRune> CURSE_OF_BLOOD_PACT = register("curse_of_blood_pact", new CurseOfBloodPactRune());
+    public static final DeferredHolder<Rune, CurseOfInefficiencyRune> CURSE_OF_INEFFICIENCY = register("curse_of_inefficiency", new CurseOfInefficiencyRune());
     public static final DeferredHolder<Rune, CurseOfShortArmRune> CURSE_OF_SHORT_ARM = register("curse_of_short_arm", new CurseOfShortArmRune());
     public static final DeferredHolder<Rune, CurseOfUnhurriedRune> CURSE_OF_UNHURRIED = register("curse_of_unhurried", new CurseOfUnhurriedRune());
     public static final DeferredHolder<Rune, CurseOfSlowStrikeRune> CURSE_OF_SLOW_STRIKE = register("curse_of_slow_strike", new CurseOfSlowStrikeRune());
-    public static final DeferredHolder<Rune, CurseOfFragility> CURSE_OF_FRAGILITY = register("curse_of_fragility", new CurseOfFragility());
+    public static final DeferredHolder<Rune, CurseOfFragilityRune> CURSE_OF_FRAGILITY = register("curse_of_fragility", new CurseOfFragilityRune());
     public static final DeferredHolder<Rune, CurseOfEnderRune> CURSE_OF_ENDER = register("curse_of_ender", new CurseOfEnderRune());
-    public static final DeferredHolder<Rune, CurseOfSteelFall> CURSE_OF_STEEL_FALL = register("curse_of_steel_fall", new CurseOfSteelFall());
-    public static final DeferredHolder<Rune, CurseOfTheVoid> CURSE_OF_THE_VOID = register("curse_of_the_void", new CurseOfTheVoid());
-    public static final DeferredHolder<Rune, CurseOfSlowCharge> CURSE_OF_SLOW_CHARGE = register("curse_of_slow_charge", new CurseOfSlowCharge());
+    public static final DeferredHolder<Rune, CurseOfSteelFallRune> CURSE_OF_STEEL_FALL = register("curse_of_steel_fall", new CurseOfSteelFallRune());
+    public static final DeferredHolder<Rune, CurseOfTheVoidRune> CURSE_OF_THE_VOID = register("curse_of_the_void", new CurseOfTheVoidRune());
+    public static final DeferredHolder<Rune, CurseOfSlowChargeRune> CURSE_OF_SLOW_CHARGE = register("curse_of_slow_charge", new CurseOfSlowChargeRune());
 
     private static <T extends Rune> DeferredHolder<Rune, T> register(String id, T instance) {
         RUNE_ENTRIES.add(Map.entry(id, instance));

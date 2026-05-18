@@ -13,7 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentTarget;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 
-public class CurseOfSteelFall extends Rune {
+public class CurseOfSteelFallRune extends Rune {
     @Config
     public static Double damageIncrease = 0.5d;
 

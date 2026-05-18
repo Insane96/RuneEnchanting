@@ -14,12 +14,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class CurseOfInefficiency extends Rune {
+public class CurseOfInefficiencyRune extends Rune {
 
     @Config(min = 0, max = 1)
     public static Double miningSpeedReduction = 0.5d;
 
-    public CurseOfInefficiency() {
+    public CurseOfInefficiencyRune() {
         //Run after all the other efficiency runes
         super(1);
     }

@@ -11,7 +11,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
 
-public class CurseOfTheVoid extends Rune {
+public class CurseOfTheVoidRune extends Rune {
     @Config(min = 0, max = 1)
     public static Double chanceToVoid = 0.35d;
 

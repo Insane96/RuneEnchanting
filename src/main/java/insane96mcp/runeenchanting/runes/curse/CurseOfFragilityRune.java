@@ -10,12 +10,12 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-public class CurseOfFragility extends Rune {
+public class CurseOfFragilityRune extends Rune {
 
     @Config(min = 0, max = 1)
     public static Double durabilityMultiplier = 0.5d;
 
-    public CurseOfFragility() {
+    public CurseOfFragilityRune() {
         //Run after all the other durability runes
         super(1);
     }

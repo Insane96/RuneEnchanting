@@ -3,7 +3,7 @@ package insane96mcp.runeenchanting.data.loot;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import insane96mcp.runeenchanting.RuneHelper;
-import insane96mcp.runeenchanting.runes.curse.CurseOfTheVoid;
+import insane96mcp.runeenchanting.runes.curse.CurseOfTheVoidRune;
 import insane96mcp.runeenchanting.setup.RERunes;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.world.item.ItemStack;
@@ -28,7 +28,7 @@ public class VoidCurseLootModifier extends LootModifier {
             return generatedLoot;
         if (!RuneHelper.hasRune(tool, RERunes.CURSE_OF_THE_VOID))
             return generatedLoot;
-        if (context.getRandom().nextFloat() >= CurseOfTheVoid.chanceToVoid)
+        if (context.getRandom().nextFloat() >= CurseOfTheVoidRune.chanceToVoid)
             return generatedLoot;
         generatedLoot.clear();
         return generatedLoot;
