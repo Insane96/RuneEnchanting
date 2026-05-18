@@ -125,7 +125,8 @@ public class RuneFeature extends Feature {
         ItemStack output = event.getLeft().copy();
         Holder<Rune> toApply = event.getRight().get(REDataComponents.STORED_RUNE.value());
         if (toApply == null
-                || !toApply.value().canBeAppliedTo(output))
+                || !toApply.value().canBeAppliedTo(output)
+                || (Rune.isCurse(toApply) && RuneHelper.hasCurse(output)))
             return;
         if (!RuneHelper.addRune(output, toApply))
             return;
@@ -173,7 +174,7 @@ public class RuneFeature extends Feature {
     @SubscribeEvent
     public void onTooltip(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
-        int sockets = stack.getOrDefault(REDataComponents.SOCKETS, 0);
+        int sockets = RuneHelper.getSockets(stack);
         List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack, false);
         if (runes != null)
             runes = runes.stream().sorted(Comparator.comparingInt(h -> (Rune.isCurse(h) ? 1 : 0))).toList();
