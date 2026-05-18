@@ -151,4 +151,11 @@ public class RuneHelper {
                 .toList();
         return runes;
     }
+
+    public static boolean hasCurse(ItemStack output) {
+        List<Holder<Rune>> runes = getRunesByPriority(output);
+        if (runes == null)
+            return false;
+        return runes.stream().anyMatch(Rune::isCurse);
+    }
 }
