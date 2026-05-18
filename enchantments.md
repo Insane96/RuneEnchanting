@@ -149,7 +149,7 @@
 - [x] curse_of_ender
 - [ ] curse_of_walking
 - [x] curse_of_steel_fall
-- [ ] curse_of_the_void
+- [x] curse_of_the_void
 - [ ] curse_of_slow_charge
 - [ ] curse_of_dumbness
 - [ ] curse_of_hop
