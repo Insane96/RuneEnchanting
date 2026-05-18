@@ -144,6 +144,7 @@ public class RERunes {
     public static final DeferredHolder<Rune, CurseOfFragility> CURSE_OF_FRAGILITY = register("curse_of_fragility", new CurseOfFragility());
     public static final DeferredHolder<Rune, CurseOfEnderRune> CURSE_OF_ENDER = register("curse_of_ender", new CurseOfEnderRune());
     public static final DeferredHolder<Rune, CurseOfSteelFall> CURSE_OF_STEEL_FALL = register("curse_of_steel_fall", new CurseOfSteelFall());
+    public static final DeferredHolder<Rune, CurseOfTheVoid> CURSE_OF_THE_VOID = register("curse_of_the_void", new CurseOfTheVoid());
 
     private static <T extends Rune> DeferredHolder<Rune, T> register(String id, T instance) {
         RUNE_ENTRIES.add(Map.entry(id, instance));

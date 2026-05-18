@@ -4,6 +4,7 @@ import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.data.loot.ExperienceBottleToRuneLootModifier;
 import insane96mcp.runeenchanting.data.loot.RuneCatchAllLootModifier;
 import insane96mcp.runeenchanting.data.loot.RuneLootModifier;
+import insane96mcp.runeenchanting.data.loot.VoidCurseLootModifier;
 import insane96mcp.runeenchanting.runes.Rune;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -39,6 +40,7 @@ public class REGlobalLootModifierProvider extends GlobalLootModifierProvider {
         ));
         addRuneLootModifier("igloo_chest", RERuneTagProvider.LOOT_IGLOO_CHEST);
 
+        add("void_curse", new VoidCurseLootModifier(new LootItemCondition[0]));
         add("experience_bottle_to_rune", new ExperienceBottleToRuneLootModifier(new LootItemCondition[0]));
         add("catch_all", new RuneCatchAllLootModifier(new LootItemCondition[0]));
     }

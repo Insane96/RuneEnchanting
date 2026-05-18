@@ -5,6 +5,7 @@ import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.data.loot.ExperienceBottleToRuneLootModifier;
 import insane96mcp.runeenchanting.data.loot.RuneCatchAllLootModifier;
 import insane96mcp.runeenchanting.data.loot.RuneLootModifier;
+import insane96mcp.runeenchanting.data.loot.VoidCurseLootModifier;
 import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -22,4 +23,7 @@ public class RELootModifiers {
 
     public static final DeferredHolder<MapCodec<? extends IGlobalLootModifier>, MapCodec<ExperienceBottleToRuneLootModifier>> EXPERIENCE_BOTTLE_TO_RUNE =
             REGISTRY.register("experience_bottle_to_rune", () -> ExperienceBottleToRuneLootModifier.CODEC);
+
+    public static final DeferredHolder<MapCodec<? extends IGlobalLootModifier>, MapCodec<VoidCurseLootModifier>> VOID_CURSE =
+            REGISTRY.register("void_curse", () -> VoidCurseLootModifier.CODEC);
 }
