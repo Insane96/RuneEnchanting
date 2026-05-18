@@ -153,7 +153,7 @@
 - [x] curse_of_slow_charge
 - [x] ~~curse_of_dumbness~~
   - No xp
-- [ ] curse_of_hop
+- [x] curse_of_hop
 - [ ] curse_of_obscurity
 - [ ] curse_of_frenzy
 - [ ] curse_of_unstable_motion
