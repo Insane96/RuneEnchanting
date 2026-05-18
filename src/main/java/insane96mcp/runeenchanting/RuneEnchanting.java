@@ -21,6 +21,7 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -60,6 +61,9 @@ public class RuneEnchanting {
         REDataComponents.REGISTRY.register(modEventBus);
         REItems.REGISTRY.register(modEventBus);
         RELootModifiers.REGISTRY.register(modEventBus);
+        if (FMLLoader.getDist().isClient()) {
+            modEventBus.addListener(ClientSetup::onBuildCreativeModeTabContents);
+        }
     }
 
     public static ResourceLocation id(String path) {

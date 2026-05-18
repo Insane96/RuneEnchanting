@@ -60,7 +60,9 @@ public class RuneFeature extends Feature {
             * Removes the enchanting table recipe
             * Changes Channeling enchantment (and subsequently the Channeling rune) to work in rain too""")
     public static Boolean integratedDataPack = true;
-    
+    @Config(description = "If true, enchanting related items are hidden from creative inventory")
+    public static Boolean hideEnchantingRelatedItems = true;
+
     @Config(description = "If true, infos that are usually shown only with shift held down, will always show instead")
     public static Boolean alwaysShowExtraInfos = false;
 
