@@ -19,13 +19,13 @@ import java.util.stream.Collectors;
 
 public class RuneHelper {
     public static boolean hasRune(ItemStack stack, Holder<Rune> rune) {
-        List<Holder<Rune>> runes = stack.get(REDataComponents.RUNES.get());
+        List<Holder<Rune>> runes = stack.get(REDataComponents.RUNES);
         return runes != null && runes.contains(rune);
     }
 
     public static boolean hasRuneOnArmor(LivingEntity entity, Holder<Rune> rune) {
         for (ItemStack stack : entity.getArmorSlots()) {
-            List<Holder<Rune>> runes = stack.get(REDataComponents.RUNES.get());
+            List<Holder<Rune>> runes = stack.get(REDataComponents.RUNES);
             if (runes == null)
                 continue;
             if (runes.contains(rune))
@@ -39,7 +39,7 @@ public class RuneHelper {
     }
 
     public static int countRunes(ItemStack stack, boolean ignoreCurses) {
-        List<Holder<Rune>> runes = stack.get(REDataComponents.RUNES.get());
+        List<Holder<Rune>> runes = stack.get(REDataComponents.RUNES);
         if (runes == null)
             return 0;
         runes = runes.stream().filter(rune -> rune.value().isEnabled() && (!Rune.isCurse(rune) || !ignoreCurses)).toList();
@@ -47,44 +47,44 @@ public class RuneHelper {
     }
 
     public static boolean addRune(ItemStack stack, Holder<Rune> rune) {
-        List<Holder<Rune>> runes = new ArrayList<>(stack.getOrDefault(REDataComponents.RUNES.get(), List.of()));
+        List<Holder<Rune>> runes = new ArrayList<>(stack.getOrDefault(REDataComponents.RUNES, List.of()));
         if (runes.contains(rune))
             return false;
-        if (countRunes(stack) >= stack.getOrDefault(REDataComponents.SOCKETS, 0) && !Rune.isCurse(rune))
+        if (countRunes(stack) >= getSockets(stack) && !Rune.isCurse(rune))
             return false;
         runes.add(rune);
-        stack.set(REDataComponents.RUNES.get(), runes);
+        stack.set(REDataComponents.RUNES, runes);
         if (!Rune.isCurse(rune))
             stack.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true);
-        if (Rune.isCurse(rune) && stack.getOrDefault(REDataComponents.SOCKETS, 0) > 0)
-            stack.set(REDataComponents.SOCKETS, stack.getOrDefault(REDataComponents.SOCKETS.get(), 0) + 1);
+        if (Rune.isCurse(rune) && getSockets(stack) > 0)
+            stack.set(REDataComponents.SOCKETS, getSockets(stack) + 1);
         return true;
     }
 
     public static boolean removeRune(ItemStack stack, Holder<Rune> rune) {
-        List<Holder<Rune>> runes = new ArrayList<>(stack.getOrDefault(REDataComponents.RUNES.get(), List.of()));
+        List<Holder<Rune>> runes = new ArrayList<>(stack.getOrDefault(REDataComponents.RUNES, List.of()));
         if (!runes.remove(rune))
             return false;
         if (runes.isEmpty()) {
-            stack.remove(REDataComponents.RUNES.get());
+            stack.remove(REDataComponents.RUNES);
             stack.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, false);
         }
         else
-            stack.set(REDataComponents.RUNES.get(), runes);
-        if (Rune.isCurse(rune) && stack.getOrDefault(REDataComponents.SOCKETS, 0) > 0)
-            stack.set(REDataComponents.SOCKETS, stack.getOrDefault(REDataComponents.SOCKETS.get(), 0) + 1);
+            stack.set(REDataComponents.RUNES, runes);
+        if (Rune.isCurse(rune) && getSockets(stack) > 0)
+            stack.set(REDataComponents.SOCKETS, getSockets(stack) + 1);
         return true;
     }
 
     public static List<Holder<Rune>> clearRunes(ItemStack stack, boolean clearCurses) {
-        List<Holder<Rune>> runes = new ArrayList<>(stack.getOrDefault(REDataComponents.RUNES.get(), List.of()));
+        List<Holder<Rune>> runes = new ArrayList<>(stack.getOrDefault(REDataComponents.RUNES, List.of()));
         if (clearCurses) {
-            stack.remove(REDataComponents.RUNES.get());
+            stack.remove(REDataComponents.RUNES);
         }
         else {
             List<Holder<Rune>> cleared = new ArrayList<>(runes);
             cleared.removeIf(rune -> !Rune.isCurse(rune));
-            stack.set(REDataComponents.RUNES.get(), cleared);
+            stack.set(REDataComponents.RUNES, cleared);
 
             runes.removeIf(Rune::isCurse);
         }
@@ -105,8 +105,8 @@ public class RuneHelper {
 
         if (eligible.isEmpty()) return;
 
-        int freeSlots = stack.getOrDefault(REDataComponents.SOCKETS.get(), 0)
-                - stack.getOrDefault(REDataComponents.RUNES.get(), List.of()).size();
+        int freeSlots = getSockets(stack)
+                - stack.getOrDefault(REDataComponents.RUNES, List.of()).size();
         if (freeSlots <= 0) return;
 
         int toAdd = Math.min(Math.min(amount, freeSlots), eligible.size());
@@ -124,8 +124,8 @@ public class RuneHelper {
         if (eligible.isEmpty())
             return ItemStack.EMPTY;
         Holder<Rune> picked = eligible.get(random.nextInt(eligible.size()));
-        ItemStack runeItem = new ItemStack(REItems.RUNE.get());
-        runeItem.set(REDataComponents.STORED_RUNE.get(), picked);
+        ItemStack runeItem = new ItemStack(REItems.RUNE);
+        runeItem.set(REDataComponents.STORED_RUNE, picked);
         return runeItem;
     }
 
@@ -134,13 +134,18 @@ public class RuneHelper {
         return getRunesByPriority(stack, true);
     }
 
+    public static int getSockets(ItemStack stack) {
+        return stack.getOrDefault(REDataComponents.SOCKETS, 0);
+    }
+
+    //TODO Just return an empty list if no component is present
     @Nullable
     public static List<Holder<Rune>> getRunesByPriority(ItemStack stack, boolean ignoreStoredRune) {
-        List<Holder<Rune>> runes = stack.get(REDataComponents.RUNES.get());
+        List<Holder<Rune>> runes = stack.get(REDataComponents.RUNES);
         if (runes == null) {
             if (ignoreStoredRune)
                 return null;
-            Holder<Rune> storedRune = stack.get(REDataComponents.STORED_RUNE.get());
+            Holder<Rune> storedRune = stack.get(REDataComponents.STORED_RUNE);
             if (storedRune == null)
                 return null;
             runes = List.of(storedRune);
