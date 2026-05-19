@@ -36,13 +36,9 @@ No dedicated test task exists yet — use `runGameTestServer` for game tests.
 
 ### Rune System
 
-`data/runes/Rune.java` — abstract base class for all runes. Each rune has a `ResourceLocation` ID and a priority. Provides many override points covering mining, damage, projectiles, durability, protection, experience, fishing, and per-tick effects. Supports `@Config`-annotated static fields and an `Enabled` toggle processed via `loadConfig`/`readConfig`. Has `isCurse()` and `canGenerateRandomly()` flags.
+`runes/Rune.java` — abstract base class for all runes. Each rune has a `ResourceLocation` ID and a priority. Provides many override points covering mining, damage, projectiles, durability, protection, experience, fishing, and per-tick effects. Supports `@Config`-annotated static fields and an `Enabled` toggle processed via `loadConfig`/`readConfig`. Has `isCurse()` and `canGenerateRandomly()` flags.
 
-Concrete runes are in `data/runes/` and registered in `setup/RERunes.java`. Rune configs are written to `runeenchanting/runes.toml`.
-
-### Context Classes
-
-`MiningContext` and `AttackContext` — thin data holders still present in `data/`, used by legacy `onMiningSpeed`/`onAttack` overrides on `Rune`.
+Concrete runes are in `runes/` and registered in `setup/RERunes.java`. Curses are in the `runes/curse/` sub-package. Rune configs are written to `runeenchanting/runes.toml`. `MomentumRune` exists but is currently commented out in `RERunes`.
 
 ### Registry (`setup/RERunes.java`)
 
@@ -61,26 +57,58 @@ Registers `RUNE` — a basic `Item` with default properties.
 - `REItemTagProvider.java` — generates `rune_applicable_to/<rune>` item tags per rune.
 - `REEntityTypeTagProvider.java` — generates entity type tags used by runes.
 - `RELanguageProvider.java` — generates language entries for rune names/descriptions.
+- `REEnchantmentTagProvider.java` — generates enchantment tags used by the loot/conversion system.
+- `RERuneTagProvider.java` — generates rune tags.
+- `REGlobalLootModifierProvider.java` — generates global loot modifier JSON files.
 
 ### Mixins
 
-Three mixins, all declared in `runeenchanting.mixins.json`:
+All declared in `runeenchanting.mixins.json`. Server-side:
 - `PlayerMixin` — `@Mixin(Player.class)` wraps `getEnchantedDamage` in `Player.attack` to call `RuneFeature.onEnchantmentDamage`.
 - `IItemExtensionMixin` — `@Mixin(IItemExtension.class)` hooks `getMaxDamage` → `RuneFeature.onGetMaxDamage`.
 - `EnchantmentHelperMixin` — `@Mixin(EnchantmentHelper.class)` hooks virtually all `EnchantmentHelper` static methods (damage, protection, projectiles, durability, experience, fishing, etc.) to dispatch to `RuneFeature` static methods. Also cancels `enchantItem`/`enchantItemFromProvider` when `disableExperience` is active.
+- `LivingEntityMixin` — hooks into `LivingEntity` for rune-driven living entity effects.
+- `MobMixin` — hooks `Mob` for mob-specific rune interactions.
+- `AbstractArrowMixin` — hooks arrows for projectile rune effects.
+- `ProjectileWeaponItemMixin` — hooks crossbow/bow firing for projectile rune effects.
+- `EnchantWithLevelsFunctionMixin` / `EnchantRandomlyFunctionMixin` — cancels loot-table enchant functions when `disableExperience` is active (replaced by rune loot modifiers).
+- `FishingHookAccessor` / `MobEffectInstanceAccessor` — accessor mixins exposing private fields.
+
+Client-side (in `mixin/client/`):
+- `GuiGraphicsMixin` — suppresses the XP bar rendering when `disableExperience` is active.
+- `LightTextureMixin` — client light texture hook (used by a rune effect).
+- `LevelRendererAccessor` — accessor for level renderer internals.
 
 ### Utilities
 
-- `RuneHelper.java` — `hasRune`, `addRune`, `removeRune` helpers that read/write `REDataComponents.RUNES` and manage `ENCHANTMENT_GLINT_OVERRIDE`.
-- `RECommands.java` — command registration (registered via `RuneFeature.onRegisterCommands`).
+- `RuneHelper.java` — `hasRune`, `addRune`, `removeRune`, `addRandomRunes`, `createRandomRuneItem` helpers that read/write `REDataComponents.RUNES` and manage `ENCHANTMENT_GLINT_OVERRIDE`.
+- `RECommands.java` — command registration (registered via `RuneFeature.onRegisterCommands`). In root package.
+- `RuneHooksClient.java` — client-side event hooks (sprint, rendering, input) in root package.
 
 ### Network
 
-`network/NetworkHandler.java` + `network/message/ClientboundDisableExperienceMessage.java` — syncs the `disableExperience` GameRule value to clients on login and on change.
+`network/NetworkHandler.java` + `network/message/ClientboundDisableExperienceMessage.java` — syncs the `disableExperience` GameRule value to clients on login and on change. `network/message/ServerboundDoubleJumpMessage.java` — client→server message for the DoubleJump rune.
+
+### Loot System
+
+Global loot modifiers in `data/loot/`:
+- `RuneLootModifier` — converts enchanted items/books in loot into rune-socketed items. Supports weighted rune tag pools.
+- `RuneCatchAllLootModifier` — fallback modifier ensuring loot tables always have a chance to drop runes.
+- `ExperienceBottleToRuneLootModifier` — converts experience bottle drops into rune items.
+- `VoidCurseLootModifier` — handles `CurseOfTheVoid` item deletion on death.
+- `SetRandomRuneLootFunction` — loot function that applies a random rune to an item (used in data-driven loot tables, e.g. spawner drops).
+
+### Enchantment-to-Rune Mapping
+
+`data/EnchantmentToRuneReloadListener` — a `SimplePreparableReloadListener` that reads JSON files mapping vanilla enchantment `ResourceLocation`s to rune `ResourceLocation`s. Used to translate enchanted loot into rune equivalents.
+
+### Attributes
+
+`setup/REAttributes.java` — registers the `runeenchanting:off_ground_mining_speed` attribute (syncable, range 0–1, default 0.2) used by mining-related runes.
 
 ### Current Development State
 
-The system is largely wired in. The legacy `onMiningSpeed(MiningContext)` and `onAttack(AttackContext)` hooks on `Rune` exist but are not called by `RuneFeature` — mining speed via `BreakSpeed` event is not yet plumbed through.
+The system is largely wired in. Curses are fully implemented. Spawners drop runes when broken (via `integrated_packs/enchantment_changes` loot table + `SetRandomRuneLootFunction`). `MomentumRune` is implemented but commented out in `RERunes`.
 
 Don't write code unless prompted or confirmed to do.
 Other mod's source, is in C:\Users\delvi\source\repos\Insane96\
