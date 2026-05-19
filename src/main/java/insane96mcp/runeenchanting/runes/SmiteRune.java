@@ -73,7 +73,7 @@ public class SmiteRune extends Rune {
                 || !(attacked instanceof LivingEntity livingEntity))
             return;
 
-        livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, (int) (Mth.nextDouble(level.random, weaknessDurationMin, weaknessDurationMax) * 20f), weaknessAmplifier));
+        livingEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, (int) (Mth.nextDouble(level.random, weaknessDurationMin, weaknessDurationMax) * 20f), weaknessAmplifier));
     }
 
     @Override
