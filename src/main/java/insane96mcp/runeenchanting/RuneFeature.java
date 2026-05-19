@@ -9,14 +9,18 @@ import insane96mcp.runeenchanting.network.message.ClientboundDisableExperienceMe
 import insane96mcp.runeenchanting.runes.Rune;
 import insane96mcp.runeenchanting.setup.REDataComponents;
 import insane96mcp.runeenchanting.setup.REItems;
+import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -80,6 +84,22 @@ public class RuneFeature extends Feature {
                 || !disableExperience)
             return;
         event.setCanceled(true);
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public void onMobJoinLevel(EntityJoinLevelEvent event) {
+        if (event.getLevel().isClientSide() || !(event.getEntity() instanceof Mob mob))
+            return;
+        var allRunes = event.getLevel().registryAccess().registryOrThrow(RERunes.REGISTRY_KEY).holders().toList();
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
+            ItemStack stack = mob.getItemBySlot(slot);
+            if (stack.isEmpty() || stack.has(REDataComponents.RUNES.get())) continue;
+            var enchantments = stack.get(DataComponents.ENCHANTMENTS);
+            if (enchantments == null || enchantments.isEmpty()) continue;
+            if (disableExperience)
+                stack.remove(DataComponents.ENCHANTMENTS);
+            RuneHelper.addRandomRunes(stack, enchantments.size(), mob.getRandom(), allRunes);
+        }
     }
 
     @SubscribeEvent
