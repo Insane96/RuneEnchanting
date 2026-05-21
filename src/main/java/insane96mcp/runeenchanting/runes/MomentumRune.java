@@ -133,7 +133,7 @@ public class MomentumRune extends Rune {
             return;
         if (!(damageSource.getEntity() instanceof ServerPlayer attacker))
             return;
-        if (!REUtils.isAttackFullyCharged(attacker))
+        if (!REUtils.isAttackCharged(attacker))
             return;
 
         float prevAttack = ModNBTData.get(attacker, LOC_ATTACK_BONUS, Float.class);

@@ -12,7 +12,7 @@ public class REUtils {
         return 1f;
     }
 
-    public static boolean isAttackFullyCharged(Entity entity) {
+    public static boolean isAttackCharged(Entity entity) {
         if (entity instanceof Player player)
             return player.getAttackStrengthScale(0.5f) >= 0.9f;
         return true;

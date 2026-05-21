@@ -54,7 +54,7 @@ public class CurseOfExplosionRune extends Rune {
     public void onPostAttack(ServerLevel level, @Nullable ItemStack stack, EnchantmentTarget target, Entity attacked, DamageSource damageSource) {
         if (target != EnchantmentTarget.ATTACKER || !(attacked instanceof LivingEntity))
             return;
-        if (!REUtils.isAttackFullyCharged(damageSource.getEntity()))
+        if (!REUtils.isAttackCharged(damageSource.getEntity()))
             return;
         if (!(damageSource.getEntity() instanceof LivingEntity attacker))
             return;

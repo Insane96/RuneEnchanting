@@ -58,7 +58,7 @@ public class ExplosiveRune extends Rune {
     public void onPostAttack(ServerLevel level, @Nullable ItemStack stack, EnchantmentTarget target, Entity attacked, DamageSource damageSource) {
         if (target != EnchantmentTarget.ATTACKER || !(attacked instanceof LivingEntity))
             return;
-        if (!REUtils.isAttackFullyCharged(damageSource.getEntity()))
+        if (!REUtils.isAttackCharged(damageSource.getEntity()))
             return;
         long explodeAt = level.getGameTime() + (long) (delaySeconds * 20);
         ModNBTData.put(attacked, NBT_TIME, explodeAt);
