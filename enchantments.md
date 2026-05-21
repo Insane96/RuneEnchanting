@@ -160,5 +160,3 @@
 - [x] curse_of_static_charge
 - [x] curse_of_explosion
   - Blow up on attack like Explosive rune
-
-Attack cooldown-based effects

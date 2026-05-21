@@ -47,7 +47,8 @@ public class ItemToRuneLootModifier extends LootModifier {
             if (!stack.is(this.item))
                 continue;
             generatedLoot.remove(i);
-            if (MathHelper.getAmountWithDecimalChance(context.getRandom(), this.chance) > 0) {
+            int runeCount = MathHelper.getAmountWithDecimalChance(context.getRandom(), this.chance * stack.getCount());
+            for (int j = 0; j < runeCount; j++) {
                 ItemStack runeItem = RuneHelper.createRandomRuneItem(context.getRandom(), allRunes);
                 if (!runeItem.isEmpty())
                     generatedLoot.add(runeItem);
