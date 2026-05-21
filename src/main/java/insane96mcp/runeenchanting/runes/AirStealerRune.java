@@ -1,6 +1,7 @@
 package insane96mcp.runeenchanting.runes;
 
 import insane96mcp.insanelib.core.feature.config.Config;
+import insane96mcp.runeenchanting.util.REUtils;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -52,12 +53,8 @@ public class AirStealerRune extends Rune {
                 || !(damageSource.getEntity() instanceof LivingEntity attacker))
             return;
 
-        float attackCooldown = 1f;
+        float attackCooldown = REUtils.getAttackStrengthScale(attacker);
         double attackSpeedMod = 1.0 / attacker.getAttributeValue(Attributes.ATTACK_SPEED);
-        if (attacker instanceof Player player) {
-            float f = player.getAttackStrengthScale(0.5f);
-            attackCooldown = f * f;
-        }
         int ticks = (int) (ticksStolen * attackCooldown * attackSpeedMod);
         if (ticks <= 0)
             return;

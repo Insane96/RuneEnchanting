@@ -4,6 +4,7 @@ import insane96mcp.insanelib.core.ModNBTData;
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.insanelib.util.MCUtils;
 import insane96mcp.runeenchanting.RuneEnchanting;
+import insane96mcp.runeenchanting.util.REUtils;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
@@ -132,7 +133,7 @@ public class MomentumRune extends Rune {
             return;
         if (!(damageSource.getEntity() instanceof ServerPlayer attacker))
             return;
-        if (attacker.getAttackStrengthScale(0.5f) <= 0.9f)
+        if (!REUtils.isAttackFullyCharged(attacker))
             return;
 
         float prevAttack = ModNBTData.get(attacker, LOC_ATTACK_BONUS, Float.class);

@@ -4,6 +4,7 @@ import insane96mcp.insanelib.core.ModNBTData;
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.runes.ExplosiveRune;
 import insane96mcp.runeenchanting.runes.Rune;
+import insane96mcp.runeenchanting.util.REUtils;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -12,7 +13,6 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -54,7 +54,7 @@ public class CurseOfExplosionRune extends Rune {
     public void onPostAttack(ServerLevel level, @Nullable ItemStack stack, EnchantmentTarget target, Entity attacked, DamageSource damageSource) {
         if (target != EnchantmentTarget.ATTACKER || !(attacked instanceof LivingEntity))
             return;
-        if (damageSource.getEntity() instanceof Player player && player.getAttackStrengthScale(0.5f) < 0.9f)
+        if (!REUtils.isAttackFullyCharged(damageSource.getEntity()))
             return;
         if (!(damageSource.getEntity() instanceof LivingEntity attacker))
             return;
