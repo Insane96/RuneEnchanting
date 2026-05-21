@@ -61,6 +61,7 @@ public class CurseOfExplosionRune extends Rune {
         long explodeAt = level.getGameTime() + (long) (delaySeconds * 20);
         ModNBTData.put(attacker, ExplosiveRune.NBT_TIME, explodeAt);
         ModNBTData.put(attacker, ExplosiveRune.NBT_POWER, explosionPower.floatValue());
+        ModNBTData.put(attacker, ExplosiveRune.NBT_DESTROY_BLOCKS, destroyBlocks);
     }
 
     @Override

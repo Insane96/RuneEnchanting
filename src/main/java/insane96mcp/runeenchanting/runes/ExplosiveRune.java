@@ -24,6 +24,7 @@ import javax.annotation.Nullable;
 public class ExplosiveRune extends Rune {
     public static final ResourceLocation NBT_TIME = RuneEnchanting.id("explosive/time");
     public static final ResourceLocation NBT_POWER = RuneEnchanting.id("explosive/power");
+    public static final ResourceLocation NBT_DESTROY_BLOCKS = RuneEnchanting.id("explosive/destroy_blocks");
 
     @Config(min = 0.1)
     public static Double explosionPower = 0.7d;
@@ -63,6 +64,7 @@ public class ExplosiveRune extends Rune {
         long explodeAt = level.getGameTime() + (long) (delaySeconds * 20);
         ModNBTData.put(attacked, NBT_TIME, explodeAt);
         ModNBTData.put(attacked, NBT_POWER, explosionPower.floatValue());
+        ModNBTData.put(attacked, NBT_DESTROY_BLOCKS, destroyBlocks);
     }
 
     public static void tick(ServerLevel level, LivingEntity entity) {
@@ -72,10 +74,12 @@ public class ExplosiveRune extends Rune {
         if (level.getGameTime() < explodeAt)
             return;
         float power = ModNBTData.get(entity, NBT_POWER, Float.class);
+        boolean shouldDestroyBlocks = ModNBTData.get(entity, NBT_DESTROY_BLOCKS, Boolean.class);
         ModNBTData.remove(entity, NBT_TIME);
         ModNBTData.remove(entity, NBT_POWER);
+        ModNBTData.remove(entity, NBT_DESTROY_BLOCKS);
         entity.level().explode(null, entity.getX(), entity.getY(), entity.getZ(), power,
-                destroyBlocks ? Level.ExplosionInteraction.BLOCK : Level.ExplosionInteraction.MOB);
+                shouldDestroyBlocks ? Level.ExplosionInteraction.BLOCK : Level.ExplosionInteraction.MOB);
     }
 
     @Override
