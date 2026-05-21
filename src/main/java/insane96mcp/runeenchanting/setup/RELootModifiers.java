@@ -2,7 +2,7 @@ package insane96mcp.runeenchanting.setup;
 
 import com.mojang.serialization.MapCodec;
 import insane96mcp.runeenchanting.RuneEnchanting;
-import insane96mcp.runeenchanting.data.loot.ExperienceBottleToRuneLootModifier;
+import insane96mcp.runeenchanting.data.loot.ItemToRuneLootModifier;
 import insane96mcp.runeenchanting.data.loot.RuneCatchAllLootModifier;
 import insane96mcp.runeenchanting.data.loot.RuneLootModifier;
 import insane96mcp.runeenchanting.data.loot.VoidCurseLootModifier;
@@ -21,8 +21,8 @@ public class RELootModifiers {
     public static final DeferredHolder<MapCodec<? extends IGlobalLootModifier>, MapCodec<RuneCatchAllLootModifier>> RUNE_CATCH_ALL =
             REGISTRY.register("rune_catch_all", () -> RuneCatchAllLootModifier.CODEC);
 
-    public static final DeferredHolder<MapCodec<? extends IGlobalLootModifier>, MapCodec<ExperienceBottleToRuneLootModifier>> EXPERIENCE_BOTTLE_TO_RUNE =
-            REGISTRY.register("experience_bottle_to_rune", () -> ExperienceBottleToRuneLootModifier.CODEC);
+    public static final DeferredHolder<MapCodec<? extends IGlobalLootModifier>, MapCodec<ItemToRuneLootModifier>> ITEM_TO_RUNE =
+            REGISTRY.register("item_to_rune", () -> ItemToRuneLootModifier.CODEC);
 
     public static final DeferredHolder<MapCodec<? extends IGlobalLootModifier>, MapCodec<VoidCurseLootModifier>> VOID_CURSE =
             REGISTRY.register("void_curse", () -> VoidCurseLootModifier.CODEC);

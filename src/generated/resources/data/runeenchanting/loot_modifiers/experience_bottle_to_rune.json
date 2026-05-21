@@ -1,4 +1,6 @@
 {
-  "type": "runeenchanting:experience_bottle_to_rune",
-  "conditions": []
+  "type": "runeenchanting:item_to_rune",
+  "chance": 0.4,
+  "conditions": [],
+  "item": "minecraft:experience_bottle"
 }

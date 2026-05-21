@@ -1,7 +1,7 @@
 package insane96mcp.runeenchanting.data.provider;
 
 import insane96mcp.runeenchanting.RuneEnchanting;
-import insane96mcp.runeenchanting.data.loot.ExperienceBottleToRuneLootModifier;
+import insane96mcp.runeenchanting.data.loot.ItemToRuneLootModifier;
 import insane96mcp.runeenchanting.data.loot.RuneCatchAllLootModifier;
 import insane96mcp.runeenchanting.data.loot.RuneLootModifier;
 import insane96mcp.runeenchanting.data.loot.VoidCurseLootModifier;
@@ -10,6 +10,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.neoforged.neoforge.common.data.GlobalLootModifierProvider;
 import net.neoforged.neoforge.common.loot.LootTableIdCondition;
@@ -41,7 +42,7 @@ public class REGlobalLootModifierProvider extends GlobalLootModifierProvider {
         addRuneLootModifier("igloo_chest", RERuneTagProvider.LOOT_IGLOO_CHEST);
 
         add("void_curse", new VoidCurseLootModifier(new LootItemCondition[0]));
-        add("experience_bottle_to_rune", new ExperienceBottleToRuneLootModifier(new LootItemCondition[0]));
+        add("experience_bottle_to_rune", new ItemToRuneLootModifier(new LootItemCondition[0], Items.EXPERIENCE_BOTTLE, 0.4f));
         add("catch_all", new RuneCatchAllLootModifier(new LootItemCondition[0]));
     }
 
