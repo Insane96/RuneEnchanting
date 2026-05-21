@@ -2,6 +2,7 @@ package insane96mcp.runeenchanting.runes;
 
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.RuneEnchanting;
+import insane96mcp.runeenchanting.util.REUtils;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
@@ -64,7 +65,7 @@ public class WaterCoolantRune extends Rune {
                 || !livingEntity.getType().is(SENSITIVE))
             return;
 
-        livingEntity.setTicksFrozen(Entity.BASE_TICKS_REQUIRED_TO_FREEZE + 10 + (Entity.FREEZE_HURT_FREQUENCY * 2 * freezeAmount));
+        livingEntity.setTicksFrozen(Entity.BASE_TICKS_REQUIRED_TO_FREEZE + 10 + (int) (Entity.FREEZE_HURT_FREQUENCY * 2 * freezeAmount * REUtils.getAttackStrengthScale(damageSource.getEntity())));
     }
 
     @Override

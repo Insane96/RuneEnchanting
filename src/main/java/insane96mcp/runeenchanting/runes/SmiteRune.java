@@ -2,6 +2,7 @@ package insane96mcp.runeenchanting.runes;
 
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.RuneEnchanting;
+import insane96mcp.runeenchanting.util.REUtils;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
@@ -73,7 +74,7 @@ public class SmiteRune extends Rune {
                 || !(attacked instanceof LivingEntity livingEntity))
             return;
 
-        livingEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, (int) (Mth.nextDouble(level.random, weaknessDurationMin, weaknessDurationMax) * 20f), weaknessAmplifier));
+        livingEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, (int) (Mth.nextDouble(level.random, weaknessDurationMin, weaknessDurationMax) * 20f * REUtils.getAttackStrengthScale(damageSource.getEntity())), weaknessAmplifier));
     }
 
     @Override
