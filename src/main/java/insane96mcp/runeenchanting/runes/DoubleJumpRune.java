@@ -93,6 +93,6 @@ public class DoubleJumpRune extends Rune {
 
     @Override
     public MutableComponent getInfoComponent() {
-        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(durabilityConsumed));
+        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(durabilityConsumed * 100));
     }
 }
