@@ -22,7 +22,7 @@ public class SharpnessRune extends Rune {
 
     @Override
     public String getDescription() {
-        return "Increases damage dealt";
+        return "Increases attack damage";
     }
 
     @Override
