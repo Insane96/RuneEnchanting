@@ -30,6 +30,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.event.AnvilUpdateEvent;
@@ -154,7 +155,10 @@ public class RuneFeature extends Feature {
             return;
         event.setOutput(output);
         event.setMaterialCost(1);
-        event.setCost(1);
+        if (ModList.get().isLoaded("experienceoverhaul"))
+            event.setCost(0);
+        else
+            event.setCost(1);
     }
 
     @SubscribeEvent
