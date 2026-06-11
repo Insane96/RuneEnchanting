@@ -78,6 +78,7 @@ public class JuicyBaitRune extends Rune {
             if (itemstack.is(ItemTags.FISHES))
                 player.awardStat(Stats.FISH_CAUGHT, 1);
         }
+        this.onItemFished(event, stack);
     }
 
     @Override
