@@ -27,17 +27,17 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExpandedRune extends Rune {
+public class TunnelingRune extends Rune {
     /*@Config(min = 1, max = 10, description = "Number of additional blocks to mine in the column")
     public static Integer additionalBlocks = 2;*/
 
-    public ExpandedRune() {
+    public TunnelingRune() {
         super(-1);
     }
 
     @Override
     public String getName() {
-        return "Expanded";
+        return "Tunneling";
     }
 
     @Override

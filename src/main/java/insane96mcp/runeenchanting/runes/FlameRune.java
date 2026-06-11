@@ -24,6 +24,8 @@ public class FlameRune extends Rune {
     @Config
     public static Double secondsOnFire = 4d;
 
+    public static Double arrowsOnHitSecondsOnFire = 5d;
+
     @Override
     public String getName() {
         return "Flame";
@@ -36,7 +38,7 @@ public class FlameRune extends Rune {
 
     @Override
     public @Nullable String getInfo() {
-        return "Melee attack set on fire: %ss. Ranged attack: 5s";
+        return "Melee attack set on fire: %ss. Ranged attack: %ss";
     }
 
     @Override
@@ -57,11 +59,11 @@ public class FlameRune extends Rune {
 
     @Override
     public void onProjectileSpawned(ServerLevel level, ItemStack stack, AbstractArrow arrow, Consumer<Item> onBreak) {
-        arrow.setRemainingFireTicks(100 * 20);
+        arrow.setRemainingFireTicks((int) (arrowsOnHitSecondsOnFire * 20));
     }
 
     @Override
     public MutableComponent getInfoComponent() {
-        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(secondsOnFire));
+        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(secondsOnFire), IAttributeExtension.FORMAT.format(arrowsOnHitSecondsOnFire));
     }
 }

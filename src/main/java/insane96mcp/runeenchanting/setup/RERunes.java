@@ -33,7 +33,7 @@ public class RERunes {
     public static final DeferredHolder<Rune, VeiningRune> VEINING = register("veining", new VeiningRune());
 
     // Pickaxe + Shovel
-    public static final DeferredHolder<Rune, ExpandedRune> EXPANDED = register("expanded", new ExpandedRune());
+    public static final DeferredHolder<Rune, TunnelingRune> TUNNELING = register("tunneling", new TunnelingRune());
 
     // Pickaxe
     public static final DeferredHolder<Rune, BlastingRune> BLASTING = register("blasting", new BlastingRune());
