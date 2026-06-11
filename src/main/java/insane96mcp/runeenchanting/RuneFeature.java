@@ -5,6 +5,7 @@ import insane96mcp.insanelib.core.feature.LoadFeature;
 import insane96mcp.insanelib.core.feature.Module;
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.insanelib.util.IntegratedPack;
+import insane96mcp.insanelib.util.MathHelper;
 import insane96mcp.runeenchanting.network.message.ClientboundDisableExperienceMessage;
 import insane96mcp.runeenchanting.runes.Rune;
 import insane96mcp.runeenchanting.setup.REDataComponents;
@@ -68,6 +69,9 @@ public class RuneFeature extends Feature {
     @Config(description = "If true, enchanting related items are hidden from creative inventory")
     public static Boolean hideEnchantingRelatedItems = true;
 
+    @Config
+    public static Double equipmentRuneConversionRatio = 0.5d;
+
     @Config(description = "If true, infos that are usually shown only with shift held down, will always show instead")
     public static Boolean alwaysShowExtraInfos = false;
 
@@ -97,9 +101,10 @@ public class RuneFeature extends Feature {
             if (stack.isEmpty() || stack.has(REDataComponents.RUNES.get())) continue;
             var enchantments = stack.get(DataComponents.ENCHANTMENTS);
             if (enchantments == null || enchantments.isEmpty()) continue;
+            int amount = MathHelper.getAmountWithDecimalChance(mob.level().getRandom(), enchantments.size() * equipmentRuneConversionRatio);
             if (disableExperience)
                 stack.remove(DataComponents.ENCHANTMENTS);
-            RuneHelper.addRandomRunes(stack, enchantments.size(), mob.getRandom(), allRunes);
+            RuneHelper.addRandomRunes(stack, amount, mob.getRandom(), allRunes);
         }
     }
 
