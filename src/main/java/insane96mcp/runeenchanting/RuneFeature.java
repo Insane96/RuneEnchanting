@@ -239,8 +239,6 @@ public class RuneFeature extends Feature {
                     event.getToolTip().add(CommonComponents.space().append(Component.translatable("curse").withStyle(ChatFormatting.RED)));
                 else
                     event.getToolTip().add(CommonComponents.space().append(Component.translatable("cursed").withStyle(ChatFormatting.RED)));
-                if (showExtraInfos(event.getFlags()))
-                    event.getToolTip().add(CommonComponents.space().append(Component.translatable("cursed_info")).withStyle(ChatFormatting.GRAY));
             }
         }
     }
