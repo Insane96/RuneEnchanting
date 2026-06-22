@@ -95,6 +95,7 @@ public class RERunes {
     public static final DeferredHolder<Rune, RecoveryRune> RECOVERY = register("recovery", new RecoveryRune());
     public static final DeferredHolder<Rune, InvulnerabilityRune> INVULNERABILITY = register("invulnerability", new InvulnerabilityRune());
     public static final DeferredHolder<Rune, FireGuardianRune> FIRE_GUARDIAN = register("fire_guardian", new FireGuardianRune());
+    public static final DeferredHolder<Rune, AbsorbingRune> ABSORBING = register("absorbing", new AbsorbingRune());
 
     // Leggings
     public static final DeferredHolder<Rune, SwiftSneakRune> SWIFT_SNEAK = register("swift_sneak", new SwiftSneakRune());

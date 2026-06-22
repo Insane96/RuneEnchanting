@@ -40,6 +40,15 @@ import java.util.function.Consumer;
 @LoadFeature(canBeDisabled = false)
 public class RuneHooks extends Feature {
     @SubscribeEvent
+    public void onLivingIncomingDamage(LivingIncomingDamageEvent event) {
+        if (event.getEntity() instanceof LivingEntity attacked)
+            forEquipmentForRunes(attacked, (stack, rune) -> rune.onLivingIncomingDamage(event, stack, EnchantmentTarget.VICTIM));
+
+        if (event.getSource().getEntity() instanceof LivingEntity attacker)
+            forEquipmentForRunes(attacker, (stack, rune) -> rune.onLivingIncomingDamage(event, stack, EnchantmentTarget.ATTACKER));
+    }
+
+    @SubscribeEvent
     public void onLivingDamagePre(LivingDamageEvent.Pre event) {
         if (event.getEntity() instanceof LivingEntity attacked)
             forEquipmentForRunes(attacked, (stack, rune) -> rune.onLivingDamagePre(event, stack, EnchantmentTarget.VICTIM));

@@ -30,7 +30,7 @@ public class CurseOfCorrosionRune extends Rune {
 
     @Override
     public String getInfo() {
-        return "Damage %s%% every %ss";
+        return "Damage: %s every %ss";
     }
 
     @Override
