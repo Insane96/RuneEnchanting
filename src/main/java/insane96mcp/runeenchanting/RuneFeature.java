@@ -59,6 +59,8 @@ public class RuneFeature extends Feature {
     }));
 
     @Config
+    public static Boolean hideCurses = true;
+    @Config
     public static Boolean extractCurses = false;
     @Config(description = """
             A data pack will be enabled that changes the following:
@@ -74,7 +76,7 @@ public class RuneFeature extends Feature {
     @Config(description = "If true, infos that are usually shown only with shift held down, will always show instead")
     public static Boolean alwaysShowExtraInfos = false;
 
-    public static Boolean disableExperience = false;
+    public static Boolean disableExperience = true;
 
     @Override
     public void init(Module module, boolean enabledByDefault, boolean canBeDisabled) {
@@ -215,7 +217,12 @@ public class RuneFeature extends Feature {
             }
         }
         if (runes != null) {
+            boolean isCursed = false;
             for (Holder<Rune> holder : runes) {
+                if (Rune.isCurse(holder) && hideCurses) {
+                    isCursed = true;
+                    continue;
+                }
                 ChatFormatting color = ChatFormatting.LIGHT_PURPLE;
                 if (Rune.isCurse(holder))
                     color = ChatFormatting.RED;
@@ -226,6 +233,14 @@ public class RuneFeature extends Feature {
                         event.getToolTip().add(CommonComponents.space().append(Component.translatable("cursed_info")).withStyle(ChatFormatting.GRAY));
                 }
                 holder.value().addTooltip(stack, event.getToolTip(), event.getFlags(), event.getEntity());
+            }
+            if (isCursed) {
+                if (stack.is(REItems.RUNE))
+                    event.getToolTip().add(CommonComponents.space().append(Component.translatable("curse").withStyle(ChatFormatting.RED)));
+                else
+                    event.getToolTip().add(CommonComponents.space().append(Component.translatable("cursed").withStyle(ChatFormatting.RED)));
+                if (showExtraInfos(event.getFlags()))
+                    event.getToolTip().add(CommonComponents.space().append(Component.translatable("cursed_info")).withStyle(ChatFormatting.GRAY));
             }
         }
     }
