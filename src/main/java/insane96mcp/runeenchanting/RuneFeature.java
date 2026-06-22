@@ -62,6 +62,8 @@ public class RuneFeature extends Feature {
     public static Boolean hideCurses = true;
     @Config
     public static Boolean extractCurses = false;
+    @Config(description = "Maximum number of curses that can be on a single item. 0 disables curses entirely.")
+    public static Integer maxCurses = 1;
     @Config(description = """
             A data pack will be enabled that changes the following:
             * Removes the enchanting table recipe
@@ -155,7 +157,7 @@ public class RuneFeature extends Feature {
         Holder<Rune> toApply = event.getRight().get(REDataComponents.STORED_RUNE.value());
         if (toApply == null
                 || !toApply.value().canBeAppliedTo(output)
-                || (Rune.isCurse(toApply) && RuneHelper.hasCurse(output)))
+                || (Rune.isCurse(toApply) && RuneHelper.countCurses(output) >= maxCurses))
             return;
         if (!RuneHelper.addRune(output, toApply))
             return;

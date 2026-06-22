@@ -46,11 +46,20 @@ public class RuneHelper {
         return runes.size();
     }
 
+    public static int countCurses(ItemStack stack) {
+        List<Holder<Rune>> runes = stack.get(REDataComponents.RUNES);
+        if (runes == null)
+            return 0;
+        return (int) runes.stream().filter(Rune::isCurse).count();
+    }
+
     public static boolean addRune(ItemStack stack, Holder<Rune> rune) {
         List<Holder<Rune>> runes = new ArrayList<>(stack.getOrDefault(REDataComponents.RUNES, List.of()));
         if (runes.contains(rune))
             return false;
         if (countRunes(stack) >= getSockets(stack) && !Rune.isCurse(rune))
+            return false;
+        if (Rune.isCurse(rune) && countCurses(stack) >= RuneFeature.maxCurses)
             return false;
         runes.add(rune);
         stack.set(REDataComponents.RUNES, runes);
