@@ -17,6 +17,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 import net.neoforged.neoforge.common.loot.LootModifier;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RuneCatchAllLootModifier extends LootModifier {
@@ -34,8 +35,10 @@ public class RuneCatchAllLootModifier extends LootModifier {
                 .holders()
                 .toList();
 
-        for (int i = 0; i < generatedLoot.size(); i++) {
-            ItemStack stack = generatedLoot.get(i);
+        List<ItemStack> toAdd = new ArrayList<>();
+        List<ItemStack> toRemove = new ArrayList<>();
+
+        for (ItemStack stack : generatedLoot) {
             if (stack.has(REDataComponents.RUNES.get()))
                 continue;
 
@@ -43,16 +46,25 @@ public class RuneCatchAllLootModifier extends LootModifier {
             if (enchantments != null && !enchantments.isEmpty()) {
                 if (RuneFeature.disableExperience)
                     stack.remove(DataComponents.ENCHANTMENTS);
-                RuneHelper.addRandomRunes(stack, enchantments.size(), context.getRandom(), allRunes);
-            } else if (stack.is(Items.ENCHANTED_BOOK)) {
+                List<? extends Holder<Rune>> compatibleRunes = allRunes.stream()
+                        .filter(h -> h.value().isEnabled() && h.value().canBeAppliedTo(stack))
+                        .toList();
+                RuneHelper.addRandomRunes(stack, enchantments.size(), context.getRandom(), compatibleRunes.isEmpty() ? allRunes : compatibleRunes);
+            }
+            else if (stack.is(Items.ENCHANTED_BOOK)) {
                 var stored = stack.get(DataComponents.STORED_ENCHANTMENTS);
                 if (stored != null && !stored.isEmpty()) {
                     ItemStack runeItem = RuneHelper.createRandomRuneItem(context.getRandom(), allRunes);
                     if (!runeItem.isEmpty())
-                        generatedLoot.add(runeItem);
+                        toAdd.add(runeItem);
+                    if (RuneFeature.disableExperience)
+                        toRemove.add(stack);
                 }
             }
         }
+
+        generatedLoot.addAll(toAdd);
+        toRemove.forEach(generatedLoot::remove);
         return generatedLoot;
     }
 

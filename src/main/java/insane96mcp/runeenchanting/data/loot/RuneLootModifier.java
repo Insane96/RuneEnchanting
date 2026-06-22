@@ -67,7 +67,8 @@ public class RuneLootModifier extends LootModifier {
                     stack.remove(DataComponents.ENCHANTMENTS);
                 List<? extends Holder<Rune>> pool = resolvePool(stack, runeRegistry, allRunes, context.getRandom(), false);
                 RuneHelper.addRandomRunes(stack, enchantments.size(), context.getRandom(), pool);
-            } else if (stack.is(Items.ENCHANTED_BOOK)) {
+            }
+            else if (stack.is(Items.ENCHANTED_BOOK)) {
                 var stored = stack.get(DataComponents.STORED_ENCHANTMENTS);
                 if (stored != null && !stored.isEmpty()) {
                     List<? extends Holder<Rune>> pool = resolvePool(stack, runeRegistry, allRunes, context.getRandom(), true);
