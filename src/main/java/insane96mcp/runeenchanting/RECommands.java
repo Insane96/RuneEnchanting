@@ -12,12 +12,14 @@ import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.commands.arguments.ResourceLocationArgument;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -103,6 +105,22 @@ public class RECommands {
         }
         RuneHelper.clearRunes(stack, true);
         ctx.getSource().sendSuccess(() -> Component.literal("Cleared all runes"), false);
+        return 1;
+    }
+
+    private static int fixEnchantmentsComponent(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
+        Player player = ctx.getSource().getPlayerOrException();
+        ItemStack stack = player.getMainHandItem();
+        if (stack.isEmpty()) {
+            ctx.getSource().sendFailure(Component.literal("No item in main hand"));
+            return 0;
+        }
+        if (stack.has(DataComponents.ENCHANTMENTS)) {
+            ctx.getSource().sendFailure(Component.literal("Item already has the enchantments component"));
+            return 0;
+        }
+        stack.set(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
+        ctx.getSource().sendSuccess(() -> Component.literal("Restored the enchantments component on the held item"), false);
         return 1;
     }
 
