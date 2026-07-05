@@ -45,6 +45,8 @@ public class RECommands {
                         .suggests((ctx, builder) -> SharedSuggestionProvider.suggestResource(
                             RERunes.REGISTRY.getTagNames().map(TagKey::location).toList(), builder))
                         .executes(ctx -> getRandomRuneItem(ctx, ResourceLocationArgument.getId(ctx, "tag")))))
+                .then(Commands.literal("fix_enchantments_component")
+                    .executes(RECommands::fixEnchantmentsComponent))
         );
     }
 
