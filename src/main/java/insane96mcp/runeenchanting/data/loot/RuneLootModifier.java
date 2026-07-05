@@ -19,6 +19,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
@@ -64,7 +65,7 @@ public class RuneLootModifier extends LootModifier {
             var enchantments = stack.get(DataComponents.ENCHANTMENTS);
             if (enchantments != null && !enchantments.isEmpty()) {
                 if (RuneFeature.disableExperience)
-                    stack.remove(DataComponents.ENCHANTMENTS);
+                    stack.set(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
                 List<? extends Holder<Rune>> pool = resolvePool(stack, runeRegistry, allRunes, context.getRandom(), false);
                 RuneHelper.addRandomRunes(stack, enchantments.size(), context.getRandom(), pool);
             }

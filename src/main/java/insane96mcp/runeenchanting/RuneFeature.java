@@ -26,6 +26,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.GameRules;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -106,7 +107,7 @@ public class RuneFeature extends Feature {
             if (enchantments == null || enchantments.isEmpty()) continue;
             int amount = MathHelper.getAmountWithDecimalChance(mob.level().getRandom(), enchantments.size() * equipmentRuneConversionRatio);
             if (disableExperience)
-                stack.remove(DataComponents.ENCHANTMENTS);
+                stack.set(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
             RuneHelper.addRandomRunes(stack, amount, mob.getRandom(), allRunes);
         }
     }

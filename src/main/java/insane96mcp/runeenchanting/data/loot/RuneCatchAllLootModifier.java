@@ -12,6 +12,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
@@ -45,7 +46,7 @@ public class RuneCatchAllLootModifier extends LootModifier {
             var enchantments = stack.get(DataComponents.ENCHANTMENTS);
             if (enchantments != null && !enchantments.isEmpty()) {
                 if (RuneFeature.disableExperience)
-                    stack.remove(DataComponents.ENCHANTMENTS);
+                    stack.set(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
                 List<? extends Holder<Rune>> compatibleRunes = allRunes.stream()
                         .filter(h -> h.value().isEnabled() && h.value().canBeAppliedTo(stack))
                         .toList();
