@@ -17,6 +17,8 @@ public class CurseOfCorrosionRune extends Rune {
     public static Double damageAmount = 1d;
     @Config
     public static Double secondsBetweenDamage = 2d;
+    @Config(description = "How much damage is dealt to the armor with the curse")
+    public static Integer armorDamage = 3;
 
     @Override
     public String getName() {
@@ -46,6 +48,7 @@ public class CurseOfCorrosionRune extends Rune {
             return;
 
         entity.hurt(entity.damageSources().drown(), damageAmount.floatValue());
+        stack.hurtAndBreak(armorDamage, entity, RuneEnchanting.getEquipmentSlotForItem(stack));
     }
 
     @Override

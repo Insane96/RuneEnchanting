@@ -1,3 +1,6 @@
+# Upcoming
+* Curse of corrosion now damages the armor
+
 # 1.0.0.2-beta
 * Added a `runeenchanting:weapons` item tag
 
