@@ -42,7 +42,7 @@ public class RuneHelper {
         List<Holder<Rune>> runes = stack.get(REDataComponents.RUNES);
         if (runes == null)
             return 0;
-        runes = runes.stream().filter(rune -> rune.value().isEnabled() && (!Rune.isCurse(rune) || !ignoreCurses)).toList();
+        runes = runes.stream().filter(rune -> Rune.isEnabled(rune) && (!Rune.isCurse(rune) || !ignoreCurses)).toList();
         return runes.size();
     }
 
@@ -105,11 +105,8 @@ public class RuneHelper {
         if (amount <= 0) return;
 
         List<Holder<Rune>> eligible = runePool.stream()
-                .filter(holder -> {
-                    Rune rune = holder.value();
-                    return rune.isEnabled()
-                            && stack.is(TagKey.create(Registries.ITEM, rune.getApplicableToItemTag()));
-                })
+                .filter(holder -> Rune.isEnabled(holder)
+                        && stack.is(TagKey.create(Registries.ITEM, holder.value().getApplicableToItemTag())))
                 .collect(Collectors.toCollection(ArrayList::new));
 
         if (eligible.isEmpty()) return;
@@ -128,7 +125,7 @@ public class RuneHelper {
 
     public static ItemStack createRandomRuneItem(RandomSource random, List<? extends Holder<Rune>> runePool) {
         List<Holder<Rune>> eligible = runePool.stream()
-                .filter(h -> h.value().isEnabled())
+                .filter(Rune::isEnabled)
                 .collect(Collectors.toCollection(ArrayList::new));
         if (eligible.isEmpty())
             return ItemStack.EMPTY;
@@ -160,7 +157,7 @@ public class RuneHelper {
             runes = List.of(storedRune);
         }
         runes = runes.stream()
-                .filter(holder -> holder.value().isEnabled())
+                .filter(Rune::isEnabled)
                 .sorted(Comparator.comparingInt(holder -> holder.value().getPriority()))
                 .toList();
         return runes;

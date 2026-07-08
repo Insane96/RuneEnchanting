@@ -48,7 +48,7 @@ public class RuneCatchAllLootModifier extends LootModifier {
                 if (RuneFeature.disableExperience)
                     stack.set(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
                 List<? extends Holder<Rune>> compatibleRunes = allRunes.stream()
-                        .filter(h -> h.value().isEnabled() && h.value().canBeAppliedTo(stack))
+                        .filter(h -> Rune.isEnabled(h) && h.value().canBeAppliedTo(stack))
                         .toList();
                 RuneHelper.addRandomRunes(stack, enchantments.size(), context.getRandom(), compatibleRunes.isEmpty() ? allRunes : compatibleRunes);
             }

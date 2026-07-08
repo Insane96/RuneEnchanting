@@ -36,7 +36,7 @@ public class SetRandomRuneLootFunction extends LootItemConditionalFunction {
     protected ItemStack run(ItemStack stack, LootContext context) {
         var registry = context.getLevel().registryAccess().registryOrThrow(RERunes.REGISTRY_KEY);
         List<Holder<Rune>> eligible = registry.holders()
-                .filter(h -> h.value().isEnabled() && (allowCurses || !Rune.isCurse(h)))
+                .filter(h -> Rune.isEnabled(h) && (allowCurses || !Rune.isCurse(h)))
                 .collect(Collectors.toCollection(ArrayList::new));
         if (eligible.isEmpty())
             return stack;

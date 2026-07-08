@@ -26,7 +26,7 @@ public class EnlightenedRune extends Rune {
     }
 
     public static float getBrightness(@Nullable Player player, float original) {
-        if (player == null || !RERunes.ENLIGHTENED.value().isEnabled())
+        if (player == null || !Rune.isEnabled(RERunes.ENLIGHTENED))
             return original;
         return RuneHelper.hasRuneOnArmor(player, RERunes.ENLIGHTENED) ? brightness.floatValue() : original;
     }

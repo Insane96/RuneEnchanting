@@ -97,10 +97,9 @@ public class RuneLootModifier extends LootModifier {
                             .stream()
                             .flatMap(HolderSet.ListBacked::stream)
                             .anyMatch(h -> {
-                                var rune = h.value();
-                                if (!rune.isEnabled()) return false;
+                                if (!Rune.isEnabled(h)) return false;
                                 if (isBook) return true;
-                                return stack.is(TagKey.create(Registries.ITEM, rune.getApplicableToItemTag()));
+                                return stack.is(TagKey.create(Registries.ITEM, h.value().getApplicableToItemTag()));
                             });
                 })
                 .toList();

@@ -56,16 +56,11 @@ public abstract class Rune {
     private final Map<Field, ModConfigSpec.ConfigValue<?>> configValues = new LinkedHashMap<>();
 
     private boolean enabled = true;
-    private ModConfigSpec.BooleanValue enabledValue;
 
     public Rune() { this(0); }
 
     public Rune(int priority) {
         this.priority = priority;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
     }
 
     public void setEnabled(boolean enabled) {
@@ -74,6 +69,10 @@ public abstract class Rune {
 
     public static boolean isCurse(Holder<Rune> rune) {
         return rune.is(RERuneTagProvider.CURSE);
+    }
+
+    public static boolean isEnabled(Holder<Rune> rune) {
+        return rune.value().enabled && !rune.is(RERuneTagProvider.DISABLED);
     }
 
     public MutableComponent getNameComponent() {
@@ -240,7 +239,6 @@ public abstract class Rune {
     }
 
     public void loadConfig(ModConfigSpec.Builder builder) {
-        enabledValue = builder.define("Enabled", enabled);
         for (Field field : getClass().getDeclaredFields()) {
             Config annotation = field.getAnnotation(Config.class);
             if (annotation == null) continue;
@@ -261,7 +259,6 @@ public abstract class Rune {
     }
 
     public void readConfig() {
-        enabled = enabledValue.get();
         configValues.forEach((field, value) -> {
             try {
                 field.set(null, value.get());

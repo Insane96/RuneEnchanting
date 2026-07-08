@@ -16,6 +16,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class RERuneTagProvider extends TagsProvider<Rune> {
     public static final TagKey<Rune> CURSE = TagKey.create(RERunes.REGISTRY_KEY, RuneEnchanting.id("curse"));
+    public static final TagKey<Rune> DISABLED = TagKey.create(RERunes.REGISTRY_KEY, RuneEnchanting.id("disabled"));
     public static final TagKey<Rune> VANISHABLE = TagKey.create(RERunes.REGISTRY_KEY, RuneEnchanting.id("vanishable"));
     public static final TagKey<Rune> ARMOR_HEAD_ONLY = TagKey.create(RERunes.REGISTRY_KEY, RuneEnchanting.id("armor_head_only"));
     public static final TagKey<Rune> ARMOR_CHEST_ONLY = TagKey.create(RERunes.REGISTRY_KEY, RuneEnchanting.id("armor_chest_only"));
