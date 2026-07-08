@@ -1,8 +1,6 @@
 {
   "values": [
-    "#minecraft:swords",
-    "#minecraft:axes",
-    "minecraft:trident",
+    "#runeenchanting:weapons",
     "minecraft:bow"
   ]
 }

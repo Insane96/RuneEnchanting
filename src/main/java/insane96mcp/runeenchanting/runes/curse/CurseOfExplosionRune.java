@@ -2,6 +2,7 @@ package insane96mcp.runeenchanting.runes.curse;
 
 import insane96mcp.insanelib.core.ModNBTData;
 import insane96mcp.insanelib.core.feature.config.Config;
+import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
 import insane96mcp.runeenchanting.runes.ExplosiveRune;
 import insane96mcp.runeenchanting.runes.Rune;
 import insane96mcp.runeenchanting.util.REUtils;
@@ -9,13 +10,11 @@ import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentTarget;
 
 import javax.annotation.Nullable;
@@ -45,9 +44,7 @@ public class CurseOfExplosionRune extends Rune {
 
     @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
-        appender.addTag(ItemTags.SWORDS)
-                .addTag(ItemTags.AXES)
-                .add(Items.TRIDENT);
+        appender.addTag(REItemTagProvider.WEAPONS);
     }
 
     @Override

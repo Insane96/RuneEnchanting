@@ -1,3 +1,6 @@
+# 1.0.0.2-beta
+* Added a `runeenchanting:weapons` item tag
+
 # 1.0.0.1-beta
 * Added `get_random_rune` sub command
 * Fixed enchantment replacement removing the enchantment component breaking anvil repair
