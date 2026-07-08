@@ -1,4 +1,4 @@
-# Upcoming
+# 1.0.1.0-beta
 * Rune items now show the first letter of the stored rune
 * Curse of corrosion now damages the armor
 * Runes can now be disabled by adding them to the `runeenchanting:runeenchanting/runes/disabled` tag
