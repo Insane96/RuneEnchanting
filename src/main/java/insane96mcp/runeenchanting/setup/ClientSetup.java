@@ -2,16 +2,36 @@ package insane96mcp.runeenchanting.setup;
 
 import insane96mcp.runeenchanting.RuneFeature;
 import insane96mcp.runeenchanting.runes.Rune;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.neoforged.neoforge.client.event.RegisterItemDecorationsEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 
 import java.util.Comparator;
+import java.util.Locale;
 
 public class ClientSetup {
+
+    public static void onRegisterItemDecorations(RegisterItemDecorationsEvent event) {
+        event.register(REItems.RUNE.get(), (guiGraphics, font, stack, xOffset, yOffset) -> {
+            Holder<Rune> rune = stack.get(REDataComponents.STORED_RUNE.get());
+            if (rune == null)
+                return false;
+
+            String letter = rune.value().getNameComponent().getString().trim().substring(0, 1).toUpperCase(Locale.ROOT);
+            int color = (Rune.isCurse(rune) ? ChatFormatting.RED : ChatFormatting.LIGHT_PURPLE).getColor();
+
+            guiGraphics.pose().pushPose();
+            guiGraphics.pose().translate(0.0F, 0.0F, 200.0F);
+            guiGraphics.drawString(font, letter, xOffset + 1, yOffset + 1, color, true);
+            guiGraphics.pose().popPose();
+            return true;
+        });
+    }
 
     public static void onBuildCreativeModeTabContents(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {

@@ -1,4 +1,5 @@
 # Upcoming
+* Rune items now show the first letter of the stored rune
 * Curse of corrosion now damages the armor
 
 # 1.0.0.2-beta
