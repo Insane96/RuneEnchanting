@@ -1,5 +1,5 @@
-# Upcoming
-* Fixed juicy bait not appliable to fishing rods
+# 1.0.1.1-beta
+* Fixed juicy bait not applicable to fishing rods
 * Removed the C icon on rune items
 
 # 1.0.1.0-beta
