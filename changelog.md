@@ -1,5 +1,6 @@
 # Upcoming
 * Fixed juicy bait not appliable to fishing rods
+* Removed the C icon on rune items
 
 # 1.0.1.0-beta
 * Rune items now show the first letter of the stored rune
