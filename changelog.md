@@ -1,3 +1,8 @@
+# 1.0.1.2-beta
+BREAKING CHANGE:
+* Fixed rune registry being plural
+  * This changes the rune tags folder from `data/runeenchanting/tags/runeenchanting/runes` to `data/runeenchanting/tags/runeenchanting/rune`
+
 # 1.0.1.1-beta
 * Fixed juicy bait not applicable to fishing rods
 * Removed the C icon on rune items
