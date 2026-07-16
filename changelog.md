@@ -1,3 +1,6 @@
+# 1.0.1.3-beta
+* Rune items now show which items they're compatible with in their tooltip, based on the `runeenchanting:display_on_rune` item tag
+
 # 1.0.1.2-beta
 BREAKING CHANGE:
 * Fixed rune registry being plural
