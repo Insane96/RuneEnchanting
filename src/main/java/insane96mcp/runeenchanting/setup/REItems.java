@@ -11,5 +11,5 @@ public class REItems {
             DeferredRegister.create(Registries.ITEM, RuneEnchanting.MOD_ID);
 
     public static final DeferredHolder<Item, Item> RUNE =
-            REGISTRY.register("rune", () -> new Item(new Item.Properties()));
+            REGISTRY.register("rune", () -> new RuneItem(new Item.Properties()));
 }

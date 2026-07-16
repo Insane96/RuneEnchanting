@@ -1,20 +1,25 @@
 package insane96mcp.runeenchanting;
 
+import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
 import insane96mcp.runeenchanting.runes.Rune;
 import insane96mcp.runeenchanting.setup.REDataComponents;
 import insane96mcp.runeenchanting.setup.REItems;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class RuneHelper {
@@ -168,5 +173,20 @@ public class RuneHelper {
         if (runes == null)
             return false;
         return runes.stream().anyMatch(Rune::isCurse);
+    }
+
+    /**
+     * Items from the {@link REItemTagProvider#DISPLAY_ON_RUNE} tag that the given rune can be applied to,
+     * used to show which items a rune is compatible with in its tooltip.
+     */
+    public static List<ItemStack> getApplicableDisplayItems(Holder<Rune> rune) {
+        Optional<HolderSet.Named<Item>> displayItems = BuiltInRegistries.ITEM.getTag(REItemTagProvider.DISPLAY_ON_RUNE);
+        if (displayItems.isEmpty())
+            return List.of();
+        return displayItems.get().stream()
+                .map(Holder::value)
+                .map(ItemStack::new)
+                .filter(stack -> rune.value().canBeAppliedTo(stack))
+                .toList();
     }
 }

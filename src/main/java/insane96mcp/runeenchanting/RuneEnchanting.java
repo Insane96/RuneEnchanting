@@ -65,6 +65,7 @@ public class RuneEnchanting {
         if (FMLLoader.getDist().isClient()) {
             modEventBus.addListener(ClientSetup::onBuildCreativeModeTabContents);
             modEventBus.addListener(ClientSetup::onRegisterItemDecorations);
+            modEventBus.addListener(ClientSetup::onRegisterClientTooltipComponentFactories);
         }
     }
 

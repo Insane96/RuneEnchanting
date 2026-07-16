@@ -8,6 +8,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.neoforged.neoforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
 import net.neoforged.neoforge.client.event.RegisterItemDecorationsEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 
@@ -31,6 +32,10 @@ public class ClientSetup {
             guiGraphics.pose().popPose();
             return true;
         });
+    }
+
+    public static void onRegisterClientTooltipComponentFactories(RegisterClientTooltipComponentFactoriesEvent event) {
+        event.register(RuneApplicableItemsTooltip.class, RuneApplicableItemsTooltipComponent::new);
     }
 
     public static void onBuildCreativeModeTabContents(BuildCreativeModeTabContentsEvent event) {
