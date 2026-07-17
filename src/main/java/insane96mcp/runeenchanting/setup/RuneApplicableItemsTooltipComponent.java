@@ -10,7 +10,7 @@ import java.util.List;
 public class RuneApplicableItemsTooltipComponent implements ClientTooltipComponent {
     private static final int SLOT_SIZE = 13;
     private static final int MAX_COLUMNS = 8;
-    private static final float ICON_SCALE = 0.7F;
+    private static final float ICON_SCALE = 0.8F;
 
     private final List<ItemStack> items;
     private final int columns;
@@ -42,9 +42,8 @@ public class RuneApplicableItemsTooltipComponent implements ClientTooltipCompone
             ItemStack stack = this.items.get(i);
 
             guiGraphics.pose().pushPose();
-            guiGraphics.pose().translate(itemX + 8.0F, itemY + 8.0F, 0.0F);
+            guiGraphics.pose().translate(itemX, itemY, 0.0F);
             guiGraphics.pose().scale(ICON_SCALE, ICON_SCALE, 1.0F);
-            guiGraphics.pose().translate(-8.0F, -8.0F, 0.0F);
             guiGraphics.renderItem(stack, 0, 0);
             guiGraphics.renderItemDecorations(font, stack, 0, 0);
             guiGraphics.pose().popPose();
