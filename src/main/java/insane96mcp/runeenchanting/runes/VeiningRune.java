@@ -31,6 +31,9 @@ public class VeiningRune extends Rune {
     @Config(min = 1, max = 256, description = "Maximum number of additional connected blocks to mine")
     public static Integer maxBlocks = 4;
 
+    @Config(min = 0, max = 1, description = "Mining speed multiplier")
+    public static Double miningSpeedPenalty = 0.3d;
+
     @Override
     public String getName() {
         return "Veining";
@@ -115,17 +118,11 @@ public class VeiningRune extends Rune {
 
     @Override
     public float onMiningSpeed(Player player, ItemStack stack, BlockState state, @Nullable BlockPos pos, float original, float speed) {
-        return speed * getMiningSpeedPenalty();
-    }
-
-    public float getMiningSpeedPenalty() {
-        float divider = maxBlocks + 1f;
-        divider -= divider * 0.25f;
-        return 1f / divider;
+        return speed * miningSpeedPenalty.floatValue();
     }
 
     @Override
     public MutableComponent getInfoComponent() {
-        return Component.translatable(getInfoTranslationKey(), maxBlocks + 1, RuneEnchanting.NO_DECIMAL_FORMATTER.format((1f - getMiningSpeedPenalty()) * -100));
+        return Component.translatable(getInfoTranslationKey(), maxBlocks + 1, RuneEnchanting.NO_DECIMAL_FORMATTER.format((1f - miningSpeedPenalty) * -100));
     }
 }

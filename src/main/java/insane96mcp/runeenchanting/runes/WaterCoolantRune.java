@@ -41,7 +41,7 @@ public class WaterCoolantRune extends Rune {
 
     @Override
     public @Nullable String getInfo() {
-        return "Bonus damage: %s%%. Freeze time: %ss";
+        return "Bonus damage: %s%%. Freeze: %ss";
     }
 
     @Override

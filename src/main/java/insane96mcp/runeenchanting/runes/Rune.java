@@ -300,15 +300,15 @@ public abstract class Rune {
 
     public MutableComponent getInfoComponent() { return Component.translatable(getInfoTranslationKey()); }
 
-    public MutableComponent getInfoComponent(ItemStack stack, @Nullable Player player) { return getInfoComponent(); }
+    public MutableComponent getInfoComponent(ItemStack stack) { return getInfoComponent(); }
 
-    public void addInfo(ItemStack stack, List<Component> tooltip, @Nullable Player player) {
+    public void addInfo(ItemStack stack, List<Component> tooltip) {
         if (getInfo() == null) return;
-        tooltip.add(CommonComponents.space().append(getInfoComponent(stack, player)).withStyle(ChatFormatting.BLUE).withStyle(ChatFormatting.ITALIC));
+        tooltip.add(CommonComponents.space().append(getInfoComponent(stack)).withStyle(ChatFormatting.BLUE).withStyle(ChatFormatting.ITALIC));
     }
 
-    public void addTooltip(ItemStack stack, List<Component> tooltip, TooltipFlag flag, @Nullable Player player) {
+    public void addTooltip(ItemStack stack, List<Component> tooltip, TooltipFlag flag) {
         if (RuneFeature.showExtraInfos(flag))
-            addInfo(stack, tooltip, player);
+            addInfo(stack, tooltip);
     }
 }
