@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 
 public class LureRune extends Rune {
     @Config
-    public static Double secondsReduction = 15d;
+    public static Double secondsReduction = 12d;
 
     @Override
     public String getName() {

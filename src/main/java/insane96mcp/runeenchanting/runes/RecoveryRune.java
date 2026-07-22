@@ -8,7 +8,6 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentTarget;
@@ -34,7 +33,7 @@ public class RecoveryRune extends Rune {
 
     @Override
     public @Nullable String getInfo() {
-        return "Stored healing: %s. Damage to regen: %s%%. Regen speed: %s/s";
+        return "Damage to regen: %s%%. Regen speed: %s/s";
     }
 
     @Override
@@ -75,7 +74,7 @@ public class RecoveryRune extends Rune {
     }
 
     @Override
-    public MutableComponent getInfoComponent(ItemStack stack, @Nullable Player player) {
-        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(stack.getOrDefault(REDataComponents.STORED_DAMAGE, 0f)), damageToRegenRatio * 100f, IAttributeExtension.FORMAT.format(regenSpeed));
+    public MutableComponent getInfoComponent(ItemStack stack) {
+        return Component.translatable(getInfoTranslationKey(), damageToRegenRatio * 100f, IAttributeExtension.FORMAT.format(regenSpeed));
     }
 }

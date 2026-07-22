@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class DwarfingRune extends Rune {
     @Config(min = 0, description = "Percentage bonus mining speed")
-    public static Double bonusMiningSpeed = 2.5d;
+    public static Double maxBonusMiningSpeed = 2.5d;
 
     @Override
     public String getName() {
@@ -31,7 +31,7 @@ public class DwarfingRune extends Rune {
 
     @Override
     public @Nullable String getInfo() {
-        return "Current bonus mining speed: %s";
+        return "Max bonus mining speed: %s";
     }
 
     @Override
@@ -65,13 +65,11 @@ public class DwarfingRune extends Rune {
         int maxY = player.level().getSeaLevel() - player.level().getMinBuildHeight();
         float ratio = (float) y / maxY;
 
-        return ratio * bonusMiningSpeed.floatValue() * diggerItem.getTier().getSpeed();
+        return ratio * maxBonusMiningSpeed.floatValue() * diggerItem.getTier().getSpeed();
     }
 
     @Override
-    public MutableComponent getInfoComponent(ItemStack stack, @Nullable Player player) {
-        if (player == null || !(stack.getItem() instanceof DiggerItem diggerItem))
-            return Component.empty();
-        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(getBonusMiningSpeed(diggerItem, player)));
+    public MutableComponent getInfoComponent() {
+        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(maxBonusMiningSpeed));
     }
 }

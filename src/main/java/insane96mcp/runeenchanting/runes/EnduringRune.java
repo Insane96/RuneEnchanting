@@ -5,7 +5,6 @@ import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.common.extensions.IAttributeExtension;
@@ -43,7 +42,7 @@ public class EnduringRune extends Rune {
     }
 
     @Override
-    public MutableComponent getInfoComponent(ItemStack stack, @Nullable Player player) {
+    public MutableComponent getInfoComponent() {
         return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(bonusDurability * 100), IAttributeExtension.FORMAT.format(bonusDurabilityFlat));
     }
 }

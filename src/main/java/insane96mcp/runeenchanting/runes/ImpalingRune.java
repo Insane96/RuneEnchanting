@@ -17,6 +17,7 @@ import javax.annotation.Nullable;
 public class ImpalingRune extends Rune {
     @Config
     public static Double bonusDamage = 0.7d;
+    //TODO Bonus effect like Smite and BoH
     //@Config
     //public static Integer weaknessAmplifier = 3;
     //@Config(description = "In seconds")

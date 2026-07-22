@@ -13,7 +13,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.common.extensions.IAttributeExtension;
@@ -24,7 +23,7 @@ public class RetreatRune extends Rune {
     private static final ResourceLocation MODIFIER_ID = RuneEnchanting.id("retreat");
 
     @Config
-    public static Double bonusMovementSpeed = 0.5d;
+    public static Double maxBonusMovementSpeed = 0.5d;
 
     @Override
     public String getName() {
@@ -43,7 +42,7 @@ public class RetreatRune extends Rune {
 
     @Override
     public @Nullable String getInfo() {
-        return "Bonus movement speed: %s%%";
+        return "Max bonus movement speed: %s%%";
     }
 
     @Override
@@ -65,10 +64,8 @@ public class RetreatRune extends Rune {
     }
 
     @Override
-    public MutableComponent getInfoComponent(ItemStack stack, @Nullable Player player) {
-        if (player == null)
-            return Component.empty();
-        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(getBonusSpeed(player) * 100f));
+    public MutableComponent getInfoComponent() {
+        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(maxBonusMovementSpeed * 100f));
     }
 
     @Override
@@ -80,6 +77,6 @@ public class RetreatRune extends Rune {
 
     private float getBonusSpeed(LivingEntity entity) {
         float healthMissing = 1 - (entity.getHealth() / entity.getMaxHealth());
-        return bonusMovementSpeed.floatValue() * (healthMissing * healthMissing);
+        return maxBonusMovementSpeed.floatValue() * (healthMissing * healthMissing);
     }
 }

@@ -10,7 +10,6 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
@@ -27,12 +26,12 @@ public class FireSurgeRune extends Rune {
 
     @Override
     public String getDescription() {
-        return "Increases damage dealt when on fire";
+        return "Increases damage dealt when on fire. Fire resistance heavily lowers the bonus.";
     }
 
     @Override
     public @Nullable String getInfo() {
-        return "Bonus damage: %s%%";
+        return "Max bonus damage: %s%%";
     }
 
     @Override
@@ -55,9 +54,7 @@ public class FireSurgeRune extends Rune {
     }
 
     @Override
-    public MutableComponent getInfoComponent(ItemStack stack, @Nullable Player player) {
-        if (player == null)
-            return Component.empty();
-        return Component.translatable(getInfoTranslationKey(), RuneEnchanting.NO_DECIMAL_FORMATTER.format(getBonusDamage(player) * 100));
+    public MutableComponent getInfoComponent() {
+        return Component.translatable(getInfoTranslationKey(), RuneEnchanting.NO_DECIMAL_FORMATTER.format(maxBonusDamage * 100));
     }
 }

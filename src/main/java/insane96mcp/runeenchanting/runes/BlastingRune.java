@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class BlastingRune extends Rune {
     @Config(min = 0, description = "Percentage bonus mining speed")
-    public static Double bonusMiningSpeed = 2.5d;
+    public static Double maxBonusMiningSpeed = 2.5d;
 
     @Override
     public String getName() {
@@ -30,7 +30,7 @@ public class BlastingRune extends Rune {
 
     @Override
     public @javax.annotation.Nullable String getInfo() {
-        return "Up to %s%% bonus mining speed";
+        return "Max bonus mining speed: %s%%";
     }
 
     @Override
@@ -46,11 +46,11 @@ public class BlastingRune extends Rune {
             return super.onMiningSpeed(player, stack, state, pos, original, speed);
 
         //noinspection deprecation
-        return speed + (Math.max(0.20f, (6f - state.getBlock().getExplosionResistance()) * bonusMiningSpeed.floatValue()) * diggerItem.getTier().getSpeed());
+        return speed + (Math.max(0.20f, (6f - state.getBlock().getExplosionResistance()) * maxBonusMiningSpeed.floatValue()) * diggerItem.getTier().getSpeed());
     }
 
     @Override
     public MutableComponent getInfoComponent() {
-        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(bonusMiningSpeed * 100));
+        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(maxBonusMiningSpeed * 100));
     }
 }

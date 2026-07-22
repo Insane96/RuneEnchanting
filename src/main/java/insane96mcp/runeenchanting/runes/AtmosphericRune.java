@@ -30,11 +30,11 @@ public class AtmosphericRune extends Rune {
     private static final ResourceLocation MODIFIER_ID = RuneEnchanting.id("atmospheric");
 
     @Config(description = "Bonus mining speed relative to tool speed at full sunlight (Light level 12+)")
-    public static Double miningSpeedMultiplier = 1.5d;
+    public static Double maxMiningSpeedMultiplier = 1.5d;
     @Config(description = "Attack speed bonus (ADD_MULTIPLIED_BASE) at full moonlight (Light level 12+)")
-    public static Double attackSpeedBonus = 0.25d;
+    public static Double maxAttackSpeedBonus = 0.25d;
     @Config(min = 0, max = 1, description = "Fraction of each durability damage point ignored when raining")
-    public static Double rainDurabilityReduction = 0.667d;
+    public static Double rainDurabilityReduction = 0.75d;
 
     @Override
     public String getName() {
@@ -48,7 +48,7 @@ public class AtmosphericRune extends Rune {
 
     @Override
     public @Nullable String getInfo() {
-        return "Current Bonus Mining Speed: +%s%%. Current Bonus Attack Speed: +%s%%. Current durability loss reduction: %s%";
+        return "Max Bonus Mining Speed: +%s%%. Max Bonus Attack Speed: +%s%%. Tool lasts on average %s% more";
     }
 
     @Override
@@ -69,7 +69,7 @@ public class AtmosphericRune extends Rune {
                 .orElse(tool.defaultMiningSpeed());
 
         float sunLightRatio = getSunLightRatio(player);
-        return speed + toolSpeed * miningSpeedMultiplier.floatValue() * sunLightRatio;
+        return speed + toolSpeed * maxMiningSpeedMultiplier.floatValue() * sunLightRatio;
     }
 
     @Override
@@ -78,7 +78,7 @@ public class AtmosphericRune extends Rune {
             return;
 
         float moonLightRatio = getMoonLightRatio(entity);
-        float amount = attackSpeedBonus.floatValue() * moonLightRatio;
+        float amount = maxAttackSpeedBonus.floatValue() * moonLightRatio;
 
         AttributeInstance attackSpeedAttr = entity.getAttribute(Attributes.ATTACK_SPEED);
         if (attackSpeedAttr == null)
@@ -113,13 +113,11 @@ public class AtmosphericRune extends Rune {
     }
 
     @Override
-    public MutableComponent getInfoComponent(ItemStack stack, @Nullable Player player) {
-        if (player == null)
-            return Component.empty();
+    public MutableComponent getInfoComponent() {
         return Component.translatable(getInfoTranslationKey(),
-                IAttributeExtension.FORMAT.format(getSunLightRatio(player) * miningSpeedMultiplier * 100),
-                IAttributeExtension.FORMAT.format(getMoonLightRatio(player) * attackSpeedBonus * 100),
-                IAttributeExtension.FORMAT.format((1f - rainDurabilityReduction) * 100));
+                IAttributeExtension.FORMAT.format(maxMiningSpeedMultiplier * 100),
+                IAttributeExtension.FORMAT.format(maxAttackSpeedBonus * 100),
+                IAttributeExtension.FORMAT.format(1f - rainDurabilityReduction));
     }
 
     private static float getSunLightRatio(Player player) {

@@ -149,20 +149,15 @@ public class MomentumRune extends Rune {
 
     @Override
     public @Nullable String getInfo() {
-        return "Current Bonus Mining Speed: +%s. Current Bonus Movement Speed: +%s%%. Current Bonus Attack Speed: +%s";
+        return "Max Bonus Mining Speed: +%s. Max Bonus Movement Speed: +%s%%. Max Bonus Attack Speed: +%s";
     }
 
     @Override
-    public MutableComponent getInfoComponent(ItemStack stack, @Nullable Player player) {
-        if (player == null)
-            return Component.empty();
-        float mining = ModNBTData.get(player, LOC_MINING_BONUS, Float.class);
-        float movement = ModNBTData.get(player, LOC_MOVEMENT_BONUS, Float.class);
-        float attack = ModNBTData.get(player, LOC_ATTACK_BONUS, Float.class);
+    public MutableComponent getInfoComponent() {
         return Component.translatable(getInfoTranslationKey(),
-                IAttributeExtension.FORMAT.format(mining),
-                IAttributeExtension.FORMAT.format(movement * 100),
-                IAttributeExtension.FORMAT.format(attack));
+                IAttributeExtension.FORMAT.format(maxMiningBonus),
+                IAttributeExtension.FORMAT.format(maxMovementBonus * 100f),
+                IAttributeExtension.FORMAT.format(maxAttackBonus));
     }
 
     private static void playMomentumMaxSound(LivingEntity entity) {
