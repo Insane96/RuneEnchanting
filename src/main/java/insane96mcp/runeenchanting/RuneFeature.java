@@ -235,7 +235,7 @@ public class RuneFeature extends Feature {
                     if (Rune.isCurse(holder))
                         event.getToolTip().add(CommonComponents.space().append(Component.translatable("cursed_info")).withStyle(ChatFormatting.GRAY));
                 }
-                holder.value().addTooltip(stack, event.getToolTip(), event.getFlags(), event.getEntity());
+                holder.value().addTooltip(stack, event.getToolTip(), event.getFlags());
             }
             if (isCursed) {
                 if (stack.is(REItems.RUNE))
