@@ -1,4 +1,4 @@
-# Upcoming
+# 1.0.2.0
 * Extra infos 
   * Now always report best values and not current or stacked ones
     * E.g. Vindication no longer shows accumulated damage
