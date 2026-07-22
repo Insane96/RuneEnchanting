@@ -33,7 +33,7 @@ public class TunnelingRune extends Rune {
     public static Integer additionalBlocks = 2;*/
 
     @Config(min = 0, max = 1, description = "Mining speed multiplier")
-    public static Double miningSpeedPenalty = 0.3d;
+    public static Double miningSpeedPenalty = 0.4d;
 
     public TunnelingRune() {
         super(-1);

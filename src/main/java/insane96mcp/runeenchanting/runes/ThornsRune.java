@@ -22,7 +22,7 @@ public class ThornsRune extends Rune {
     @Config(min = 0)
     public static Double maxDamage = 2d;
     @Config(min = 0, max = 1)
-    public static Double chance = 0.20d;
+    public static Double chance = 0.25d;
 
     @Override
     public String getName() {
