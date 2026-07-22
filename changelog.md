@@ -2,7 +2,7 @@
 * Extra infos 
   * Now always report best values and not current or stacked ones
     * E.g. Vindication no longer shows accumulated damage
-* Veining Rune mining speed penalty is now configurable
+* Veining and Tunneling Runes' mining speed penalty is now configurable
 * Fixed Feather Falling applicable to any armor piece
 
 # 1.0.1.3-beta

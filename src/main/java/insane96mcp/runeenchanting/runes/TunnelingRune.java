@@ -1,5 +1,6 @@
 package insane96mcp.runeenchanting.runes;
 
+import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -30,6 +31,9 @@ import java.util.List;
 public class TunnelingRune extends Rune {
     /*@Config(min = 1, max = 10, description = "Number of additional blocks to mine in the column")
     public static Integer additionalBlocks = 2;*/
+
+    @Config(min = 0, max = 1, description = "Mining speed multiplier")
+    public static Double miningSpeedPenalty = 0.3d;
 
     public TunnelingRune() {
         super(-1);
@@ -157,17 +161,11 @@ public class TunnelingRune extends Rune {
 
     @Override
     public float onMiningSpeed(Player player, ItemStack stack, BlockState state, @Nullable BlockPos pos, float original, float speed) {
-        return speed * getMiningSpeedPenalty();
-    }
-
-    public float getMiningSpeedPenalty() {
-        float divider = additionalBlocks() + 1f;
-        divider -= divider * 0.05f;
-        return 1f / divider;
+        return speed * miningSpeedPenalty.floatValue();
     }
 
     @Override
     public MutableComponent getInfoComponent() {
-        return Component.translatable(getInfoTranslationKey(), RuneEnchanting.NO_DECIMAL_FORMATTER.format((1f - getMiningSpeedPenalty()) * -100));
+        return Component.translatable(getInfoTranslationKey(), RuneEnchanting.NO_DECIMAL_FORMATTER.format((1f - miningSpeedPenalty) * -100));
     }
 }
