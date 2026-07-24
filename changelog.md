@@ -1,3 +1,6 @@
+# Upcoming
+* Fixed healthy not stacking on multiple pieces
+
 # 1.0.2.0
 * Extra infos 
   * Now always report best values and not current or stacked ones

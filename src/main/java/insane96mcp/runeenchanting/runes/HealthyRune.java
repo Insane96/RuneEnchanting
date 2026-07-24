@@ -4,6 +4,7 @@ import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -31,6 +32,7 @@ public class HealthyRune extends Rune {
 
     @Override
     public void addAttributeModifiers(ItemAttributeModifierEvent event) {
-        event.addModifier(Attributes.MAX_HEALTH, new AttributeModifier(RuneEnchanting.id("healthy"), bonusHealth, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.bySlot(RuneEnchanting.getEquipmentSlotForItem(event.getItemStack())));
+        EquipmentSlot slot = RuneEnchanting.getEquipmentSlotForItem(event.getItemStack());
+        event.addModifier(Attributes.MAX_HEALTH, new AttributeModifier(RuneEnchanting.id("healthy_" + slot.getName()), bonusHealth, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.bySlot(slot));
     }
 }
