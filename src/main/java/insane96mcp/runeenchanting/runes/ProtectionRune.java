@@ -1,11 +1,6 @@
 package insane96mcp.runeenchanting.runes;
 
 import insane96mcp.insanelib.core.feature.config.Config;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.neoforged.neoforge.common.extensions.IAttributeExtension;
-
-import javax.annotation.Nullable;
 
 public class ProtectionRune extends DamageReductionRune {
     @Config
@@ -24,15 +19,5 @@ public class ProtectionRune extends DamageReductionRune {
     @Override
     public float damageReduction() {
         return damageReduction.floatValue();
-    }
-
-    @Override
-    public @Nullable String getInfo() {
-        return "Damage reduction: %s%%";
-    }
-
-    @Override
-    public MutableComponent getInfoComponent() {
-        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(damageReduction * 100));
     }
 }

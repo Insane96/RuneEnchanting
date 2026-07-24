@@ -2,16 +2,11 @@ package insane96mcp.runeenchanting.runes;
 
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.RuneEnchanting;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.neoforged.neoforge.common.extensions.IAttributeExtension;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
-
-import javax.annotation.Nullable;
 
 public class MeleeProtectionRune extends DamageReductionRune {
     @Config
@@ -30,11 +25,6 @@ public class MeleeProtectionRune extends DamageReductionRune {
     }
 
     @Override
-    public @Nullable String getInfo() {
-        return "Damage reduction: %s%%";
-    }
-
-    @Override
     public float damageReduction() {
         return damageReduction.floatValue();
     }
@@ -49,10 +39,5 @@ public class MeleeProtectionRune extends DamageReductionRune {
         if (event.getItemStack().getEquipmentSlot() == null)
             return;
         event.addModifier(Attributes.ATTACK_SPEED, new AttributeModifier(RuneEnchanting.id("melee_protection"), bonusAttackSpeed, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), EquipmentSlotGroup.bySlot(RuneEnchanting.getEquipmentSlotForItem(event.getItemStack())));
-    }
-
-    @Override
-    public MutableComponent getInfoComponent() {
-        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(damageReduction * 100));
     }
 }

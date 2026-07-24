@@ -12,8 +12,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.neoforged.neoforge.common.extensions.IAttributeExtension;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 
-import javax.annotation.Nullable;
-
 public class BlastProtectionRune extends DamageReductionRune {
     @Config
     public static Double damageReduction = 0.40d;

@@ -1,4 +1,5 @@
 # Upcoming
+* Added "Damage reduction: " infos to all damage reduction runes
 * Fixed healthy not stacking on multiple pieces
 
 # 1.0.2.0
