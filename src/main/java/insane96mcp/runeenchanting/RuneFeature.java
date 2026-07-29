@@ -13,6 +13,7 @@ import insane96mcp.runeenchanting.setup.REItems;
 import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
@@ -144,8 +145,13 @@ public class RuneFeature extends Feature {
         if (event.getName().equals(VanillaGuiLayers.EXPERIENCE_BAR) || event.getName().equals(VanillaGuiLayers.EXPERIENCE_LEVEL)) {
             event.setCanceled(true);
             if (event.getName().equals(VanillaGuiLayers.EXPERIENCE_BAR)) {
-                Minecraft.getInstance().gui.leftHeight -= 6;
-                Minecraft.getInstance().gui.rightHeight -= 6;
+                LocalPlayer player = Minecraft.getInstance().player;
+                //Skip the compensation if the jump meter is about to render in the same spot, otherwise hearts/food overlap it
+                boolean jumpMeterWillRender = player != null && player.jumpableVehicle() != null && player.getJumpRidingScale() > 0;
+                if (!jumpMeterWillRender) {
+                    Minecraft.getInstance().gui.leftHeight -= 6;
+                    Minecraft.getInstance().gui.rightHeight -= 6;
+                }
             }
         }
     }

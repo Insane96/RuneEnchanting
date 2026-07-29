@@ -1,6 +1,7 @@
 # Upcoming
 * Added "Damage reduction: " infos to all damage reduction runes
 * Fixed healthy not stacking on multiple pieces
+* Fixed jump meter not raising the GUI elements when rendering
 
 # 1.0.2.0
 * Extra infos 
