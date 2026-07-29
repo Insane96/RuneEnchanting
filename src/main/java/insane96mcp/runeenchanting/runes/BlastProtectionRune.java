@@ -29,11 +29,6 @@ public class BlastProtectionRune extends DamageReductionRune {
     }
 
     @Override
-    public @Nullable String getInfo() {
-        return "Damage reduction: %s%%";
-    }
-
-    @Override
     public float damageReduction() {
         return damageReduction.floatValue();
     }
