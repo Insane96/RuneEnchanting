@@ -13,7 +13,8 @@
         "MobEffectInstanceAccessor",
         "MobMixin",
         "PlayerMixin",
-        "ProjectileWeaponItemMixin"
+        "ProjectileWeaponItemMixin",
+        "ThrownTridentMixin"
     ],
     "client": [
         "client.GuiGraphicsMixin",

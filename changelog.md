@@ -1,3 +1,6 @@
+# Upcoming
+* Runes now work on thrown tridents
+
 # 1.0.2.1
 * Added "Damage reduction: " infos to all damage reduction runes
 * Fixed healthy not stacking on multiple pieces
