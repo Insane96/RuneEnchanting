@@ -62,7 +62,7 @@ public class RuneFeature extends Feature {
     }));
 
     @Config
-    public static Boolean hideCurses = true;
+    public static Boolean mustLearnCurses = true;
     @Config(description = "Cumulative durability damage a player must deal/take while an item has an unlearned curse before they learn what that curse is")
     public static Integer curseLearnThreshold = 200;
     @Config
@@ -233,7 +233,7 @@ public class RuneFeature extends Feature {
             for (Holder<Rune> holder : runes) {
                 boolean isCurse = Rune.isCurse(holder);
                 ChatFormatting color = isCurse ? ChatFormatting.RED : ChatFormatting.LIGHT_PURPLE;
-                if (isCurse && hideCurses && !CurseKnowledge.isLearned(player, holder)) {
+                if (isCurse && mustLearnCurses && !CurseKnowledge.isLearned(player, holder)) {
                     event.getToolTip().add(CommonComponents.space().append(Component.translatable("unknown_curse").withStyle(color)));
                     continue;
                 }
