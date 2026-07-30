@@ -4,6 +4,7 @@ import insane96mcp.insanelib.core.feature.Feature;
 import insane96mcp.insanelib.core.feature.LoadFeature;
 import insane96mcp.insanelib.core.feature.Module;
 import insane96mcp.insanelib.core.feature.config.Config;
+import insane96mcp.insanelib.event.HurtItemStackEvent;
 import insane96mcp.insanelib.util.IntegratedPack;
 import insane96mcp.insanelib.util.MathHelper;
 import insane96mcp.runeenchanting.network.message.ClientboundDisableExperienceMessage;
@@ -211,6 +212,19 @@ public class RuneFeature extends Feature {
     @SubscribeEvent
     public void onRegisterCommands(RegisterCommandsEvent event) {
         RECommands.register(event.getDispatcher());
+    }
+
+    @SubscribeEvent
+    public void onHurtItemStackCurseLearning(HurtItemStackEvent event) {
+        if (!mustLearnCurses || !(event.getLivingEntity() instanceof ServerPlayer player))
+            return;
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(event.getStack(), false);
+        if (runes == null)
+            return;
+        for (Holder<Rune> holder : runes) {
+            if (Rune.isCurse(holder))
+                CurseKnowledge.addProgress(player, holder, event.getAmount());
+        }
     }
 
     @SubscribeEvent
