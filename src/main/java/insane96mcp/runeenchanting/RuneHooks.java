@@ -12,6 +12,7 @@ import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -134,6 +135,15 @@ public class RuneHooks extends Feature {
     @SubscribeEvent
     public void onHurtItemStack(HurtItemStackEvent event) {
         forRunes(event.getStack(), rune -> rune.onItemHurt(event, event.getStack()));
+        if (event.getLivingEntity() instanceof ServerPlayer player) {
+            List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(event.getStack(), false);
+            if (runes != null) {
+                for (Holder<Rune> holder : runes) {
+                    if (Rune.isCurse(holder))
+                        CurseKnowledge.addProgress(player, holder, event.getAmount());
+                }
+            }
+        }
     }
 
     @SubscribeEvent

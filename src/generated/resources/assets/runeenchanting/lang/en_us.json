@@ -1,6 +1,5 @@
 {
-  "curse": "Curse",
-  "cursed": "Cursed",
+  "curse_learned": "You have learned about %s",
   "cursed_info": "+1 Socket",
   "item.runeenchanting.rune": "Rune",
   "rune.runeenchanting.absorbing": "Absorbing",
@@ -110,11 +109,13 @@
   "rune.runeenchanting.explosive.info": "Explosion power: %s, Delay: %ss",
   "rune.runeenchanting.feather_falling": "Feather Falling",
   "rune.runeenchanting.feather_falling.description": "Reduces damage taken by falls",
+  "rune.runeenchanting.feather_falling.info": "Damage reduction: %s%%",
   "rune.runeenchanting.fire_guardian": "Fire Guardian",
   "rune.runeenchanting.fire_guardian.description": "Gives fire resistance for a few seconds after taking fire damage, with a cooldown",
   "rune.runeenchanting.fire_guardian.info": "Fire resistance duration: %ss. Cooldown on use: %ss",
   "rune.runeenchanting.fire_protection": "Fire Protection",
   "rune.runeenchanting.fire_protection.description": "Reduces damage taken by lava and fire and reduces time on fire",
+  "rune.runeenchanting.fire_protection.info": "Damage reduction: %s%%",
   "rune.runeenchanting.fire_surge": "Fire Surge",
   "rune.runeenchanting.fire_surge.description": "Increases damage dealt when on fire. Fire resistance heavily lowers the bonus.",
   "rune.runeenchanting.fire_surge.info": "Max bonus damage: %s%%",
@@ -236,5 +237,6 @@
   "rune.runeenchanting.water_coolant.info": "Bonus damage: %s%%. Freeze: %ss",
   "rune.runeenchanting.zippy": "Zippy",
   "rune.runeenchanting.zippy.description": "Increased movement speed",
-  "sockets": "Sockets: %d/%d"
+  "sockets": "Sockets: %d/%d",
+  "unknown_curse": "Unknown Curse"
 }

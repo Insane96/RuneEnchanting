@@ -24,6 +24,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
@@ -62,6 +63,8 @@ public class RuneFeature extends Feature {
 
     @Config
     public static Boolean hideCurses = true;
+    @Config(description = "Cumulative durability damage a player must deal/take while an item has an unlearned curse before they learn what that curse is")
+    public static Integer curseLearnThreshold = 200;
     @Config
     public static Boolean extractCurses = false;
     @Config(description = "Maximum number of curses that can be on a single item. 0 disables curses entirely.")
@@ -226,28 +229,21 @@ public class RuneFeature extends Feature {
             }
         }
         if (runes != null) {
-            boolean isCursed = false;
+            Player player = event.getEntity();
             for (Holder<Rune> holder : runes) {
-                if (Rune.isCurse(holder) && hideCurses) {
-                    isCursed = true;
+                boolean isCurse = Rune.isCurse(holder);
+                ChatFormatting color = isCurse ? ChatFormatting.RED : ChatFormatting.LIGHT_PURPLE;
+                if (isCurse && hideCurses && !CurseKnowledge.isLearned(player, holder)) {
+                    event.getToolTip().add(CommonComponents.space().append(Component.translatable("unknown_curse").withStyle(color)));
                     continue;
                 }
-                ChatFormatting color = ChatFormatting.LIGHT_PURPLE;
-                if (Rune.isCurse(holder))
-                    color = ChatFormatting.RED;
                 event.getToolTip().add(CommonComponents.space().append(holder.value().getNameComponent().withStyle(color)));
                 if (showExtraInfos(event.getFlags())) {
                     event.getToolTip().add(CommonComponents.space().append(holder.value().getDescriptionComponent()).withStyle(ChatFormatting.GRAY));
-                    if (Rune.isCurse(holder))
+                    if (isCurse)
                         event.getToolTip().add(CommonComponents.space().append(Component.translatable("cursed_info")).withStyle(ChatFormatting.GRAY));
                 }
                 holder.value().addTooltip(stack, event.getToolTip(), event.getFlags());
-            }
-            if (isCursed) {
-                if (stack.is(REItems.RUNE))
-                    event.getToolTip().add(CommonComponents.space().append(Component.translatable("curse").withStyle(ChatFormatting.RED)));
-                else
-                    event.getToolTip().add(CommonComponents.space().append(Component.translatable("cursed").withStyle(ChatFormatting.RED)));
             }
         }
     }

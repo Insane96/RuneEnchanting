@@ -58,6 +58,7 @@ public class RuneEnchanting {
         RERunes.RUNES.register(modEventBus);
         RERunes.registerConfigs(modEventBus, modContainer);
         REAttributes.REGISTRY.register(modEventBus);
+        REAttachments.REGISTRY.register(modEventBus);
         REDataComponents.REGISTRY.register(modEventBus);
         REItems.REGISTRY.register(modEventBus);
         RELootModifiers.REGISTRY.register(modEventBus);

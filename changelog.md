@@ -1,4 +1,5 @@
 # Upcoming
+* Curses can now be learned by using the tool they are applied to
 * Runes now work on thrown tridents
 
 # 1.0.2.1

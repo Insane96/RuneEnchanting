@@ -23,8 +23,8 @@ public class RELanguageProvider extends LanguageProvider {
 
         add("item.runeenchanting.rune", "Rune");
         add("sockets", "Sockets: %d/%d");
-        add("curse", "Curse");
-        add("cursed", "Cursed");
+        add("unknown_curse", "Unknown Curse");
         add("cursed_info", "+1 Socket");
+        add("curse_learned", "You have learned about %s");
     }
 }
