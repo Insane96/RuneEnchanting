@@ -13,7 +13,7 @@ import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 
 public class HealthyRune extends Rune {
     @Config
-    public static Double bonusHealth = 4d;
+    public static Double bonusHealth = 2d;
 
     @Override
     public String getName() {
