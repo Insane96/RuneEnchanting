@@ -4,8 +4,10 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import insane96mcp.runeenchanting.RuneHelper;
+import insane96mcp.runeenchanting.RuneHooks;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ProjectileWeaponItem;
 import org.spongepowered.asm.mixin.Mixin;
@@ -13,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -74,5 +77,26 @@ public class ProjectileWeaponItemMixin {
             return ammoCopy.copyWithCount(1);
         }
         return original.call(weapon, ammo, shooter, intangable);
+    }
+
+    /**
+     * The {@code inaccuracy} passed into {@code shoot} (and forwarded unchanged to every
+     * {@code shootProjectile} call) is the actual shot-precision cone (consumed by
+     * {@code Projectile#shootFromRotation}/{@code shoot}). It is distinct from
+     * {@code EnchantmentHelper.processProjectileSpread}, which only fans out the extra Multishot
+     * arrows horizontally. There's no vanilla enchantment hook for it, so it's intercepted here.
+     */
+    @WrapOperation(
+        method = "shoot",
+        at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ProjectileWeaponItem;shootProjectile(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/entity/projectile/Projectile;IFFFLnet/minecraft/world/entity/LivingEntity;)V")
+    )
+    private void runeenchanting$modifyInaccuracy(
+        ProjectileWeaponItem instance, LivingEntity shooter, Projectile projectile, int index, float velocity, float inaccuracy, float angle, @Nullable LivingEntity target,
+        Operation<Void> original,
+        @Local(name = "level") ServerLevel level,
+        @Local(name = "weapon") ItemStack weapon
+    ) {
+        float modifiedInaccuracy = RuneHooks.modifyProjectileInaccuracy(level, weapon, shooter, inaccuracy);
+        original.call(instance, shooter, projectile, index, velocity, modifiedInaccuracy, angle, target);
     }
 }

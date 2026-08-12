@@ -231,6 +231,17 @@ public class RuneHooks extends Feature {
         return spread;
     }
 
+    public static float modifyProjectileInaccuracy(ServerLevel level, ItemStack tool, Entity entity, float originalInaccuracy) {
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(tool);
+        if (runes == null)
+            return originalInaccuracy;
+        float inaccuracy = originalInaccuracy;
+        for (Holder<Rune> holder : runes) {
+            inaccuracy = holder.value().modifyProjectileInaccuracy(level, tool, entity, originalInaccuracy, inaccuracy);
+        }
+        return inaccuracy;
+    }
+
     public static int modifyDurabilityChange(ServerLevel level, ItemStack stack, int original) {
         List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
         if (runes == null)

@@ -1,6 +1,8 @@
 # Upcoming
 * Added Curse of Undead
   * Set on fire the wearer under the sun
+* Added Curse of Inaccuracy
+  * Increases the spread of arrows shot from bows and crossbows
 * Fixed Atmospheric rune info not working
 
 # 1.1.1.0

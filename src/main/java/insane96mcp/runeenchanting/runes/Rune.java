@@ -172,6 +172,10 @@ public abstract class Rune {
         return spread;
     }
 
+    public float modifyProjectileInaccuracy(ServerLevel level, ItemStack tool, Entity entity, float originalInaccuracy, float inaccuracy) {
+        return inaccuracy;
+    }
+
     public int modifyDurabilityChange(ServerLevel level, ItemStack stack, int original, int damage) {
         return damage;
     }
