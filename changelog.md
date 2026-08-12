@@ -1,4 +1,4 @@
-# Upcoming
+# 1.1.1.0
 * Reduced Healthy bonus health
 * Curses can now be extracted from items by default
 
