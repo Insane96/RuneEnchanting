@@ -48,7 +48,7 @@ public class AtmosphericRune extends Rune {
 
     @Override
     public @Nullable String getInfo() {
-        return "Max Bonus Mining Speed: +%s%%. Max Bonus Attack Speed: +%s%%. Tool lasts on average %s% more";
+        return "Max Bonus Mining Speed: +%s%%. Max Bonus Attack Speed: +%s%%. Tool lasts on average %s%% more";
     }
 
     @Override
