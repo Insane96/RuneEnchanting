@@ -1,4 +1,6 @@
 # Upcoming
+* Added Curse of Undead
+  * Set on fire the wearer under the sun
 * Fixed Atmospheric rune info not working
 
 # 1.1.1.0
