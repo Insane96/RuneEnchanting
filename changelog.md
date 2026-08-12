@@ -1,5 +1,6 @@
 # Upcoming
 * Reduced Healthy bonus health
+* Curses can now be extracted from items by default
 
 # 1.1.0.0
 * Curses can now be learned by using the tool they are applied to

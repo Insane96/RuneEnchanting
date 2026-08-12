@@ -67,7 +67,7 @@ public class RuneFeature extends Feature {
     @Config(description = "Cumulative durability damage a player must deal/take while an item has an unlearned curse before they learn what that curse is")
     public static Integer curseLearnThreshold = 200;
     @Config
-    public static Boolean extractCurses = false;
+    public static Boolean extractCurses = true;
     @Config(description = "Maximum number of curses that can be on a single item. 0 disables curses entirely.")
     public static Integer maxCurses = 1;
     @Config(description = """
