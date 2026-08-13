@@ -19,6 +19,8 @@
     "runeenchanting:curse_of_static_charge",
     "runeenchanting:curse_of_explosion",
     "runeenchanting:curse_of_corrosion",
-    "runeenchanting:curse_of_undead"
+    "runeenchanting:curse_of_undead",
+    "runeenchanting:curse_of_inaccuracy",
+    "runeenchanting:curse_of_slipperiness"
   ]
 }

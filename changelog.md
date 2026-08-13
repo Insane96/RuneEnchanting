@@ -3,6 +3,8 @@
   * Set on fire the wearer under the sun
 * Added Curse of Inaccuracy
   * Increases the spread of arrows shot from bows and crossbows
+* Added Curse of Slipperiness
+  * Chance for the item to slip off your hand and fall to the ground when it loses durability
 * Fixed Atmospheric rune info not working
 
 # 1.1.1.0

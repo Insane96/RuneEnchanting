@@ -57,7 +57,8 @@ public class RERuneTagProvider extends TagsProvider<Rune> {
                 RERunes.CURSE_OF_EXPLOSION,
                 RERunes.CURSE_OF_CORROSION,
                 RERunes.CURSE_OF_UNDEAD,
-                RERunes.CURSE_OF_INACCURACY);
+                RERunes.CURSE_OF_INACCURACY,
+                RERunes.CURSE_OF_SLIPPERINESS);
 
         add(VANISHABLE,
                 RERunes.CURSE_OF_VANISHING,
