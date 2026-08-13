@@ -35,6 +35,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.client.event.GatherSkippedAttributeTooltipsEvent;
 import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.event.AnvilUpdateEvent;
@@ -262,6 +263,20 @@ public class RuneFeature extends Feature {
         }
     }
     
+    @SubscribeEvent
+    public void onGatherSkippedAttributeTooltips(GatherSkippedAttributeTooltipsEvent event) {
+        if (!mustLearnCurses)
+            return;
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(event.getStack(), false);
+        if (runes == null)
+            return;
+        Player player = event.getContext().player();
+        for (Holder<Rune> holder : runes) {
+            if (Rune.isCurse(holder) && !CurseKnowledge.isLearned(player, holder))
+                event.skipId(RERunes.REGISTRY.getKey(holder.value()));
+        }
+    }
+
     public static boolean showExtraInfos(TooltipFlag flag) {
         return flag.hasShiftDown() || alwaysShowExtraInfos;
     }

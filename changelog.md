@@ -1,4 +1,6 @@
 # Upcoming
+* Added Telekinesis (tools, weapons, trident, bow, crossbow and shears)
+  * Sends drops from mined blocks and killed mobs directly to your inventory
 * Added Hunter (bows and crossbows)
   * Increases arrow damage the farther it travels, with a starting penalty at point-blank range
 * Added Curse of Undead
@@ -7,6 +9,7 @@
   * Increases the spread of arrows shot from bows and crossbows
 * Added Curse of Slipperiness
   * Chance for the item to slip off your hand and fall to the ground when it loses durability
+* Curses' attribute modifiers are now hidden if the curse is unknown
 * Fixed Atmospheric rune info not working
 
 # 1.1.1.0
