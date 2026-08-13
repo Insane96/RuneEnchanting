@@ -107,7 +107,7 @@ public class RuneHooks extends Feature {
     public void onLivingDeath(LivingDeathEvent event) {
         if (!(event.getEntity().level() instanceof ServerLevel level)) return;
         if (!(event.getSource().getEntity() instanceof LivingEntity killer)) return;
-        ItemStack weapon = killer.getMainHandItem();
+        ItemStack weapon = getKillingWeapon(killer, event.getSource());
         forRunes(weapon, rune -> rune.onKill(level, weapon, event.getEntity(), event.getSource()));
     }
 
@@ -115,8 +115,22 @@ public class RuneHooks extends Feature {
     public void onLivingDrops(LivingDropsEvent event) {
         if (!(event.getEntity().level() instanceof ServerLevel level)) return;
         if (!(event.getSource().getEntity() instanceof LivingEntity killer)) return;
-        ItemStack weapon = killer.getMainHandItem();
+        ItemStack weapon = getKillingWeapon(killer, event.getSource());
         forRunes(weapon, rune -> rune.onLivingDrops(event, weapon));
+    }
+
+    /**
+     * Arrows and thrown tridents carry a copy of the item that fired/threw them (see {@link AbstractArrow#getWeaponItem()}),
+     * so projectile kills must resolve runes off that copy instead of the killer's current main hand,
+     * which may no longer hold the weapon responsible for the kill (swapped items, or a thrown trident).
+     */
+    private static ItemStack getKillingWeapon(LivingEntity killer, DamageSource source) {
+        if (source.getDirectEntity() instanceof AbstractArrow arrow) {
+            ItemStack weaponItem = arrow.getWeaponItem();
+            if (!weaponItem.isEmpty())
+                return weaponItem;
+        }
+        return killer.getMainHandItem();
     }
 
     @SubscribeEvent
