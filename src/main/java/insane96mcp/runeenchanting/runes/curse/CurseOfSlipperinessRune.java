@@ -62,9 +62,8 @@ public class CurseOfSlipperinessRune extends Rune {
         else
             return;
 
-        ItemStack dropped = stack.copy();
         player.setItemSlot(slot, ItemStack.EMPTY);
-        player.drop(dropped, true, false);
+        player.drop(stack, true, false);
         event.setAmount(0);
     }
 

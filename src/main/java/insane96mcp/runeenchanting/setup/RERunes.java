@@ -68,6 +68,9 @@ public class RERunes {
     public static final DeferredHolder<Rune, InfinityRune> INFINITY = register("infinity", new InfinityRune());
     public static final DeferredHolder<Rune, GravityDefyingRune> GRAVITY_DEFYING = register("gravity_defying", new GravityDefyingRune());
 
+    // Bows and Crossbow
+    public static final DeferredHolder<Rune, HunterRune> HUNTER = register("hunter", new HunterRune());
+
     // Crossbow
     public static final DeferredHolder<Rune, PiercingRune> PIERCING = register("piercing", new PiercingRune());
     public static final DeferredHolder<Rune, QuickChargeRune> QUICK_CHARGE = register("quick_charge", new QuickChargeRune());

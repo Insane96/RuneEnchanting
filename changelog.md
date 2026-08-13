@@ -1,4 +1,6 @@
 # Upcoming
+* Added Hunter (bows and crossbows)
+  * Increases arrow damage the farther it travels, with a starting penalty at point-blank range
 * Added Curse of Undead
   * Set on fire the wearer under the sun
 * Added Curse of Inaccuracy
