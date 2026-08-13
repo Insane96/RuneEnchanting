@@ -39,6 +39,7 @@ import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import net.neoforged.neoforge.event.enchanting.GetEnchantmentLevelEvent;
 import net.neoforged.neoforge.event.entity.living.*;
 import net.neoforged.neoforge.event.entity.player.ItemFishedEvent;
+import net.neoforged.neoforge.event.level.BlockDropsEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 
 import javax.annotation.Nullable;
@@ -121,6 +122,8 @@ public abstract class Rune {
     }
 
     public void onBlockBreak(BlockEvent.BreakEvent event, ItemStack stack) {}
+
+    public void onBlockDrops(BlockDropsEvent event, ItemStack stack) {}
 
     public List<BlockPos> getClientAffectedBlocks(Level level, Player player, BlockPos targetPos, BlockState targetState, Direction face, Vec3 clickLocation) {
         return List.of();

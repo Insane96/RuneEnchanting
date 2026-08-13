@@ -29,6 +29,7 @@ import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import net.neoforged.neoforge.event.enchanting.GetEnchantmentLevelEvent;
 import net.neoforged.neoforge.event.entity.living.*;
 import net.neoforged.neoforge.event.entity.player.ItemFishedEvent;
+import net.neoforged.neoforge.event.level.BlockDropsEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
@@ -129,6 +130,11 @@ public class RuneHooks extends Feature {
             holder.value().onBlockBreak(event, stack);
             if (event.isCanceled()) break;
         }
+    }
+
+    @SubscribeEvent
+    public void onBlockDrops(BlockDropsEvent event) {
+        forRunes(event.getTool(), rune -> rune.onBlockDrops(event, event.getTool()));
     }
 
     @SubscribeEvent
