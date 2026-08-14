@@ -30,7 +30,8 @@ public class LuckRune extends Rune {
                 .addTag(ItemTags.SHOVELS)
                 .addTag(ItemTags.HOES)
                 .add(Items.TRIDENT)
-                .add(Items.FISHING_ROD);
+                .add(Items.FISHING_ROD)
+                .add(Items.BOW, Items.CROSSBOW);
     }
 
     @Override

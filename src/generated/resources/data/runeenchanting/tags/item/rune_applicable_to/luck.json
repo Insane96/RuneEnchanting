@@ -6,6 +6,8 @@
     "#minecraft:shovels",
     "#minecraft:hoes",
     "minecraft:trident",
-    "minecraft:fishing_rod"
+    "minecraft:fishing_rod",
+    "minecraft:bow",
+    "minecraft:crossbow"
   ]
 }
