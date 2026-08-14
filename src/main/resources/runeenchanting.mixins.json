@@ -4,6 +4,7 @@
     "compatibilityLevel": "JAVA_21",
     "mixins": [
         "AbstractArrowMixin",
+        "EnchantedCountIncreaseFunctionMixin",
         "EnchantmentHelperMixin",
         "EnchantRandomlyFunctionMixin",
         "EnchantWithLevelsFunctionMixin",

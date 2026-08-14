@@ -124,7 +124,7 @@ public class RuneHooks extends Feature {
      * so projectile kills must resolve runes off that copy instead of the killer's current main hand,
      * which may no longer hold the weapon responsible for the kill (swapped items, or a thrown trident).
      */
-    private static ItemStack getKillingWeapon(LivingEntity killer, DamageSource source) {
+    public static ItemStack getKillingWeapon(LivingEntity killer, DamageSource source) {
         if (source.getDirectEntity() instanceof AbstractArrow arrow) {
             ItemStack weaponItem = arrow.getWeaponItem();
             if (!weaponItem.isEmpty())
