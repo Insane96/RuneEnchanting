@@ -52,6 +52,7 @@ public class CurseOfEnderRune extends Rune {
             return;
         LivingEntity entity = event.getEntity();
         if (entity.level().isClientSide
+                || event.getNewDamage() <= 0
                 || entity.getRandom().nextFloat() >= chanceToTeleport)
             return;
         double x = entity.getX();

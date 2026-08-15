@@ -20,6 +20,7 @@
 * Maces now count as weapons to add runes
 * Curses' attribute modifiers are now hidden if the curse is unknown
 * Fixed Atmospheric rune info not working
+* Fixed Curse of Ender teleporting even when the damage was fully blocked with a shield
 
 # 1.1.1.0
 * Reduced Healthy bonus health
