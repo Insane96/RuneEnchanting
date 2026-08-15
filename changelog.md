@@ -1,4 +1,6 @@
 # Upcoming
+* Added Padding (weapons)
+  * Reduces knockback dealt by weapons
 * Added Smokescreen (helmet)
   * Reduces the range at which mobs can detect you
 * Added Curse of Exposure (helmet)
@@ -7,11 +9,11 @@
   * Sends drops from mined blocks and killed mobs directly to your inventory
 * Added Hunter (bows and crossbows)
   * Increases arrow damage the farther it travels, with a starting penalty at point-blank range
-* Added Curse of Undead
+* Added Curse of Undead (armor)
   * Set on fire the wearer under the sun
-* Added Curse of Inaccuracy
+* Added Curse of Inaccuracy (bows and crossbows)
   * Increases the spread of arrows shot from bows and crossbows
-* Added Curse of Slipperiness
+* Added Curse of Slipperiness (tools and weapons)
   * Chance for the item to slip off your hand and fall to the ground when it loses durability
 * Luck can now be applied to bows and crossbows
   * And having a bow or crossbow equipped is no longer needed for luck to apply
