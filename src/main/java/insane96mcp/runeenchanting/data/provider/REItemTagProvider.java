@@ -33,7 +33,7 @@ public class REItemTagProvider extends ItemTagsProvider {
         tag(WEAPONS)
                 .addTag(ItemTags.SWORDS)
                 .addTag(ItemTags.AXES)
-                .add(Items.TRIDENT);
+                .add(Items.TRIDENT, Items.MACE);
         tag(DISPLAY_ON_RUNE)
                 .add(Items.DIAMOND_SWORD, Items.DIAMOND_PICKAXE, Items.DIAMOND_AXE, Items.DIAMOND_SHOVEL, Items.DIAMOND_HOE)
                 .add(Items.DIAMOND_HELMET, Items.DIAMOND_CHESTPLATE, Items.DIAMOND_LEGGINGS, Items.DIAMOND_BOOTS)

@@ -17,6 +17,7 @@
   * Chance for the item to slip off your hand and fall to the ground when it loses durability
 * Luck can now be applied to bows and crossbows
   * And having a bow or crossbow equipped is no longer needed for luck to apply
+* Maces now count as weapons to add runes
 * Curses' attribute modifiers are now hidden if the curse is unknown
 * Fixed Atmospheric rune info not working
 
