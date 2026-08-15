@@ -4,12 +4,17 @@ import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.runes.Rune;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
+import net.neoforged.neoforge.common.extensions.IAttributeExtension;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
+
+import javax.annotation.Nullable;
 
 public class CurseOfUnhurriedRune extends Rune {
     @Config
@@ -23,6 +28,16 @@ public class CurseOfUnhurriedRune extends Rune {
     @Override
     public String getDescription() {
         return "Lowers movement speed";
+    }
+
+    @Override
+    public @Nullable String getInfo() {
+        return "Movement speed: -%s%%";
+    }
+
+    @Override
+    public MutableComponent getInfoComponent() {
+        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(speedReduction * 100));
     }
 
     @Override

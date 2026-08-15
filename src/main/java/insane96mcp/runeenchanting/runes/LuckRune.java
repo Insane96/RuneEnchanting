@@ -2,11 +2,15 @@ package insane96mcp.runeenchanting.runes;
 
 import insane96mcp.insanelib.core.feature.config.Config;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.neoforged.neoforge.event.enchanting.GetEnchantmentLevelEvent;
+
+import javax.annotation.Nullable;
 
 public class LuckRune extends Rune {
     @Config(description = "This rune mimics Fortune, Looting and Luck of the Sea of this level")
@@ -20,6 +24,16 @@ public class LuckRune extends Rune {
     @Override
     public String getDescription() {
         return "Increases yield from blocks mined, entities killed and fishing";
+    }
+
+    @Override
+    public @Nullable String getInfo() {
+        return "Equivalent to enchantment level %s";
+    }
+
+    @Override
+    public MutableComponent getInfoComponent() {
+        return Component.translatable(getInfoTranslationKey(), enchantmentLevelEquivalent);
     }
 
     @Override

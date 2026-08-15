@@ -4,6 +4,8 @@ import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -11,7 +13,10 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.Tool;
+import net.neoforged.neoforge.common.extensions.IAttributeExtension;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
+
+import javax.annotation.Nullable;
 
 public class EfficiencyRune extends Rune {
     @Config(description = "Percentage bonus mining speed")
@@ -27,6 +32,16 @@ public class EfficiencyRune extends Rune {
     @Override
     public String getDescription() {
         return "Increases mining speed";
+    }
+
+    @Override
+    public @Nullable String getInfo() {
+        return "Mining speed: +%s%%, +%s flat";
+    }
+
+    @Override
+    public MutableComponent getInfoComponent() {
+        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(bonusMiningSpeed * 100), IAttributeExtension.FORMAT.format(bonusFlatMiningSpeed));
     }
 
     @Override

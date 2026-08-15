@@ -21,6 +21,7 @@
 * Curses' attribute modifiers are now hidden if the curse is unknown
 * Fixed Atmospheric rune info not working
 * Fixed Curse of Ender teleporting even when the damage was fully blocked with a shield
+* Added tooltip infos to all the missing runes, even if them added attribute modifiers
 
 # 1.1.1.0
 * Reduced Healthy bonus health
