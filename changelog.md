@@ -1,4 +1,8 @@
 # Upcoming
+* Added Smokescreen (helmet)
+  * Reduces the range at which mobs can detect you
+* Added Curse of Exposure (helmet)
+  * Increases the range at which mobs can detect you
 * Added Telekinesis (tools, weapons, trident, bow, crossbow and shears)
   * Sends drops from mined blocks and killed mobs directly to your inventory
 * Added Hunter (bows and crossbows)

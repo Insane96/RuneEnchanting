@@ -91,6 +91,7 @@ public class RERunes {
     public static final DeferredHolder<Rune, RespirationRune> RESPIRATION = register("respiration", new RespirationRune());
     public static final DeferredHolder<Rune, AquaAffinityRune> AQUA_AFFINITY = register("aqua_affinity", new AquaAffinityRune());
     public static final DeferredHolder<Rune, EnlightenedRune> ENLIGHTENED = register("enlightened", new EnlightenedRune());
+    public static final DeferredHolder<Rune, SmokescreenRune> SMOKESCREEN = register("smokescreen", new SmokescreenRune());
 
     // Chestplate
     public static final DeferredHolder<Rune, AirAffinityRune> AIR_AFFINITY = register("air_affinity", new AirAffinityRune());
@@ -163,6 +164,7 @@ public class RERunes {
     public static final DeferredHolder<Rune, CurseOfUndeadRune> CURSE_OF_UNDEAD = register("curse_of_undead", new CurseOfUndeadRune());
     public static final DeferredHolder<Rune, CurseOfInaccuracyRune> CURSE_OF_INACCURACY = register("curse_of_inaccuracy", new CurseOfInaccuracyRune());
     public static final DeferredHolder<Rune, CurseOfSlipperinessRune> CURSE_OF_SLIPPERINESS = register("curse_of_slipperiness", new CurseOfSlipperinessRune());
+    public static final DeferredHolder<Rune, CurseOfExposureRune> CURSE_OF_EXPOSURE = register("curse_of_exposure", new CurseOfExposureRune());
 
     private static <T extends Rune> DeferredHolder<Rune, T> register(String id, T instance) {
         RUNE_ENTRIES.add(Map.entry(id, instance));
