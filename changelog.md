@@ -19,9 +19,10 @@
   * And having a bow or crossbow equipped is no longer needed for luck to apply
 * Maces now count as weapons to add runes
 * Curses' attribute modifiers are now hidden if the curse is unknown
+* Added tooltip infos to all the missing runes, even if them added attribute modifiers
 * Fixed Atmospheric rune info not working
 * Fixed Curse of Ender teleporting even when the damage was fully blocked with a shield
-* Added tooltip infos to all the missing runes, even if them added attribute modifiers
+* Fixed Tunneling's client-side block outline not matching the blocks actually mined on the server
 
 # 1.1.1.0
 * Reduced Healthy bonus health

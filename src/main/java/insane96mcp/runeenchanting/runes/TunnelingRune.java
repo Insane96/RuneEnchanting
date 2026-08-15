@@ -78,7 +78,7 @@ public class TunnelingRune extends Rune {
         }
     }
 
-    private static List<BlockPos> getAffectedBlocks(ServerLevel level, ItemStack stack, ServerPlayer player, BlockPos targetPos, BlockState targetState) {
+    private static List<BlockPos> getAffectedBlocks(Level level, ItemStack stack, Player player, BlockPos targetPos, BlockState targetState) {
         List<BlockPos> candidates = getColumnCandidates(player, targetPos);
         List<BlockPos> result = new ArrayList<>();
         for (BlockPos candidate : candidates) {
@@ -93,7 +93,7 @@ public class TunnelingRune extends Rune {
         return result;
     }
 
-    private static List<BlockPos> getColumnCandidates(ServerPlayer player, BlockPos targetPos) {
+    private static List<BlockPos> getColumnCandidates(Player player, BlockPos targetPos) {
         int blockY = targetPos.getY();
         int playerFeetY = player.getBlockY();
         if (blockY < playerFeetY || blockY > playerFeetY + 1) {
@@ -127,36 +127,7 @@ public class TunnelingRune extends Rune {
         ItemStack stack = player.getMainHandItem();
         if (!stack.isCorrectToolForDrops(targetState)) return List.of();
 
-        List<BlockPos> candidates = getClientColumnCandidates(player, targetPos, face, clickLocation);
-        List<BlockPos> result = new ArrayList<>();
-        for (BlockPos candidate : candidates) {
-            if (result.size() >= additionalBlocks()) break;
-            BlockState candidateState = level.getBlockState(candidate);
-            if (candidateState.getDestroySpeed(level, candidate) > 0
-                    && stack.isCorrectToolForDrops(candidateState)
-                    && targetState.getDestroySpeed(level, targetPos) >= candidateState.getDestroySpeed(level, candidate) - 0.5f) {
-                result.add(candidate);
-            }
-        }
-        return result;
-    }
-
-    private static List<BlockPos> getClientColumnCandidates(Player player, BlockPos targetPos, Direction face, Vec3 clickLocation) {
-        if (face == Direction.UP || face == Direction.DOWN) {
-            Direction playerFacing = player.getDirection();
-            double fractional = clickLocation.get(playerFacing.getAxis()) - Math.floor(clickLocation.get(playerFacing.getAxis()));
-            boolean forward = playerFacing.getAxisDirection() == Direction.AxisDirection.POSITIVE ? (fractional > 0.5) : (fractional < 0.5);
-            return List.of(
-                forward ? targetPos.relative(playerFacing) : targetPos.relative(playerFacing.getOpposite()),
-                forward ? targetPos.relative(playerFacing.getOpposite()) : targetPos.relative(playerFacing)
-            );
-        }
-        double fractionalY = clickLocation.y - Math.floor(clickLocation.y);
-        boolean above = fractionalY > 0.5;
-        return List.of(
-            above ? targetPos.above() : targetPos.below(),
-            above ? targetPos.below() : targetPos.above()
-        );
+        return getAffectedBlocks(level, stack, player, targetPos, targetState);
     }
 
     @Override
