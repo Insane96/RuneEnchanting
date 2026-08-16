@@ -29,6 +29,11 @@ public class BlastProtectionRune extends DamageReductionRune {
     }
 
     @Override
+    public String getInfo() {
+        return "Damage reduction: %s%% (max 80%% across multiple armor pieces). Explosion knockback reduction: %s%% (doesn't stack with multiple pieces)";
+    }
+
+    @Override
     public float damageReduction() {
         return damageReduction.floatValue();
     }
@@ -45,6 +50,6 @@ public class BlastProtectionRune extends DamageReductionRune {
 
     @Override
     public MutableComponent getInfoComponent() {
-        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(damageReduction * 100));
+        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(damageReduction * 100), IAttributeExtension.FORMAT.format(explosionKnockbackReduction * 100));
     }
 }

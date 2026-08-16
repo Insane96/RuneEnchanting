@@ -27,7 +27,7 @@ public class MagicProtectionRune extends DamageReductionRune {
 
     @Override
     public @Nullable String getInfo() {
-        return "Damage reduction: %s%%. Negative effects duration: -%s%%";
+        return "Damage reduction: %s%% (max 80%% across multiple armor pieces). Negative effects duration: -%s%% (doesn't stack with multiple pieces)";
     }
 
     @Override

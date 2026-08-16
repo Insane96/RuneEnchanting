@@ -25,6 +25,11 @@ public class MeleeProtectionRune extends DamageReductionRune {
     }
 
     @Override
+    public String getInfo() {
+        return "Damage reduction: %s%% (max 80%% across multiple armor pieces)";
+    }
+
+    @Override
     public float damageReduction() {
         return damageReduction.floatValue();
     }

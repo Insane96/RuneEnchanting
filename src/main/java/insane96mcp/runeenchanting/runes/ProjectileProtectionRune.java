@@ -38,7 +38,7 @@ public class ProjectileProtectionRune extends DamageReductionRune {
 
     @Override
     public @Nullable String getInfo() {
-        return "Damage reduction: %s%%. Mob sight range: -%s%%";
+        return "Damage reduction: %s%% (max 80%% across multiple armor pieces). Mob sight range: -%s%% (doesn't stack with multiple pieces)";
     }
 
     @Override
