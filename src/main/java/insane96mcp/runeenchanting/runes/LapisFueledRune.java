@@ -5,6 +5,7 @@ import insane96mcp.insanelib.event.HurtItemStackEvent;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
@@ -54,15 +55,21 @@ public class LapisFueledRune extends Rune {
         int amount = event.getAmount();
         int saved = 0;
         for (int i = 0; i < amount; i++) {
-            if (ContainerHelper.clearOrCountMatchingItems(inventory, IS_LAPIS, 0, true) <= 0)
+            int lapisCount = ContainerHelper.clearOrCountMatchingItems(inventory, IS_LAPIS, 0, true);
+            if (lapisCount <= 0)
                 break;
 
             if (event.getRandom().nextFloat() >= saveChance.floatValue())
                 continue;
 
             saved++;
-            if (event.getRandom().nextFloat() < lapisConsumeChance.floatValue())
+            if (event.getRandom().nextFloat() < lapisConsumeChance.floatValue()) {
                 ContainerHelper.clearOrCountMatchingItems(inventory, IS_LAPIS, 1, false);
+                if (lapisCount == 1)
+                    player.playSound(SoundEvents.BEACON_DEACTIVATE, 0.4f, 1.7f);
+                else
+                    player.playSound(SoundEvents.AMETHYST_BLOCK_CHIME, 0.4f, 1.7f);
+            }
         }
 
         event.setAmount(amount - saved);

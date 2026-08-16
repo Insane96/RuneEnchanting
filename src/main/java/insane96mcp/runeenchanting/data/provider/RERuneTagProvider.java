@@ -70,6 +70,7 @@ public class RERuneTagProvider extends TagsProvider<Rune> {
                 RERunes.AQUA_AFFINITY,
                 RERunes.ENLIGHTENED,
                 RERunes.SMOKESCREEN,
+                RERunes.VIBRATION_DETECTION,
                 RERunes.CURSE_OF_OBSCURITY,
                 RERunes.CURSE_OF_STATIC_CHARGE,
                 RERunes.CURSE_OF_EXPOSURE);

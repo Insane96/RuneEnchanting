@@ -4,10 +4,7 @@ import insane96mcp.insanelib.core.feature.Feature;
 import insane96mcp.insanelib.core.feature.LoadFeature;
 import insane96mcp.insanelib.event.HurtItemStackEvent;
 import insane96mcp.runeenchanting.mixin.MobEffectInstanceAccessor;
-import insane96mcp.runeenchanting.runes.ExplosiveRune;
-import insane96mcp.runeenchanting.runes.MagicProtectionRune;
-import insane96mcp.runeenchanting.runes.ProjectileProtectionRune;
-import insane96mcp.runeenchanting.runes.Rune;
+import insane96mcp.runeenchanting.runes.*;
 import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -377,6 +374,12 @@ public class RuneHooks extends Feature {
 
     public static void tickEffects(ServerLevel level, LivingEntity entity) {
         forEquipmentForRunes(entity, (stack, rune) -> rune.tickEffects(level, stack, entity));
+    }
+
+    public static void onEntitySound(Entity source) {
+        if (!(source.level() instanceof ServerLevel level))
+            return;
+        VibrationDetectionRune.onEntitySound(level, source);
     }
 
     public static int modifyPiercingCount(ServerLevel level, ItemStack firedFromWeapon, ItemStack pickupItemStack, int original) {

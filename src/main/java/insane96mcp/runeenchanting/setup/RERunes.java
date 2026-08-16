@@ -93,6 +93,7 @@ public class RERunes {
     public static final DeferredHolder<Rune, AquaAffinityRune> AQUA_AFFINITY = register("aqua_affinity", new AquaAffinityRune());
     public static final DeferredHolder<Rune, EnlightenedRune> ENLIGHTENED = register("enlightened", new EnlightenedRune());
     public static final DeferredHolder<Rune, SmokescreenRune> SMOKESCREEN = register("smokescreen", new SmokescreenRune());
+    public static final DeferredHolder<Rune, VibrationDetectionRune> VIBRATION_DETECTION = register("vibration_detection", new VibrationDetectionRune());
 
     // Chestplate
     public static final DeferredHolder<Rune, AirAffinityRune> AIR_AFFINITY = register("air_affinity", new AirAffinityRune());
