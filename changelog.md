@@ -1,4 +1,4 @@
-# Upcoming
+# 1.2.0.0-alpha
 * Added rune reforging
   * Craft an Encased Rune with 2 runes and 7 lapis lazuli blocks, then smelt it in a furnace for 10 minutes to get a random rune
 * Added Lapis-fueled (all durability items)
