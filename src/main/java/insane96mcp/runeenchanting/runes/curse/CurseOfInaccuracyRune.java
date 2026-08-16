@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 
 public class CurseOfInaccuracyRune extends Rune {
     @Config
-    public static Double inaccuracyIncrease = 1d;
+    public static Double inaccuracyIncrease = 3d;
 
     @Override
     public String getName() {
