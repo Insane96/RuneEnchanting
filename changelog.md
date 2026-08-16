@@ -1,4 +1,6 @@
 # Upcoming
+* Added Lapis-fueled (all durability items)
+  * Chance to not consume durability, at the cost of consuming lapis lazuli from the inventory. Doesn't work without lapis lazuli in the inventory
 * Added Padding (weapons)
   * Reduces knockback dealt by weapons
 * Added Smokescreen (helmet)
@@ -17,7 +19,7 @@
   * Chance for the item to slip off your hand and fall to the ground when it loses durability
 * Luck can now be applied to bows and crossbows
   * And having a bow or crossbow equipped is no longer needed for luck to apply
-* Maces now count as weapons to add runes
+* Maces now count as weapons for runes
 * Curses' attribute modifiers are now hidden if the curse is unknown
 * Added tooltip infos to all the missing runes, even if them added attribute modifiers
 * Fixed Atmospheric rune info not working
