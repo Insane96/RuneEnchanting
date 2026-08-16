@@ -6,8 +6,7 @@ import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.common.extensions.IAttributeExtension;
@@ -43,7 +42,7 @@ public class PaddingRune extends Rune {
     }
 
     @Override
-    public float modifyKnockback(ServerLevel level, ItemStack tool, Entity entity, DamageSource damageSource, float original, float knockback) {
+    public float modifyMeleeKnockback(ServerLevel level, ItemStack tool, LivingEntity attacker, LivingEntity target, float knockback) {
         return knockback * (1f - knockbackReduction.floatValue());
     }
 

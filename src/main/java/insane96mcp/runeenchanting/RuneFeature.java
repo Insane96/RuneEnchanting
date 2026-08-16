@@ -5,6 +5,7 @@ import insane96mcp.insanelib.core.feature.LoadFeature;
 import insane96mcp.insanelib.core.feature.Module;
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.insanelib.event.HurtItemStackEvent;
+import insane96mcp.insanelib.util.CurrentAttacker;
 import insane96mcp.insanelib.util.IntegratedPack;
 import insane96mcp.insanelib.util.MathHelper;
 import insane96mcp.runeenchanting.network.message.ClientboundDisableExperienceMessage;
@@ -20,9 +21,11 @@ import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -42,6 +45,7 @@ import net.neoforged.neoforge.event.AnvilUpdateEvent;
 import net.neoforged.neoforge.event.GrindstoneEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.entity.living.LivingKnockBackEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
@@ -263,6 +267,29 @@ public class RuneFeature extends Feature {
         }
     }
     
+    /**
+     * Fires after vanilla has already computed the final knockback strength (e.g. including the sprint-attack
+     * bonus), unlike {@code EnchantmentHelper.modifyKnockback}, so this is where rune effects that need to see
+     * (and change) the knockback the player actually feels for melee hits must hook in.
+     */
+    @SubscribeEvent
+    public void onLivingKnockback(LivingKnockBackEvent event) {
+        if (!(event.getEntity().level() instanceof ServerLevel level))
+            return;
+        LivingEntity attacker = CurrentAttacker.resolve(event.getEntity());
+        if (attacker == null)
+            return;
+        ItemStack weapon = attacker.getMainHandItem();
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(weapon);
+        if (runes == null)
+            return;
+        float knockback = event.getStrength();
+        for (Holder<Rune> holder : runes) {
+            knockback = holder.value().modifyMeleeKnockback(level, weapon, attacker, event.getEntity(), knockback);
+        }
+        event.setStrength(knockback);
+    }
+
     @SubscribeEvent
     public void onGatherSkippedAttributeTooltips(GatherSkippedAttributeTooltipsEvent event) {
         if (!mustLearnCurses)

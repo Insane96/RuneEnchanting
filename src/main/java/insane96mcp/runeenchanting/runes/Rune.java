@@ -215,6 +215,15 @@ public abstract class Rune {
         return knockback;
     }
 
+    /**
+     * Fired from {@code LivingKnockBackEvent}, after vanilla has already computed the final knockback strength
+     * (including e.g. the sprint-attack bonus), unlike {@link #modifyKnockback}, whose value is set before that
+     * bonus is added and so can't affect what the player actually feels for melee hits.
+     */
+    public float modifyMeleeKnockback(ServerLevel level, ItemStack tool, LivingEntity attacker, LivingEntity target, float knockback) {
+        return knockback;
+    }
+
     public int modifyPiercingCount(ServerLevel level, ItemStack firedFromWeapon, ItemStack pickupItemStack, int original, int count) {
         return count;
     }

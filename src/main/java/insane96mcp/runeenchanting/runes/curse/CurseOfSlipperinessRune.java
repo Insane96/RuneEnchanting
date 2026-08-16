@@ -8,6 +8,8 @@ import insane96mcp.runeenchanting.runes.Rune;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -64,6 +66,7 @@ public class CurseOfSlipperinessRune extends Rune {
 
         player.setItemSlot(slot, ItemStack.EMPTY);
         player.drop(stack, true, false);
+        player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ALLAY_HURT, SoundSource.PLAYERS, 1f, 1.5f);
         event.setAmount(0);
     }
 
