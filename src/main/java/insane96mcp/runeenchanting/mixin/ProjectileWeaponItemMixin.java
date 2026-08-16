@@ -66,9 +66,9 @@ public class ProjectileWeaponItemMixin {
     private static ItemStack runeenchanting$guardUseAmmo(
         ItemStack weapon, ItemStack ammo, LivingEntity shooter, boolean intangable,
         Operation<ItemStack> original,
-        @Local(name = "list") List<ItemStack> list,
-        @Local(name = "j") int j,
-        @Local(name = "itemstack1") ItemStack ammoCopy
+        @Local List<ItemStack> list,
+        @Local(ordinal = 1) int j,
+        @Local(ordinal = 2) ItemStack ammoCopy
     ) {
         if (j > 0 && list.isEmpty()) {
             return ItemStack.EMPTY;
@@ -93,8 +93,8 @@ public class ProjectileWeaponItemMixin {
     private void runeenchanting$modifyInaccuracy(
         ProjectileWeaponItem instance, LivingEntity shooter, Projectile projectile, int index, float velocity, float inaccuracy, float angle, @Nullable LivingEntity target,
         Operation<Void> original,
-        @Local(name = "level") ServerLevel level,
-        @Local(name = "weapon") ItemStack weapon
+        @Local ServerLevel level,
+        @Local(ordinal = 0) ItemStack weapon
     ) {
         float modifiedInaccuracy = RuneHooks.modifyProjectileInaccuracy(level, weapon, shooter, inaccuracy);
         original.call(instance, shooter, projectile, index, velocity, modifiedInaccuracy, angle, target);
