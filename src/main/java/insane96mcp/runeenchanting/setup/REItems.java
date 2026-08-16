@@ -12,4 +12,7 @@ public class REItems {
 
     public static final DeferredHolder<Item, Item> RUNE =
             REGISTRY.register("rune", () -> new RuneItem(new Item.Properties()));
+
+    public static final DeferredHolder<Item, Item> ENCASED_RUNE =
+            REGISTRY.register("encased_rune", () -> new EncasedRuneItem(new Item.Properties()));
 }

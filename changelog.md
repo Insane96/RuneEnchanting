@@ -1,12 +1,16 @@
 # Upcoming
+* Added rune reforging
+  * Craft an Encased Rune with 2 runes and 7 lapis lazuli blocks, then smelt it in a furnace for 10 minutes to get a random rune
 * Added Lapis-fueled (all durability items)
-  * Chance to not consume durability, at the cost of consuming lapis lazuli from the inventory. Doesn't work without lapis lazuli in the inventory
+  * Chance to not consume durability, at the cost of consuming lapis lazuli from the inventory
 * Added Padding (weapons)
   * Reduces knockback dealt by weapons
 * Added Smokescreen (helmet)
   * Reduces the range at which mobs can detect you
 * Added Curse of Exposure (helmet)
   * Increases the range at which mobs can detect you
+* Added Vibration Detection (helmet)
+  * Makes nearby living entities glow through walls for a moment when they emit a sound, including yourself
 * Added Telekinesis (tools, weapons, trident, bow, crossbow and shears)
   * Sends drops from mined blocks and killed mobs directly to your inventory
 * Added Hunter (bows and crossbows)

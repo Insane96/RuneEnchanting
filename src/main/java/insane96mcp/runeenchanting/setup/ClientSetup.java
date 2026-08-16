@@ -45,6 +45,7 @@ public class ClientSetup {
                 stack.set(REDataComponents.STORED_RUNE.get(), runeHolder);
                 event.accept(stack);
             }
+            event.accept(new ItemStack(REItems.ENCASED_RUNE.get()));
         }
         if (RuneFeature.hideEnchantingRelatedItems) {
             event.remove(new ItemStack(Items.ENCHANTING_TABLE), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);

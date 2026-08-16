@@ -1,0 +1,11 @@
+{
+    "type": "runeenchanting:rune_reforging",
+    "category": "misc",
+    "ingredient": { "item": "runeenchanting:encased_rune" },
+    "result": {
+        "id": "runeenchanting:rune",
+        "count": 1
+    },
+    "experience": 0.0,
+    "cookingtime": 12000
+}

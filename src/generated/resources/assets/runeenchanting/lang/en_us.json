@@ -1,6 +1,7 @@
 {
   "curse_learned": "You have learned about %s",
   "cursed_info": "+1 Socket",
+  "item.runeenchanting.encased_rune": "Encased Rune",
   "item.runeenchanting.rune": "Rune",
   "rune.runeenchanting.absorbing": "Absorbing",
   "rune.runeenchanting.absorbing.description": "Chance to nullify damage that will be applied to the chestplate",
@@ -284,6 +285,7 @@
   "rune.runeenchanting.water_coolant.info": "Bonus damage: %s%%. Freeze: %ss",
   "rune.runeenchanting.zippy": "Zippy",
   "rune.runeenchanting.zippy.description": "Increased movement speed",
+  "runeenchanting.encased_rune.tooltip": "Smelt to get a random rune",
   "sockets": "Sockets: %d/%d",
   "unknown_curse": "Unknown Curse"
 }
