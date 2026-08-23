@@ -86,13 +86,16 @@ public class RuneHelper {
         else
             stack.set(REDataComponents.RUNES, runes);
         if (Rune.isCurse(rune) && getSockets(stack) > 0)
-            stack.set(REDataComponents.SOCKETS, getSockets(stack) + 1);
+            stack.set(REDataComponents.SOCKETS, getSockets(stack) - 1);
         return true;
     }
 
     public static List<Holder<Rune>> clearRunes(ItemStack stack, boolean clearCurses) {
         List<Holder<Rune>> runes = new ArrayList<>(stack.getOrDefault(REDataComponents.RUNES, List.of()));
         if (clearCurses) {
+            int curseCount = (int) runes.stream().filter(Rune::isCurse).count();
+            if (curseCount > 0 && getSockets(stack) > 0)
+                stack.set(REDataComponents.SOCKETS, Math.max(0, getSockets(stack) - curseCount));
             stack.remove(REDataComponents.RUNES);
         }
         else {

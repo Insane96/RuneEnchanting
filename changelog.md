@@ -1,6 +1,7 @@
 # Upcoming
 * Vibration Detection's glow is now only visible to the entity wearing the rune, instead of everyone
 * Fixed EMI integration breaking EMI
+* Fixed sockets not correctly reset when removing curses
 
 # 1.2.0.1-alpha
 * Startup crash fix
