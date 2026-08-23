@@ -1,3 +1,6 @@
+# Upcoming
+* Vibration Detection's glow is now only visible to the entity wearing the rune, instead of everyone
+
 # 1.2.0.1-alpha
 * Startup crash fix
 

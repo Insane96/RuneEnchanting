@@ -19,6 +19,7 @@
         "ThrownTridentMixin"
     ],
     "client": [
+        "client.EntityGlowMixin",
         "client.GuiGraphicsMixin",
         "client.LevelRendererAccessor",
         "client.LightTextureMixin"

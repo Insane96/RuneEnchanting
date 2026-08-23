@@ -1,6 +1,7 @@
 package insane96mcp.runeenchanting.network;
 
 import insane96mcp.runeenchanting.network.message.ClientboundDisableExperienceMessage;
+import insane96mcp.runeenchanting.network.message.ClientboundEntityGlowMessage;
 import insane96mcp.runeenchanting.network.message.ServerboundDoubleJumpMessage;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
@@ -11,6 +12,7 @@ public class NetworkHandler {
     public static void register(final RegisterPayloadHandlersEvent event) {
         final PayloadRegistrar registrar = event.registrar("1");
         registrar.playToClient(ClientboundDisableExperienceMessage.TYPE, ClientboundDisableExperienceMessage.STREAM_CODEC, ClientboundDisableExperienceMessage::handle);
+        registrar.playToClient(ClientboundEntityGlowMessage.TYPE, ClientboundEntityGlowMessage.STREAM_CODEC, ClientboundEntityGlowMessage::handle);
         registrar.playToServer(ServerboundDoubleJumpMessage.TYPE, ServerboundDoubleJumpMessage.STREAM_CODEC, ServerboundDoubleJumpMessage::handle);
     }
 }

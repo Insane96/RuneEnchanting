@@ -6,6 +6,8 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import insane96mcp.insanelib.event.PlayerSprintEvent;
 import insane96mcp.runeenchanting.mixin.client.LevelRendererAccessor;
 import insane96mcp.runeenchanting.runes.Rune;
+import it.unimi.dsi.fastutil.ints.Int2LongMap;
+import it.unimi.dsi.fastutil.ints.Int2LongOpenHashMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
@@ -37,6 +39,26 @@ import java.util.SortedSet;
 
 @EventBusSubscriber(value = Dist.CLIENT)
 public class RuneHooksClient {
+    private static final Int2LongMap VIBRATION_GLOW_UNTIL = new Int2LongOpenHashMap();
+
+    public static void addVibrationGlow(int entityId, int durationTicks) {
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.level == null)
+            return;
+        VIBRATION_GLOW_UNTIL.put(entityId, mc.level.getGameTime() + durationTicks);
+    }
+
+    public static boolean isVibrationGlowing(int entityId, long gameTime) {
+        long until = VIBRATION_GLOW_UNTIL.getOrDefault(entityId, -1L);
+        if (until < 0)
+            return false;
+        if (until <= gameTime) {
+            VIBRATION_GLOW_UNTIL.remove(entityId);
+            return false;
+        }
+        return true;
+    }
+
     @SubscribeEvent
     public static void onSprintCheck(PlayerSprintEvent event) {
         LocalPlayer player = event.getPlayer();
