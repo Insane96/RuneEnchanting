@@ -1,6 +1,6 @@
 {
     "item": "#insanelib:equipment/golden",
     "components": {
-        "runeenchanting:sockets": 7
+        "runeenchanting:sockets": 6
     }
 }
