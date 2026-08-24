@@ -8,6 +8,8 @@ import insane96mcp.runeenchanting.network.NetworkHandler;
 import insane96mcp.runeenchanting.setup.*;
 import net.minecraft.Util;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -95,6 +97,7 @@ public class RuneEnchanting {
     }
 
     public static void gatherData(GatherDataEvent event) {
+        event.createDatapackRegistryObjects(new RegistrySetBuilder().add(Registries.DAMAGE_TYPE, REDamageTypeProvider::bootstrap));
         PackOutput output = event.getGenerator().getPackOutput();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
@@ -113,6 +116,8 @@ public class RuneEnchanting {
                 new RERuneTagProvider(output, lookupProvider, MOD_ID, existingFileHelper));
         event.getGenerator().addProvider(event.includeServer(),
                 new REGlobalLootModifierProvider(output, lookupProvider));
+        event.getGenerator().addProvider(event.includeServer(),
+                new RERecipeProvider(output, lookupProvider));
         event.getGenerator().addProvider(event.includeClient(),
                 new RELanguageProvider(output));
     }

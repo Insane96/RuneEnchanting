@@ -1,4 +1,4 @@
-# Upcoming
+# 1.3.0.0-beta
 * Added Electrocution (weapons)
   * Attacks charge the target; after a delay it discharges, damaging the target and chaining to nearby charged entities
 * Added Blood-fueled (all durability items)
@@ -8,6 +8,7 @@
 * Learned curses are now shared between players on the same scoreboard team
 * Vibration Detection's glow is now only visible to the entity wearing the rune, instead of everyone
 * Lowered Golden Items sockets (8 -> 6)
+* Changed enchased rune recipe (7 lapis block -> 5 lapis block + 2 golden blocks)
 * Fixed EMI integration breaking EMI
 * Fixed sockets not correctly reset when removing curses
 * Fixed curse of blood pact dealing knockback on damage

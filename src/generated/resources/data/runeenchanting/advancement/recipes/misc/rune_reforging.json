@@ -1,17 +1,19 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_lapis_lazuli": {
+    "has_encased_rune": {
       "conditions": {
         "items": [
-          { "items": "minecraft:lapis_lazuli" }
+          {
+            "items": "runeenchanting:encased_rune"
+          }
         ]
       },
       "trigger": "minecraft:inventory_changed"
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "runeenchanting:encased_rune"
+        "recipe": "runeenchanting:rune_reforging"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -19,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_lapis_lazuli"
+      "has_encased_rune"
     ]
   ],
   "rewards": {
     "recipes": [
-      "runeenchanting:encased_rune"
+      "runeenchanting:rune_reforging"
     ]
   }
 }
