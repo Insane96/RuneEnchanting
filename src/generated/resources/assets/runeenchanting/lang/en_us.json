@@ -1,6 +1,8 @@
 {
   "curse_learned": "You have learned about %s",
   "cursed_info": "+1 Socket",
+  "death.attack.runeenchanting.blood_fueled": "%1$s's blood-fueled rune drained too much life essence",
+  "death.attack.runeenchanting.blood_pact": "%1$s's blood pact was fulfilled",
   "item.runeenchanting.encased_rune": "Encased Rune",
   "item.runeenchanting.rune": "Rune",
   "rune.runeenchanting.absorbing": "Absorbing",
@@ -31,6 +33,9 @@
   "rune.runeenchanting.blasting": "Blasting",
   "rune.runeenchanting.blasting.description": "Increases mining speed. The lower the explosion resistance of the block, the higher the mining speed",
   "rune.runeenchanting.blasting.info": "Max bonus mining speed: %s%%",
+  "rune.runeenchanting.blood_fueled": "Blood-fueled",
+  "rune.runeenchanting.blood_fueled.description": "Chance to not consume durability, at the cost of a chance to hurt yourself with enchantment-bypassing damage",
+  "rune.runeenchanting.blood_fueled.info": "Chance to not consume durability: %s%%. Of those, chance to hurt yourself for 1 (bypasses enchantments): %s%%",
   "rune.runeenchanting.channeling": "Channeling",
   "rune.runeenchanting.channeling.description": "Summon a lightning bolt on entity or lightning rod hit",
   "rune.runeenchanting.charged_jump": "Charged Jump",

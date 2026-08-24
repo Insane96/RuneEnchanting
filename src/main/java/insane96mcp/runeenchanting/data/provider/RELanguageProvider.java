@@ -21,6 +21,9 @@ public class RELanguageProvider extends LanguageProvider {
                 add(rune.getInfoTranslationKey(), rune.getInfo());
         }
 
+        add("death.attack.runeenchanting.blood_fueled", "%1$s's blood-fueled rune drained too much life essence");
+        add("death.attack.runeenchanting.blood_pact", "%1$s's blood pact was fulfilled");
+
         add("item.runeenchanting.rune", "Rune");
         add("item.runeenchanting.encased_rune", "Encased Rune");
         add(RuneEnchanting.lang("encased_rune.tooltip"), "Smelt to get a random rune");

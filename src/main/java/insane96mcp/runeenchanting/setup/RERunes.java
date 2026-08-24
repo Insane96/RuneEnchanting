@@ -143,6 +143,7 @@ public class RERunes {
     public static final DeferredHolder<Rune, EnduringRune> ENDURING = register("enduring", new EnduringRune());
     public static final DeferredHolder<Rune, AtmosphericRune> ATMOSPHERIC = register("atmospheric", new AtmosphericRune());
     public static final DeferredHolder<Rune, LapisFueledRune> LAPIS_FUELED = register("lapis_fueled", new LapisFueledRune());
+    public static final DeferredHolder<Rune, BloodFueledRune> BLOOD_FUELED = register("blood_fueled", new BloodFueledRune());
 
     // Curse
     public static final DeferredHolder<Rune, CurseOfBindingRune> CURSE_OF_BINDING = register("curse_of_binding", new CurseOfBindingRune());
