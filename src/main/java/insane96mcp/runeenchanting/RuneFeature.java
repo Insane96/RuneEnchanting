@@ -141,7 +141,12 @@ public class RuneFeature extends Feature {
         CurseKnowledge.syncTeamOnLogin((ServerPlayer) event.getEntity());
     }
 
-    @SubscribeEvent
+    /**
+     * NeoForge copies {@code copyOnDeath} attachments (like {@code SOULBOUND_ITEMS}) onto the new player via its own
+     * {@code PlayerEvent.Clone} listener at {@code NORMAL} priority, so this must run afterward (LOW or lower) or
+     * the stashed items may not have been copied to {@code event.getEntity()} yet.
+     */
+    @SubscribeEvent(priority = EventPriority.LOW)
     public void onPlayerClone(PlayerEvent.Clone event) {
         if (!event.isWasDeath())
             return;
