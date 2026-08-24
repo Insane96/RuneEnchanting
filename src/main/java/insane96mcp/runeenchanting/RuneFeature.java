@@ -142,6 +142,13 @@ public class RuneFeature extends Feature {
     }
 
     @SubscribeEvent
+    public void onPlayerClone(PlayerEvent.Clone event) {
+        if (!event.isWasDeath())
+            return;
+        SoulboundItems.restoreOnRespawn(event.getEntity());
+    }
+
+    @SubscribeEvent
     public void onServerStart(ServerStartedEvent event) {
         disableExperience = event.getServer().getGameRules().getBoolean(RULE_DISABLEEXPERIENCE);
     }

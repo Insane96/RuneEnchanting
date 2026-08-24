@@ -1,9 +1,11 @@
 # Upcoming
 * Added Blood-fueled (all durability items)
   * Chance to not consume durability, at the cost of a chance to hurt yourself with enchantment-bypassing damage
+* Added Soulbound (all durability items)
+  * The item is kept in your inventory when you die, instead of dropping
 * Learned curses are now shared between players on the same scoreboard team
 * Vibration Detection's glow is now only visible to the entity wearing the rune, instead of everyone
-* Lowered Golden Items sockets (8 -> 7)
+* Lowered Golden Items sockets (8 -> 6)
 * Fixed EMI integration breaking EMI
 * Fixed sockets not correctly reset when removing curses
 * Sockets granted by curses are now calculated on the fly instead of being stored on the item

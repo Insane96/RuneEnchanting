@@ -252,6 +252,8 @@
   "rune.runeenchanting.soul_speed": "Soul Speed",
   "rune.runeenchanting.soul_speed.description": "Speed up walking on soul blocks",
   "rune.runeenchanting.soul_speed.info": "Equivalent to enchantment level %s",
+  "rune.runeenchanting.soulbound": "Soulbound",
+  "rune.runeenchanting.soulbound.description": "The item is kept in your inventory when you die, instead of dropping",
   "rune.runeenchanting.sprint_pact": "Sprint Pact",
   "rune.runeenchanting.sprint_pact.description": "Increased movement speed but can no longer sprint",
   "rune.runeenchanting.steady_fall": "Steady Fall",

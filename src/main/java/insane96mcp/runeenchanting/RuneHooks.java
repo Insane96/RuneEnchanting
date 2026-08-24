@@ -103,6 +103,8 @@ public class RuneHooks extends Feature {
     @SubscribeEvent
     public void onLivingDeath(LivingDeathEvent event) {
         if (!(event.getEntity().level() instanceof ServerLevel level)) return;
+        if (event.getEntity() instanceof Player player)
+            SoulboundItems.stashOnDeath(player);
         if (!(event.getSource().getEntity() instanceof LivingEntity killer)) return;
         ItemStack weapon = getKillingWeapon(killer, event.getSource());
         forRunes(weapon, rune -> rune.onKill(level, weapon, event.getEntity(), event.getSource()));

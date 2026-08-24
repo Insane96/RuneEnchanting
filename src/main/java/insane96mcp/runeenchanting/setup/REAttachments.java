@@ -1,10 +1,12 @@
 package insane96mcp.runeenchanting.setup;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.runes.Rune;
 import net.minecraft.core.Holder;
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -34,4 +36,18 @@ public class REAttachments {
                     .serialize(Codec.unboundedMap(RERunes.REGISTRY.holderByNameCodec(), Codec.INT))
                     .copyOnDeath()
                     .build());
+
+    ///Items with the Soulbound rune pulled out of the inventory on death, to be returned to the same slot on respawn. Server only.
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<List<SoulboundEntry>>> SOULBOUND_ITEMS =
+            REGISTRY.register("soulbound_items", () -> AttachmentType.builder((Supplier<List<SoulboundEntry>>) ArrayList::new)
+                    .serialize(SoulboundEntry.CODEC.listOf())
+                    .copyOnDeath()
+                    .build());
+
+    public record SoulboundEntry(int slot, ItemStack stack) {
+        public static final Codec<SoulboundEntry> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                Codec.INT.fieldOf("slot").forGetter(SoulboundEntry::slot),
+                ItemStack.CODEC.fieldOf("stack").forGetter(SoulboundEntry::stack)
+        ).apply(instance, SoulboundEntry::new));
+    }
 }
