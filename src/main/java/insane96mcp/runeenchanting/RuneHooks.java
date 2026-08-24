@@ -21,6 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentTarget;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import net.neoforged.neoforge.event.enchanting.GetEnchantmentLevelEvent;
@@ -100,11 +101,20 @@ public class RuneHooks extends Feature {
         forRunes(event.getFrom(), rune -> rune.onEquipmentChange(event, event.getFrom()));
     }
 
+    /**
+     * Runs before every other {@code LivingDeathEvent} listener so Soulbound items are already pulled out of the
+     * inventory by the time anything else (including other mods) reacts to the death or computes drops.
+     */
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public void onLivingDeathStashSoulbound(LivingDeathEvent event) {
+        if (!(event.getEntity().level() instanceof ServerLevel)) return;
+        if (event.getEntity() instanceof Player player)
+            SoulboundItems.stashOnDeath(player);
+    }
+
     @SubscribeEvent
     public void onLivingDeath(LivingDeathEvent event) {
         if (!(event.getEntity().level() instanceof ServerLevel level)) return;
-        if (event.getEntity() instanceof Player player)
-            SoulboundItems.stashOnDeath(player);
         if (!(event.getSource().getEntity() instanceof LivingEntity killer)) return;
         ItemStack weapon = getKillingWeapon(killer, event.getSource());
         forRunes(weapon, rune -> rune.onKill(level, weapon, event.getEntity(), event.getSource()));
