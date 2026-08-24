@@ -21,11 +21,13 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 
 import javax.annotation.Nullable;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -54,6 +56,10 @@ public class RECommands {
                         .executes(ctx -> getRandomRuneItem(ctx, ResourceLocationArgument.getId(ctx, "tag")))))
                 .then(Commands.literal("fix_enchantments_component")
                     .executes(RECommands::fixEnchantmentsComponent))
+                .then(Commands.literal("fix_sockets")
+                    .executes(RECommands::fixSockets)
+                    .then(Commands.argument("targets", EntityArgument.players())
+                        .executes(ctx -> fixSockets(ctx, EntityArgument.getPlayers(ctx, "targets")))))
                 .then(Commands.literal("curse")
                     .then(Commands.literal("learn")
                         .then(Commands.argument("rune", ResourceLocationArgument.id())
@@ -163,6 +169,42 @@ public class RECommands {
         stack.set(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
         ctx.getSource().sendSuccess(() -> Component.literal("Restored the enchantments component on the held item"), false);
         return 1;
+    }
+
+    private static int fixSockets(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
+        return fixSockets(ctx, List.of(ctx.getSource().getPlayerOrException()));
+    }
+
+    private static int fixSockets(CommandContext<CommandSourceStack> ctx, Collection<ServerPlayer> targets) {
+        int totalFixed = 0;
+        for (ServerPlayer player : targets) {
+            int fixed = fixSocketsForPlayer(player);
+            totalFixed += fixed;
+            if (fixed > 0) {
+                int fixedFinal = fixed;
+                ctx.getSource().sendSuccess(() -> Component.literal("Fixed sockets on " + fixedFinal + " item(s) for " + player.getGameProfile().getName()), false);
+            }
+        }
+        int totalFixedFinal = totalFixed;
+        ctx.getSource().sendSuccess(() -> Component.literal("Fixed sockets on " + totalFixedFinal + " item(s) total"), false);
+        return totalFixed;
+    }
+
+    private static int fixSocketsForPlayer(Player player) {
+        Inventory inventory = player.getInventory();
+        int fixed = 0;
+        for (int i = 0; i < inventory.getContainerSize(); i++) {
+            ItemStack stack = inventory.getItem(i);
+            if (stack.isEmpty() || !stack.has(REDataComponents.SOCKETS))
+                continue;
+            int stored = stack.get(REDataComponents.SOCKETS);
+            int base = new ItemStack(stack.getItem()).getOrDefault(REDataComponents.SOCKETS, 0);
+            if (stored == base)
+                continue;
+            stack.remove(REDataComponents.SOCKETS);
+            fixed++;
+        }
+        return fixed;
     }
 
     private static int getRandomRuneItem(CommandContext<CommandSourceStack> ctx, @Nullable ResourceLocation tagId) throws CommandSyntaxException {

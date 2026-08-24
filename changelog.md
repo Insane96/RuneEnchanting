@@ -3,6 +3,8 @@
 * Vibration Detection's glow is now only visible to the entity wearing the rune, instead of everyone
 * Fixed EMI integration breaking EMI
 * Fixed sockets not correctly reset when removing curses
+* Sockets granted by curses are now calculated on the fly instead of being stored on the item
+* Added `rune fix_sockets` sub command to fix items with an incorrect stored sockets value, optionally targeting one or more players
 
 # 1.2.0.1-alpha
 * Startup crash fix
