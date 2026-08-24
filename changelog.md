@@ -1,4 +1,5 @@
 # Upcoming
+* Learned curses are now shared between players on the same scoreboard team
 * Vibration Detection's glow is now only visible to the entity wearing the rune, instead of everyone
 * Fixed EMI integration breaking EMI
 * Fixed sockets not correctly reset when removing curses

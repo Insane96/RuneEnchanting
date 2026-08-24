@@ -138,6 +138,7 @@ public class RuneFeature extends Feature {
             ((ServerPlayer) event.getEntity()).setExperienceLevels(9999);
         else
             ((ServerPlayer) event.getEntity()).setExperienceLevels(0);
+        CurseKnowledge.syncTeamOnLogin((ServerPlayer) event.getEntity());
     }
 
     @SubscribeEvent

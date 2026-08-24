@@ -7,12 +7,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.scores.PlayerTeam;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CurseKnowledge {
     public static boolean isLearned(@Nullable Player player, Holder<Rune> curse) {
@@ -62,7 +60,14 @@ public class CurseKnowledge {
         player.setData(REAttachments.CURSE_LEARN_PROGRESS, progress);
     }
 
+    ///Learns a curse for the player and every other online player on the same scoreboard team.
     public static void learn(ServerPlayer player, Holder<Rune> curse) {
+        for (ServerPlayer teammate : getOnlineTeammates(player)) {
+            learnSingle(teammate, curse);
+        }
+    }
+
+    private static void learnSingle(ServerPlayer player, Holder<Rune> curse) {
         List<Holder<Rune>> learned = player.getData(REAttachments.LEARNED_CURSES);
         if (learned.contains(curse))
             return;
@@ -89,5 +94,35 @@ public class CurseKnowledge {
     public static void resetAll(ServerPlayer player) {
         player.setData(REAttachments.LEARNED_CURSES, new ArrayList<>());
         player.setData(REAttachments.CURSE_LEARN_PROGRESS, new HashMap<>());
+    }
+
+    ///Grants a player any curses already known by their online teammates (and vice versa), without the learn message/sound. Used to reconcile knowledge on login, since a player's curses aren't shared with offline teammates.
+    public static void syncTeamOnLogin(ServerPlayer player) {
+        List<ServerPlayer> teammates = getOnlineTeammates(player);
+        if (teammates.size() <= 1)
+            return;
+        Set<Holder<Rune>> union = new LinkedHashSet<>();
+        for (ServerPlayer teammate : teammates)
+            union.addAll(teammate.getData(REAttachments.LEARNED_CURSES));
+        for (ServerPlayer teammate : teammates) {
+            List<Holder<Rune>> learned = teammate.getData(REAttachments.LEARNED_CURSES);
+            List<Holder<Rune>> missing = union.stream().filter(curse -> !learned.contains(curse)).toList();
+            if (missing.isEmpty())
+                continue;
+            List<Holder<Rune>> updated = new ArrayList<>(learned);
+            updated.addAll(missing);
+            teammate.setData(REAttachments.LEARNED_CURSES, updated);
+            for (Holder<Rune> curse : missing)
+                removeProgress(teammate, curse);
+        }
+    }
+
+    private static List<ServerPlayer> getOnlineTeammates(ServerPlayer player) {
+        PlayerTeam team = player.getTeam();
+        if (team == null)
+            return List.of(player);
+        return player.getServer().getPlayerList().getPlayers().stream()
+                .filter(p -> p.getTeam() == team)
+                .toList();
     }
 }
