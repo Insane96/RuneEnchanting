@@ -10,6 +10,7 @@
 * Lowered Golden Items sockets (8 -> 6)
 * Fixed EMI integration breaking EMI
 * Fixed sockets not correctly reset when removing curses
+* Fixed curse of blood pact dealing knockback on damage
 * Sockets granted by curses are now calculated on the fly instead of being stored on the item
 * Added `rune fix_sockets` sub command to fix items with an incorrect stored sockets value, optionally targeting one or more players
 

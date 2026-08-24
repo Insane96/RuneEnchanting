@@ -12,6 +12,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
@@ -19,6 +20,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentTarget;
+import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -94,8 +96,11 @@ public class ElectrocutionRune extends Rune {
         List<LivingEntity> nearby = new ArrayList<>(level.getEntitiesOfClass(LivingEntity.class, entity.getBoundingBox().inflate(radius),
                 e -> e.isAlive() && !visited.contains(e)));
         nearby.sort(Comparator.comparingDouble(e -> e.distanceToSqr(entity)));
-        for (int i = 0; i < Math.min(chainTargets, nearby.size()); i++)
-            discharge(level, nearby.get(i), visited);
+        for (int i = 0; i < Math.min(chainTargets, nearby.size()); i++) {
+            LivingEntity next = nearby.get(i);
+            spawnLine(level, entity, next);
+            discharge(level, next, visited);
+        }
     }
 
     /// Uses the same particle as vanilla's lightning rod strike visual.
@@ -103,6 +108,27 @@ public class ElectrocutionRune extends Rune {
         level.sendParticles(ParticleTypes.ELECTRIC_SPARK,
                 entity.getX(), entity.getY() + entity.getBbHeight() * 0.5d, entity.getZ(),
                 count, entity.getBbWidth() * 0.3d, entity.getBbHeight() * 0.3d, entity.getBbWidth() * 0.3d, 0.05d);
+    }
+
+    /// Walks a jittered line of sparks between two entities so a chained discharge visibly connects them.
+    private static void spawnLine(ServerLevel level, LivingEntity from, LivingEntity to) {
+        Vec3 start = from.position().add(0d, from.getBbHeight() * 0.5d, 0d);
+        Vec3 end = to.position().add(0d, to.getBbHeight() * 0.5d, 0d);
+        double distance = start.distanceTo(end);
+        if (distance < 1.0e-4)
+            return;
+
+        Vec3 step = end.subtract(start).normalize().scale(0.15d);
+        int steps = (int) (distance / 0.15d);
+        RandomSource random = level.getRandom();
+        for (int i = 0; i <= steps; i++) {
+            Vec3 pos = start.add(step.scale(i));
+            level.sendParticles(ParticleTypes.ELECTRIC_SPARK,
+                    pos.x + random.nextDouble() * 0.1d - 0.05d,
+                    pos.y + random.nextDouble() * 0.1d - 0.05d,
+                    pos.z + random.nextDouble() * 0.1d - 0.05d,
+                    1, 0d, 0d, 0d, 0d);
+        }
     }
 
     @Override
