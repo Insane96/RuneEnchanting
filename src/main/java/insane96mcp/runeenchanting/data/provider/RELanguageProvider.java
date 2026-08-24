@@ -23,6 +23,7 @@ public class RELanguageProvider extends LanguageProvider {
 
         add("death.attack.runeenchanting.blood_fueled", "%1$s's blood-fueled rune drained too much life essence");
         add("death.attack.runeenchanting.blood_pact", "%1$s's blood pact was fulfilled");
+        add("death.attack.runeenchanting.electrocution", "%1$s was electrocuted");
 
         add("item.runeenchanting.rune", "Rune");
         add("item.runeenchanting.encased_rune", "Encased Rune");

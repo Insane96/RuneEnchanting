@@ -1,4 +1,6 @@
 # Upcoming
+* Added Electrocution (weapons)
+  * Attacks charge the target; after a delay it discharges, damaging the target and chaining to nearby charged entities
 * Added Blood-fueled (all durability items)
   * Chance to not consume durability, at the cost of a chance to hurt yourself with enchantment-bypassing damage
 * Added Soulbound (all durability items)

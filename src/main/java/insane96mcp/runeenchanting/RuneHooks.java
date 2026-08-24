@@ -4,7 +4,10 @@ import insane96mcp.insanelib.core.feature.Feature;
 import insane96mcp.insanelib.core.feature.LoadFeature;
 import insane96mcp.insanelib.event.HurtItemStackEvent;
 import insane96mcp.runeenchanting.mixin.MobEffectInstanceAccessor;
-import insane96mcp.runeenchanting.runes.*;
+import insane96mcp.runeenchanting.runes.MagicProtectionRune;
+import insane96mcp.runeenchanting.runes.ProjectileProtectionRune;
+import insane96mcp.runeenchanting.runes.Rune;
+import insane96mcp.runeenchanting.runes.VibrationDetectionRune;
 import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -93,7 +96,18 @@ public class RuneHooks extends Feature {
         if (!(event.getEntity().level() instanceof ServerLevel level)
                 || !(event.getEntity() instanceof LivingEntity living))
             return;
-        ExplosiveRune.tick(level, living);
+        for (Holder<Rune> holder : runeHolders())
+            if (Rune.isEnabled(holder))
+                holder.value().tickTarget(level, living);
+    }
+
+    private static List<? extends Holder<Rune>> runeHolders;
+
+    /// Lazily cached: the registry's holder set is fixed once mod loading finishes, so it's safe to compute once.
+    private static List<? extends Holder<Rune>> runeHolders() {
+        if (runeHolders == null)
+            runeHolders = RERunes.REGISTRY.holders().toList();
+        return runeHolders;
     }
 
     @SubscribeEvent

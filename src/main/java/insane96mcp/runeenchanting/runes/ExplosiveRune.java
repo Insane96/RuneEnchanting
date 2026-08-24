@@ -64,7 +64,8 @@ public class ExplosiveRune extends Rune {
         ModNBTData.put(attacked, NBT_DESTROY_BLOCKS, destroyBlocks);
     }
 
-    public static void tick(ServerLevel level, LivingEntity entity) {
+    @Override
+    public void tickTarget(ServerLevel level, LivingEntity entity) {
         if (!ModNBTData.contains(entity, NBT_TIME))
             return;
         long explodeAt = ModNBTData.get(entity, NBT_TIME, Long.class);
