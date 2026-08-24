@@ -201,7 +201,7 @@ public class RECommands {
             int base = new ItemStack(stack.getItem()).getOrDefault(REDataComponents.SOCKETS, 0);
             if (stored == base)
                 continue;
-            stack.remove(REDataComponents.SOCKETS);
+            stack.set(REDataComponents.SOCKETS, base);
             fixed++;
         }
         return fixed;
