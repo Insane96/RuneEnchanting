@@ -14,6 +14,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LevelEvent;
@@ -54,7 +55,8 @@ public class VeiningRune extends Rune {
         appender.addTag(ItemTags.PICKAXES)
                 .addTag(ItemTags.AXES)
                 .addTag(ItemTags.SHOVELS)
-                .addTag(ItemTags.HOES);
+                .addTag(ItemTags.HOES)
+                .add(Items.SHEARS);
     }
 
     @Override

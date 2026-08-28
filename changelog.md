@@ -1,3 +1,6 @@
+# Upcoming
+* Veining and Tunneling are now applicable to shears
+
 # 1.3.0.0-beta
 * Added Electrocution (weapons)
   * Attacks charge the target; after a delay it discharges, damaging the target and chaining to nearby charged entities

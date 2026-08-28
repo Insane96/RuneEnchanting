@@ -14,6 +14,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LevelEvent;
@@ -56,7 +57,7 @@ public class TunnelingRune extends Rune {
 
     @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
-        appender.addTag(ItemTags.PICKAXES).addTag(ItemTags.SHOVELS);
+        appender.addTag(ItemTags.PICKAXES).addTag(ItemTags.SHOVELS).add(Items.SHEARS);
     }
 
     public static int additionalBlocks() {
