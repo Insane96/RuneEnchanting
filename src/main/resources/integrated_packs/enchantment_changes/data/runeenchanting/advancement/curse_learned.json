@@ -1,0 +1,18 @@
+{
+  "display": {
+    "icon": { "id": "minecraft:wither_rose" },
+    "title": { "translate": "advancements.runeenchanting.curse_learned.title" },
+    "description": { "translate": "advancements.runeenchanting.curse_learned.description" },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "runeenchanting:rune_removed",
+  "criteria": {
+    "curse_learned": {
+      "trigger": "runeenchanting:curse_learned"
+    }
+  },
+  "requirements": [ [ "curse_learned" ] ]
+}

@@ -66,6 +66,7 @@ public class RuneEnchanting {
         RELootModifiers.REGISTRY.register(modEventBus);
         RELootFunctions.REGISTRY.register(modEventBus);
         RERecipes.REGISTRY.register(modEventBus);
+        RECriteriaTriggers.REGISTRY.register(modEventBus);
         if (FMLLoader.getDist().isClient()) {
             modEventBus.addListener(ClientSetup::onBuildCreativeModeTabContents);
             modEventBus.addListener(ClientSetup::onRegisterItemDecorations);

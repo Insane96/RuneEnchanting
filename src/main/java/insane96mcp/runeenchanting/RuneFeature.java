@@ -10,6 +10,7 @@ import insane96mcp.insanelib.util.IntegratedPack;
 import insane96mcp.insanelib.util.MathHelper;
 import insane96mcp.runeenchanting.network.message.ClientboundDisableExperienceMessage;
 import insane96mcp.runeenchanting.runes.Rune;
+import insane96mcp.runeenchanting.setup.RECriteriaTriggers;
 import insane96mcp.runeenchanting.setup.REDataComponents;
 import insane96mcp.runeenchanting.setup.REItems;
 import insane96mcp.runeenchanting.setup.RERunes;
@@ -217,6 +218,8 @@ public class RuneFeature extends Feature {
         List<Holder<Rune>> removedRunes = RuneHelper.clearRunes(output, extractCurses);
         if (removedRunes.isEmpty())
             return;
+        if (event.getPlayer() instanceof ServerPlayer player)
+            RECriteriaTriggers.RUNE_REMOVED.get().trigger(player);
         event.getContainerAccess().execute((world, pos) -> {
             for (Holder<Rune> holder : removedRunes) {
                 ItemStack runeStack = new ItemStack(REItems.RUNE, 1, DataComponentPatch.builder().set(REDataComponents.STORED_RUNE.value(), holder).build());

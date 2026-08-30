@@ -1,4 +1,5 @@
 # Upcoming
+* Added advancements for obtaining your first rune, removing a rune with a grindstone and learning a curse
 * Veining and Tunneling are now applicable to shears
 
 # 1.3.0.0-beta

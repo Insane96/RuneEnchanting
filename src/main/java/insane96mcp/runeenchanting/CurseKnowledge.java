@@ -2,6 +2,7 @@ package insane96mcp.runeenchanting;
 
 import insane96mcp.runeenchanting.runes.Rune;
 import insane96mcp.runeenchanting.setup.REAttachments;
+import insane96mcp.runeenchanting.setup.RECriteriaTriggers;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -77,6 +78,7 @@ public class CurseKnowledge {
         removeProgress(player, curse);
         player.displayClientMessage(Component.translatable("curse_learned", curse.value().getNameComponent()), false);
         player.playSound(SoundEvents.PLAYER_LEVELUP, 0.5f, 1f);
+        RECriteriaTriggers.CURSE_LEARNED.get().trigger(player);
     }
 
     ///Returns whether the curse was known before being forgotten.

@@ -1,0 +1,18 @@
+{
+  "display": {
+    "icon": { "id": "minecraft:grindstone" },
+    "title": { "translate": "advancements.runeenchanting.rune_removed.title" },
+    "description": { "translate": "advancements.runeenchanting.rune_removed.description" },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "runeenchanting:first_rune",
+  "criteria": {
+    "rune_removed": {
+      "trigger": "runeenchanting:rune_removed"
+    }
+  },
+  "requirements": [ [ "rune_removed" ] ]
+}
