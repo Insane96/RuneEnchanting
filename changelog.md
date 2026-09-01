@@ -1,4 +1,4 @@
-# Upcoming
+# 1.3.2.0
 * Encased Rune got an actual texture
 * Fixed Curse of Blood Pact damage not bypassing armor and enchantments
 * Fixed atmospheric's bonus mining speed desynced client-server during night time
