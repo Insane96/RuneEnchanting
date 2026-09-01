@@ -1,4 +1,5 @@
 # Upcoming
+* Encased Rune got an actual texture
 * Fixed Curse of Blood Pact damage not bypassing armor and enchantments
 
 # 1.3.1.0-beta
