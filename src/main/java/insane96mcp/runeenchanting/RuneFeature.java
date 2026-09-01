@@ -7,6 +7,7 @@ import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.insanelib.event.HurtItemStackEvent;
 import insane96mcp.insanelib.util.CurrentAttacker;
 import insane96mcp.insanelib.util.IntegratedPack;
+import insane96mcp.insanelib.util.MCUtils;
 import insane96mcp.insanelib.util.MathHelper;
 import insane96mcp.runeenchanting.network.message.ClientboundDisableExperienceMessage;
 import insane96mcp.runeenchanting.runes.Rune;
@@ -35,6 +36,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.GameRules;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.EventPriority;
@@ -221,9 +223,10 @@ public class RuneFeature extends Feature {
         if (event.getPlayer() instanceof ServerPlayer player)
             RECriteriaTriggers.RUNE_REMOVED.get().trigger(player);
         event.getContainerAccess().execute((world, pos) -> {
+            Vec3 spawnPos = MCUtils.getGrindstoneOutputPos(world, pos);
             for (Holder<Rune> holder : removedRunes) {
                 ItemStack runeStack = new ItemStack(REItems.RUNE, 1, DataComponentPatch.builder().set(REDataComponents.STORED_RUNE.value(), holder).build());
-                ItemEntity itemEntity = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.1, pos.getZ() + 0.5, runeStack);
+                ItemEntity itemEntity = new ItemEntity(world, spawnPos.x, spawnPos.y, spawnPos.z, runeStack);
                 itemEntity.setDefaultPickUpDelay();
                 world.addFreshEntity(itemEntity);
             }

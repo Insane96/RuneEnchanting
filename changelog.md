@@ -1,3 +1,6 @@
+# 1.3.2.1
+* Fixed runes removed with a Grindstone always popping out from the top of the block instead of the side it's actually attached to (floor, ceiling, or the wall it's facing)
+
 # 1.3.2.0
 * Encased Rune got an actual texture
 * Fixed Curse of Blood Pact damage not bypassing armor and enchantments
