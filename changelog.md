@@ -1,3 +1,6 @@
+# Upcoming
+* Fixed Curse of Blood Pact damage not bypassing armor and enchantments
+
 # 1.3.1.0-beta
 * Added advancements for obtaining your first rune, removing a rune with a grindstone and learning a curse
 * Veining and Tunneling are now applicable to shears

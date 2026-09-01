@@ -114,6 +114,8 @@ public class RuneEnchanting {
         event.getGenerator().addProvider(event.includeServer(),
                 new REEnchantmentTagProvider(output, lookupProvider, MOD_ID, existingFileHelper));
         event.getGenerator().addProvider(event.includeServer(),
+                new REDamageTypeTagProvider(output, lookupProvider, MOD_ID, existingFileHelper));
+        event.getGenerator().addProvider(event.includeServer(),
                 new RERuneTagProvider(output, lookupProvider, MOD_ID, existingFileHelper));
         event.getGenerator().addProvider(event.includeServer(),
                 new REGlobalLootModifierProvider(output, lookupProvider));
