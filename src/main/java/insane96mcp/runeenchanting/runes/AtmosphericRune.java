@@ -122,9 +122,9 @@ public class AtmosphericRune extends Rune {
 
     private static float getSunLightRatio(Player player) {
         Level level = player.level();
-        if (!level.isDay() || level.isThundering())
+        if (level.dimensionType().hasFixedTime() || level.isThundering() || !isDayTime(level))
             return 0f;
-        float sunLight = level.getBrightness(LightLayer.SKY, player.blockPosition()) - level.getSkyDarken();
+        float sunLight = level.getBrightness(LightLayer.SKY, player.blockPosition());
         if (level.isRaining())
             sunLight *= 0.35f;
         return Math.min(sunLight, 12f) / 12f;
@@ -132,11 +132,22 @@ public class AtmosphericRune extends Rune {
 
     private static float getMoonLightRatio(LivingEntity entity) {
         Level level = entity.level();
-        if (level.isDay() || level.isThundering())
+        if (level.dimensionType().hasFixedTime() || level.isThundering() || isDayTime(level))
             return 0f;
         float moonLight = level.getBrightness(LightLayer.SKY, entity.blockPosition());
         if (level.isRaining())
             moonLight *= 0.35f;
         return Math.min(moonLight, 12f) / 12f;
+    }
+
+    /**
+     * Level#isDay()/isNight()/getSkyDarken() rely on Level's internal skyDarken field, which
+     * ServerLevel refreshes every tick but ClientLevel only sets once at construction time.
+     * That leaves it stale client-side (e.g. always "day" if the world was joined during daytime),
+     * causing mining speed to desync between the client prediction and the server's actual speed.
+     * getDayTime() itself is kept live on both sides every tick, so derive day/night from it instead.
+     */
+    private static boolean isDayTime(Level level) {
+        return level.getDayTime() % 24000L < 12000L;
     }
 }

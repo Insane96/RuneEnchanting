@@ -1,6 +1,7 @@
 # Upcoming
 * Encased Rune got an actual texture
 * Fixed Curse of Blood Pact damage not bypassing armor and enchantments
+* Fixed atmospheric's bonus mining speed desynced client-server during night time
 
 # 1.3.1.0-beta
 * Added advancements for obtaining your first rune, removing a rune with a grindstone and learning a curse
