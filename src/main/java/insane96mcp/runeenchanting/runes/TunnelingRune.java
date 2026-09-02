@@ -20,7 +20,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.event.level.BlockEvent;
@@ -74,13 +76,26 @@ public class TunnelingRune extends Rune {
 
         if (!stack.isCorrectToolForDrops(state)) return;
 
-        for (BlockPos toMine : getAffectedBlocks(level, stack, player, pos, state)) {
+        Direction face = getTargetedFace(level, player, pos, state);
+
+        for (BlockPos toMine : getAffectedBlocks(level, stack, player, pos, state, face)) {
             mineBlock(level, player, stack, toMine);
         }
     }
 
-    private static List<BlockPos> getAffectedBlocks(Level level, ItemStack stack, Player player, BlockPos targetPos, BlockState targetState) {
-        List<BlockPos> candidates = getColumnCandidates(player, targetPos);
+    private static Direction getTargetedFace(Level level, Player player, BlockPos pos, BlockState state) {
+        Vec3 eyePos = player.getEyePosition();
+        Vec3 lookVec = player.getLookAngle();
+        Vec3 endPos = eyePos.add(lookVec.scale(player.blockInteractionRange() + 1d));
+        VoxelShape shape = state.getShape(level, pos);
+        BlockHitResult hit = shape.isEmpty() ? null : shape.clip(eyePos, endPos, pos);
+        if (hit != null) return hit.getDirection();
+        Vec3 toCenter = new Vec3(pos.getX() + 0.5 - eyePos.x, pos.getY() + 0.5 - eyePos.y, pos.getZ() + 0.5 - eyePos.z);
+        return Direction.getNearest(toCenter.x, toCenter.y, toCenter.z);
+    }
+
+    private static List<BlockPos> getAffectedBlocks(Level level, ItemStack stack, Player player, BlockPos targetPos, BlockState targetState, Direction face) {
+        List<BlockPos> candidates = getColumnCandidates(player, targetPos, face);
         List<BlockPos> result = new ArrayList<>();
         for (BlockPos candidate : candidates) {
             if (result.size() >= additionalBlocks()) break;
@@ -94,10 +109,8 @@ public class TunnelingRune extends Rune {
         return result;
     }
 
-    private static List<BlockPos> getColumnCandidates(Player player, BlockPos targetPos) {
-        int blockY = targetPos.getY();
-        int playerFeetY = player.getBlockY();
-        if (blockY < playerFeetY || blockY > playerFeetY + 1) {
+    private static List<BlockPos> getColumnCandidates(Player player, BlockPos targetPos, Direction face) {
+        if (face == Direction.UP || face == Direction.DOWN) {
             Direction facing = player.getDirection();
             return List.of(
                 targetPos.relative(facing),
@@ -128,7 +141,7 @@ public class TunnelingRune extends Rune {
         ItemStack stack = player.getMainHandItem();
         if (!stack.isCorrectToolForDrops(targetState)) return List.of();
 
-        return getAffectedBlocks(level, stack, player, targetPos, targetState);
+        return getAffectedBlocks(level, stack, player, targetPos, targetState, face);
     }
 
     @Override
