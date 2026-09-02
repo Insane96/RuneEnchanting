@@ -1,3 +1,6 @@
+# Upcoming
+* Removed 'C' icon on cursed items
+
 # 1.3.2.1
 * Fixed runes removed with a Grindstone always popping out from the top of the block instead of the side it's actually attached to (floor, ceiling, or the wall it's facing)
 
