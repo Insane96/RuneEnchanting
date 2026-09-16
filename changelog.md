@@ -1,3 +1,6 @@
+# Upcoming
+* Sprint Pact speed is now configurable
+
 # 1.3.2.2
 * Removed 'C' icon on cursed items
 * Fixed Tunneling not accounting for the mining direction correctly

@@ -1,5 +1,6 @@
 package insane96mcp.runeenchanting.runes;
 
+import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.insanelib.event.PlayerSprintEvent;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
@@ -12,6 +13,9 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 
 public class SprintPactRune extends Rune {
+    @Config
+    public static Double bonusSpeed = 0.2d;
+
     @Override
     public String getName() {
         return "Sprint Pact";
@@ -29,7 +33,7 @@ public class SprintPactRune extends Rune {
 
     @Override
     public void addAttributeModifiers(ItemAttributeModifierEvent event) {
-        event.addModifier(Attributes.MOVEMENT_SPEED, new AttributeModifier(RuneEnchanting.id("sprint_pact"), 0.20, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL), EquipmentSlotGroup.bySlot(RuneEnchanting.getEquipmentSlotForItem(event.getItemStack())));
+        event.addModifier(Attributes.MOVEMENT_SPEED, new AttributeModifier(RuneEnchanting.id("sprint_pact"), bonusSpeed, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL), EquipmentSlotGroup.bySlot(RuneEnchanting.getEquipmentSlotForItem(event.getItemStack())));
     }
 
     @Override
