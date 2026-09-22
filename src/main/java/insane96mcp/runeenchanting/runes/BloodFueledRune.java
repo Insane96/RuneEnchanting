@@ -13,6 +13,7 @@ import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.common.extensions.IAttributeExtension;
 
 public class BloodFueledRune extends Rune {
     public static final ResourceKey<DamageType> DAMAGE_TYPE = ResourceKey.create(Registries.DAMAGE_TYPE, RuneEnchanting.id("blood_fueled"));
@@ -66,6 +67,6 @@ public class BloodFueledRune extends Rune {
 
     @Override
     public MutableComponent getInfoComponent() {
-        return Component.translatable(getInfoTranslationKey(), RuneEnchanting.NO_DECIMAL_FORMATTER.format(saveChance * 100), RuneEnchanting.NO_DECIMAL_FORMATTER.format(selfDamageChance * 100));
+        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(saveChance * 100), RuneEnchanting.NO_DECIMAL_FORMATTER.format(selfDamageChance * 100));
     }
 }
