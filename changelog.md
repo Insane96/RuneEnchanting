@@ -1,6 +1,7 @@
 # Upcoming
 * Sprint Pact speed is now configurable
 * Increased crossbow sockets
+* Projectile Protection rune now uses InsaneLib's attribute modifier
 
 # 1.3.2.2
 * Removed 'C' icon on cursed items

@@ -3,6 +3,7 @@ package insane96mcp.runeenchanting;
 import insane96mcp.insanelib.core.feature.Feature;
 import insane96mcp.insanelib.core.feature.LoadFeature;
 import insane96mcp.insanelib.event.HurtItemStackEvent;
+import insane96mcp.insanelib.setup.ILAttributes;
 import insane96mcp.runeenchanting.mixin.MobEffectInstanceAccessor;
 import insane96mcp.runeenchanting.runes.MagicProtectionRune;
 import insane96mcp.runeenchanting.runes.ProjectileProtectionRune;
@@ -11,11 +12,14 @@ import insane96mcp.runeenchanting.runes.VibrationDetectionRune;
 import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.FishingRodItem;
@@ -77,13 +81,6 @@ public class RuneHooks extends Feature {
     }
 
     @SubscribeEvent
-    public void onFollowRange(LivingEvent.LivingVisibilityEvent event) {
-        if (!RuneHelper.hasRuneOnArmor(event.getEntity(), RERunes.PROJECTILE_PROTECTION))
-            return;
-        event.modifyVisibility(ProjectileProtectionRune.sightModifier);
-    }
-
-    @SubscribeEvent
     public void onEffectApplied(MobEffectEvent.Added event) {
         if (event.getEffectInstance().isInfiniteDuration()
                 || !RuneHelper.hasRuneOnArmor(event.getEntity(), RERunes.MAGIC_PROTECTION))
@@ -113,6 +110,27 @@ public class RuneHooks extends Feature {
     @SubscribeEvent
     public void onEquipmentChange(LivingEquipmentChangeEvent event) {
         forRunes(event.getFrom(), rune -> rune.onEquipmentChange(event, event.getFrom()));
+        if (event.getSlot().isArmor())
+            updateProjectileProtectionDetectionRange(event.getEntity());
+    }
+
+    /**
+     * Managed explicitly (rather than through {@code addAttributeModifiers}) because vanilla's per-item attribute
+     * application is keyed only by modifier {@link net.minecraft.resources.ResourceLocation id}, not by slot: with
+     * the same id on every armor piece (needed so the rune doesn't stack), unequipping one rune-bearing piece would
+     * remove the modifier even if another rune-bearing piece is still worn. Recomputing from live armor state here
+     * avoids that.
+     */
+    private static final ResourceLocation PROJECTILE_PROTECTION_DETECTION_RANGE_ID = RuneEnchanting.id("projectile_protection");
+
+    private static void updateProjectileProtectionDetectionRange(LivingEntity entity) {
+        AttributeInstance attributeInstance = entity.getAttribute(ILAttributes.MOB_DETECTION_RANGE);
+        if (attributeInstance == null)
+            return;
+        if (RuneHelper.hasRuneOnArmor(entity, RERunes.PROJECTILE_PROTECTION))
+            attributeInstance.addOrUpdateTransientModifier(new AttributeModifier(PROJECTILE_PROTECTION_DETECTION_RANGE_ID, ProjectileProtectionRune.sightModifier - 1d, AttributeModifier.Operation.ADD_VALUE));
+        else
+            attributeInstance.removeModifier(PROJECTILE_PROTECTION_DETECTION_RANGE_ID);
     }
 
     /**
