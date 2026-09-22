@@ -1,5 +1,6 @@
 # Upcoming
 * Sprint Pact speed is now configurable
+* Increased crossbow sockets
 
 # 1.3.2.2
 * Removed 'C' icon on cursed items
