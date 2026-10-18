@@ -1,5 +1,6 @@
 # Upcoming
 * Items with runes can no longer be used as the right item in an anvil, preventing their runes from being lost when merging
+* Items with only curses now have the enchantment glint
 
 # 1.3.2.3
 * Sprint Pact speed is now configurable

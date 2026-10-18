@@ -68,8 +68,7 @@ public class RuneHelper {
             return false;
         runes.add(rune);
         stack.set(REDataComponents.RUNES, runes);
-        if (!Rune.isCurse(rune))
-            stack.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true);
+        stack.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true);
         return true;
     }
 
@@ -98,7 +97,7 @@ public class RuneHelper {
 
             runes.removeIf(Rune::isCurse);
         }
-        stack.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, false);
+        stack.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, !stack.getOrDefault(REDataComponents.RUNES, List.of()).isEmpty());
         return runes;
     }
 
