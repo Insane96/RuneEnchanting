@@ -183,6 +183,12 @@ public class RuneFeature extends Feature {
 
     @SubscribeEvent
     public void onAnvilUpdate(AnvilUpdateEvent event) {
+        //Prevent merging a runed item into another one, as the result is a copy of the left item and the right item's runes (and curses) would be lost
+        if (!event.getLeft().isEmpty()
+                && RuneHelper.countRunes(event.getRight(), false) > 0) {
+            event.setCanceled(true);
+            return;
+        }
         if (event.getLeft().isEmpty() || !event.getRight().is(REItems.RUNE))
             return;
         ItemStack output = event.getLeft().copy();
