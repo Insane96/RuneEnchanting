@@ -12,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class EnduringRune extends Rune {
     @Config(description = "Percentage bonus durability")
-    public static Double bonusDurability = 1d;
+    public static Double bonusDurability = 2d;
     @Config
     public static Integer bonusDurabilityFlat = 80;
 
