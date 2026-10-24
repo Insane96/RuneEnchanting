@@ -30,7 +30,7 @@ public class ExplosiveRune extends Rune {
     @Config
     public static Boolean destroyBlocks = true;
     @Config(min = 0.05)
-    public static Double delaySeconds = 5d;
+    public static Double delaySeconds = 3d;
 
     @Override
     public String getName() {
