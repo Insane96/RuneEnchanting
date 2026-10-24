@@ -12,6 +12,7 @@
   "death.attack.runeenchanting.electrocution": "%1$s was electrocuted",
   "item.runeenchanting.encased_rune": "Encased Rune",
   "item.runeenchanting.rune": "Rune",
+  "overloaded_runes": "Too many runes: runes are inactive. Remove them with a grindstone.",
   "rune.runeenchanting.absorbing": "Absorbing",
   "rune.runeenchanting.absorbing.description": "Chance to nullify damage that will be applied to the chestplate",
   "rune.runeenchanting.absorbing.info": "Chance: %.0f%%, Armor damage: %.1fx",

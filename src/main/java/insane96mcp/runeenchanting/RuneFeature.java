@@ -261,22 +261,25 @@ public class RuneFeature extends Feature {
     public void onTooltip(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
         int sockets = RuneHelper.getSockets(stack);
-        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack, false);
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack, false, true);
         if (runes != null)
             runes = runes.stream().sorted(Comparator.comparingInt(h -> (Rune.isCurse(h) ? 1 : 0))).toList();
         int runesCount = RuneHelper.countRunes(stack, false);
         int noCursesRunesCount = RuneHelper.countRunes(stack);
+        boolean overloaded = RuneHelper.isOverloaded(stack);
         if (sockets > 0 && !stack.is(REItems.RUNE)) {
             if (runesCount > 0 || showExtraInfos(event.getFlags())) {
                 event.getToolTip().add(CommonComponents.space());
-                event.getToolTip().add(Component.translatable("sockets", noCursesRunesCount, sockets).withStyle(ChatFormatting.DARK_PURPLE));
+                event.getToolTip().add(Component.translatable("sockets", noCursesRunesCount, sockets).withStyle(overloaded ? ChatFormatting.RED : ChatFormatting.DARK_PURPLE));
             }
         }
+        if (overloaded)
+            event.getToolTip().add(Component.translatable("overloaded_runes").withStyle(ChatFormatting.RED));
         if (runes != null) {
             Player player = event.getEntity();
             for (Holder<Rune> holder : runes) {
                 boolean isCurse = Rune.isCurse(holder);
-                ChatFormatting color = isCurse ? ChatFormatting.RED : ChatFormatting.LIGHT_PURPLE;
+                ChatFormatting color = isCurse ? ChatFormatting.RED : overloaded ? ChatFormatting.DARK_GRAY : ChatFormatting.LIGHT_PURPLE;
                 if (isCurse && mustLearnCurses && !CurseKnowledge.isLearned(player, holder)) {
                     event.getToolTip().add(CommonComponents.space().append(Component.translatable("unknown_curse").withStyle(color)));
                     continue;

@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 public class RuneHelper {
     public static boolean hasRune(ItemStack stack, Holder<Rune> rune) {
         List<Holder<Rune>> runes = stack.get(REDataComponents.RUNES);
-        return runes != null && runes.contains(rune);
+        return runes != null && runes.contains(rune) && (Rune.isCurse(rune) || !isOverloaded(stack));
     }
 
     public static boolean hasRuneOnArmor(LivingEntity entity, Holder<Rune> rune) {
@@ -33,7 +33,7 @@ public class RuneHelper {
             List<Holder<Rune>> runes = stack.get(REDataComponents.RUNES);
             if (runes == null)
                 continue;
-            if (runes.contains(rune))
+            if (runes.contains(rune) && (Rune.isCurse(rune) || !isOverloaded(stack)))
                 return true;
         }
         return false;
@@ -144,9 +144,25 @@ public class RuneHelper {
         return stack.getOrDefault(REDataComponents.SOCKETS, 0) + countCurses(stack);
     }
 
+    /**
+     * True if the item has more runes than sockets (e.g. the item's sockets were lowered after the runes were applied).
+     * Runes on overloaded items are inactive, curses still apply.
+     */
+    public static boolean isOverloaded(ItemStack stack) {
+        return countRunes(stack) > getSockets(stack);
+    }
+
     //TODO Just return an empty list if no component is present
     @Nullable
     public static List<Holder<Rune>> getRunesByPriority(ItemStack stack, boolean ignoreStoredRune) {
+        return getRunesByPriority(stack, ignoreStoredRune, false);
+    }
+
+    /**
+     * @param includeInactive if true, runes on overloaded items are returned too (e.g. for tooltips)
+     */
+    @Nullable
+    public static List<Holder<Rune>> getRunesByPriority(ItemStack stack, boolean ignoreStoredRune, boolean includeInactive) {
         List<Holder<Rune>> runes = stack.get(REDataComponents.RUNES);
         if (runes == null) {
             if (ignoreStoredRune)
@@ -156,8 +172,10 @@ public class RuneHelper {
                 return null;
             runes = List.of(storedRune);
         }
+        boolean overloaded = !includeInactive && isOverloaded(stack);
         runes = runes.stream()
                 .filter(Rune::isEnabled)
+                .filter(rune -> !overloaded || Rune.isCurse(rune))
                 .sorted(Comparator.comparingInt(holder -> holder.value().getPriority()))
                 .toList();
         return runes;
