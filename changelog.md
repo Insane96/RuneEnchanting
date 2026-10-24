@@ -1,7 +1,9 @@
 # Upcoming
 * Decreased Leather armor sockets
 * Increased Enduring Rune bonus durability (+100% -> +200%)
+* Decreased Explosive Rune delay (5s -> 3s)
 * Items with more runes than sockets (e.g. after sockets were decreased) now have their runes inactive until removed with a grindstone. Curses still apply
+* Curse names in tooltips now randomly glitch, with characters getting obfuscated every now and then (can be disabled in the config)
 
 # 1.3.3.0
 * Items with runes can no longer be used as the right item in an anvil, preventing their runes from being lost when merging

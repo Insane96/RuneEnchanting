@@ -15,6 +15,7 @@ import insane96mcp.runeenchanting.setup.RECriteriaTriggers;
 import insane96mcp.runeenchanting.setup.REDataComponents;
 import insane96mcp.runeenchanting.setup.REItems;
 import insane96mcp.runeenchanting.setup.RERunes;
+import insane96mcp.runeenchanting.util.CurseGlitch;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -91,6 +92,9 @@ public class RuneFeature extends Feature {
 
     @Config(description = "If true, infos that are usually shown only with shift held down, will always show instead")
     public static Boolean alwaysShowExtraInfos = false;
+
+    @Config(description = "If true, curse names in tooltips randomly glitch (characters get obfuscated every now and then)")
+    public static Boolean glitchCurseNames = true;
 
     public static Boolean disableExperience = true;
 
@@ -281,10 +285,10 @@ public class RuneFeature extends Feature {
                 boolean isCurse = Rune.isCurse(holder);
                 ChatFormatting color = isCurse ? ChatFormatting.RED : overloaded ? ChatFormatting.DARK_GRAY : ChatFormatting.LIGHT_PURPLE;
                 if (isCurse && mustLearnCurses && !CurseKnowledge.isLearned(player, holder)) {
-                    event.getToolTip().add(CommonComponents.space().append(Component.translatable("unknown_curse").withStyle(color)));
+                    event.getToolTip().add(CommonComponents.space().append(getTooltipName(holder, Component.translatable("unknown_curse"), color)));
                     continue;
                 }
-                event.getToolTip().add(CommonComponents.space().append(holder.value().getNameComponent().withStyle(color)));
+                event.getToolTip().add(CommonComponents.space().append(getTooltipName(holder, holder.value().getNameComponent(), color)));
                 if (showExtraInfos(event.getFlags())) {
                     event.getToolTip().add(CommonComponents.space().append(holder.value().getDescriptionComponent()).withStyle(ChatFormatting.GRAY));
                     if (isCurse)
@@ -330,6 +334,15 @@ public class RuneFeature extends Feature {
             if (Rune.isCurse(holder) && !CurseKnowledge.isLearned(player, holder))
                 event.skipId(RERunes.REGISTRY.getKey(holder.value()));
         }
+    }
+
+    /**
+     * Name of the rune as shown in tooltips: curses get the glitch effect
+     */
+    private static Component getTooltipName(Holder<Rune> rune, Component name, ChatFormatting color) {
+        if (Rune.isCurse(rune) && glitchCurseNames)
+            return CurseGlitch.corrupt(name, color);
+        return name.copy().withStyle(color);
     }
 
     public static boolean showExtraInfos(TooltipFlag flag) {
