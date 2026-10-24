@@ -65,7 +65,7 @@ public class RuneFeature extends Feature {
         ClientboundDisableExperienceMessage.sync(booleanValue.get());
         server.getPlayerList().getPlayers().forEach(player -> {
             if (booleanValue.get())
-                player.setExperienceLevels(9999);
+                player.setExperienceLevels(999999);
             else
                 player.setExperienceLevels(0);
         });

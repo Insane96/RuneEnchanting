@@ -21,14 +21,14 @@ No dedicated test task exists yet — use `runGameTestServer` for game tests.
 ## Key Dependencies
 
 - **NeoForge 21.1.227** — mod loader
-- **InsaneLib 2.4.13.1** — custom base library providing `Feature`, `ILModConfig`, and `ComponentTranslation` utilities. Source can be found at C:\Users\delvi\source\repos\Insane96\InsaneLib
+- **InsaneLib 2.4.36.0** — custom base library providing `Feature`, `ILModConfig`, and `ComponentTranslation` utilities. Source can be found at C:\Users\delvi\source\repos\Insane96\InsaneLib (branch `1.21.1`; `26.1.2` is a different Minecraft version). Since 2.4.34.0 `ILModConfig` supports `ModConfig.Type.SERVER` configs (synced to clients on login and re-synced via `ServerConfigSyncMessage` when the file changes) and automatically registers the config screen for every mod that creates an `ILModConfig`. When a mod has more than one module (e.g. one `ILModConfig` per config type), every `@LoadFeature` must specify `module`, otherwise the feature is not loaded.
 - **Parchment mappings** (2024.11.17) — human-readable field/method names in decompiled code
 
 ## Architecture
 
 ### Entry Point
 
-`RuneEnchanting.java` — the `@Mod` class. Initializes InsaneLib's `ILModConfig` for a COMMON-tier config at `config/runeenchanting/common.toml`. Provides static utilities: `location(String)` → `ResourceLocation`, `lang(String)` → translation key, `translatableLang(String)` → `Component`.
+`RuneEnchanting.java` — the `@Mod` class. Initializes InsaneLib's `ILModConfig` (single module `runeenchanting:main`) for a COMMON-tier config at `config/runeenchanting/main.toml`. Provides static utilities: `location(String)` → `ResourceLocation`, `lang(String)` → translation key, `translatableLang(String)` → `Component`.
 
 ### Feature System
 
