@@ -1,3 +1,6 @@
+# Upcoming
+* Decreased Leather armor sockets
+
 # 1.3.3.0
 * Items with runes can no longer be used as the right item in an anvil, preventing their runes from being lost when merging
 * Items with only curses now have the enchantment glint
