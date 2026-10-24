@@ -43,7 +43,7 @@ import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-@LoadFeature(canBeDisabled = false)
+@LoadFeature(module = RuneEnchanting.MAIN_MODULE, canBeDisabled = false)
 public class RuneHooks extends Feature {
     @SubscribeEvent
     public void onLivingIncomingDamage(LivingIncomingDamageEvent event) {

@@ -1,6 +1,6 @@
 package insane96mcp.runeenchanting.setup;
 
-import insane96mcp.runeenchanting.RuneFeature;
+import insane96mcp.runeenchanting.RuneFeatureClient;
 import insane96mcp.runeenchanting.runes.Rune;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
@@ -47,7 +47,7 @@ public class ClientSetup {
             }
             event.accept(new ItemStack(REItems.ENCASED_RUNE.get()));
         }
-        if (RuneFeature.hideEnchantingRelatedItems) {
+        if (RuneFeatureClient.hideEnchantingRelatedItems) {
             event.remove(new ItemStack(Items.ENCHANTING_TABLE), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             event.remove(new ItemStack(Items.EXPERIENCE_BOTTLE), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             event.getParentEntries().stream()

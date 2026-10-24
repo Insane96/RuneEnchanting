@@ -1,10 +1,12 @@
 package insane96mcp.runeenchanting.setup;
 
+import insane96mcp.insanelib.network.message.ServerConfigSyncMessage;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.runes.*;
 import insane96mcp.runeenchanting.runes.curse.*;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.MinecraftServer;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.config.ModConfig;
@@ -14,6 +16,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.RegistryBuilder;
+import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -189,12 +192,28 @@ public class RERunes {
             builder.pop();
         }
         ModConfigSpec runeSpec = builder.build();
-        modContainer.registerConfig(ModConfig.Type.COMMON, runeSpec, RuneEnchanting.MOD_ID + "/runes.toml");
+        modContainer.registerConfig(ModConfig.Type.SERVER, runeSpec, RuneEnchanting.MOD_ID + "/runes.toml");
         modEventBus.addListener((ModConfigEvent event) -> {
-            if (event.getConfig().getSpec() != runeSpec)
+            // SERVER configs get unloaded when the server stops; the values can no longer be read, so the last ones read are kept
+            if (event.getConfig().getSpec() != runeSpec
+                    || event instanceof ModConfigEvent.Unloading)
                 return;
             for (var entry : RUNE_ENTRIES)
                 entry.getValue().readConfig();
+            if (event instanceof ModConfigEvent.Reloading)
+                syncToClients(event.getConfig());
         });
+    }
+
+    /**
+     * NeoForge syncs SERVER configs only on login, so when the server reloads the file the config is sent again to clients
+     */
+    private static void syncToClients(ModConfig modConfig) {
+        // Null on clients, that receive the synced config with a Reloading event too
+        MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
+        if (server == null)
+            return;
+        // Reloading is fired from the config file watcher thread
+        server.execute(() -> ServerConfigSyncMessage.syncToAll(modConfig, server));
     }
 }

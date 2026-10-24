@@ -4,6 +4,11 @@
 * Decreased Explosive Rune delay (5s -> 3s)
 * Items with more runes than sockets (e.g. after sockets were decreased) now have their runes inactive until removed with a grindstone. Curses still apply
 * Curse names in tooltips now randomly glitch, with characters getting obfuscated every now and then (can be disabled in the config)
+* Configs have been split by side. **Options moved to the new files must be set again**
+  * `main.toml` and `runes.toml` are now server configs: values are decided by the server and synced to clients, and can be overridden per world in `saves/<world>/serverconfig/`
+  * The new `common.toml` contains "Integrated data pack"
+  * The new `client.toml` contains "Hide enchanting related items", "Always show extra infos" and "Glitch curse names"
+* Requires InsaneLib 2.4.36.0
 
 # 1.3.3.0
 * Items with runes can no longer be used as the right item in an anvil, preventing their runes from being lost when merging

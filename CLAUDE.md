@@ -28,11 +28,16 @@ No dedicated test task exists yet — use `runGameTestServer` for game tests.
 
 ### Entry Point
 
-`RuneEnchanting.java` — the `@Mod` class. Initializes InsaneLib's `ILModConfig` (single module `runeenchanting:main`) for a COMMON-tier config at `config/runeenchanting/main.toml`. Provides static utilities: `location(String)` → `ResourceLocation`, `lang(String)` → translation key, `translatableLang(String)` → `Component`.
+`RuneEnchanting.java` — the `@Mod` class. Initializes three InsaneLib `ILModConfig`s, one module each (ids in `MAIN_MODULE`/`COMMON_MODULE`/`CLIENT_MODULE`):
+- `CONFIG` — SERVER, `config/runeenchanting/main.toml` (module `runeenchanting:main`): gameplay options, `RuneFeature` and `RuneHooks`. Synced to clients, can be overridden per world in `saves/<world>/serverconfig/`.
+- `COMMON_CONFIG` — COMMON, `config/runeenchanting/common.toml`: `RuneFeatureCommon` (`integratedDataPack`). Must stay COMMON because the world's data packs are picked before SERVER configs are loaded.
+- `CLIENT_CONFIG` — CLIENT, `config/runeenchanting/client.toml`: `RuneFeatureClient` (visual-only options: tooltips, creative tab).
+
+Before joining a world (and on clients before the server sends them) SERVER config values are the field defaults. Provides static utilities: `location(String)` → `ResourceLocation`, `lang(String)` → translation key, `translatableLang(String)` → `Component`.
 
 ### Feature System
 
-`RuneFeature.java` extends InsaneLib's `Feature` class (`@LoadFeature(canBeDisabled = false)`). Handles NeoForge events: `ItemAttributeModifierEvent`, `GetEnchantmentLevelEvent`, `ItemTooltipEvent`, `RegisterCommandsEvent`, and a `disableExperience` GameRule that cancels XP orbs, XP bottles, the experience bar, and vanilla enchanting. Also exposes static dispatcher methods (e.g. `onGetMaxDamage`, `onEnchantmentDamage`, `tickEffects`, `modifyDamageProtection`, …) called from mixins. `getRunesByPriority` is the central helper that reads `REDataComponents.RUNES`, filters disabled runes, and sorts by priority.
+`RuneFeature.java` extends InsaneLib's `Feature` class (`@LoadFeature(module = RuneEnchanting.MAIN_MODULE, canBeDisabled = false)`). Handles NeoForge events: `ItemAttributeModifierEvent`, `GetEnchantmentLevelEvent`, `ItemTooltipEvent`, `RegisterCommandsEvent`, and a `disableExperience` GameRule that cancels XP orbs, XP bottles, the experience bar, and vanilla enchanting. Also exposes static dispatcher methods (e.g. `onGetMaxDamage`, `onEnchantmentDamage`, `tickEffects`, `modifyDamageProtection`, …) called from mixins. `getRunesByPriority` is the central helper that reads `REDataComponents.RUNES`, filters disabled runes, and sorts by priority.
 
 ### Rune System
 
@@ -42,7 +47,7 @@ Concrete runes are in `runes/` and registered in `setup/RERunes.java`. Curses ar
 
 ### Registry (`setup/RERunes.java`)
 
-Custom NeoForge registry with key `runeenchanting:runes`. All rune `DeferredHolder`s are registered here. `registerConfigs()` processes `@Config`-annotated fields on each rune and writes to `runeenchanting/runes.toml`.
+Custom NeoForge registry with key `runeenchanting:runes`. All rune `DeferredHolder`s are registered here. `registerConfigs()` processes `@Config`-annotated fields on each rune and writes to `runeenchanting/runes.toml`, a SERVER config registered manually (not through `ILModConfig`): its listener skips `ModConfigEvent.Unloading` (values can't be read once unloaded) and on `Reloading` re-syncs the file to clients with `ServerConfigSyncMessage.syncToAll`.
 
 ### Item Components (`setup/REDataComponents.java`)
 

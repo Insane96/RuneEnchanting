@@ -2,11 +2,9 @@ package insane96mcp.runeenchanting;
 
 import insane96mcp.insanelib.core.feature.Feature;
 import insane96mcp.insanelib.core.feature.LoadFeature;
-import insane96mcp.insanelib.core.feature.Module;
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.insanelib.event.HurtItemStackEvent;
 import insane96mcp.insanelib.util.CurrentAttacker;
-import insane96mcp.insanelib.util.IntegratedPack;
 import insane96mcp.insanelib.util.MCUtils;
 import insane96mcp.insanelib.util.MathHelper;
 import insane96mcp.runeenchanting.network.message.ClientboundDisableExperienceMessage;
@@ -58,7 +56,7 @@ import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import java.util.Comparator;
 import java.util.List;
 
-@LoadFeature(canBeDisabled = false)
+@LoadFeature(module = RuneEnchanting.MAIN_MODULE, canBeDisabled = false)
 public class RuneFeature extends Feature {
     public static final GameRules.Key<GameRules.BooleanValue> RULE_DISABLEEXPERIENCE = GameRules.register(RuneEnchanting.MOD_ID + ":disable_experience", GameRules.Category.PLAYER, GameRules.BooleanValue.create(true, (server, booleanValue) -> {
         RuneFeature.disableExperience = booleanValue.get();
@@ -79,30 +77,10 @@ public class RuneFeature extends Feature {
     public static Boolean extractCurses = true;
     @Config(description = "Maximum number of curses that can be on a single item. 0 disables curses entirely.")
     public static Integer maxCurses = 1;
-    @Config(description = """
-            A data pack will be enabled that changes the following:
-            * Removes the enchanting table recipe
-            * Changes Channeling enchantment (and subsequently the Channeling rune) to work in rain too""")
-    public static Boolean integratedDataPack = true;
-    @Config(description = "If true, enchanting related items are hidden from creative inventory")
-    public static Boolean hideEnchantingRelatedItems = true;
-
     @Config
     public static Double equipmentRuneConversionRatio = 0.5d;
 
-    @Config(description = "If true, infos that are usually shown only with shift held down, will always show instead")
-    public static Boolean alwaysShowExtraInfos = false;
-
-    @Config(description = "If true, curse names in tooltips randomly glitch (characters get obfuscated every now and then)")
-    public static Boolean glitchCurseNames = true;
-
     public static Boolean disableExperience = true;
-
-    @Override
-    public void init(Module module, boolean enabledByDefault, boolean canBeDisabled) {
-        super.init(module, enabledByDefault, canBeDisabled);
-        IntegratedPack.addServerPack(RuneEnchanting.MOD_ID, "enchantment_changes", "Rune Enchanting vanilla changes", () -> integratedDataPack);
-    }
 
     @SubscribeEvent(priority = EventPriority.HIGH)
     public void onEntityJoinLevel(EntityJoinLevelEvent event) {
@@ -340,13 +318,13 @@ public class RuneFeature extends Feature {
      * Name of the rune as shown in tooltips: curses get the glitch effect
      */
     private static Component getTooltipName(Holder<Rune> rune, Component name, ChatFormatting color) {
-        if (Rune.isCurse(rune) && glitchCurseNames)
+        if (Rune.isCurse(rune) && RuneFeatureClient.glitchCurseNames)
             return CurseGlitch.corrupt(name, color);
         return name.copy().withStyle(color);
     }
 
     public static boolean showExtraInfos(TooltipFlag flag) {
-        return flag.hasShiftDown() || alwaysShowExtraInfos;
+        return flag.hasShiftDown() || RuneFeatureClient.alwaysShowExtraInfos;
     }
 
 }

@@ -42,15 +42,25 @@ public class RuneEnchanting {
     public static final String MOD_ID = "runeenchanting";
     public static final Logger LOGGER = LogUtils.getLogger();
 
+    public static final String MAIN_MODULE = MOD_ID + ":main";
+    public static final String COMMON_MODULE = MOD_ID + ":common";
+    public static final String CLIENT_MODULE = MOD_ID + ":client";
+
     public static ILModConfig CONFIG;
+    public static ILModConfig COMMON_CONFIG;
+    public static ILModConfig CLIENT_CONFIG;
     public static final String CONFIG_FOLDER = "config/" + MOD_ID;
 
     public static final DecimalFormat ONE_DECIMAL_FORMATTER = Util.make(new DecimalFormat("#.#"), fmt -> fmt.setDecimalFormatSymbols(DecimalFormatSymbols.getInstance(Locale.ROOT)));
     public static final DecimalFormat NO_DECIMAL_FORMATTER = Util.make(new DecimalFormat("#"), fmt -> fmt.setDecimalFormatSymbols(DecimalFormatSymbols.getInstance(Locale.ROOT)));
 
     public RuneEnchanting(IEventBus modEventBus, ModContainer modContainer) {
-        CONFIG = new ILModConfig(id("main"), "Single Module", ModConfig.Type.COMMON, modEventBus, RuneEnchanting.class.getClassLoader());
-        modContainer.registerConfig(ModConfig.Type.COMMON, CONFIG.spec, MOD_ID + "/main.toml");
+        CONFIG = new ILModConfig(ResourceLocation.parse(MAIN_MODULE), "Single Module", ModConfig.Type.SERVER, modEventBus, RuneEnchanting.class.getClassLoader());
+        modContainer.registerConfig(ModConfig.Type.SERVER, CONFIG.spec, MOD_ID + "/main.toml");
+        COMMON_CONFIG = new ILModConfig(ResourceLocation.parse(COMMON_MODULE), "Common", ModConfig.Type.COMMON, modEventBus, RuneEnchanting.class.getClassLoader());
+        modContainer.registerConfig(ModConfig.Type.COMMON, COMMON_CONFIG.spec, MOD_ID + "/common.toml");
+        CLIENT_CONFIG = new ILModConfig(ResourceLocation.parse(CLIENT_MODULE), "Client", ModConfig.Type.CLIENT, modEventBus, RuneEnchanting.class.getClassLoader());
+        modContainer.registerConfig(ModConfig.Type.CLIENT, CLIENT_CONFIG.spec, MOD_ID + "/client.toml");
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(RERunes::registerRegistry);
         NeoForge.EVENT_BUS.addListener(this::onAddReloadListeners);
