@@ -8,11 +8,9 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -63,10 +61,8 @@ public class DoubleJumpRune extends Rune {
         Player player = mc.player;
         if (player == null)
             return;
-        if (player.onGround() || player.onClimbable() || player.isInWaterOrBubble() || player.getVehicle() != null) {
-            player.getPersistentData().remove(DOUBLE_JUMPS_KEY);
+        if (canJumpNormally(player))
             return;
-        }
         int jumpsUsed = player.getPersistentData().getInt(DOUBLE_JUMPS_KEY);
         if (jumpsUsed >= extraJumps)
             return;
@@ -85,10 +81,15 @@ public class DoubleJumpRune extends Rune {
         player.playSound(SoundEvents.FIREWORK_ROCKET_LAUNCH, 0.5f, 2f);
     }
 
-    @Override
-    public void tickEffects(ServerLevel level, ItemStack stack, LivingEntity entity) {
-        if (entity.onGround())
-            entity.getPersistentData().remove(DOUBLE_JUMPS_KEY);
+    private static boolean canJumpNormally(Player player) {
+        return player.onGround() || player.onClimbable() || player.isInWaterOrBubble() || player.getVehicle() != null;
+    }
+
+    ///The jump counter lives on the client only, so it's reset every client tick instead of only when jump is pressed on the ground.
+    @OnlyIn(Dist.CLIENT)
+    public static void resetJumpsIfLanded(Player player) {
+        if (canJumpNormally(player))
+            player.getPersistentData().remove(DOUBLE_JUMPS_KEY);
     }
 
     @Override

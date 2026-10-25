@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.SheetedDecalTextureGenerator;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import insane96mcp.insanelib.event.PlayerSprintEvent;
 import insane96mcp.runeenchanting.mixin.client.LevelRendererAccessor;
+import insane96mcp.runeenchanting.runes.DoubleJumpRune;
 import insane96mcp.runeenchanting.runes.Rune;
 import it.unimi.dsi.fastutil.ints.Int2LongMap;
 import it.unimi.dsi.fastutil.ints.Int2LongOpenHashMap;
@@ -30,6 +31,7 @@ import net.minecraft.world.phys.HitResult;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 
@@ -66,6 +68,13 @@ public class RuneHooksClient {
             ItemStack stack = player.getItemBySlot(slot);
             RuneHooks.forRunes(stack, slot, rune -> rune.onSprintCheck(event, stack));
         }
+    }
+
+    @SubscribeEvent
+    public static void onClientTick(ClientTickEvent.Post event) {
+        LocalPlayer player = Minecraft.getInstance().player;
+        if (player != null)
+            DoubleJumpRune.resetJumpsIfLanded(player);
     }
 
     @SubscribeEvent
