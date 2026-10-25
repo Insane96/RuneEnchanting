@@ -2,6 +2,7 @@ package insane96mcp.runeenchanting.runes;
 
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
+import insane96mcp.runeenchanting.util.REUtils;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -17,6 +18,8 @@ import javax.annotation.Nullable;
 public class ImpalingRune extends Rune {
     @Config
     public static Double bonusDamage = 0.7d;
+    @Config(description = "Percentage bonus damage dealt by arrows shot with bows and crossbows")
+    public static Double arrowBonusDamage = 2d;
     //TODO Bonus effect like Smite and BoH
     //@Config
     //public static Integer weaknessAmplifier = 3;
@@ -37,19 +40,20 @@ public class ImpalingRune extends Rune {
 
     @Override
     public @Nullable String getInfo() {
-        return "Bonus damage: %s%%";
+        return "Bonus damage: %s%% (Arrows: %s%%)";
     }
 
     @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
-        appender.addTag(REItemTagProvider.WEAPONS);
+        appender.addTag(REItemTagProvider.WEAPONS)
+                .addTag(REItemTagProvider.RANGED_WEAPONS);
     }
 
     @Override
     public float modifyEnchantmentDamage(LivingEntity attacker, Entity attacked, float damage, float originalDamage, DamageSource damageSource, ItemStack stack) {
         if (!attacked.isInWaterOrRain())
             return super.modifyEnchantmentDamage(attacker, attacked, damage, originalDamage, damageSource, stack);
-        return (float) (damage + (originalDamage * bonusDamage));
+        return (float) (damage + (originalDamage * (REUtils.isArrowHit(damageSource) ? arrowBonusDamage : bonusDamage)));
     }
 
     /*@Override
@@ -65,6 +69,6 @@ public class ImpalingRune extends Rune {
 
     @Override
     public MutableComponent getInfoComponent() {
-        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(bonusDamage * 100));
+        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(bonusDamage * 100), IAttributeExtension.FORMAT.format(arrowBonusDamage * 100));
     }
 }

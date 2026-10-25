@@ -4,6 +4,15 @@ Requires InsaneLib 2.4.36.0
   * `main.toml` and `runes.toml` are now server configs: values are decided by the server and synced to clients, and can be overridden per world in `saves/<world>/serverconfig/`
   * The new `common.toml` contains "Integrated data pack"
   * The new `client.toml` contains "Hide enchanting related items", "Always show extra infos" and "Glitch curse names"
+* Bows and crossbows now share all their runes: Infinity, Gravity Defying, Knockback and Flame can be applied to crossbows, Piercing, Multishot, Quick Charge and Curse of Slow Charge to bows
+  * Quick Charge and Curse of Slow Charge are now a percentage of the charge time (-60% and +40%) instead of flat seconds, and also change how fast bows are drawn
+* Melee weapon runes can now be applied to bows and crossbows too, and work on the arrows shot
+  * Sharpness, Smite, Bane of Hissing, Bane of Noses, Impaling, Water Coolant, Fire Surge and Rage deal more bonus damage with arrows, configurable separately
+  * Smite's Weakness, Bane of Hissing's Slowness and Water Coolant's freeze aren't applied by arrows, unless enabled in the config
+  * Electrocution charges the bow or crossbow that shot the arrow, as long as it's still in the shooter's inventory
+  * Explosive, Curse of Explosion and Part Breaker work like in melee
+* Removed Power, merged into Sharpness. Items with Power now have Sharpness
+* Sharpness now also applies to thrown tridents (requires the upcoming InsaneLib version)
 * Reworked Electrocution
   * Instead of charging the target on every hit and discharging after a delay, damage dealt now charges the weapon. Once 20 damage has been accumulated, the hit discharges
   * The accumulated damage slowly decreases over time (2 per second)

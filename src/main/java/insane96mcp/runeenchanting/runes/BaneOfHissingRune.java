@@ -29,12 +29,16 @@ public class BaneOfHissingRune extends Rune {
 
     @Config
     public static Double bonusDamage = 0.7d;
+    @Config(description = "Percentage bonus damage dealt by arrows shot with bows and crossbows")
+    public static Double arrowBonusDamage = 2d;
     @Config
     public static Integer slownessAmplifier = 3;
     @Config(description = "In seconds")
     public static Double slownessDurationMin = 1.5d;
     @Config(description = "In seconds")
     public static Double slownessDurationMax = 3d;
+    @Config(description = "If true, arrows apply Slowness too")
+    public static Boolean arrowEffects = false;
 
     @Override
     public String getName() {
@@ -48,34 +52,35 @@ public class BaneOfHissingRune extends Rune {
 
     @Override
     public @Nullable String getInfo() {
-        return "Bonus damage: %s%%, Applies Slowness %s for %ss~%ss";
+        return "Bonus damage: %s%% (Arrows: %s%%), Applies Slowness %s for %ss~%ss";
     }
 
     @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
-        appender.addTag(REItemTagProvider.WEAPONS);
+        appender.addTag(REItemTagProvider.WEAPONS)
+                .addTag(REItemTagProvider.RANGED_WEAPONS);
     }
 
     @Override
     public float modifyEnchantmentDamage(LivingEntity attacker, Entity attacked, float damage, float originalDamage, DamageSource damageSource, ItemStack stack) {
         if (!attacked.getType().is(SENSITIVE))
             return super.modifyEnchantmentDamage(attacker, attacked, damage, originalDamage, damageSource, stack);
-        return (float) (damage + (originalDamage * bonusDamage));
+        return (float) (damage + (originalDamage * (REUtils.isArrowHit(damageSource) ? arrowBonusDamage : bonusDamage)));
     }
 
     @Override
     public void onPostAttack(ServerLevel level, @Nullable ItemStack stack, EnchantmentTarget target, Entity attacked, DamageSource damageSource) {
         if (target != EnchantmentTarget.ATTACKER
-                || damageSource.getDirectEntity() != damageSource.getEntity()
+                || (damageSource.getDirectEntity() != damageSource.getEntity() && !(arrowEffects && REUtils.isArrowHit(damageSource)))
                 || !attacked.getType().is(SENSITIVE)
                 || !(attacked instanceof LivingEntity livingEntity))
             return;
 
-        livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, (int) (Mth.nextDouble(level.random, slownessDurationMin, slownessDurationMax) * 20f * REUtils.getAttackStrengthScale(damageSource.getEntity())), slownessAmplifier));
+        livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, (int) (Mth.nextDouble(level.random, slownessDurationMin, slownessDurationMax) * 20f * REUtils.getAttackStrengthScale(damageSource)), slownessAmplifier));
     }
 
     @Override
     public MutableComponent getInfoComponent() {
-        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(bonusDamage * 100), Component.translatable("potion.potency." + slownessAmplifier), slownessDurationMin, slownessDurationMax);
+        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(bonusDamage * 100), IAttributeExtension.FORMAT.format(arrowBonusDamage * 100), Component.translatable("potion.potency." + slownessAmplifier), slownessDurationMin, slownessDurationMax);
     }
 }

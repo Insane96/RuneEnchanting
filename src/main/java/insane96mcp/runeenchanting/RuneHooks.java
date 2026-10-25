@@ -10,6 +10,7 @@ import insane96mcp.runeenchanting.runes.ProjectileProtectionRune;
 import insane96mcp.runeenchanting.runes.Rune;
 import insane96mcp.runeenchanting.runes.VibrationDetectionRune;
 import insane96mcp.runeenchanting.setup.RERunes;
+import insane96mcp.runeenchanting.util.REUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
@@ -64,6 +65,12 @@ public class RuneHooks extends Feature {
 
         if (event.getSource().getEntity() instanceof LivingEntity attacker)
             forEquipmentForRunes(attacker, (stack, rune) -> rune.onLivingDamagePre(event, stack, EnchantmentTarget.ATTACKER));
+
+        if (REUtils.isArrowHit(event.getSource()) && event.getSource().getDirectEntity() instanceof AbstractArrow arrow) {
+            ItemStack weapon = arrow.getWeaponItem();
+            if (weapon != null)
+                forRunes(weapon, rune -> rune.onArrowDamagePre(event, arrow, weapon));
+        }
     }
 
     @SubscribeEvent
@@ -491,15 +498,22 @@ public class RuneHooks extends Feature {
         return acceleration;
     }
 
-    public static float modifyCrossbowChargingTime(ItemStack stack, LivingEntity entity, float original) {
+    public static float modifyChargingTime(ItemStack stack, LivingEntity entity, float original) {
         List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
         if (runes == null)
             return original;
         float chargingTime = original;
         for (Holder<Rune> holder : runes) {
-            chargingTime = holder.value().modifyCrossbowChargingTime(stack, entity, original, chargingTime);
+            chargingTime = holder.value().modifyChargingTime(stack, entity, original, chargingTime);
         }
         return chargingTime;
+    }
+
+    /**
+     * Bows have no charging time hook, so the runes' charging time is applied as a multiplier of the vanilla time to fully draw the bow (1 second)
+     */
+    public static float getBowChargingTimeMultiplier(ItemStack stack, LivingEntity entity) {
+        return Math.max(0.05f, modifyChargingTime(stack, entity, 1f));
     }
 
     public static float modifyTridentSpinAttackStrength(ItemStack stack, LivingEntity entity, float original) {

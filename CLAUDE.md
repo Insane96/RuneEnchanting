@@ -74,13 +74,15 @@ All declared in `runeenchanting.mixins.json`. Server-side:
 - `EnchantmentHelperMixin` — `@Mixin(EnchantmentHelper.class)` hooks virtually all `EnchantmentHelper` static methods (damage, protection, projectiles, durability, experience, fishing, etc.) to dispatch to `RuneFeature` static methods. Also cancels `enchantItem`/`enchantItemFromProvider` when `disableExperience` is active.
 - `LivingEntityMixin` — hooks into `LivingEntity` for rune-driven living entity effects.
 - `MobMixin` — hooks `Mob` for mob-specific rune interactions.
-- `AbstractArrowMixin` — hooks arrows for projectile rune effects.
+- `AbstractArrowMixin` — hooks arrows for projectile rune effects (Gravity Defying) and calls `RuneHooks.onEnchantmentDamage` on arrow hits, so melee damage runes work with bows/crossbows.
+- `BowItemMixin` — scales the bow draw time by the runes' charging time (Quick Charge, Curse of Slow Charge).
 - `ProjectileWeaponItemMixin` — hooks crossbow/bow firing for projectile rune effects.
 - `EnchantWithLevelsFunctionMixin` / `EnchantRandomlyFunctionMixin` — cancels loot-table enchant functions when `disableExperience` is active (replaced by rune loot modifiers).
 - `FishingHookAccessor` / `MobEffectInstanceAccessor` — accessor mixins exposing private fields.
 
 Client-side (in `mixin/client/`):
 - `GuiGraphicsMixin` — suppresses the XP bar rendering when `disableExperience` is active.
+- `AbstractClientPlayerMixin` — makes the bow FOV zoom follow the bow's charging time (the bow `pull` item property is re-registered in `ClientSetup.onClientSetup`).
 - `LightTextureMixin` — client light texture hook (used by a rune effect).
 - `LevelRendererAccessor` — accessor for level renderer internals.
 

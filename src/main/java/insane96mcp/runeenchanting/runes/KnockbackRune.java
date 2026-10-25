@@ -11,7 +11,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.extensions.IAttributeExtension;
 
 import javax.annotation.Nullable;
@@ -40,7 +39,7 @@ public class KnockbackRune extends Rune {
     @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
         appender.addTag(REItemTagProvider.WEAPONS)
-                .add(Items.BOW);
+                .addTag(REItemTagProvider.RANGED_WEAPONS);
     }
 
     @Override

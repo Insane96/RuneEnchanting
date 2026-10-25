@@ -19,6 +19,7 @@ import java.util.concurrent.CompletableFuture;
 public class REItemTagProvider extends ItemTagsProvider {
 
     public static final TagKey<Item> WEAPONS = TagKey.create(Registries.ITEM, RuneEnchanting.id("weapons"));
+    public static final TagKey<Item> RANGED_WEAPONS = TagKey.create(Registries.ITEM, RuneEnchanting.id("ranged_weapons"));
     /**
      * Curated set of representative items used to show which items a rune is compatible with in its tooltip.
      */
@@ -34,6 +35,8 @@ public class REItemTagProvider extends ItemTagsProvider {
                 .addTag(ItemTags.SWORDS)
                 .addTag(ItemTags.AXES)
                 .add(Items.TRIDENT, Items.MACE);
+        tag(RANGED_WEAPONS)
+                .add(Items.BOW, Items.CROSSBOW);
         tag(DISPLAY_ON_RUNE)
                 .add(Items.DIAMOND_SWORD, Items.DIAMOND_PICKAXE, Items.DIAMOND_AXE, Items.DIAMOND_SHOVEL, Items.DIAMOND_HOE)
                 .add(Items.DIAMOND_HELMET, Items.DIAMOND_CHESTPLATE, Items.DIAMOND_LEGGINGS, Items.DIAMOND_BOOTS)

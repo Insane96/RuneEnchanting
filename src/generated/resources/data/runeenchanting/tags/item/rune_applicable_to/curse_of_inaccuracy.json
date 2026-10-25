@@ -1,6 +1,5 @@
 {
   "values": [
-    "minecraft:bow",
-    "minecraft:crossbow"
+    "#runeenchanting:ranged_weapons"
   ]
 }

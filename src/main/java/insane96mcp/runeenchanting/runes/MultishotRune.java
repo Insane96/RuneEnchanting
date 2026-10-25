@@ -1,6 +1,7 @@
 package insane96mcp.runeenchanting.runes;
 
 import insane96mcp.insanelib.core.feature.config.Config;
+import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -8,7 +9,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.extensions.IAttributeExtension;
 
 import javax.annotation.Nullable;
@@ -19,6 +19,12 @@ public class MultishotRune extends Rune {
     @Config
     public static Double arrowSpread = 10d;
 
+    //Run before the other runes so they can change the arrows used for all the shots (e.g. Infinity)
+    @Override
+    public int getPriority() {
+        return -1;
+    }
+
     @Override
     public String getName() {
         return "Multishot";
@@ -26,17 +32,17 @@ public class MultishotRune extends Rune {
 
     @Override
     public String getDescription() {
-        return "Load and shot 3 arrows at once";
+        return "Shoots multiple arrows at once";
     }
 
     @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
-        appender.add(Items.CROSSBOW);
+        appender.addTag(REItemTagProvider.RANGED_WEAPONS);
     }
 
     @Override
     public int modifyAmmoUse(ServerLevel level, ItemStack weapon, ItemStack ammo, int originalCount, int count) {
-        return arrowsShot;
+        return count * arrowsShot;
     }
 
     @Override

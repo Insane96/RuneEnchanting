@@ -52,7 +52,8 @@ public class ExplosiveRune extends Rune {
 
     @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
-        appender.addTag(REItemTagProvider.WEAPONS);
+        appender.addTag(REItemTagProvider.WEAPONS)
+                .addTag(REItemTagProvider.RANGED_WEAPONS);
     }
 
     @Override

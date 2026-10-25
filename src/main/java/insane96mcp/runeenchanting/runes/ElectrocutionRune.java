@@ -16,11 +16,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageType;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntitySelector;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.OwnableEntity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentTarget;
@@ -32,12 +31,13 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 public class ElectrocutionRune extends Rune {
     public static final ResourceKey<DamageType> DAMAGE_TYPE = ResourceKey.create(Registries.DAMAGE_TYPE, RuneEnchanting.id("electrocution"));
     private static final ResourceLocation NBT_PENDING_DISCHARGE = RuneEnchanting.id("electrocution/pending_discharge");
 
-    @Config(description = "Melee damage the weapon must deal before its next hit discharges")
+    @Config(description = "Damage the weapon must deal before its next hit discharges")
     public static Double damageToAccumulate = 20d;
     @Config(description = "How much of the weapon's accumulated damage is lost per second")
     public static Double decayPerSecond = 2d;
@@ -65,7 +65,8 @@ public class ElectrocutionRune extends Rune {
 
     @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
-        appender.addTag(REItemTagProvider.WEAPONS);
+        appender.addTag(REItemTagProvider.WEAPONS)
+                .addTag(REItemTagProvider.RANGED_WEAPONS);
     }
 
     @Override
@@ -76,7 +77,58 @@ public class ElectrocutionRune extends Rune {
                 || event.getSource().getDirectEntity() != event.getSource().getEntity())
             return;
 
-        float accumulated = getAccumulatedDamage(level, stack) + event.getNewDamage();
+        charge(level, stack, attacked, event.getNewDamage(), event.getSource().getEntity());
+    }
+
+    /// Marks the bow/crossbow so that the arrows shot can find it later (they only carry a copy of the weapon).
+    @Override
+    public void onProjectileSpawned(ServerLevel level, ItemStack stack, AbstractArrow arrow, Consumer<Item> onBreak) {
+        UUID weaponId = stack.get(REDataComponents.ELECTROCUTION_WEAPON_ID);
+        if (weaponId == null) {
+            weaponId = UUID.randomUUID();
+            stack.set(REDataComponents.ELECTROCUTION_WEAPON_ID, weaponId);
+        }
+        // The arrow copied the weapon before this is called
+        ItemStack arrowWeapon = arrow.getWeaponItem();
+        if (arrowWeapon != null)
+            arrowWeapon.set(REDataComponents.ELECTROCUTION_WEAPON_ID, weaponId);
+    }
+
+    /// Arrows charge the weapon that shot them, as long as it's still in the shooter's inventory.
+    @Override
+    public void onArrowDamagePre(LivingDamageEvent.Pre event, AbstractArrow arrow, ItemStack weapon) {
+        LivingEntity attacked = event.getEntity();
+        UUID weaponId = weapon.get(REDataComponents.ELECTROCUTION_WEAPON_ID);
+        if (!(attacked.level() instanceof ServerLevel level)
+                || weaponId == null
+                || !(event.getSource().getEntity() instanceof LivingEntity shooter))
+            return;
+
+        ItemStack shooterWeapon = findWeapon(shooter, weaponId);
+        if (shooterWeapon.isEmpty())
+            return;
+        charge(level, shooterWeapon, attacked, event.getNewDamage(), shooter);
+    }
+
+    private static ItemStack findWeapon(LivingEntity entity, UUID weaponId) {
+        if (entity instanceof Player player) {
+            for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+                ItemStack stack = player.getInventory().getItem(i);
+                if (weaponId.equals(stack.get(REDataComponents.ELECTROCUTION_WEAPON_ID)))
+                    return stack;
+            }
+            return ItemStack.EMPTY;
+        }
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
+            ItemStack stack = entity.getItemBySlot(slot);
+            if (weaponId.equals(stack.get(REDataComponents.ELECTROCUTION_WEAPON_ID)))
+                return stack;
+        }
+        return ItemStack.EMPTY;
+    }
+
+    private static void charge(ServerLevel level, ItemStack stack, LivingEntity attacked, float damage, Entity attacker) {
+        float accumulated = getAccumulatedDamage(level, stack) + damage;
         if (accumulated < damageToAccumulate) {
             stack.set(REDataComponents.ELECTROCUTION_CHARGE, accumulated);
             stack.set(REDataComponents.ELECTROCUTION_LAST_CHARGED_AT, level.getGameTime());
@@ -86,7 +138,7 @@ public class ElectrocutionRune extends Rune {
         // The target is still inside its own hurt call here, so the discharge is deferred to its next tick
         stack.remove(REDataComponents.ELECTROCUTION_CHARGE);
         stack.remove(REDataComponents.ELECTROCUTION_LAST_CHARGED_AT);
-        ModNBTData.put(attacked, NBT_PENDING_DISCHARGE, event.getSource().getEntity().getUUID());
+        ModNBTData.put(attacked, NBT_PENDING_DISCHARGE, attacker.getUUID());
     }
 
     @Override

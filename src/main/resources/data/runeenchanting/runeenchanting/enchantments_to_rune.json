@@ -24,7 +24,7 @@
   "minecraft:mending": "",
   "minecraft:multishot": "runeenchanting:multishot",
   "minecraft:piercing": "runeenchanting:piercing",
-  "minecraft:power": "runeenchanting:power",
+  "minecraft:power": "runeenchanting:sharpness",
   "minecraft:projectile_protection": "runeenchanting:projectile_protection",
   "minecraft:protection": "runeenchanting:protection",
   "minecraft:punch": "runeenchanting:knockback",

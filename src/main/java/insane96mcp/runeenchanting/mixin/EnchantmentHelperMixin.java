@@ -129,7 +129,7 @@ public class EnchantmentHelperMixin {
 
     @ModifyReturnValue(method = "modifyCrossbowChargingTime", at = @At("RETURN"))
     private static float runeenchanting$modifyCrossbowChargingTime(float original, ItemStack stack, LivingEntity entity, float crossbowChargingTime) {
-        return RuneHooks.modifyCrossbowChargingTime(stack, entity, original);
+        return RuneHooks.modifyChargingTime(stack, entity, original);
     }
 
     @ModifyReturnValue(method = "getTridentSpinAttackStrength", at = @At("RETURN"))

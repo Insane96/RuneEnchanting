@@ -3,6 +3,8 @@ package insane96mcp.runeenchanting.util;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.ThrownTrident;
 
 public class REUtils {
     public static float getAttackStrengthScale(Entity entity) {
@@ -11,6 +13,23 @@ public class REUtils {
             return f * f;
         }
         return 1f;
+    }
+
+    /**
+     * Like {@link #getAttackStrengthScale(Entity)}, but projectiles (arrows and thrown tridents) always count as fully charged, as the attack cooldown is irrelevant for them.
+     */
+    public static float getAttackStrengthScale(DamageSource damageSource) {
+        if (damageSource.getDirectEntity() != damageSource.getEntity())
+            return 1f;
+        return getAttackStrengthScale(damageSource.getEntity());
+    }
+
+    /**
+     * True if the damage was dealt by an arrow shot from a bow or crossbow. Thrown tridents are excluded, as they deal their damage based off the item's attack damage
+     */
+    public static boolean isArrowHit(DamageSource damageSource) {
+        return damageSource.getDirectEntity() instanceof AbstractArrow
+                && !(damageSource.getDirectEntity() instanceof ThrownTrident);
     }
 
     public static boolean isAttackCharged(DamageSource damageSource) {

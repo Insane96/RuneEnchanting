@@ -13,7 +13,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentTarget;
 import net.neoforged.neoforge.common.extensions.IAttributeExtension;
 
@@ -44,7 +43,7 @@ public class FlameRune extends Rune {
     @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
         appender.addTag(REItemTagProvider.WEAPONS)
-                .add(Items.BOW);
+                .addTag(REItemTagProvider.RANGED_WEAPONS);
     }
 
     @Override
@@ -53,7 +52,7 @@ public class FlameRune extends Rune {
                 || !(attacked instanceof LivingEntity livingEntity))
             return;
 
-        livingEntity.setRemainingFireTicks((int) (secondsOnFire * 20 * REUtils.getAttackStrengthScale(damageSource.getEntity())));
+        livingEntity.setRemainingFireTicks((int) (secondsOnFire * 20 * REUtils.getAttackStrengthScale(damageSource)));
     }
 
     @Override

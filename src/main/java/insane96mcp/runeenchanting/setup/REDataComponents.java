@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.runes.Rune;
 import net.minecraft.core.Holder;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -11,6 +12,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.List;
+import java.util.UUID;
 
 public class REDataComponents {
     public static final DeferredRegister<DataComponentType<?>> REGISTRY =
@@ -57,6 +59,13 @@ public class REDataComponents {
             REGISTRY.register("electrocution_last_charged_at", () -> DataComponentType.<Long>builder()
                     .persistent(Codec.LONG)
                     .networkSynchronized(ByteBufCodecs.VAR_LONG)
+                    .build());
+
+    ///Identifies a bow/crossbow with Electrocution, so that arrows (which carry a copy of the weapon) can find and charge it in the shooter's inventory
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<UUID>> ELECTROCUTION_WEAPON_ID =
+            REGISTRY.register("electrocution_weapon_id", () -> DataComponentType.<UUID>builder()
+                    .persistent(UUIDUtil.CODEC)
+                    .networkSynchronized(UUIDUtil.STREAM_CODEC)
                     .build());
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> CHARGED_JUMP =

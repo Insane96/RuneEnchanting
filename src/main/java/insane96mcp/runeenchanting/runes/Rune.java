@@ -137,6 +137,11 @@ public abstract class Rune {
 
     }
 
+    /**
+     * Called when an arrow shot from a weapon with this rune is about to damage an entity. {@code weapon} is the copy of the weapon carried by the arrow, not the actual weapon
+     */
+    public void onArrowDamagePre(LivingDamageEvent.Pre event, AbstractArrow arrow, ItemStack weapon) {}
+
     public void tickEffects(ServerLevel level, ItemStack stack, LivingEntity entity) {}
 
     /**
@@ -256,7 +261,7 @@ public abstract class Rune {
         return acceleration;
     }
 
-    public float modifyCrossbowChargingTime(ItemStack stack, LivingEntity entity, float original, float chargingTime) {
+    public float modifyChargingTime(ItemStack stack, LivingEntity entity, float original, float chargingTime) {
         return chargingTime;
     }
 

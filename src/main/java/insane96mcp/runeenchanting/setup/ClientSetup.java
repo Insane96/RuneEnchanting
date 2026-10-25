@@ -1,13 +1,18 @@
 package insane96mcp.runeenchanting.setup;
 
 import insane96mcp.runeenchanting.RuneFeatureClient;
+import insane96mcp.runeenchanting.RuneHooks;
 import insane96mcp.runeenchanting.runes.Rune;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
 import net.neoforged.neoforge.client.event.RegisterItemDecorationsEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
@@ -16,6 +21,15 @@ import java.util.Comparator;
 import java.util.Locale;
 
 public class ClientSetup {
+
+    public static void onClientSetup(FMLClientSetupEvent event) {
+        //Replaces the vanilla bow "pull" property so that the drawing animation follows the bow's charging time
+        event.enqueueWork(() -> ItemProperties.register(Items.BOW, ResourceLocation.withDefaultNamespace("pull"), (ClampedItemPropertyFunction) (stack, level, entity, seed) -> {
+            if (entity == null || entity.getUseItem() != stack)
+                return 0f;
+            return (stack.getUseDuration(entity) - entity.getUseItemRemainingTicks()) / (20f * RuneHooks.getBowChargingTimeMultiplier(stack, entity));
+        }));
+    }
 
     public static void onRegisterItemDecorations(RegisterItemDecorationsEvent event) {
         event.register(REItems.RUNE.get(), (guiGraphics, font, stack, xOffset, yOffset) -> {

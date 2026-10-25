@@ -78,6 +78,7 @@ public class RuneEnchanting {
         RERecipes.REGISTRY.register(modEventBus);
         RECriteriaTriggers.REGISTRY.register(modEventBus);
         if (FMLLoader.getDist().isClient()) {
+            modEventBus.addListener(ClientSetup::onClientSetup);
             modEventBus.addListener(ClientSetup::onBuildCreativeModeTabContents);
             modEventBus.addListener(ClientSetup::onRegisterItemDecorations);
             modEventBus.addListener(ClientSetup::onRegisterClientTooltipComponentFactories);

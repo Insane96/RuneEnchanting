@@ -26,8 +26,12 @@ public class WaterCoolantRune extends Rune {
 
     @Config
     public static Double bonusDamage = 0.7d;
+    @Config(description = "Percentage bonus damage dealt by arrows shot with bows and crossbows")
+    public static Double arrowBonusDamage = 2d;
     @Config
     public static Integer freezeAmount = 5;
+    @Config(description = "If true, arrows freeze too")
+    public static Boolean arrowEffects = false;
 
     @Override
     public String getName() {
@@ -41,32 +45,34 @@ public class WaterCoolantRune extends Rune {
 
     @Override
     public @Nullable String getInfo() {
-        return "Bonus damage: %s%%. Freeze: %ss";
+        return "Bonus damage: %s%% (Arrows: %s%%). Freeze: %ss";
     }
 
     @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
-        appender.addTag(REItemTagProvider.WEAPONS);
+        appender.addTag(REItemTagProvider.WEAPONS)
+                .addTag(REItemTagProvider.RANGED_WEAPONS);
     }
 
     @Override
     public float modifyEnchantmentDamage(LivingEntity attacker, Entity attacked, float damage, float originalDamage, DamageSource damageSource, ItemStack stack) {
         if (!attacked.getType().is(SENSITIVE))
             return super.modifyEnchantmentDamage(attacker, attacked, damage, originalDamage, damageSource, stack);
-        return (float) (damage + (originalDamage * bonusDamage));
+        return (float) (damage + (originalDamage * (REUtils.isArrowHit(damageSource) ? arrowBonusDamage : bonusDamage)));
     }
 
     @Override
     public void onPostAttack(ServerLevel level, @Nullable ItemStack stack, EnchantmentTarget target, Entity attacked, DamageSource damageSource) {
         if (!(attacked instanceof LivingEntity livingEntity)
-                || !livingEntity.getType().is(SENSITIVE))
+                || !livingEntity.getType().is(SENSITIVE)
+                || (!arrowEffects && REUtils.isArrowHit(damageSource)))
             return;
 
-        livingEntity.setTicksFrozen(Entity.BASE_TICKS_REQUIRED_TO_FREEZE + 10 + (int) (Entity.FREEZE_HURT_FREQUENCY * 2 * freezeAmount * REUtils.getAttackStrengthScale(damageSource.getEntity())));
+        livingEntity.setTicksFrozen(Entity.BASE_TICKS_REQUIRED_TO_FREEZE + 10 + (int) (Entity.FREEZE_HURT_FREQUENCY * 2 * freezeAmount * REUtils.getAttackStrengthScale(damageSource)));
     }
 
     @Override
     public MutableComponent getInfoComponent() {
-        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(bonusDamage * 100), freezeAmount);
+        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(bonusDamage * 100), IAttributeExtension.FORMAT.format(arrowBonusDamage * 100), freezeAmount);
     }
 }

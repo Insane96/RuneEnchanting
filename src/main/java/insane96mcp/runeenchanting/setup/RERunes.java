@@ -64,19 +64,14 @@ public class RERunes {
     // Swords
     public static final DeferredHolder<Rune, SweepingEdgeRune> SWEEPING_EDGE = register("sweeping_edge", new SweepingEdgeRune());
 
-    // Weapons and Bows
+    // Weapons, Bows and Crossbows
     public static final DeferredHolder<Rune, FlameRune> FLAME = register("flame", new FlameRune());
     public static final DeferredHolder<Rune, KnockbackRune> KNOCKBACK = register("knockback", new KnockbackRune());
 
-    // Bows
-    public static final DeferredHolder<Rune, PowerRune> POWER = register("power", new PowerRune());
+    // Bows and Crossbows
     public static final DeferredHolder<Rune, InfinityRune> INFINITY = register("infinity", new InfinityRune());
     public static final DeferredHolder<Rune, GravityDefyingRune> GRAVITY_DEFYING = register("gravity_defying", new GravityDefyingRune());
-
-    // Bows and Crossbow
     public static final DeferredHolder<Rune, HunterRune> HUNTER = register("hunter", new HunterRune());
-
-    // Crossbow
     public static final DeferredHolder<Rune, PiercingRune> PIERCING = register("piercing", new PiercingRune());
     public static final DeferredHolder<Rune, QuickChargeRune> QUICK_CHARGE = register("quick_charge", new QuickChargeRune());
     public static final DeferredHolder<Rune, MultishotRune> MULTISHOT = register("multishot", new MultishotRune());
@@ -174,6 +169,11 @@ public class RERunes {
     public static final DeferredHolder<Rune, CurseOfInaccuracyRune> CURSE_OF_INACCURACY = register("curse_of_inaccuracy", new CurseOfInaccuracyRune());
     public static final DeferredHolder<Rune, CurseOfSlipperinessRune> CURSE_OF_SLIPPERINESS = register("curse_of_slipperiness", new CurseOfSlipperinessRune());
     public static final DeferredHolder<Rune, CurseOfExposureRune> CURSE_OF_EXPOSURE = register("curse_of_exposure", new CurseOfExposureRune());
+
+    static {
+        //Power has been merged into Sharpness, items with Power are loaded with Sharpness
+        RUNES.addAlias(RuneEnchanting.id("power"), RuneEnchanting.id("sharpness"));
+    }
 
     private static <T extends Rune> DeferredHolder<Rune, T> register(String id, T instance) {
         RUNE_ENTRIES.add(Map.entry(id, instance));
