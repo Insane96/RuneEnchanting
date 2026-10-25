@@ -2,6 +2,7 @@ package insane96mcp.runeenchanting.runes;
 
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.RuneEnchanting;
+import insane96mcp.runeenchanting.RuneHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
@@ -10,15 +11,11 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.LevelEvent;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
@@ -79,7 +76,8 @@ public class TunnelingRune extends Rune {
         Direction face = getTargetedFace(level, player, pos, state);
 
         for (BlockPos toMine : getAffectedBlocks(level, stack, player, pos, state, face)) {
-            mineBlock(level, player, stack, toMine);
+            if (stack.isEmpty()) break;
+            RuneHelper.breakExtraBlock(player, toMine);
         }
     }
 
@@ -121,18 +119,6 @@ public class TunnelingRune extends Rune {
             targetPos.above(),
             targetPos.below()
         );
-    }
-
-    private static void mineBlock(ServerLevel level, ServerPlayer player, ItemStack stack, BlockPos pos) {
-        BlockState state = level.getBlockState(pos);
-        BlockEntity blockEntity = state.hasBlockEntity() ? level.getBlockEntity(pos) : null;
-        if (!state.onDestroyedByPlayer(level, pos, player, true, level.getFluidState(pos))) return;
-        state.getBlock().destroy(level, pos, state);
-        if (!player.isCreative()) {
-            state.getBlock().playerDestroy(level, player, pos, state, blockEntity, stack);
-        }
-        level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
-        stack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
     }
 
     @OnlyIn(Dist.CLIENT)

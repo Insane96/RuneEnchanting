@@ -4,11 +4,13 @@ import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
 import insane96mcp.runeenchanting.runes.Rune;
 import insane96mcp.runeenchanting.setup.REDataComponents;
 import insane96mcp.runeenchanting.setup.REItems;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -23,6 +25,27 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class RuneHelper {
+    private static boolean breakingExtraBlock = false;
+
+    /**
+     * Breaks a block as if the player mined it. Fires {@code BlockEvent.BreakEvent} so protections and claims can cancel it, while runes' {@code onBlockBreak} is skipped to avoid chain reactions
+     */
+    public static boolean breakExtraBlock(ServerPlayer player, BlockPos pos) {
+        if (!player.level().mayInteract(player, pos))
+            return false;
+        breakingExtraBlock = true;
+        try {
+            return player.gameMode.destroyBlock(pos);
+        }
+        finally {
+            breakingExtraBlock = false;
+        }
+    }
+
+    public static boolean isBreakingExtraBlock() {
+        return breakingExtraBlock;
+    }
+
     public static boolean hasRune(ItemStack stack, Holder<Rune> rune) {
         if (!Rune.isEnabled(rune))
             return false;

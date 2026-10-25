@@ -13,6 +13,8 @@ Requires InsaneLib 2.4.36.0
 * Fixed Magic Protection, Projectile Protection, Soulbound, Double Jump and Curse of the Void still working when disabled via config or the `disabled` rune tag
 * Fixed the bonus damage from vanilla enchantments (e.g. Sharpness) and from runes such as Power and Hunter being ignored for players, mobs and thrown tridents
 * Fixed players losing all their experience levels on every login when `disable_experience` is false. Only the fake levels given while experience is disabled are now removed
+* Fixed Veining and Tunneling breaking blocks in protected areas (spawn protection, claims, Adventure mode). Additional blocks are now broken like normal player mining, so other mods can prevent it
+* Fixed Veining and Tunneling continuing to mine blocks after the tool broke
 
 # 1.3.3.0
 * Items with runes can no longer be used as the right item in an anvil, preventing their runes from being lost when merging

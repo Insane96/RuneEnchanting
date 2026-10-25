@@ -176,9 +176,11 @@ public class RuneHooks extends Feature {
         return killer.getMainHandItem();
     }
 
-    @SubscribeEvent
+    //LOWEST so that protections and claims can cancel the event before runes (e.g. Veining) break more blocks
+    @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onBlockBreak(BlockEvent.BreakEvent event) {
-        if (!(event.getLevel() instanceof ServerLevel))
+        if (!(event.getLevel() instanceof ServerLevel)
+                || RuneHelper.isBreakingExtraBlock())
             return;
         ItemStack stack = event.getPlayer().getMainHandItem();
         List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
