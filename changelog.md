@@ -3,6 +3,12 @@ Requires InsaneLib 2.4.36.0
 * Decreased Leather armor sockets
 * Increased Enduring Rune bonus durability (+100% -> +200%)
 * Decreased Explosive Rune delay (5s -> 3s)
+* Reworked Electrocution
+  * Instead of charging the target on every hit and discharging after a delay, damage dealt now charges the weapon. Once 20 damage has been accumulated, the hit discharges
+  * The accumulated damage slowly decreases over time (2 per second)
+  * The discharge damage is now dealt separately and ignores invulnerability frames
+  * The discharge now hits the target and the nearest 4 entities (up from 2), but no longer chains further
+  * The discharge no longer hits the attacker, its teammates, its pets and armor stands
 * Items with more runes than sockets (e.g. after sockets were decreased) now have their runes inactive until removed with a grindstone. Curses still apply
 * Curse names in tooltips now randomly glitch, with characters getting obfuscated every now and then (can be disabled in the config)
 * Configs have been split by side. **Options moved to the new files must be set again**

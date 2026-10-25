@@ -46,6 +46,18 @@ public class REDataComponents {
                     .networkSynchronized(ByteBufCodecs.FLOAT)
                     .build());
 
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> ELECTROCUTION_CHARGE =
+            REGISTRY.register("electrocution_charge", () -> DataComponentType.<Float>builder()
+                    .persistent(Codec.FLOAT)
+                    .networkSynchronized(ByteBufCodecs.FLOAT)
+                    .build());
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Long>> ELECTROCUTION_LAST_CHARGED_AT =
+            REGISTRY.register("electrocution_last_charged_at", () -> DataComponentType.<Long>builder()
+                    .persistent(Codec.LONG)
+                    .networkSynchronized(ByteBufCodecs.VAR_LONG)
+                    .build());
+
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> CHARGED_JUMP =
             REGISTRY.register("charged_jump", () -> DataComponentType.<Integer>builder()
                     .persistent(Codec.INT)
