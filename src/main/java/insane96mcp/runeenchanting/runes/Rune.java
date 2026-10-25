@@ -140,6 +140,13 @@ public abstract class Rune {
     public void tickEffects(ServerLevel level, ItemStack stack, LivingEntity entity) {}
 
     /**
+     * Fires every 5 ticks for every {@code LivingEntity} that doesn't have this rune active on its equipment (removed,
+     * disabled, or on an item with more runes than sockets). Used to remove the effects applied by {@link #tickEffects}
+     * (e.g. attribute modifiers).
+     */
+    public void removeEffects(LivingEntity entity) {}
+
+    /**
      * Fires for every {@code LivingEntity} every tick, regardless of whether it carries this rune, unlike
      * {@link #tickEffects}, which only fires for entities that have this rune on their own equipment. Used for
      * effects staged on a target rather than the item holder (e.g. a delayed explosion or shock).

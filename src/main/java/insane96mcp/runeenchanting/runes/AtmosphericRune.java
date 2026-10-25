@@ -23,7 +23,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.extensions.IAttributeExtension;
-import net.neoforged.neoforge.event.entity.living.LivingEquipmentChangeEvent;
 import org.jetbrains.annotations.Nullable;
 
 public class AtmosphericRune extends Rune {
@@ -94,8 +93,8 @@ public class AtmosphericRune extends Rune {
     }
 
     @Override
-    public void onEquipmentChange(LivingEquipmentChangeEvent event, ItemStack stack) {
-        AttributeInstance attr = event.getEntity().getAttribute(Attributes.ATTACK_SPEED);
+    public void removeEffects(LivingEntity entity) {
+        AttributeInstance attr = entity.getAttribute(Attributes.ATTACK_SPEED);
         if (attr != null)
             attr.removeModifier(MODIFIER_ID);
     }

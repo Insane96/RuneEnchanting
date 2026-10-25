@@ -26,6 +26,8 @@ Requires InsaneLib 2.4.36.0
 * Fixed Explosive destroying blocks even when `mobGriefing` is false or `destroyBlocks` is disabled in the config. The explosion is now attributed to the attacker, so kills count as theirs and mods can prevent the griefing
 * Fixed Double Jump not working when walking off a ledge if, since the last double jump, you landed without jumping
 * Fixed Recovery causing an equipment change every second while healing, which made the speed from Retreat, Atmospheric and Unstable Motion flicker. The damage to recover is now stored on the entity instead of the chestplate
+* Fixed the bonus speed from Retreat, Atmospheric and Curse of Unstable Motion staying forever if the rune stopped working without unequipping the item (e.g. rune disabled, removed with a command or item with more runes than sockets)
+* Swapping an item for another one with the same rune (e.g. Retreat) no longer resets its bonus for a moment
 
 # 1.3.3.0
 * Items with runes can no longer be used as the right item in an anvil, preventing their runes from being lost when merging

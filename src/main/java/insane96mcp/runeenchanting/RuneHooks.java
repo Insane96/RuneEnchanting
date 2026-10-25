@@ -40,7 +40,9 @@ import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
 import javax.annotation.Nullable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -432,7 +434,18 @@ public class RuneHooks extends Feature {
     }
 
     public static void tickEffects(ServerLevel level, LivingEntity entity) {
-        forEquipmentForRunes(entity, (stack, rune) -> rune.tickEffects(level, stack, entity));
+        boolean removeInactiveEffects = (entity.tickCount + entity.getId()) % 5 == 0;
+        Set<Rune> activeRunes = removeInactiveEffects ? new HashSet<>() : null;
+        forEquipmentForRunes(entity, (stack, rune) -> {
+            rune.tickEffects(level, stack, entity);
+            if (activeRunes != null)
+                activeRunes.add(rune);
+        });
+        if (!removeInactiveEffects)
+            return;
+        for (Holder<Rune> holder : runeHolders())
+            if (!activeRunes.contains(holder.value()))
+                holder.value().removeEffects(entity);
     }
 
     public static void onEntitySound(Entity source) {

@@ -17,7 +17,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.event.entity.living.LivingEquipmentChangeEvent;
 
 import java.util.List;
 
@@ -68,8 +67,8 @@ public class CurseOfUnstableMotionRune extends Rune {
     }
 
     @Override
-    public void onEquipmentChange(LivingEquipmentChangeEvent event, ItemStack stack) {
-        AttributeInstance attr = event.getEntity().getAttribute(Attributes.MOVEMENT_SPEED);
+    public void removeEffects(LivingEntity entity) {
+        AttributeInstance attr = entity.getAttribute(Attributes.MOVEMENT_SPEED);
         if (attr != null)
             attr.removeModifier(MODIFIER_ID);
     }
