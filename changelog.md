@@ -1,8 +1,9 @@
 # Upcoming
 Requires InsaneLib 2.4.36.0
-* Decreased Leather armor sockets
-* Increased Enduring Rune bonus durability (+100% -> +200%)
-* Decreased Explosive Rune delay (5s -> 3s)
+* Configs have been split by side. **Options moved to the new files must be set again**
+  * `main.toml` and `runes.toml` are now server configs: values are decided by the server and synced to clients, and can be overridden per world in `saves/<world>/serverconfig/`
+  * The new `common.toml` contains "Integrated data pack"
+  * The new `client.toml` contains "Hide enchanting related items", "Always show extra infos" and "Glitch curse names"
 * Reworked Electrocution
   * Instead of charging the target on every hit and discharging after a delay, damage dealt now charges the weapon. Once 20 damage has been accumulated, the hit discharges
   * The accumulated damage slowly decreases over time (2 per second)
@@ -10,40 +11,39 @@ Requires InsaneLib 2.4.36.0
   * The discharge now hits the target and the nearest 4 entities (up from 2), but no longer chains further
   * The discharge no longer hits the attacker, its teammates, its pets and armor stands
 * Items with more runes than sockets (e.g. after sockets were decreased) now have their runes inactive until removed with a grindstone. Curses still apply
-* Curse names in tooltips now randomly glitch, with characters getting obfuscated every now and then (can be disabled in the config)
-* Configs have been split by side. **Options moved to the new files must be set again**
-  * `main.toml` and `runes.toml` are now server configs: values are decided by the server and synced to clients, and can be overridden per world in `saves/<world>/serverconfig/`
-  * The new `common.toml` contains "Integrated data pack"
-  * The new `client.toml` contains "Hide enchanting related items", "Always show extra infos" and "Glitch curse names"
-* Fixed Magic Protection reducing the duration of beneficial effects too, instead of only negative ones
-* Fixed Magic Protection, Projectile Protection, Soulbound, Double Jump and Curse of the Void still working when disabled via config or the `disabled` rune tag
+* Decreased Leather armor sockets
+* Increased Enduring Rune bonus durability (+100% -> +200%)
+* Decreased Explosive Rune delay (5s -> 3s)
+* Curse of Blood Pact and Blood-fueled damage now bypasses armor and no longer consumes its durability
 * Fixed the bonus damage from vanilla enchantments (e.g. Sharpness) and from runes such as Power and Hunter being ignored for players, mobs and thrown tridents
-* Fixed players losing all their experience levels on every login when `disable_experience` is false. Only the fake levels given while experience is disabled are now removed
-* Fixed Veining and Tunneling breaking blocks in protected areas (spawn protection, claims, Adventure mode). Additional blocks are now broken like normal player mining, so other mods can prevent it
-* Fixed Veining and Tunneling continuing to mine blocks after the tool broke
-* Fixed arrows being duplicated when shooting with vanilla Multishot, in creative mode or with infinite arrows, as the extra arrows could be picked up. Now only the arrows actually consumed can be picked up
-* Fixed Soulbound items being lost if the death was canceled by another mod (e.g. a modded totem)
-* Fixed Explosive destroying blocks even when `mobGriefing` is false or `destroyBlocks` is disabled in the config. The explosion is now attributed to the attacker, so kills count as theirs and mods can prevent the griefing
-* Fixed Double Jump not working when walking off a ledge if, since the last double jump, you landed without jumping
-* Fixed Recovery causing an equipment change every second while healing, which made the speed from Retreat, Atmospheric and Unstable Motion flicker. The damage to recover is now stored on the entity instead of the chestplate
-* Fixed the bonus speed from Retreat, Atmospheric and Curse of Unstable Motion staying forever if the rune stopped working without unequipping the item (e.g. rune disabled, removed with a command or item with more runes than sockets)
-* Swapping an item for another one with the same rune (e.g. Retreat) no longer resets its bonus for a moment
 * Fixed runes on weapons and tools working while held in the offhand (e.g. Atmospheric giving attack speed). Like vanilla enchantments, they now only work in the main hand
-* Fixed enchanted books in loot generating two runes instead of one in some loot tables (e.g. mineshafts and ancient cities) when `disable_experience` is false
-* Fixed mobs with enchanted equipment rolling for runes again every time they were loaded (e.g. chunk reloads), when `disable_experience` is false or no rune was applicable. The roll now happens only once per mob
-* Fixed items with vanilla enchantments losing their glint when all their runes were removed
-* Fixed items losing their runes with a grindstone no longer stacking with identical items
+* Fixed arrows being duplicated when shooting with vanilla Multishot, in creative mode or with infinite arrows, as the extra arrows could be picked up. Now only the arrows actually consumed can be picked up
+* Fixed Magic Protection reducing the duration of beneficial effects too, instead of only negative ones
+* Fixed Curse of Blood Pact almost never hurting when triggered by armor, and Blood-fueled/Blood Pact damage being ignored right after taking damage
+* Fixed Magic Protection, Projectile Protection, Soulbound, Double Jump and Curse of the Void still working when disabled via config or the `disabled` rune tag
+* Fixed Veining and Tunneling breaking blocks in protected areas (spawn protection, claims, Adventure mode). Additional blocks are now broken like normal player mining, so other mods can prevent it
+* Fixed Explosive destroying blocks even when `mobGriefing` is false or `destroyBlocks` is disabled in the config. The explosion is now attributed to the attacker, so kills count as theirs and mods can prevent the griefing
+* Fixed Soulbound items being lost if the death was canceled by another mod (e.g. a modded totem)
+* Fixed Telekinesis sending the whole inventory of killed players into the killer's inventory, bypassing grave mods
+* Fixed Double Jump not working when walking off a ledge if, since the last double jump, you landed without jumping
+* Fixed Veining and Tunneling continuing to mine blocks after the tool broke
+* Fixed the bonus speed from Retreat, Atmospheric and Curse of Unstable Motion staying forever if the rune stopped working without unequipping the item (e.g. rune disabled, removed with a command or item with more runes than sockets)
+* Fixed Recovery causing an equipment change every second while healing, which made the speed from Retreat, Atmospheric and Unstable Motion flicker. The damage to recover is now stored on the entity instead of the chestplate
+* Swapping an item for another one with the same rune (e.g. Retreat) no longer resets its bonus for a moment
 * Fixed disabled runes being applicable with an anvil, and items with only disabled runes losing them when merged in an anvil
 * Fixed disabled curses still granting a bonus socket and counting towards the max curses
+* Fixed items losing their runes with a grindstone no longer stacking with identical items
+* Fixed `/rune get_random_rune` losing the rune when the inventory is full. It's now dropped instead
 * Fixed loot generation breaking when every eligible rune tag in a rune loot modifier has a weight of 0
 * Fixed Atmospheric tooltip showing the wrong durability bonus under rain (0.25% instead of 300%)
+* Curse names in tooltips now randomly glitch, with characters getting obfuscated every now and then (can be disabled in the config)
 * Translation keys for sockets, overloaded runes, unknown curses, cursed info and learned curses are now prefixed with `runeenchanting.` to avoid conflicts with other mods
+* Fixed players losing all their experience levels on every login when `disable_experience` is false. Only the fake levels given while experience is disabled are now removed
+* Fixed enchanted books in loot generating two runes instead of one in some loot tables (e.g. mineshafts and ancient cities) when `disable_experience` is false
+* Fixed mobs with enchanted equipment rolling for runes again every time they were loaded (e.g. chunk reloads), when `disable_experience` is false or no rune was applicable. The roll now happens only once per mob
 * Fixed experience orbs saved in the spawn chunks being deleted when loading a world with `disable_experience` set to false
 * Fixed the client using the `disable_experience` value of the previously joined server until the new one was received
-* Fixed Curse of Blood Pact almost never hurting when triggered by armor, and Blood-fueled/Blood Pact damage being ignored right after taking damage
-* Curse of Blood Pact and Blood-fueled damage now bypasses armor and no longer consumes its durability
-* Fixed `/rune get_random_rune` losing the rune when the inventory is full. It's now dropped instead
-* Fixed Telekinesis sending the whole inventory of killed players into the killer's inventory, bypassing grave mods
+* Fixed items with vanilla enchantments losing their glint when all their runes were removed
 
 # 1.3.3.0
 * Items with runes can no longer be used as the right item in an anvil, preventing their runes from being lost when merging
