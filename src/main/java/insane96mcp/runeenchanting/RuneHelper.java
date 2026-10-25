@@ -24,11 +24,15 @@ import java.util.stream.Collectors;
 
 public class RuneHelper {
     public static boolean hasRune(ItemStack stack, Holder<Rune> rune) {
+        if (!Rune.isEnabled(rune))
+            return false;
         List<Holder<Rune>> runes = stack.get(REDataComponents.RUNES);
         return runes != null && runes.contains(rune) && (Rune.isCurse(rune) || !isOverloaded(stack));
     }
 
     public static boolean hasRuneOnArmor(LivingEntity entity, Holder<Rune> rune) {
+        if (!Rune.isEnabled(rune))
+            return false;
         for (ItemStack stack : entity.getArmorSlots()) {
             List<Holder<Rune>> runes = stack.get(REDataComponents.RUNES);
             if (runes == null)
