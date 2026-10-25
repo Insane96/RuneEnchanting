@@ -10,6 +10,7 @@
   * The new `client.toml` contains "Hide enchanting related items", "Always show extra infos" and "Glitch curse names"
 * Requires InsaneLib 2.4.36.0
 * Fixed the bonus damage from vanilla enchantments (e.g. Sharpness) and from runes such as Power and Hunter being ignored for players, mobs and thrown tridents
+* Fixed players losing all their experience levels on every login when `disable_experience` is false. Only the fake levels given while experience is disabled are now removed
 
 # 1.3.3.0
 * Items with runes can no longer be used as the right item in an anvil, preventing their runes from being lost when merging

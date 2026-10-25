@@ -61,13 +61,11 @@ public class RuneFeature extends Feature {
     public static final GameRules.Key<GameRules.BooleanValue> RULE_DISABLEEXPERIENCE = GameRules.register(RuneEnchanting.MOD_ID + ":disable_experience", GameRules.Category.PLAYER, GameRules.BooleanValue.create(true, (server, booleanValue) -> {
         RuneFeature.disableExperience = booleanValue.get();
         ClientboundDisableExperienceMessage.sync(booleanValue.get());
-        server.getPlayerList().getPlayers().forEach(player -> {
-            if (booleanValue.get())
-                player.setExperienceLevels(999999);
-            else
-                player.setExperienceLevels(0);
-        });
+        server.getPlayerList().getPlayers().forEach(player -> updateFakeExperienceLevels(player, booleanValue.get()));
     }));
+    public static final int FAKE_EXPERIENCE_LEVELS = 999999;
+    //Players saved before the fake levels were increased have 9999 levels
+    public static final int MIN_FAKE_EXPERIENCE_LEVELS = 9999;
 
     @Config
     public static Boolean mustLearnCurses = true;
@@ -119,11 +117,18 @@ public class RuneFeature extends Feature {
     @SubscribeEvent
     public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
         ClientboundDisableExperienceMessage.sync((ServerPlayer) event.getEntity(), disableExperience);
-        if (disableExperience)
-            ((ServerPlayer) event.getEntity()).setExperienceLevels(9999);
-        else
-            ((ServerPlayer) event.getEntity()).setExperienceLevels(0);
+        updateFakeExperienceLevels((ServerPlayer) event.getEntity(), disableExperience);
         CurseKnowledge.syncTeamOnLogin((ServerPlayer) event.getEntity());
+    }
+
+    /**
+     * Gives the fake levels when experience is disabled, otherwise removes them, leaving untouched players with real levels
+     */
+    private static void updateFakeExperienceLevels(ServerPlayer player, boolean disableExperience) {
+        if (disableExperience)
+            player.setExperienceLevels(FAKE_EXPERIENCE_LEVELS);
+        else if (player.experienceLevel >= MIN_FAKE_EXPERIENCE_LEVELS)
+            player.setExperienceLevels(0);
     }
 
     /**
