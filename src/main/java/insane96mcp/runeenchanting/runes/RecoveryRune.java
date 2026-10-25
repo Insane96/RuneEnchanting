@@ -1,10 +1,13 @@
 package insane96mcp.runeenchanting.runes;
 
+import insane96mcp.insanelib.core.ModNBTData;
 import insane96mcp.insanelib.core.feature.config.Config;
+import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.setup.REDataComponents;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.LivingEntity;
@@ -16,6 +19,9 @@ import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import org.jetbrains.annotations.Nullable;
 
 public class RecoveryRune extends Rune {
+    ///Stored on the entity rather than on the item: changing the item every second would count as an equipment change
+    private static final ResourceLocation NBT_STORED_DAMAGE = RuneEnchanting.id("recovery/stored_damage");
+
     @Config
     public static Double damageToRegenRatio = 0.4d;
     @Config(description = "Per second")
@@ -47,21 +53,24 @@ public class RecoveryRune extends Rune {
                 || target != EnchantmentTarget.VICTIM)
             return;
 
-        float damageToRegenStored = stack.getOrDefault(REDataComponents.STORED_DAMAGE, 0f);
+        float damageToRegenStored = ModNBTData.get(event.getEntity(), NBT_STORED_DAMAGE, Float.class);
         float damageAmount = event.getNewDamage();
         if (damageAmount > event.getEntity().getHealth())
             damageAmount = event.getEntity().getHealth();
         float damageToRestore = damageAmount * damageToRegenRatio.floatValue();
         if (damageToRestore <= damageToRegenStored)
             return;
-        stack.set(REDataComponents.STORED_DAMAGE, damageToRestore);
+        ModNBTData.put(event.getEntity(), NBT_STORED_DAMAGE, damageToRestore);
     }
 
     @Override
     public void tickEffects(ServerLevel level, ItemStack stack, LivingEntity entity) {
         if ((entity.tickCount + entity.getId()) % 20 != 0)
             return;
-        float damageToRegenStored = stack.getOrDefault(REDataComponents.STORED_DAMAGE, 0f);
+        // Items saved before the damage was moved to the entity
+        if (stack.has(REDataComponents.STORED_DAMAGE))
+            stack.remove(REDataComponents.STORED_DAMAGE);
+        float damageToRegenStored = ModNBTData.get(entity, NBT_STORED_DAMAGE, Float.class);
         if (damageToRegenStored <= 0)
             return;
 
@@ -70,7 +79,10 @@ public class RecoveryRune extends Rune {
             toRegen = damageToRegenStored;
         entity.heal(toRegen);
         damageToRegenStored -= toRegen;
-        stack.set(REDataComponents.STORED_DAMAGE, damageToRegenStored);
+        if (damageToRegenStored <= 0)
+            ModNBTData.remove(entity, NBT_STORED_DAMAGE);
+        else
+            ModNBTData.put(entity, NBT_STORED_DAMAGE, damageToRegenStored);
     }
 
     @Override

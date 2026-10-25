@@ -25,6 +25,7 @@ Requires InsaneLib 2.4.36.0
 * Fixed Soulbound items being lost if the death was canceled by another mod (e.g. a modded totem)
 * Fixed Explosive destroying blocks even when `mobGriefing` is false or `destroyBlocks` is disabled in the config. The explosion is now attributed to the attacker, so kills count as theirs and mods can prevent the griefing
 * Fixed Double Jump not working when walking off a ledge if, since the last double jump, you landed without jumping
+* Fixed Recovery causing an equipment change every second while healing, which made the speed from Retreat, Atmospheric and Unstable Motion flicker. The damage to recover is now stored on the entity instead of the chestplate
 
 # 1.3.3.0
 * Items with runes can no longer be used as the right item in an anvil, preventing their runes from being lost when merging

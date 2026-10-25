@@ -40,6 +40,7 @@ public class REDataComponents {
                     .networkSynchronized(ByteBufCodecs.FLOAT)
                     .build());
 
+    ///No longer used, Recovery now stores it on the entity. Kept registered so items saved with it can still be loaded (Recovery removes it)
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> STORED_DAMAGE =
             REGISTRY.register("stored_damage", () -> DataComponentType.<Float>builder()
                     .persistent(Codec.FLOAT)
