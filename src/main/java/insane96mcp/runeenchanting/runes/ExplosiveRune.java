@@ -17,13 +17,16 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentTarget;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.event.EventHooks;
 
 import javax.annotation.Nullable;
+import java.util.UUID;
 
 public class ExplosiveRune extends Rune {
     public static final ResourceLocation NBT_TIME = RuneEnchanting.id("explosive/time");
     public static final ResourceLocation NBT_POWER = RuneEnchanting.id("explosive/power");
     public static final ResourceLocation NBT_DESTROY_BLOCKS = RuneEnchanting.id("explosive/destroy_blocks");
+    public static final ResourceLocation NBT_ATTACKER = RuneEnchanting.id("explosive/attacker");
 
     @Config(min = 0.1)
     public static Double explosionPower = 0.7d;
@@ -62,6 +65,7 @@ public class ExplosiveRune extends Rune {
         ModNBTData.put(attacked, NBT_TIME, explodeAt);
         ModNBTData.put(attacked, NBT_POWER, explosionPower.floatValue());
         ModNBTData.put(attacked, NBT_DESTROY_BLOCKS, destroyBlocks);
+        ModNBTData.put(attacked, NBT_ATTACKER, damageSource.getEntity().getUUID());
     }
 
     @Override
@@ -76,8 +80,14 @@ public class ExplosiveRune extends Rune {
         ModNBTData.remove(entity, NBT_TIME);
         ModNBTData.remove(entity, NBT_POWER);
         ModNBTData.remove(entity, NBT_DESTROY_BLOCKS);
-        entity.level().explode(null, entity.getX(), entity.getY(), entity.getZ(), power,
-                shouldDestroyBlocks ? Level.ExplosionInteraction.BLOCK : Level.ExplosionInteraction.MOB);
+        UUID attackerUUID = ModNBTData.get(entity, NBT_ATTACKER, UUID.class);
+        ModNBTData.remove(entity, NBT_ATTACKER);
+        Entity attacker = attackerUUID != null ? level.getEntity(attackerUUID) : null;
+        // The explosion has no source entity, otherwise the attacker would be excluded from its damage. The attacker is only
+        // the causing entity of the damage (no direct entity, so it doesn't count as a melee hit) and the one asked for griefing
+        boolean griefing = shouldDestroyBlocks && EventHooks.canEntityGrief(level, attacker);
+        level.explode(null, level.damageSources().explosion(null, attacker), null, entity.getX(), entity.getY(), entity.getZ(), power, false,
+                griefing ? Level.ExplosionInteraction.BLOCK : Level.ExplosionInteraction.NONE);
     }
 
     @Override

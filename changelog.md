@@ -23,6 +23,7 @@ Requires InsaneLib 2.4.36.0
 * Fixed Veining and Tunneling continuing to mine blocks after the tool broke
 * Fixed arrows being duplicated when shooting with vanilla Multishot, in creative mode or with infinite arrows, as the extra arrows could be picked up. Now only the arrows actually consumed can be picked up
 * Fixed Soulbound items being lost if the death was canceled by another mod (e.g. a modded totem)
+* Fixed Explosive destroying blocks even when `mobGriefing` is false or `destroyBlocks` is disabled in the config. The explosion is now attributed to the attacker, so kills count as theirs and mods can prevent the griefing
 
 # 1.3.3.0
 * Items with runes can no longer be used as the right item in an anvil, preventing their runes from being lost when merging
