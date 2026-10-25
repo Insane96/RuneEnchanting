@@ -76,7 +76,7 @@ public class CurseKnowledge {
         learned.add(curse);
         player.setData(REAttachments.LEARNED_CURSES, learned);
         removeProgress(player, curse);
-        player.displayClientMessage(Component.translatable("curse_learned", curse.value().getNameComponent()), false);
+        player.displayClientMessage(Component.translatable(RuneEnchanting.lang("curse_learned"), curse.value().getNameComponent()), false);
         player.playSound(SoundEvents.PLAYER_LEVELUP, 0.5f, 1f);
         RECriteriaTriggers.CURSE_LEARNED.get().trigger(player);
     }

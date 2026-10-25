@@ -50,6 +50,8 @@ public class TelekinesisRune extends Rune {
     @Override
     public void onLivingDrops(LivingDropsEvent event, ItemStack stack) {
         if (!(event.getSource().getEntity() instanceof Player player)) return;
+        //Killed players' drops are their inventory, which must not be taken over (and grave mods must still find it)
+        if (event.getEntity() instanceof Player) return;
         collectIntoInventory(player, event.getDrops());
     }
 

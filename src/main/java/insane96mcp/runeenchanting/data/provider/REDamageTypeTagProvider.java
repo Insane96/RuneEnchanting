@@ -24,6 +24,10 @@ public class REDamageTypeTagProvider extends DamageTypeTagsProvider {
         this.tag(DamageTypeTags.BYPASSES_ENCHANTMENTS)
                 .add(BloodFueledRune.DAMAGE_TYPE)
                 .add(CurseOfBloodPactRune.DAMAGE_TYPE);
+        //Otherwise the damage would consume armor durability, which could trigger Blood Pact again
+        this.tag(DamageTypeTags.BYPASSES_ARMOR)
+                .add(BloodFueledRune.DAMAGE_TYPE)
+                .add(CurseOfBloodPactRune.DAMAGE_TYPE);
         this.tag(DamageTypeTags.NO_KNOCKBACK)
                 .add(BloodFueledRune.DAMAGE_TYPE, CurseOfBloodPactRune.DAMAGE_TYPE, ElectrocutionRune.DAMAGE_TYPE);
     }

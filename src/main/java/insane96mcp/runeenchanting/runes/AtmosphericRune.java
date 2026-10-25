@@ -116,7 +116,8 @@ public class AtmosphericRune extends Rune {
         return Component.translatable(getInfoTranslationKey(),
                 IAttributeExtension.FORMAT.format(maxMiningSpeedMultiplier * 100),
                 IAttributeExtension.FORMAT.format(maxAttackSpeedBonus * 100),
-                IAttributeExtension.FORMAT.format(1f - rainDurabilityReduction));
+                //Each durability point is consumed with a (1 - reduction) chance, so the tool lasts 1 / (1 - reduction) times as long
+                rainDurabilityReduction >= 1d ? "∞" : IAttributeExtension.FORMAT.format((1d / (1d - rainDurabilityReduction) - 1d) * 100d));
     }
 
     private static float getSunLightRatio(Player player) {

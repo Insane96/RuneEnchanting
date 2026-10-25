@@ -96,6 +96,7 @@ public class RuneLootModifier extends LootModifier {
 
         List<WeightedTag> eligible = runeTags.stream()
                 .filter(wt -> {
+                    if (wt.weight() <= 0) return false;
                     if (wt.tag().isEmpty()) return true;
                     return runeRegistry.getTag(wt.tag().get())
                             .stream()

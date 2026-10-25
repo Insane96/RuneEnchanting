@@ -82,7 +82,7 @@ public class RuneHelper {
         List<Holder<Rune>> runes = stack.get(REDataComponents.RUNES);
         if (runes == null)
             return 0;
-        return (int) runes.stream().filter(Rune::isCurse).count();
+        return (int) runes.stream().filter(rune -> Rune.isEnabled(rune) && Rune.isCurse(rune)).count();
     }
 
     public static boolean addRune(ItemStack stack, Holder<Rune> rune) {
@@ -105,7 +105,7 @@ public class RuneHelper {
             return false;
         if (runes.isEmpty()) {
             stack.remove(REDataComponents.RUNES);
-            stack.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, false);
+            stack.remove(DataComponents.ENCHANTMENT_GLINT_OVERRIDE);
         }
         else
             stack.set(REDataComponents.RUNES, runes);
@@ -114,17 +114,17 @@ public class RuneHelper {
 
     public static List<Holder<Rune>> clearRunes(ItemStack stack, boolean clearCurses) {
         List<Holder<Rune>> runes = new ArrayList<>(stack.getOrDefault(REDataComponents.RUNES, List.of()));
-        if (clearCurses) {
+        List<Holder<Rune>> kept = clearCurses ? List.of() : runes.stream().filter(Rune::isCurse).toList();
+        if (kept.isEmpty()) {
+            //Removed instead of set to false, so items with vanilla enchantments keep their glint
             stack.remove(REDataComponents.RUNES);
+            stack.remove(DataComponents.ENCHANTMENT_GLINT_OVERRIDE);
         }
         else {
-            List<Holder<Rune>> cleared = new ArrayList<>(runes);
-            cleared.removeIf(rune -> !Rune.isCurse(rune));
-            stack.set(REDataComponents.RUNES, cleared);
-
-            runes.removeIf(Rune::isCurse);
+            stack.set(REDataComponents.RUNES, kept);
+            stack.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true);
         }
-        stack.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, !stack.getOrDefault(REDataComponents.RUNES, List.of()).isEmpty());
+        runes.removeAll(kept);
         return runes;
     }
 

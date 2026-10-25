@@ -53,7 +53,7 @@ import net.neoforged.neoforge.event.entity.living.LivingKnockBackEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
-import net.neoforged.neoforge.event.server.ServerStartedEvent;
+import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 
 import java.util.Comparator;
 import java.util.List;
@@ -150,9 +150,13 @@ public class RuneFeature extends Feature {
         SoulboundItems.restore(event.getEntity());
     }
 
+    /**
+     * Read before the levels are loaded, otherwise the experience orbs in the spawn chunks would be discarded using the previous world's (or the default) value.
+     * The level's game rules aren't available yet, so they are read from the world data.
+     */
     @SubscribeEvent
-    public void onServerStart(ServerStartedEvent event) {
-        disableExperience = event.getServer().getGameRules().getBoolean(RULE_DISABLEEXPERIENCE);
+    public void onServerAboutToStart(ServerAboutToStartEvent event) {
+        disableExperience = event.getServer().getWorldData().getGameRules().getBoolean(RULE_DISABLEEXPERIENCE);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -178,8 +182,9 @@ public class RuneFeature extends Feature {
     @SubscribeEvent
     public void onAnvilUpdate(AnvilUpdateEvent event) {
         //Prevent merging a runed item into another one, as the result is a copy of the left item and the right item's runes (and curses) would be lost
+        //Disabled runes are counted too, as they would be lost as well
         if (!event.getLeft().isEmpty()
-                && RuneHelper.countRunes(event.getRight(), false) > 0) {
+                && !event.getRight().getOrDefault(REDataComponents.RUNES, List.of()).isEmpty()) {
             event.setCanceled(true);
             return;
         }
@@ -188,6 +193,7 @@ public class RuneFeature extends Feature {
         ItemStack output = event.getLeft().copy();
         Holder<Rune> toApply = event.getRight().get(REDataComponents.STORED_RUNE.value());
         if (toApply == null
+                || !Rune.isEnabled(toApply)
                 || !toApply.value().canBeAppliedTo(output)
                 || (Rune.isCurse(toApply) && RuneHelper.countCurses(output) >= maxCurses))
             return;
@@ -264,25 +270,25 @@ public class RuneFeature extends Feature {
         if (sockets > 0 && !stack.is(REItems.RUNE)) {
             if (runesCount > 0 || showExtraInfos(event.getFlags())) {
                 event.getToolTip().add(CommonComponents.space());
-                event.getToolTip().add(Component.translatable("sockets", noCursesRunesCount, sockets).withStyle(overloaded ? ChatFormatting.RED : ChatFormatting.DARK_PURPLE));
+                event.getToolTip().add(Component.translatable(RuneEnchanting.lang("sockets"), noCursesRunesCount, sockets).withStyle(overloaded ? ChatFormatting.RED : ChatFormatting.DARK_PURPLE));
             }
         }
         if (overloaded)
-            event.getToolTip().add(Component.translatable("overloaded_runes").withStyle(ChatFormatting.RED));
+            event.getToolTip().add(Component.translatable(RuneEnchanting.lang("overloaded_runes")).withStyle(ChatFormatting.RED));
         if (runes != null) {
             Player player = event.getEntity();
             for (Holder<Rune> holder : runes) {
                 boolean isCurse = Rune.isCurse(holder);
                 ChatFormatting color = isCurse ? ChatFormatting.RED : overloaded ? ChatFormatting.DARK_GRAY : ChatFormatting.LIGHT_PURPLE;
                 if (isCurse && mustLearnCurses && !CurseKnowledge.isLearned(player, holder)) {
-                    event.getToolTip().add(CommonComponents.space().append(getTooltipName(holder, Component.translatable("unknown_curse"), color)));
+                    event.getToolTip().add(CommonComponents.space().append(getTooltipName(holder, Component.translatable(RuneEnchanting.lang("unknown_curse")), color)));
                     continue;
                 }
                 event.getToolTip().add(CommonComponents.space().append(getTooltipName(holder, holder.value().getNameComponent(), color)));
                 if (showExtraInfos(event.getFlags())) {
                     event.getToolTip().add(CommonComponents.space().append(holder.value().getDescriptionComponent()).withStyle(ChatFormatting.GRAY));
                     if (isCurse)
-                        event.getToolTip().add(CommonComponents.space().append(Component.translatable("cursed_info")).withStyle(ChatFormatting.GRAY));
+                        event.getToolTip().add(CommonComponents.space().append(Component.translatable(RuneEnchanting.lang("cursed_info"))).withStyle(ChatFormatting.GRAY));
                 }
                 holder.value().addTooltip(stack, event.getToolTip(), event.getFlags());
             }

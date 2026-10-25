@@ -41,7 +41,7 @@ Before joining a world (and on clients before the server sends them) SERVER conf
 
 ### Rune System
 
-`runes/Rune.java` — abstract base class for all runes. Each rune has a `ResourceLocation` ID and a priority. Provides many override points covering mining, damage, projectiles, durability, protection, experience, fishing, and per-tick effects. Supports `@Config`-annotated static fields and an `Enabled` toggle processed via `loadConfig`/`readConfig`. Has `isCurse()` and `canGenerateRandomly()` flags.
+`runes/Rune.java` — abstract base class for all runes. Each rune has a `ResourceLocation` ID and a priority. Provides many override points covering mining, damage, projectiles, durability, protection, experience, fishing, and per-tick effects. Supports `@Config`-annotated static fields and an `Enabled` toggle processed via `loadConfig`/`readConfig`. Static helpers `Rune.isCurse(holder)` (curses are identified by the `runeenchanting:curse` rune tag) and `Rune.isEnabled(holder)` (config toggle + `disabled` rune tag). There is no flag to exclude a rune from random generation: random pools (`addRandomRunes`, `createRandomRuneItem`, loot modifiers) can include curses. `removeEffects(LivingEntity)` is called periodically for runes no longer active on the entity, to clean up attribute modifiers.
 
 Concrete runes are in `runes/` and registered in `setup/RERunes.java`. Curses are in the `runes/curse/` sub-package. Rune configs are written to `runeenchanting/runes.toml`. `MomentumRune` exists but is currently commented out in `RERunes`.
 
@@ -51,11 +51,11 @@ Custom NeoForge registry with key `runeenchanting:runes`. All rune `DeferredHold
 
 ### Item Components (`setup/REDataComponents.java`)
 
-Registers two `DataComponentType`s: `RUNES` (`List<Holder<Rune>>`) and `SOCKETS` (`Integer`), both persistent and network-synchronized.
+Registers `RUNES` (`List<Holder<Rune>>`), `SOCKETS` (`Integer`, sockets granted by curses are added on the fly by `RuneHelper.getSockets`), `STORED_RUNE` (the rune held by a rune item) and per-rune state components (`STACKED_DAMAGE`, `ELECTROCUTION_CHARGE`, `ELECTROCUTION_LAST_CHARGED_AT`, `CHARGED_JUMP`, `FIRE_GUARDIAN_LAST_USED`). `STORED_DAMAGE` is no longer written (Recovery stores it on the entity) and is kept registered only to load old items. Items with more runes than sockets are "overloaded": their runes are inactive (curses still apply).
 
 ### Items (`setup/REItems.java`)
 
-Registers `RUNE` — a basic `Item` with default properties.
+Registers `RUNE` (`RuneItem`, holds a rune in `STORED_RUNE`) and `ENCASED_RUNE` (`EncasedRuneItem`, smelted into a random rune).
 
 ### Data Generation
 
@@ -86,26 +86,26 @@ Client-side (in `mixin/client/`):
 
 ### Utilities
 
-- `RuneHelper.java` — `hasRune`, `addRune`, `removeRune`, `addRandomRunes`, `createRandomRuneItem` helpers that read/write `REDataComponents.RUNES` and manage `ENCHANTMENT_GLINT_OVERRIDE`.
+- `RuneHelper.java` — `hasRune`, `addRune`, `removeRune`, `clearRunes`, `addRandomRunes`, `createRandomRuneItem` helpers that read/write `REDataComponents.RUNES` and manage `ENCHANTMENT_GLINT_OVERRIDE` (set to `true` with runes, removed — not set to `false` — without, so vanilla enchantments keep their glint). Also `breakExtraBlock`, used by Veining/Tunneling to break blocks like normal player mining.
 - `RECommands.java` — command registration (registered via `RuneFeature.onRegisterCommands`). In root package.
 - `RuneHooksClient.java` — client-side event hooks (sprint, rendering, input) in root package.
 
 ### Network
 
-`network/NetworkHandler.java` + `network/message/ClientboundDisableExperienceMessage.java` — syncs the `disableExperience` GameRule value to clients on login and on change. `network/message/ServerboundDoubleJumpMessage.java` — client→server message for the DoubleJump rune.
+`network/NetworkHandler.java` + `network/message/ClientboundDisableExperienceMessage.java` — syncs the `disableExperience` GameRule value to clients on login and on change. The server reads the GameRule in `ServerAboutToStartEvent` (from `getWorldData()`, levels aren't loaded yet); the client resets it to `true` on logout. `network/message/ServerboundDoubleJumpMessage.java` — client→server message for the DoubleJump rune.
 
 ### Loot System
 
 Global loot modifiers in `data/loot/`:
 - `RuneLootModifier` — converts enchanted items/books in loot into rune-socketed items. Supports weighted rune tag pools.
 - `RuneCatchAllLootModifier` — fallback modifier ensuring loot tables always have a chance to drop runes.
-- `ExperienceBottleToRuneLootModifier` — converts experience bottle drops into rune items.
+- `ItemToRuneLootModifier` — replaces a given item in loot (e.g. experience bottles) with random rune items.
 - `VoidCurseLootModifier` — handles `CurseOfTheVoid` item deletion on death.
 - `SetRandomRuneLootFunction` — loot function that applies a random rune to an item (used in data-driven loot tables, e.g. spawner drops).
 
 ### Enchantment-to-Rune Mapping
 
-`data/EnchantmentToRuneReloadListener` — a `SimplePreparableReloadListener` that reads JSON files mapping vanilla enchantment `ResourceLocation`s to rune `ResourceLocation`s. Used to translate enchanted loot into rune equivalents.
+`data/EnchantmentToRuneReloadListener` — a `SimplePreparableReloadListener` that reads JSON files mapping vanilla enchantment `ResourceLocation`s to rune `ResourceLocation`s. Currently unused: `ENCHANTMENT_TO_RUNE` / `getRuneForEnchantment` are never read, the loot modifiers pick random runes instead.
 
 ### Attributes
 

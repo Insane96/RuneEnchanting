@@ -114,7 +114,7 @@ public class RECommands {
         }
         Holder<Rune> runeHolder = holderOpt.get();
         if (!RuneHelper.addRune(stack, runeHolder)) {
-            ctx.getSource().sendFailure(Component.literal("Sockets full or or item already has ").append(runeHolder.value().getNameComponent()));
+            ctx.getSource().sendFailure(Component.literal("Sockets full or item already has ").append(runeHolder.value().getNameComponent()));
             return 0;
         }
         ctx.getSource().sendSuccess(() -> Component.literal("Added ").append(runeHolder.value().getNameComponent()), false);
@@ -228,7 +228,8 @@ public class RECommands {
             ctx.getSource().sendFailure(Component.literal("No eligible runes found"));
             return 0;
         }
-        player.addItem(runeItem);
+        if (!player.getInventory().add(runeItem))
+            player.drop(runeItem, false);
         Holder<Rune> stored = runeItem.get(REDataComponents.STORED_RUNE);
         ctx.getSource().sendSuccess(() -> Component.literal("Given rune item: ").append(stored != null ? stored.value().getNameComponent() : runeItem.getDisplayName()), false);
         return 1;

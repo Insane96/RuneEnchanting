@@ -31,6 +31,7 @@ import net.minecraft.world.phys.HitResult;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
@@ -75,6 +76,12 @@ public class RuneHooksClient {
         LocalPlayer player = Minecraft.getInstance().player;
         if (player != null)
             DoubleJumpRune.resetJumpsIfLanded(player);
+    }
+
+    /// Resets the value synced by the last server, so it isn't used on the next server until its own value arrives
+    @SubscribeEvent
+    public static void onLoggingOut(ClientPlayerNetworkEvent.LoggingOut event) {
+        RuneFeature.disableExperience = true;
     }
 
     @SubscribeEvent

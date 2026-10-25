@@ -31,6 +31,19 @@ Requires InsaneLib 2.4.36.0
 * Fixed runes on weapons and tools working while held in the offhand (e.g. Atmospheric giving attack speed). Like vanilla enchantments, they now only work in the main hand
 * Fixed enchanted books in loot generating two runes instead of one in some loot tables (e.g. mineshafts and ancient cities) when `disable_experience` is false
 * Fixed mobs with enchanted equipment rolling for runes again every time they were loaded (e.g. chunk reloads), when `disable_experience` is false or no rune was applicable. The roll now happens only once per mob
+* Fixed items with vanilla enchantments losing their glint when all their runes were removed
+* Fixed items losing their runes with a grindstone no longer stacking with identical items
+* Fixed disabled runes being applicable with an anvil, and items with only disabled runes losing them when merged in an anvil
+* Fixed disabled curses still granting a bonus socket and counting towards the max curses
+* Fixed loot generation breaking when every eligible rune tag in a rune loot modifier has a weight of 0
+* Fixed Atmospheric tooltip showing the wrong durability bonus under rain (0.25% instead of 300%)
+* Translation keys for sockets, overloaded runes, unknown curses, cursed info and learned curses are now prefixed with `runeenchanting.` to avoid conflicts with other mods
+* Fixed experience orbs saved in the spawn chunks being deleted when loading a world with `disable_experience` set to false
+* Fixed the client using the `disable_experience` value of the previously joined server until the new one was received
+* Fixed Curse of Blood Pact almost never hurting when triggered by armor, and Blood-fueled/Blood Pact damage being ignored right after taking damage
+* Curse of Blood Pact and Blood-fueled damage now bypasses armor and no longer consumes its durability
+* Fixed `/rune get_random_rune` losing the rune when the inventory is full. It's now dropped instead
+* Fixed Telekinesis sending the whole inventory of killed players into the killer's inventory, bypassing grave mods
 
 # 1.3.3.0
 * Items with runes can no longer be used as the right item in an anvil, preventing their runes from being lost when merging

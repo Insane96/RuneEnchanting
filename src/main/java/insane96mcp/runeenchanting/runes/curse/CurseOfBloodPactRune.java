@@ -2,6 +2,7 @@ package insane96mcp.runeenchanting.runes.curse;
 
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.insanelib.event.HurtItemStackEvent;
+import insane96mcp.insanelib.util.MCUtils;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.runes.Rune;
 import net.minecraft.core.registries.Registries;
@@ -52,7 +53,8 @@ public class CurseOfBloodPactRune extends Rune {
                 damageAmount++;
         }
         if (damageAmount > 0)
-            player.hurt(player.damageSources().source(DAMAGE_TYPE), damageAmount);
+            //Armor durability is consumed inside hurt(), when the invulnerability frames are already active, so they must be ignored or the damage would be discarded
+            MCUtils.hurtIgnoreInvulnerability(player, player.damageSources().source(DAMAGE_TYPE), damageAmount);
     }
 
     @Override

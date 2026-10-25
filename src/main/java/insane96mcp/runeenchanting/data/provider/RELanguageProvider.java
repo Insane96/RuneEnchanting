@@ -28,11 +28,11 @@ public class RELanguageProvider extends LanguageProvider {
         add("item.runeenchanting.rune", "Rune");
         add("item.runeenchanting.encased_rune", "Encased Rune");
         add(RuneEnchanting.lang("encased_rune.tooltip"), "Smelt to get a random rune");
-        add("sockets", "Sockets: %d/%d");
-        add("overloaded_runes", "Too many runes: runes are inactive. Remove them with a grindstone.");
-        add("unknown_curse", "Unknown Curse");
-        add("cursed_info", "+1 Socket");
-        add("curse_learned", "You have learned about %s");
+        add(RuneEnchanting.lang("sockets"), "Sockets: %d/%d");
+        add(RuneEnchanting.lang("overloaded_runes"), "Too many runes: runes are inactive. Remove them with a grindstone.");
+        add(RuneEnchanting.lang("unknown_curse"), "Unknown Curse");
+        add(RuneEnchanting.lang("cursed_info"), "+1 Socket");
+        add(RuneEnchanting.lang("curse_learned"), "You have learned about %s");
 
         add("advancements.runeenchanting.first_rune.title", "First Rune");
         add("advancements.runeenchanting.first_rune.description", "Obtain a rune");
