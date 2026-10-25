@@ -349,7 +349,7 @@ public class RuneHooks extends Feature {
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             ItemStack stack = livingKiller.getItemBySlot(slot);
             EquipmentSlot naturalSlot = RuneEnchanting.getEquipmentSlotForItem(stack);
-            if (naturalSlot != EquipmentSlot.MAINHAND && naturalSlot != slot) continue;
+            if (naturalSlot != slot) continue;
             List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
             if (runes == null) continue;
             for (Holder<Rune> holder : runes) {
@@ -363,7 +363,7 @@ public class RuneHooks extends Feature {
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             ItemStack stack = entity.getItemBySlot(slot);
             EquipmentSlot naturalSlot = RuneEnchanting.getEquipmentSlotForItem(stack);
-            if (naturalSlot != EquipmentSlot.MAINHAND && naturalSlot != slot) continue;
+            if (naturalSlot != slot) continue;
             List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
             if (runes == null) continue;
             for (Holder<Rune> holder : runes) {
@@ -379,7 +379,7 @@ public class RuneHooks extends Feature {
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             ItemStack stack = entity.getItemBySlot(slot);
             EquipmentSlot naturalSlot = RuneEnchanting.getEquipmentSlotForItem(stack);
-            if (naturalSlot != EquipmentSlot.MAINHAND && naturalSlot != slot) continue;
+            if (naturalSlot != slot) continue;
             List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
             if (runes == null) continue;
             for (Holder<Rune> holder : runes) {
@@ -527,7 +527,7 @@ public class RuneHooks extends Feature {
         if (runes == null)
             return;
         EquipmentSlot naturalSlot = RuneEnchanting.getEquipmentSlotForItem(stack);
-        if (naturalSlot != EquipmentSlot.MAINHAND && naturalSlot != currentSlot)
+        if (naturalSlot != currentSlot)
             return;
         for (Holder<Rune> holder : runes) {
             action.accept(holder.value());
