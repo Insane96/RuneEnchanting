@@ -1,4 +1,5 @@
 # Upcoming
+Requires InsaneLib 2.4.36.0
 * Decreased Leather armor sockets
 * Increased Enduring Rune bonus durability (+100% -> +200%)
 * Decreased Explosive Rune delay (5s -> 3s)
@@ -8,10 +9,10 @@
   * `main.toml` and `runes.toml` are now server configs: values are decided by the server and synced to clients, and can be overridden per world in `saves/<world>/serverconfig/`
   * The new `common.toml` contains "Integrated data pack"
   * The new `client.toml` contains "Hide enchanting related items", "Always show extra infos" and "Glitch curse names"
-* Requires InsaneLib 2.4.36.0
+* Fixed Magic Protection reducing the duration of beneficial effects too, instead of only negative ones
+* Fixed Magic Protection, Projectile Protection, Soulbound, Double Jump and Curse of the Void still working when disabled via config or the `disabled` rune tag
 * Fixed the bonus damage from vanilla enchantments (e.g. Sharpness) and from runes such as Power and Hunter being ignored for players, mobs and thrown tridents
 * Fixed players losing all their experience levels on every login when `disable_experience` is false. Only the fake levels given while experience is disabled are now removed
-* Fixed Magic Protection, Projectile Protection, Soulbound, Double Jump and Curse of the Void still working when disabled via config or the `disabled` rune tag
 
 # 1.3.3.0
 * Items with runes can no longer be used as the right item in an anvil, preventing their runes from being lost when merging

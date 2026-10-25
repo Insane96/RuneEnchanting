@@ -15,6 +15,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -83,6 +84,7 @@ public class RuneHooks extends Feature {
     @SubscribeEvent
     public void onEffectApplied(MobEffectEvent.Added event) {
         if (event.getEffectInstance().isInfiniteDuration()
+                || event.getEffectInstance().getEffect().value().getCategory() != MobEffectCategory.HARMFUL
                 || !RuneHelper.hasRuneOnArmor(event.getEntity(), RERunes.MAGIC_PROTECTION))
             return;
         ((MobEffectInstanceAccessor) event.getEffectInstance()).setDuration((int) (event.getEffectInstance().getDuration() * MagicProtectionRune.negativeEffectsDurationMultiplier));
