@@ -40,7 +40,7 @@ public class RuneCatchAllLootModifier extends LootModifier {
         List<ItemStack> toRemove = new ArrayList<>();
 
         for (ItemStack stack : generatedLoot) {
-            if (stack.has(REDataComponents.RUNES.get()))
+            if (stack.has(REDataComponents.RUNES.get()) || RuneLootModifier.PROCESSED_BOOKS.contains(stack))
                 continue;
 
             var enchantments = stack.get(DataComponents.ENCHANTMENTS);
@@ -60,6 +60,8 @@ public class RuneCatchAllLootModifier extends LootModifier {
                         toAdd.add(runeItem);
                     if (RuneFeature.disableExperience)
                         toRemove.add(stack);
+                    else
+                        RuneLootModifier.PROCESSED_BOOKS.add(stack);
                 }
             }
         }

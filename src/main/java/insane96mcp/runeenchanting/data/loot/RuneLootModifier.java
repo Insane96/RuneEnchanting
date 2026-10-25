@@ -25,9 +25,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 import net.neoforged.neoforge.common.loot.LootModifier;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class RuneLootModifier extends LootModifier {
 
@@ -45,6 +43,10 @@ public class RuneLootModifier extends LootModifier {
 
     private final List<WeightedTag> runeTags;
 
+    /// Enchanted books that already generated a rune. When experience is enabled they're kept in the loot, so this prevents
+    /// the next modifiers (e.g. catch all) from generating another rune. Identity based and weak, as ItemStack doesn't override equals
+    static final Set<ItemStack> PROCESSED_BOOKS = Collections.synchronizedSet(Collections.newSetFromMap(new WeakHashMap<>()));
+
     public RuneLootModifier(LootItemCondition[] conditions, List<WeightedTag> runeTags) {
         super(conditions);
         this.runeTags = runeTags;
@@ -59,7 +61,7 @@ public class RuneLootModifier extends LootModifier {
         List<ItemStack> toRemove = new ArrayList<>();
 
         for (ItemStack stack : generatedLoot) {
-            if (stack.has(REDataComponents.RUNES.get()))
+            if (stack.has(REDataComponents.RUNES.get()) || PROCESSED_BOOKS.contains(stack))
                 continue;
 
             var enchantments = stack.get(DataComponents.ENCHANTMENTS);
@@ -78,6 +80,8 @@ public class RuneLootModifier extends LootModifier {
                         toAdd.add(runeItem);
                     if (RuneFeature.disableExperience)
                         toRemove.add(stack);
+                    else
+                        PROCESSED_BOOKS.add(stack);
                 }
             }
         }

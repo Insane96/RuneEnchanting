@@ -29,6 +29,7 @@ Requires InsaneLib 2.4.36.0
 * Fixed the bonus speed from Retreat, Atmospheric and Curse of Unstable Motion staying forever if the rune stopped working without unequipping the item (e.g. rune disabled, removed with a command or item with more runes than sockets)
 * Swapping an item for another one with the same rune (e.g. Retreat) no longer resets its bonus for a moment
 * Fixed runes on weapons and tools working while held in the offhand (e.g. Atmospheric giving attack speed). Like vanilla enchantments, they now only work in the main hand
+* Fixed enchanted books in loot generating two runes instead of one in some loot tables (e.g. mineshafts and ancient cities) when `disable_experience` is false
 
 # 1.3.3.0
 * Items with runes can no longer be used as the right item in an anvil, preventing their runes from being lost when merging
