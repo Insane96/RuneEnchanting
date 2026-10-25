@@ -1,5 +1,6 @@
 package insane96mcp.runeenchanting;
 
+import insane96mcp.insanelib.core.ModNBTData;
 import insane96mcp.insanelib.core.feature.Feature;
 import insane96mcp.insanelib.core.feature.LoadFeature;
 import insane96mcp.insanelib.core.feature.config.Config;
@@ -22,6 +23,7 @@ import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -88,11 +90,16 @@ public class RuneFeature extends Feature {
         event.setCanceled(true);
     }
 
+    ///Set once the mob's equipment has been converted, so the conversion isn't rolled again every time the mob is loaded
+    private static final ResourceLocation NBT_EQUIPMENT_RUNES_ROLLED = RuneEnchanting.id("equipment_runes_rolled");
+
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onMobJoinLevel(EntityJoinLevelEvent event) {
-        if (event.getLevel().isClientSide() || !(event.getEntity() instanceof Mob mob))
+        if (event.getLevel().isClientSide() || !(event.getEntity() instanceof Mob mob)
+                || ModNBTData.contains(mob, NBT_EQUIPMENT_RUNES_ROLLED))
             return;
-        var allRunes = event.getLevel().registryAccess().registryOrThrow(RERunes.REGISTRY_KEY).holders().toList();
+        ModNBTData.put(mob, NBT_EQUIPMENT_RUNES_ROLLED, true);
+        var allRunes = RuneHooks.runeHolders();
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             ItemStack stack = mob.getItemBySlot(slot);
             if (stack.isEmpty() || stack.has(REDataComponents.RUNES.get())) continue;

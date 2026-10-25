@@ -105,7 +105,7 @@ public class RuneHooks extends Feature {
     private static List<? extends Holder<Rune>> runeHolders;
 
     /// Lazily cached: the registry's holder set is fixed once mod loading finishes, so it's safe to compute once.
-    private static List<? extends Holder<Rune>> runeHolders() {
+    static List<? extends Holder<Rune>> runeHolders() {
         if (runeHolders == null)
             runeHolders = RERunes.REGISTRY.holders().toList();
         return runeHolders;

@@ -30,6 +30,7 @@ Requires InsaneLib 2.4.36.0
 * Swapping an item for another one with the same rune (e.g. Retreat) no longer resets its bonus for a moment
 * Fixed runes on weapons and tools working while held in the offhand (e.g. Atmospheric giving attack speed). Like vanilla enchantments, they now only work in the main hand
 * Fixed enchanted books in loot generating two runes instead of one in some loot tables (e.g. mineshafts and ancient cities) when `disable_experience` is false
+* Fixed mobs with enchanted equipment rolling for runes again every time they were loaded (e.g. chunk reloads), when `disable_experience` is false or no rune was applicable. The roll now happens only once per mob
 
 # 1.3.3.0
 * Items with runes can no longer be used as the right item in an anvil, preventing their runes from being lost when merging
