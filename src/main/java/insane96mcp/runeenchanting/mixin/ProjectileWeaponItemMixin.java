@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import insane96mcp.runeenchanting.RuneHelper;
 import insane96mcp.runeenchanting.RuneHooks;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -41,9 +42,11 @@ import java.util.List;
  *       normal path and syncs it to the client.</li>
  *   <li>(1) On the server, if j=0 produced no projectile (the result list is empty), all subsequent
  *       shots also return {@code EMPTY}.</li>
- *   <li>(3) On the server, for j &gt; 0, a single real arrow is returned via
+ *   <li>(3) On the server, for 0 &lt; j &lt; arrows consumed by j=0, a single real arrow is returned via
  *       {@code ammoCopy.copyWithCount(1)}, which carries no {@code INTANGIBLE_PROJECTILE} component
- *       and does not deplete the copy for subsequent iterations.</li>
+ *       and does not deplete the copy for subsequent iterations. The remaining shots stay intangible
+ *       as in vanilla, so shots that consumed no arrows (vanilla Multishot, creative, infinite arrows,
+ *       Infinity rune) can't be picked up.</li>
  * </ul>
  */
 @Mixin(ProjectileWeaponItem.class)
@@ -73,7 +76,8 @@ public class ProjectileWeaponItemMixin {
         if (j > 0 && list.isEmpty()) {
             return ItemStack.EMPTY;
         }
-        if (j > 0) {
+        //Only as many extra shots as the arrows consumed by the first one are real, the rest stay intangible as in vanilla
+        if (j > 0 && !list.getFirst().has(DataComponents.INTANGIBLE_PROJECTILE) && j < list.getFirst().getCount()) {
             return ammoCopy.copyWithCount(1);
         }
         return original.call(weapon, ammo, shooter, intangable);
