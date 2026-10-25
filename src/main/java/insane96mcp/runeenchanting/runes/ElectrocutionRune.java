@@ -5,7 +5,6 @@ import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.insanelib.util.MCUtils;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
-import insane96mcp.runeenchanting.mixin.LivingEntityAccessor;
 import insane96mcp.runeenchanting.setup.REDataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
@@ -121,10 +120,7 @@ public class ElectrocutionRune extends Rune {
     /// Ignores invulnerability frames so the shock always lands on top of the hit that triggered it.
     /// {@code lastHurt} is restored too, otherwise the remaining invulnerability frames would only block damage above the shock damage instead of above the previous hit's.
     private static void shock(ServerLevel level, LivingEntity entity) {
-        LivingEntityAccessor accessor = (LivingEntityAccessor) entity;
-        float lastHurt = accessor.getLastHurt();
         MCUtils.hurtIgnoreInvulnerability(entity, entity.damageSources().source(DAMAGE_TYPE), shockDamage.floatValue());
-        accessor.setLastHurt(lastHurt);
         spawnSparks(level, entity, 8);
     }
 
