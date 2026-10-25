@@ -16,6 +16,7 @@ Requires InsaneLib 2.4.36.0
 * Fixed Veining and Tunneling breaking blocks in protected areas (spawn protection, claims, Adventure mode). Additional blocks are now broken like normal player mining, so other mods can prevent it
 * Fixed Veining and Tunneling continuing to mine blocks after the tool broke
 * Fixed arrows being duplicated when shooting with vanilla Multishot, in creative mode or with infinite arrows, as the extra arrows could be picked up. Now only the arrows actually consumed can be picked up
+* Fixed Soulbound items being lost if the death was canceled by another mod (e.g. a modded totem)
 
 # 1.3.3.0
 * Items with runes can no longer be used as the right item in an anvil, preventing their runes from being lost when merging

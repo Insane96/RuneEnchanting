@@ -140,7 +140,7 @@ public class RuneFeature extends Feature {
     public void onPlayerClone(PlayerEvent.Clone event) {
         if (!event.isWasDeath())
             return;
-        SoulboundItems.restoreOnRespawn(event.getEntity());
+        SoulboundItems.restore(event.getEntity());
     }
 
     @SubscribeEvent

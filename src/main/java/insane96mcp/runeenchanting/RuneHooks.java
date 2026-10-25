@@ -146,6 +146,17 @@ public class RuneHooks extends Feature {
             SoulboundItems.stashOnDeath(player);
     }
 
+    /**
+     * If another listener canceled the death (e.g. a modded totem), the player keeps living, so the stashed Soulbound
+     * items are given back right away instead of waiting for a respawn that won't happen.
+     */
+    @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
+    public void onLivingDeathCanceledRestoreSoulbound(LivingDeathEvent event) {
+        if (!event.isCanceled() || !(event.getEntity().level() instanceof ServerLevel)) return;
+        if (event.getEntity() instanceof Player player)
+            SoulboundItems.restore(player);
+    }
+
     @SubscribeEvent
     public void onLivingDeath(LivingDeathEvent event) {
         if (!(event.getEntity().level() instanceof ServerLevel level)) return;
