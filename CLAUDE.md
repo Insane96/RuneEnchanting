@@ -21,17 +21,17 @@ No dedicated test task exists yet — use `runGameTestServer` for game tests.
 ## Key Dependencies
 
 - **NeoForge 21.1.227** — mod loader
-- **InsaneLib 2.4.36.0** — custom base library providing `Feature`, `ILModConfig`, and `ComponentTranslation` utilities. Source can be found at C:\Users\delvi\source\repos\Insane96\InsaneLib (branch `1.21.1`; `26.1.2` is a different Minecraft version). Since 2.4.34.0 `ILModConfig` supports `ModConfig.Type.SERVER` configs (synced to clients on login and re-synced via `ServerConfigSyncMessage` when the file changes) and automatically registers the config screen for every mod that creates an `ILModConfig`. When a mod has more than one module (e.g. one `ILModConfig` per config type), every `@LoadFeature` must specify `module`, otherwise the feature is not loaded.
+- **InsaneLib 2.5.0.4-alpha** — custom base library providing `Feature`, `ILModConfig`, and `ComponentTranslation` utilities. Source can be found at C:\Users\delvi\source\repos\Insane96\InsaneLib (branch `1.21.1`; `26.1.2` is a different Minecraft version). Since 2.4.34.0 `ILModConfig` supports `ModConfig.Type.SERVER` configs (synced to clients on login and re-synced via `ServerConfigSyncMessage` when the file changes) and automatically registers the config screen for every mod that creates an `ILModConfig`. Since 2.5.0.0 the config type is per feature (`@ConfigType`, defaulting to the module's type), so one module can have features in several config files; modules must be created before the `ILModConfig`s loading their features. Feature names generated from the class name (no `name` in `@LoadFeature`) strip the words "Feature", "Server", "Client" and "Common".
 - **Parchment mappings** (2024.11.17) — human-readable field/method names in decompiled code
 
 ## Architecture
 
 ### Entry Point
 
-`RuneEnchanting.java` — the `@Mod` class. Initializes three InsaneLib `ILModConfig`s, one module each (ids in `MAIN_MODULE`/`COMMON_MODULE`/`CLIENT_MODULE`):
-- `CONFIG` — SERVER, `config/runeenchanting/main.toml` (module `runeenchanting:main`): gameplay options, `RuneFeature` and `RuneHooks`. Synced to clients, can be overridden per world in `saves/<world>/serverconfig/`.
-- `COMMON_CONFIG` — COMMON, `config/runeenchanting/common.toml`: `RuneFeatureCommon` (`integratedDataPack`). Must stay COMMON because the world's data packs are picked before SERVER configs are loaded.
-- `CLIENT_CONFIG` — CLIENT, `config/runeenchanting/client.toml`: `RuneFeatureClient` (visual-only options: tooltips, creative tab).
+`RuneEnchanting.java` — the `@Mod` class. Creates a single InsaneLib module (`MAIN_MODULE`, `runeenchanting:main`, default config type SERVER, `canBeDisabled(false)` so the TOML files have no module section) and then three `ILModConfig`s, one per config type:
+- `CONFIG` — SERVER, `config/runeenchanting/main.toml`: gameplay options, `RuneFeature` and `RuneHooks`. Synced to clients, can be overridden per world in `saves/<world>/serverconfig/`.
+- `COMMON_CONFIG` — COMMON, `config/runeenchanting/common.toml`: `RuneFeatureCommon` (`@ConfigType(COMMON)`, `integratedDataPack`). Must stay COMMON because the world's data packs are picked before SERVER configs are loaded.
+- `CLIENT_CONFIG` — CLIENT, `config/runeenchanting/client.toml`: `RuneFeatureClient` (`@ConfigType(CLIENT)`, visual-only options: tooltips, creative tab).
 
 Before joining a world (and on clients before the server sends them) SERVER config values are the field defaults. Provides static utilities: `location(String)` → `ResourceLocation`, `lang(String)` → translation key, `translatableLang(String)` → `Component`.
 

@@ -1,10 +1,13 @@
 package insane96mcp.runeenchanting;
 
+import insane96mcp.insanelib.core.feature.ConfigType;
 import insane96mcp.insanelib.core.feature.Feature;
 import insane96mcp.insanelib.core.feature.LoadFeature;
 import insane96mcp.insanelib.core.feature.config.Config;
+import net.neoforged.fml.config.ModConfig;
 
-@LoadFeature(module = RuneEnchanting.CLIENT_MODULE, name = "Rune", canBeDisabled = false)
+@LoadFeature(module = RuneEnchanting.MAIN_MODULE, canBeDisabled = false)
+@ConfigType(ModConfig.Type.CLIENT)
 public class RuneFeatureClient extends Feature {
     @Config(description = "If true, enchanting related items are hidden from creative inventory")
     public static Boolean hideEnchantingRelatedItems = true;

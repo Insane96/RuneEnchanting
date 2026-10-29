@@ -1,15 +1,18 @@
 package insane96mcp.runeenchanting;
 
+import insane96mcp.insanelib.core.feature.ConfigType;
 import insane96mcp.insanelib.core.feature.Feature;
 import insane96mcp.insanelib.core.feature.LoadFeature;
 import insane96mcp.insanelib.core.feature.Module;
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.insanelib.util.IntegratedPack;
+import net.neoforged.fml.config.ModConfig;
 
 /**
  * COMMON as the integrated data pack is picked when the world's data packs are loaded, before SERVER configs are
  */
-@LoadFeature(module = RuneEnchanting.COMMON_MODULE, name = "Rune", canBeDisabled = false)
+@LoadFeature(module = RuneEnchanting.MAIN_MODULE, canBeDisabled = false)
+@ConfigType(ModConfig.Type.COMMON)
 public class RuneFeatureCommon extends Feature {
     @Config(description = """
             A data pack will be enabled that changes the following:

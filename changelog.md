@@ -1,5 +1,5 @@
-# Upcoming
-Requires InsaneLib 2.4.36.0
+# 1.4.0.0
+Requires InsaneLib 2.5.0.4
 * Configs have been split by side. **Options moved to the new files must be set again**
   * `main.toml` and `runes.toml` are now server configs: values are decided by the server and synced to clients, and can be overridden per world in `saves/<world>/serverconfig/`
   * The new `common.toml` contains "Integrated data pack"
@@ -12,7 +12,7 @@ Requires InsaneLib 2.4.36.0
   * Electrocution charges the bow or crossbow that shot the arrow, as long as it's still in the shooter's inventory
   * Explosive, Curse of Explosion and Part Breaker work like in melee
 * Removed Power, merged into Sharpness. Items with Power now have Sharpness
-* Sharpness now also applies to thrown tridents (requires the upcoming InsaneLib version)
+* Sharpness now also applies to thrown tridents
 * Reworked Electrocution
   * Instead of charging the target on every hit and discharging after a delay, damage dealt now charges the weapon. Once 20 damage has been accumulated, the hit discharges
   * The accumulated damage slowly decreases over time (2 per second)
