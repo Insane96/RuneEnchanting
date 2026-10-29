@@ -14,7 +14,7 @@ import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 
 public class SprintPactRune extends Rune {
     @Config
-    public static Double bonusSpeed = 0.2d;
+    public static Double bonusSpeed = 0.15d;
 
     @Override
     public String getName() {

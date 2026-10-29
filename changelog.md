@@ -23,6 +23,7 @@ Requires InsaneLib 2.4.36.0
 * Decreased Leather armor sockets
 * Increased Enduring Rune bonus durability (+100% -> +200%)
 * Decreased Explosive Rune delay (5s -> 3s)
+* Decreased Sprint Pact Rune bonus speed (20% -> 15%)
 * Curse of Blood Pact and Blood-fueled damage now bypasses armor and no longer consumes its durability
 * Fixed the bonus damage from vanilla enchantments (e.g. Sharpness) and from runes such as Power and Hunter being ignored for players, mobs and thrown tridents
 * Fixed runes on weapons and tools working while held in the offhand (e.g. Atmospheric giving attack speed). Like vanilla enchantments, they now only work in the main hand
