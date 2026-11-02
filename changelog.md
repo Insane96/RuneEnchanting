@@ -1,4 +1,4 @@
-# Upcoming
+# 1.4.0.1
 * Runes for Shears now apply to anything in the `c:tools/shear` item tag, which also gets 2 sockets and is added to `minecraft:enchantable/durability` and `minecraft:enchantable/mining`
 
 # 1.4.0.0
