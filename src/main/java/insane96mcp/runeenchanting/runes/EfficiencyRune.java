@@ -11,8 +11,8 @@ import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.Tool;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.extensions.IAttributeExtension;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 
@@ -50,7 +50,7 @@ public class EfficiencyRune extends Rune {
                 .addTag(ItemTags.AXES)
                 .addTag(ItemTags.SHOVELS)
                 .addTag(ItemTags.HOES)
-                .add(Items.SHEARS);
+                .addTag(Tags.Items.TOOLS_SHEAR);
     }
 
     @Override

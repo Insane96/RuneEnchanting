@@ -2,6 +2,6 @@
   "values": [
     "#minecraft:pickaxes",
     "#minecraft:shovels",
-    "minecraft:shears"
+    "#c:tools/shear"
   ]
 }

@@ -4,6 +4,6 @@
     "#minecraft:axes",
     "#minecraft:shovels",
     "#minecraft:hoes",
-    "minecraft:shears"
+    "#c:tools/shear"
   ]
 }

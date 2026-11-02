@@ -1,3 +1,6 @@
+# Upcoming
+* Runes for Shears now apply to anything in the `c:tools/shear` item tag, which also gets 2 sockets and is added to `minecraft:enchantable/durability` and `minecraft:enchantable/mining`
+
 # 1.4.0.0
 Requires InsaneLib 2.5.0.4
 * Configs have been split by side. **Options moved to the new files must be set again**

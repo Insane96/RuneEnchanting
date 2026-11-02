@@ -14,12 +14,12 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import org.jetbrains.annotations.Nullable;
 
@@ -53,7 +53,7 @@ public class VeiningRune extends Rune {
                 .addTag(ItemTags.AXES)
                 .addTag(ItemTags.SHOVELS)
                 .addTag(ItemTags.HOES)
-                .add(Items.SHEARS);
+                .addTag(Tags.Items.TOOLS_SHEAR);
     }
 
     @Override

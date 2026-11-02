@@ -1,5 +1,5 @@
 {
-    "item": "minecraft:shears",
+    "item": "#c:tools/shear",
     "components": {
         "runeenchanting:sockets": 2
     }

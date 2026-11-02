@@ -11,6 +11,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import javax.annotation.Nullable;
@@ -41,6 +42,8 @@ public class REItemTagProvider extends ItemTagsProvider {
                 .add(Items.DIAMOND_SWORD, Items.DIAMOND_PICKAXE, Items.DIAMOND_AXE, Items.DIAMOND_SHOVEL, Items.DIAMOND_HOE)
                 .add(Items.DIAMOND_HELMET, Items.DIAMOND_CHESTPLATE, Items.DIAMOND_LEGGINGS, Items.DIAMOND_BOOTS)
                 .add(Items.SHEARS, Items.FISHING_ROD, Items.BOW, Items.CROSSBOW, Items.TRIDENT, Items.SHIELD, Items.ELYTRA);
+        tag(ItemTags.DURABILITY_ENCHANTABLE).addTag(Tags.Items.TOOLS_SHEAR);
+        tag(ItemTags.MINING_ENCHANTABLE).addTag(Tags.Items.TOOLS_SHEAR);
         for (var entry : RERunes.REGISTRY.entrySet()) {
             var tagKey = TagKey.create(Registries.ITEM, entry.getValue().getApplicableToItemTag());
             entry.getValue().addItemsToApplicableTag(tag(tagKey));

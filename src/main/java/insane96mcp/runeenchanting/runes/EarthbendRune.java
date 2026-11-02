@@ -10,8 +10,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DiggerItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.extensions.IAttributeExtension;
 import org.jetbrains.annotations.Nullable;
 
@@ -40,7 +40,7 @@ public class EarthbendRune extends Rune {
                 .addTag(ItemTags.AXES)
                 .addTag(ItemTags.SHOVELS)
                 .addTag(ItemTags.HOES)
-                .add(Items.SHEARS);
+                .addTag(Tags.Items.TOOLS_SHEAR);
     }
 
     @Override

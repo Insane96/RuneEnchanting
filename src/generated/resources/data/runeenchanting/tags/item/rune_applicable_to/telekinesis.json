@@ -8,6 +8,6 @@
     "minecraft:trident",
     "minecraft:bow",
     "minecraft:crossbow",
-    "minecraft:shears"
+    "#c:tools/shear"
   ]
 }

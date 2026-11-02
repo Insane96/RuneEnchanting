@@ -9,6 +9,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
 import net.neoforged.neoforge.event.level.BlockDropsEvent;
 
@@ -38,7 +39,8 @@ public class TelekinesisRune extends Rune {
                 .addTag(ItemTags.PICKAXES)
                 .addTag(ItemTags.SHOVELS)
                 .addTag(ItemTags.HOES)
-                .add(Items.TRIDENT, Items.BOW, Items.CROSSBOW, Items.SHEARS);
+                .add(Items.TRIDENT, Items.BOW, Items.CROSSBOW)
+                .addTag(Tags.Items.TOOLS_SHEAR);
     }
 
     @Override
