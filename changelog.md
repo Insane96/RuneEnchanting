@@ -1,3 +1,6 @@
+# Upcoming
+* Fixed Bastions and Ancient Cities sharing the same rune loot tag, which made Bastions favor Swift Sneak as well as Soul Speed, and Ancient Cities favor Soul Speed as well as Swift Sneak. Bastions now use the new `runeenchanting:loot/bastion_other_specific` tag
+
 # 1.4.0.1
 * Runes for Shears now apply to anything in the `c:tools/shear` item tag, which also gets 2 sockets and is added to `minecraft:enchantable/durability` and `minecraft:enchantable/mining`
 
