@@ -1,6 +1,7 @@
 package insane96mcp.runeenchanting.runes;
 
 import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
+import insane96mcp.runeenchanting.util.REUtils;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.resources.ResourceKey;
@@ -36,7 +37,8 @@ public class PartBreakerRune extends Rune {
 
     @Override
     public void onLivingDrops(LivingDropsEvent event, ItemStack stack) {
-        if (!(event.getEntity().level() instanceof ServerLevel level))
+        if (!(event.getEntity().level() instanceof ServerLevel level)
+                || REUtils.isMeleeHitWithNonWeapon(stack, event.getSource()))
             return;
 
         ResourceLocation entityTypeId = event.getEntity().getType().builtInRegistryHolder().key().location();

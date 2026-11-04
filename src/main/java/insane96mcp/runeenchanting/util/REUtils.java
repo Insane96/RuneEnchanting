@@ -2,9 +2,11 @@ package insane96mcp.runeenchanting.util;
 
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ThrownTrident;
+import net.minecraft.world.item.ItemStack;
 
 public class REUtils {
     public static float getAttackStrengthScale(Entity entity) {
@@ -30,6 +32,21 @@ public class REUtils {
     public static boolean isArrowHit(DamageSource damageSource) {
         return damageSource.getDirectEntity() instanceof AbstractArrow
                 && !(damageSource.getDirectEntity() instanceof ThrownTrident);
+    }
+
+    /**
+     * True if the item has attack damage modifiers. Bows and crossbows don't, so they don't count as melee weapons.
+     */
+    public static boolean isMeleeWeapon(ItemStack stack) {
+        return stack.getAttributeModifiers().modifiers().stream()
+                .anyMatch(entry -> entry.attribute().equals(Attributes.ATTACK_DAMAGE));
+    }
+
+    /**
+     * True if the damage was dealt directly by the entity (not by a projectile) while using an item that isn't a melee weapon, e.g. hitting something with a bow.
+     */
+    public static boolean isMeleeHitWithNonWeapon(ItemStack stack, DamageSource damageSource) {
+        return damageSource.getDirectEntity() == damageSource.getEntity() && !isMeleeWeapon(stack);
     }
 
     public static boolean isAttackCharged(DamageSource damageSource) {

@@ -3,6 +3,7 @@
   * Sharpness: 100% -> 50%
   * Smite, Bane of Hissing, Bane of Noses, Impaling and Water Coolant: 200% -> 100%
   * Fire Surge and Rage: max 300% -> max 150%
+* Fixed weapon runes working when hitting in melee with items without attack damage, such as bows and crossbows. Their bonus damage, on-hit effects (e.g. Bane of Hissing's Slowness, Flame, Explosive), melee knockback, Electrocution's charge and Part Breaker's drops now only work with arrows
 * Fixed Bastions and Ancient Cities sharing the same rune loot tag, which made Bastions favor Swift Sneak as well as Soul Speed, and Ancient Cities favor Soul Speed as well as Swift Sneak. Bastions now use the new `runeenchanting:loot/bastion_other_specific` tag
 
 # 1.4.0.1

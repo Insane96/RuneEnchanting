@@ -6,6 +6,7 @@ import insane96mcp.insanelib.util.MCUtils;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
 import insane96mcp.runeenchanting.setup.REDataComponents;
+import insane96mcp.runeenchanting.util.REUtils;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
@@ -74,7 +75,8 @@ public class ElectrocutionRune extends Rune {
         LivingEntity attacked = event.getEntity();
         if (target != EnchantmentTarget.ATTACKER
                 || !(attacked.level() instanceof ServerLevel level)
-                || event.getSource().getDirectEntity() != event.getSource().getEntity())
+                || event.getSource().getDirectEntity() != event.getSource().getEntity()
+                || !REUtils.isMeleeWeapon(stack))
             return;
 
         charge(level, stack, attacked, event.getNewDamage(), event.getSource().getEntity());

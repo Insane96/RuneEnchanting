@@ -2,6 +2,7 @@ package insane96mcp.runeenchanting.runes;
 
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
+import insane96mcp.runeenchanting.util.REUtils;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -51,6 +52,8 @@ public class KnockbackRune extends Rune {
 
     @Override
     public float modifyMeleeKnockback(ServerLevel level, ItemStack tool, LivingEntity attacker, LivingEntity target, float knockback) {
+        if (!REUtils.isMeleeWeapon(tool))
+            return knockback;
         return knockback * (1f + meleeKnockback.floatValue());
     }
 

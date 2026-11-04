@@ -242,7 +242,7 @@ public class RuneHooks extends Feature {
 
     public static float onEnchantmentDamage(float enchantmentDamage, LivingEntity attacker, Entity attacked, float originalDamage, DamageSource damageSource, ItemStack stack) {
         List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
-        if (runes == null)
+        if (runes == null || REUtils.isMeleeHitWithNonWeapon(stack, damageSource))
             return enchantmentDamage;
         float damage = enchantmentDamage;
         for (Holder<Rune> holder : runes) {
@@ -278,7 +278,8 @@ public class RuneHooks extends Feature {
     }
 
     public static void onPostAttack(ServerLevel level, @Nullable ItemStack stack, EnchantmentTarget target, Entity attacked, DamageSource damageSource) {
-        if (stack == null)
+        if (stack == null
+                || (target == EnchantmentTarget.ATTACKER && REUtils.isMeleeHitWithNonWeapon(stack, damageSource)))
             return;
         forRunes(stack, rune -> rune.onPostAttack(level, stack, target, attacked, damageSource));
     }
