@@ -1,4 +1,8 @@
 # Upcoming
+* Halved the bonus damage of damage runes on arrows
+  * Sharpness: 100% -> 50%
+  * Smite, Bane of Hissing, Bane of Noses, Impaling and Water Coolant: 200% -> 100%
+  * Fire Surge and Rage: max 300% -> max 150%
 * Fixed Bastions and Ancient Cities sharing the same rune loot tag, which made Bastions favor Swift Sneak as well as Soul Speed, and Ancient Cities favor Soul Speed as well as Swift Sneak. Bastions now use the new `runeenchanting:loot/bastion_other_specific` tag
 
 # 1.4.0.1

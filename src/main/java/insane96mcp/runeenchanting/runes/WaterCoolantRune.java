@@ -27,7 +27,7 @@ public class WaterCoolantRune extends Rune {
     @Config
     public static Double bonusDamage = 0.7d;
     @Config(description = "Percentage bonus damage dealt by arrows shot with bows and crossbows")
-    public static Double arrowBonusDamage = 2d;
+    public static Double arrowBonusDamage = 1d;
     @Config
     public static Integer freezeAmount = 5;
     @Config(description = "If true, arrows freeze too")

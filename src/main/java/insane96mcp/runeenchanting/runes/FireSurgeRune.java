@@ -20,7 +20,7 @@ public class FireSurgeRune extends Rune {
     @Config
     public static Double maxBonusDamage = 1d;
     @Config(description = "Max percentage bonus damage dealt by arrows shot with bows and crossbows")
-    public static Double arrowMaxBonusDamage = 3d;
+    public static Double arrowMaxBonusDamage = 1.5d;
 
     @Override
     public String getName() {

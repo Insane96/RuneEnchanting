@@ -25,7 +25,7 @@ public class SharpnessRune extends Rune {
     @Config
     public static Double bonusDamage = 0.3d;
     @Config(description = "Percentage bonus damage dealt by arrows shot with bows and crossbows")
-    public static Double arrowBonusDamage = 1d;
+    public static Double arrowBonusDamage = 0.5d;
 
     @Override
     public String getName() {

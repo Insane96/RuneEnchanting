@@ -25,7 +25,7 @@ public class BaneOfNosesRune extends Rune {
     @Config
     public static Double bonusDamage = 0.7d;
     @Config(description = "Percentage bonus damage dealt by arrows shot with bows and crossbows")
-    public static Double arrowBonusDamage = 2d;
+    public static Double arrowBonusDamage = 1d;
 
     @Override
     public String getName() {

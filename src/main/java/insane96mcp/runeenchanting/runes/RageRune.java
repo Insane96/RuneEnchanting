@@ -12,6 +12,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.joml.Math;
 
 import javax.annotation.Nullable;
 
@@ -19,7 +20,7 @@ public class RageRune extends Rune {
     @Config
     public static Double maxBonusDamage = 1d;
     @Config(description = "Max percentage bonus damage dealt by arrows shot with bows and crossbows")
-    public static Double arrowMaxBonusDamage = 3d;
+    public static Double arrowMaxBonusDamage = 1.5d;
 
     @Override
     public String getName() {

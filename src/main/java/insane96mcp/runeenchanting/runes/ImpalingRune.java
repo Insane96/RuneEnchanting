@@ -19,7 +19,7 @@ public class ImpalingRune extends Rune {
     @Config
     public static Double bonusDamage = 0.7d;
     @Config(description = "Percentage bonus damage dealt by arrows shot with bows and crossbows")
-    public static Double arrowBonusDamage = 2d;
+    public static Double arrowBonusDamage = 1d;
     //TODO Bonus effect like Smite and BoH
     //@Config
     //public static Integer weaknessAmplifier = 3;
