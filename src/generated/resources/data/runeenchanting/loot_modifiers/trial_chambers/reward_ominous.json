@@ -3,7 +3,7 @@
   "conditions": [
     {
       "condition": "neoforge:loot_table_id",
-      "loot_table_id": "minecraft:chests/trial_chambers/reward_ominous_rare"
+      "loot_table_id": "minecraft:chests/trial_chambers/reward_ominous"
     }
   ],
   "rune_tags": [

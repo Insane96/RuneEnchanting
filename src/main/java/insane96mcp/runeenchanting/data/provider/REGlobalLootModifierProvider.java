@@ -35,7 +35,8 @@ public class REGlobalLootModifierProvider extends GlobalLootModifierProvider {
                 new RuneLootModifier.WeightedTag(Optional.of(RERuneTagProvider.LOOT_BASTION_OTHER_SPECIFIC), 3),
                 new RuneLootModifier.WeightedTag(Optional.empty(), 1)
         ));
-        addRuneLootModifier("trial_chambers/reward_ominous_rare", List.of(
+        // Global loot modifiers only see the rolled table's ID, not the nested ones: reward_ominous_rare would never match
+        addRuneLootModifier("trial_chambers/reward_ominous", List.of(
                 new RuneLootModifier.WeightedTag(Optional.of(RERuneTagProvider.LOOT_TRIAL_CHAMBERS_REWARD_OMINOUS_RARE), 3),
                 new RuneLootModifier.WeightedTag(Optional.empty(), 1)
         ));
