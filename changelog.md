@@ -1,4 +1,4 @@
-# Upcoming
+# 1.4.1.0
 * Halved the bonus damage of damage runes on arrows
   * Sharpness: 100% -> 50%
   * Smite, Bane of Hissing, Bane of Noses, Impaling and Water Coolant: 200% -> 100%
