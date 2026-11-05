@@ -1,6 +1,7 @@
 package insane96mcp.runeenchanting.data.provider;
 
 import insane96mcp.runeenchanting.RuneEnchanting;
+import insane96mcp.runeenchanting.setup.REItems;
 import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -42,6 +43,7 @@ public class REItemTagProvider extends ItemTagsProvider {
                 .add(Items.DIAMOND_SWORD, Items.DIAMOND_PICKAXE, Items.DIAMOND_AXE, Items.DIAMOND_SHOVEL, Items.DIAMOND_HOE)
                 .add(Items.DIAMOND_HELMET, Items.DIAMOND_CHESTPLATE, Items.DIAMOND_LEGGINGS, Items.DIAMOND_BOOTS)
                 .add(Items.SHEARS, Items.FISHING_ROD, Items.BOW, Items.CROSSBOW, Items.TRIDENT, Items.SHIELD, Items.ELYTRA);
+        tag(ItemTags.BOOKSHELF_BOOKS).add(REItems.RUNE.get());
         tag(ItemTags.DURABILITY_ENCHANTABLE).addTag(Tags.Items.TOOLS_SHEAR);
         tag(ItemTags.MINING_ENCHANTABLE).addTag(Tags.Items.TOOLS_SHEAR);
         for (var entry : RERunes.REGISTRY.entrySet()) {
