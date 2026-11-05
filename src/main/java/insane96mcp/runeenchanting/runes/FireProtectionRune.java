@@ -30,7 +30,7 @@ public class FireProtectionRune extends DamageReductionRune {
 
     @Override
     public String getInfo() {
-        return "Damage reduction: %s%% (max 80%% across multiple armor pieces). Burning duration reduction: %s%% (doesn't stack with multiple pieces)";
+        return "Damage reduction: %s%% (max 80%% combined). Burning duration reduction: %s%% (doesn't stack with multiple pieces)";
     }
 
 

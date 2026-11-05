@@ -24,7 +24,7 @@ public abstract class DamageReductionRune extends Rune {
 
     @Override
     public @Nullable String getInfo() {
-        return "Damage reduction: %s%%";
+        return "Damage reduction: %s%% (max 80%% combined)";
     }
 
     @Override
