@@ -2,8 +2,10 @@ package insane96mcp.runeenchanting.runes;
 
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.RuneEnchanting;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
@@ -36,7 +38,10 @@ public class MeleeProtectionRune extends DamageReductionRune {
 
     @Override
     public boolean shouldApply(DamageSource damageSource) {
-        return super.shouldApply(damageSource) && damageSource.getEntity() == damageSource.getDirectEntity();
+        return super.shouldApply(damageSource)
+                && damageSource.getEntity() instanceof LivingEntity
+                && damageSource.isDirect()
+                && !damageSource.is(DamageTypeTags.IS_EXPLOSION);
     }
 
     @Override

@@ -1,5 +1,6 @@
 # Upcoming
 * Decreased Blast, Fire, Magic, Melee and Projectile Protection damage reduction per piece (40% -> 30%)
+* Fixed Melee Protection also reducing damage not caused by melee attacks, such as fall, lava, falling blocks and explosions from Creepers
 
 # 1.4.2.0
 * Enchanted books in Chiseled Bookshelves are now replaced with random runes when experience is disabled, e.g. the ones generated in structures
