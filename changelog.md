@@ -1,3 +1,7 @@
+# Upcoming
+* Enchanted books in Chiseled Bookshelves are now replaced with random runes when experience is disabled, e.g. the ones generated in structures
+* Runes can now be placed in Chiseled Bookshelves
+
 # 1.4.1.0
 * Halved the bonus damage of damage runes on arrows
   * Sharpness: 100% -> 50%

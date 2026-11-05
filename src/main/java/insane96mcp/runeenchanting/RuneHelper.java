@@ -4,6 +4,7 @@ import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
 import insane96mcp.runeenchanting.runes.Rune;
 import insane96mcp.runeenchanting.setup.REDataComponents;
 import insane96mcp.runeenchanting.setup.REItems;
+import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
@@ -16,6 +17,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -147,6 +149,20 @@ public class RuneHelper {
             int idx = random.nextInt(eligible.size());
             addRune(stack, eligible.get(idx));
             eligible.remove(idx);
+        }
+    }
+
+    /**
+     * Replaces each enchanted book in the list with a random rune item. A book is kept if no rune is enabled.
+     */
+    public static void replaceEnchantedBooksWithRunes(List<ItemStack> items) {
+        RandomSource random = RandomSource.create();
+        for (int i = 0; i < items.size(); i++) {
+            if (!items.get(i).is(Items.ENCHANTED_BOOK))
+                continue;
+            ItemStack runeItem = createRandomRuneItem(random, RERunes.REGISTRY.holders().toList());
+            if (!runeItem.isEmpty())
+                items.set(i, runeItem);
         }
     }
 

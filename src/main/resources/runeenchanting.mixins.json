@@ -5,6 +5,7 @@
     "mixins": [
         "AbstractArrowMixin",
         "BowItemMixin",
+        "ChiseledBookShelfBlockEntityMixin",
         "EnchantedCountIncreaseFunctionMixin",
         "EnchantmentHelperMixin",
         "EnchantRandomlyFunctionMixin",
