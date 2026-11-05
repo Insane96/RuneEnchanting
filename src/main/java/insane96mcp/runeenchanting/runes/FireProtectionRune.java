@@ -14,7 +14,7 @@ import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 
 public class FireProtectionRune extends DamageReductionRune {
     @Config
-    public static Double damageReduction = 0.40d;
+    public static Double damageReduction = 0.30d;
     @Config(description = "Multiple runes don't increase this multiple times")
     public static Double burningDurationReduction = 0.30d;
 

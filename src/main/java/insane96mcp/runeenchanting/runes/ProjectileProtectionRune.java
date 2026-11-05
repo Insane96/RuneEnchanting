@@ -11,7 +11,7 @@ import javax.annotation.Nullable;
 
 public class ProjectileProtectionRune extends DamageReductionRune {
     @Config
-    public static Double damageReduction = 0.40d;
+    public static Double damageReduction = 0.30d;
     @Config(description = "Mobs follow range will be multiplied by this before checking if they can see the entity. Multiple runes don't increase this multiple times.")
     public static Double sightModifier = 0.80d;
 

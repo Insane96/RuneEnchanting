@@ -1,3 +1,6 @@
+# Upcoming
+* Decreased Blast, Fire, Magic, Melee and Projectile Protection damage reduction per piece (40% -> 30%)
+
 # 1.4.2.0
 * Enchanted books in Chiseled Bookshelves are now replaced with random runes when experience is disabled, e.g. the ones generated in structures
 * Runes can now be placed in Chiseled Bookshelves

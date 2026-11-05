@@ -11,7 +11,7 @@ import javax.annotation.Nullable;
 
 public class MagicProtectionRune extends DamageReductionRune {
     @Config
-    public static Double damageReduction = 0.40d;
+    public static Double damageReduction = 0.30d;
     @Config(min = 0, max = 1, description = "Multiple runes don't increase this multiple times")
     public static Double negativeEffectsDurationMultiplier = 0.8d;
 
