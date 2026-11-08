@@ -1,9 +1,10 @@
 # Upcoming
+* Brushes now have 2 sockets and can get durability runes
+* Efficiency (+100%), Atmospheric (up to +150% under the sun) and Curse of Inefficiency (-50%) now affect brushing speed by changing the number of brushes required
 * Sculk Catalysts (50%) and Sculk (0.1%) now have a chance to drop a random rune, curses included, when broken without Silk Touch
+* Runes in item tooltips are now sorted by name, with curses first
 * The off ground mining speed attribute has been moved to InsaneLib (`insanelib:off_ground_mining_speed`)
 * Air Affinity now always removes the off ground mining speed penalty entirely, even when another mod changes it
-* Atmospheric and Retreat bonuses are no longer saved on the entity
-* Runes in item tooltips are now sorted by name, with curses first
 
 # 1.4.3.0
 * Decreased Blast, Fire, Magic, Melee and Projectile Protection damage reduction per piece (40% -> 30%)

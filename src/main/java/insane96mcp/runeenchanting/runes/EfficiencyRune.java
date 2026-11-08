@@ -10,7 +10,10 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.Tool;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.extensions.IAttributeExtension;
@@ -23,6 +26,8 @@ public class EfficiencyRune extends Rune {
     public static Double bonusMiningSpeed = 0.8d;
     @Config
     public static Double bonusFlatMiningSpeed = 2.5d;
+    @Config(description = "Percentage bonus brushing speed")
+    public static Double brushSpeedBonus = 1d;
 
     @Override
     public String getName() {
@@ -36,12 +41,12 @@ public class EfficiencyRune extends Rune {
 
     @Override
     public @Nullable String getInfo() {
-        return "Mining speed: +%s%%, +%s flat";
+        return "Mining speed: +%s%%, +%s flat. Brushing speed: +%s%%";
     }
 
     @Override
     public MutableComponent getInfoComponent() {
-        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(bonusMiningSpeed * 100), IAttributeExtension.FORMAT.format(bonusFlatMiningSpeed));
+        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(bonusMiningSpeed * 100), IAttributeExtension.FORMAT.format(bonusFlatMiningSpeed), IAttributeExtension.FORMAT.format(brushSpeedBonus * 100));
     }
 
     @Override
@@ -50,7 +55,13 @@ public class EfficiencyRune extends Rune {
                 .addTag(ItemTags.AXES)
                 .addTag(ItemTags.SHOVELS)
                 .addTag(ItemTags.HOES)
-                .addTag(Tags.Items.TOOLS_SHEAR);
+                .addTag(Tags.Items.TOOLS_SHEAR)
+                .add(Items.BRUSH);
+    }
+
+    @Override
+    public float onBrushSpeed(Player player, ItemStack stack, float speed) {
+        return speed + brushSpeedBonus.floatValue();
     }
 
     @Override

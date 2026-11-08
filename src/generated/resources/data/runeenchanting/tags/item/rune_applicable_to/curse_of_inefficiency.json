@@ -1,5 +1,6 @@
 {
   "values": [
-    "#minecraft:enchantable/mining"
+    "#minecraft:enchantable/mining",
+    "minecraft:brush"
   ]
 }

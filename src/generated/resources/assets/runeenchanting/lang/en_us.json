@@ -127,7 +127,7 @@
   "rune.runeenchanting.earthbend.info": "Bonus mining speed: %s%%",
   "rune.runeenchanting.efficiency": "Efficiency",
   "rune.runeenchanting.efficiency.description": "Increases mining speed",
-  "rune.runeenchanting.efficiency.info": "Mining speed: +%s%%, +%s flat",
+  "rune.runeenchanting.efficiency.info": "Mining speed: +%s%%, +%s flat. Brushing speed: +%s%%",
   "rune.runeenchanting.electrocution": "Electrocution",
   "rune.runeenchanting.electrocution.description": "Damage dealt charges the weapon; once enough has accumulated the hit discharges, shocking the target and the nearby entities",
   "rune.runeenchanting.electrocution.info": "Damage to charge: %s, Decay: %s/s, Shock damage: %s, Chain range: %s, Chain targets: %s",

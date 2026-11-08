@@ -121,6 +121,11 @@ public abstract class Rune {
         return speed;
     }
 
+    ///Modifies how fast a brush uncovers brushable blocks. A speed of 1 is vanilla, 2 requires half the brushes
+    public float onBrushSpeed(Player player, ItemStack stack, float speed) {
+        return speed;
+    }
+
     public void onBlockBreak(BlockEvent.BreakEvent event, ItemStack stack) {}
 
     public void onBlockDrops(BlockDropsEvent event, ItemStack stack) {}

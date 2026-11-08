@@ -72,6 +72,11 @@ public class AtmosphericRune extends Rune {
     }
 
     @Override
+    public float onBrushSpeed(Player player, ItemStack stack, float speed) {
+        return speed + maxMiningSpeedMultiplier.floatValue() * getSunLightRatio(player);
+    }
+
+    @Override
     public void tickEffects(ServerLevel level, ItemStack stack, LivingEntity entity) {
         if ((entity.tickCount + entity.getId()) % 5 != 4)
             return;

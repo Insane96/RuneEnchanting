@@ -262,6 +262,20 @@ public class RuneHooks extends Feature {
         return speed;
     }
 
+    public static int getRequiredBrushes(int original, Player player) {
+        ItemStack stack = player.getUseItem();
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
+        if (runes == null)
+            return original;
+        float speed = 1f;
+        for (Holder<Rune> holder : runes) {
+            speed = holder.value().onBrushSpeed(player, stack, speed);
+        }
+        if (speed <= 0f)
+            return Integer.MAX_VALUE;
+        return Math.max(1, (int) Math.ceil(original / speed));
+    }
+
     public static float onOffGroundMiningSpeedPenalty(float originalSpeedPenalty, Player player, ItemStack stack, BlockState state, BlockPos pos) {
         List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
         if (runes == null)

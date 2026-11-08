@@ -11,6 +11,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
@@ -41,7 +42,13 @@ public class CurseOfInefficiencyRune extends Rune {
 
     @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
-        appender.addTag(ItemTags.MINING_ENCHANTABLE);
+        appender.addTag(ItemTags.MINING_ENCHANTABLE)
+                .add(Items.BRUSH);
+    }
+
+    @Override
+    public float onBrushSpeed(Player player, ItemStack stack, float speed) {
+        return speed * (1f - miningSpeedReduction.floatValue());
     }
 
     @Override

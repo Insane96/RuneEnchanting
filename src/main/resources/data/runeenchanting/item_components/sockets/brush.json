@@ -1,0 +1,6 @@
+{
+    "item": "minecraft:brush",
+    "components": {
+        "runeenchanting:sockets": 2
+    }
+}
