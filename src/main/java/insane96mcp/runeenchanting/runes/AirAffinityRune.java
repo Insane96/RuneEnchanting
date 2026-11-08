@@ -1,7 +1,7 @@
 package insane96mcp.runeenchanting.runes;
 
+import insane96mcp.insanelib.setup.ILAttributes;
 import insane96mcp.runeenchanting.RuneEnchanting;
-import insane96mcp.runeenchanting.setup.REAttributes;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlotGroup;
@@ -27,6 +27,6 @@ public class AirAffinityRune extends Rune {
 
     @Override
     public void addAttributeModifiers(ItemAttributeModifierEvent event) {
-        event.addModifier(REAttributes.OFF_GROUND_MINING_SPEED, new AttributeModifier(RuneEnchanting.id("air_affinity"), 4, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL), EquipmentSlotGroup.bySlot(RuneEnchanting.getEquipmentSlotForItem(event.getItemStack())));
+        event.addModifier(ILAttributes.OFF_GROUND_MINING_SPEED, new AttributeModifier(RuneEnchanting.id("air_affinity"), 1, AttributeModifier.Operation.ADD_VALUE),EquipmentSlotGroup.bySlot(RuneEnchanting.getEquipmentSlotForItem(event.getItemStack())));
     }
 }

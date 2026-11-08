@@ -1,3 +1,7 @@
+# Upcoming
+* The off ground mining speed attribute has been moved to InsaneLib (`insanelib:off_ground_mining_speed`)
+* Air Affinity now always removes the off ground mining speed penalty entirely, even when another mod changes it
+
 # 1.4.3.0
 * Decreased Blast, Fire, Magic, Melee and Projectile Protection damage reduction per piece (40% -> 30%)
 * Fixed Melee Protection also reducing damage not caused by melee attacks, such as fall, lava, falling blocks and explosions from Creepers
