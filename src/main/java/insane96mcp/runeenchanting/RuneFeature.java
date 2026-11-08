@@ -266,7 +266,10 @@ public class RuneFeature extends Feature {
         int sockets = RuneHelper.getSockets(stack);
         List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack, false, true);
         if (runes != null)
-            runes = runes.stream().sorted(Comparator.comparingInt(h -> (Rune.isCurse(h) ? 1 : 0))).toList();
+            runes = runes.stream()
+                    .sorted(Comparator.<Holder<Rune>>comparingInt(h -> Rune.isCurse(h) ? 0 : 1)
+                            .thenComparing(h -> h.value().getNameComponent().getString(), String.CASE_INSENSITIVE_ORDER))
+                    .toList();
         int runesCount = RuneHelper.countRunes(stack, false);
         int noCursesRunesCount = RuneHelper.countRunes(stack);
         boolean overloaded = RuneHelper.isOverloaded(stack);

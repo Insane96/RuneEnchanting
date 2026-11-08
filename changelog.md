@@ -3,6 +3,7 @@
 * The off ground mining speed attribute has been moved to InsaneLib (`insanelib:off_ground_mining_speed`)
 * Air Affinity now always removes the off ground mining speed penalty entirely, even when another mod changes it
 * Atmospheric and Retreat bonuses are no longer saved on the entity
+* Runes in item tooltips are now sorted by name, with curses first
 
 # 1.4.3.0
 * Decreased Blast, Fire, Magic, Melee and Projectile Protection damage reduction per piece (40% -> 30%)
