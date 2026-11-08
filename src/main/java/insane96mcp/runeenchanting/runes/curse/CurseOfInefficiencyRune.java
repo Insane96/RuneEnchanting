@@ -55,7 +55,7 @@ public class CurseOfInefficiencyRune extends Rune {
     public float onMiningSpeed(Player player, ItemStack stack, BlockState state, @Nullable BlockPos pos, float original, float speed) {
         if (!stack.isCorrectToolForDrops(state))
             return speed;
-        return speed * 0.5f;
+        return speed * (1f - miningSpeedReduction.floatValue());
     }
 
     @Override
