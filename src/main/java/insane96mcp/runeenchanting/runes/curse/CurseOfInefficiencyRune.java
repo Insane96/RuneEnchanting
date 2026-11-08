@@ -32,12 +32,12 @@ public class CurseOfInefficiencyRune extends Rune {
 
     @Override
     public String getDescription() {
-        return "Decreases mining speed";
+        return "Decreases mining and brushing speed";
     }
 
     @Override
     public String getInfo() {
-        return "Mining speed penalty: %s%%";
+        return "Mining and brushing speed penalty: %s%%";
     }
 
     @Override

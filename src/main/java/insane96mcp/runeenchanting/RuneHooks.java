@@ -22,6 +22,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.FishingRodItem;
@@ -274,6 +275,11 @@ public class RuneHooks extends Feature {
         if (speed <= 0f)
             return Integer.MAX_VALUE;
         return Math.max(1, (int) Math.ceil(original / speed));
+    }
+
+    public static void onBrushDrop(Player player, ItemEntity drop) {
+        ItemStack stack = player.getUseItem();
+        forRunes(stack, rune -> rune.onBrushDrop(player, stack, drop));
     }
 
     public static float onOffGroundMiningSpeedPenalty(float originalSpeedPenalty, Player player, ItemStack stack, BlockState state, BlockPos pos) {

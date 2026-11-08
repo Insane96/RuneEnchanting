@@ -11,6 +11,7 @@ import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.extensions.IAttributeExtension;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 
@@ -43,7 +44,8 @@ public class ReachRune extends Rune {
     @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
         appender.addTag(REItemTagProvider.WEAPONS)
-                .addTag(ItemTags.CHEST_ARMOR_ENCHANTABLE);
+                .addTag(ItemTags.CHEST_ARMOR_ENCHANTABLE)
+                .add(Items.BRUSH);
     }
 
     @Override

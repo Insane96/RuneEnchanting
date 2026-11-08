@@ -8,6 +8,7 @@
     "minecraft:trident",
     "minecraft:bow",
     "minecraft:crossbow",
+    "minecraft:brush",
     "#c:tools/shear"
   ]
 }

@@ -24,6 +24,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.Item;
@@ -125,6 +126,9 @@ public abstract class Rune {
     public float onBrushSpeed(Player player, ItemStack stack, float speed) {
         return speed;
     }
+
+    ///Called before the item uncovered by brushing a block is spawned. If the item entity's stack is emptied it's not spawned
+    public void onBrushDrop(Player player, ItemStack stack, ItemEntity drop) {}
 
     public void onBlockBreak(BlockEvent.BreakEvent event, ItemStack stack) {}
 

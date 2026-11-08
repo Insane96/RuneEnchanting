@@ -28,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
 public class AtmosphericRune extends Rune {
     private static final ResourceLocation MODIFIER_ID = RuneEnchanting.id("atmospheric");
 
-    @Config(description = "Bonus mining speed relative to tool speed at full sunlight (Light level 12+)")
+    @Config(description = "Bonus mining speed relative to tool speed at full sunlight (Light level 12+). Also used as the bonus brushing speed")
     public static Double maxMiningSpeedMultiplier = 1.5d;
     @Config(description = "Attack speed bonus (ADD_MULTIPLIED_BASE) at full moonlight (Light level 12+)")
     public static Double maxAttackSpeedBonus = 0.25d;
@@ -42,12 +42,12 @@ public class AtmosphericRune extends Rune {
 
     @Override
     public String getDescription() {
-        return "Gain mining speed under the sun, attack speed under the moon light, and reduced durability consumption in the rain";
+        return "Gain mining and brushing speed under the sun, attack speed under the moon light, and reduced durability consumption in the rain";
     }
 
     @Override
     public @Nullable String getInfo() {
-        return "Max Bonus Mining Speed: +%s%%. Max Bonus Attack Speed: +%s%%. Tool lasts on average %s%% more";
+        return "Max Bonus Mining and Brushing Speed: +%s%%. Max Bonus Attack Speed: +%s%%. Tool lasts on average %s%% more";
     }
 
     @Override

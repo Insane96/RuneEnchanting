@@ -1,6 +1,7 @@
 {
   "values": [
     "#runeenchanting:weapons",
-    "#minecraft:enchantable/chest_armor"
+    "#minecraft:enchantable/chest_armor",
+    "minecraft:brush"
   ]
 }

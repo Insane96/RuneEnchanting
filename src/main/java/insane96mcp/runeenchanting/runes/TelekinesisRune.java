@@ -23,7 +23,7 @@ public class TelekinesisRune extends Rune {
 
     @Override
     public String getDescription() {
-        return "Sends drops from mined blocks and killed mobs directly to your inventory";
+        return "Sends drops from mined or brushed blocks and killed mobs directly to your inventory";
     }
 
     // Run after all the other runes so they can change drops first
@@ -39,7 +39,7 @@ public class TelekinesisRune extends Rune {
                 .addTag(ItemTags.PICKAXES)
                 .addTag(ItemTags.SHOVELS)
                 .addTag(ItemTags.HOES)
-                .add(Items.TRIDENT, Items.BOW, Items.CROSSBOW)
+                .add(Items.TRIDENT, Items.BOW, Items.CROSSBOW, Items.BRUSH)
                 .addTag(Tags.Items.TOOLS_SHEAR);
     }
 
@@ -57,16 +57,24 @@ public class TelekinesisRune extends Rune {
         collectIntoInventory(player, event.getDrops());
     }
 
+    @Override
+    public void onBrushDrop(Player player, ItemStack stack, ItemEntity drop) {
+        collectIntoInventory(player, drop);
+    }
+
     private static void collectIntoInventory(Player player, Collection<ItemEntity> drops) {
-        drops.removeIf(itemEntity -> {
-            ItemStack itemStack = itemEntity.getItem();
-            int originalCount = itemStack.getCount();
-            player.getInventory().add(itemStack);
-            if (itemStack.getCount() != originalCount) {
-                player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.2F,
-                        ((player.level().random.nextFloat() - player.level().random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
-            }
-            return itemStack.isEmpty();
-        });
+        drops.removeIf(itemEntity -> collectIntoInventory(player, itemEntity));
+    }
+
+    /// @return true if the whole stack fit in the inventory
+    private static boolean collectIntoInventory(Player player, ItemEntity itemEntity) {
+        ItemStack itemStack = itemEntity.getItem();
+        int originalCount = itemStack.getCount();
+        player.getInventory().add(itemStack);
+        if (itemStack.getCount() != originalCount) {
+            player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.2F,
+                    ((player.level().random.nextFloat() - player.level().random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+        }
+        return itemStack.isEmpty();
     }
 }

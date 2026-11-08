@@ -36,7 +36,7 @@ public class EfficiencyRune extends Rune {
 
     @Override
     public String getDescription() {
-        return "Increases mining speed";
+        return "Increases mining and brushing speed";
     }
 
     @Override
