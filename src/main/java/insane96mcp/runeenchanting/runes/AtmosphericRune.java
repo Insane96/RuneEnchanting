@@ -89,7 +89,7 @@ public class AtmosphericRune extends Rune {
 
         attackSpeedAttr.removeModifier(MODIFIER_ID);
         if (amount > 0f)
-            MCUtils.applyModifier(entity, Attributes.ATTACK_SPEED, MODIFIER_ID, amount, AttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+            MCUtils.applyModifier(entity, Attributes.ATTACK_SPEED, MODIFIER_ID, amount, AttributeModifier.Operation.ADD_MULTIPLIED_BASE, false);
     }
 
     @Override

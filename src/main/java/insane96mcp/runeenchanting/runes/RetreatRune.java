@@ -59,7 +59,7 @@ public class RetreatRune extends Rune {
 
         if (modifier != null)
             movementSpeedAttribute.removeModifier(MODIFIER_ID);
-        MCUtils.applyModifier(entity, Attributes.MOVEMENT_SPEED, MODIFIER_ID, amount, AttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+        MCUtils.applyModifier(entity, Attributes.MOVEMENT_SPEED, MODIFIER_ID, amount, AttributeModifier.Operation.ADD_MULTIPLIED_BASE, false);
     }
 
     @Override

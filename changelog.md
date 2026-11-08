@@ -2,6 +2,7 @@
 * Sculk Catalysts (50%) and Sculk (0.1%) now have a chance to drop a random rune, curses included, when broken without Silk Touch
 * The off ground mining speed attribute has been moved to InsaneLib (`insanelib:off_ground_mining_speed`)
 * Air Affinity now always removes the off ground mining speed penalty entirely, even when another mod changes it
+* Atmospheric and Retreat bonuses are no longer saved on the entity
 
 # 1.4.3.0
 * Decreased Blast, Fire, Magic, Melee and Projectile Protection damage reduction per piece (40% -> 30%)

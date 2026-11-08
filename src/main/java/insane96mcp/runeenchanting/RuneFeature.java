@@ -126,6 +126,9 @@ public class RuneFeature extends Feature {
         ClientboundDisableExperienceMessage.sync((ServerPlayer) event.getEntity(), disableExperience);
         updateFakeExperienceLevels((ServerPlayer) event.getEntity(), disableExperience);
         CurseKnowledge.syncTeamOnLogin((ServerPlayer) event.getEntity());
+        //These bonuses used to be saved on the player. If the runes are still active they are re-applied as non-permanent on the next check
+        RERunes.ATMOSPHERIC.get().removeEffects(event.getEntity());
+        RERunes.RETREAT.get().removeEffects(event.getEntity());
     }
 
     /**

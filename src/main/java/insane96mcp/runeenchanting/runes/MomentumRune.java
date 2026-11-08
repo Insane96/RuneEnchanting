@@ -175,7 +175,7 @@ public class MomentumRune extends Rune {
                 AttributeModifier existing = attr.getModifier(modifierId);
                 if (existing == null || (float) existing.amount() != bonus) {
                     attr.removeModifier(modifierId);
-                    MCUtils.applyModifier(entity, attribute, modifierId, bonus, operation);
+                    MCUtils.applyModifier(entity, attribute, modifierId, bonus, operation, false);
                 }
             }
         } else if (ModNBTData.contains(entity, bonusLoc)) {
