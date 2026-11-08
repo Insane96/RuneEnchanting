@@ -1,4 +1,4 @@
-# Upcoming
+# 1.4.4.0
 * Brushes now have 2 sockets and can get durability runes, Reach and Telekinesis (sends the uncovered item directly to your inventory)
 * Efficiency (+100%), Atmospheric (up to +150% under the sun) and Curse of Inefficiency (-50%) now affect brushing speed by changing the number of brushes required
 * Sculk Catalysts (50%) and Sculk (0.1%) now have a chance to drop a random rune, curses included, when broken without Silk Touch
