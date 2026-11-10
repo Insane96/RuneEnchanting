@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import insane96mcp.runeenchanting.RuneHooks;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,5 +17,11 @@ public class BowItemMixin {
     @WrapOperation(method = "releaseUsing", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/BowItem;getPowerForTime(I)F"))
     private float runeenchanting$chargingTime(int charge, Operation<Float> original, @Local(argsOnly = true) ItemStack stack, @Local(argsOnly = true) LivingEntity entity) {
         return original.call(Math.round(charge / RuneHooks.getBowChargingTimeMultiplier(stack, entity)));
+    }
+
+    //Prevents drawing the bow if there isn't enough ammo for the runes (e.g. Multishot)
+    @WrapOperation(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;getProjectile(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;"))
+    private ItemStack runeenchanting$requiredAmmo(Player player, ItemStack weapon, Operation<ItemStack> original) {
+        return RuneHooks.checkRequiredAmmo(player, weapon, original.call(player, weapon));
     }
 }

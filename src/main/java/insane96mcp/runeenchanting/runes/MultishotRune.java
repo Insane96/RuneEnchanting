@@ -7,6 +7,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.common.extensions.IAttributeExtension;
@@ -42,6 +43,11 @@ public class MultishotRune extends Rune {
 
     @Override
     public int modifyAmmoUse(ServerLevel level, ItemStack weapon, ItemStack ammo, int originalCount, int count) {
+        return count * arrowsShot;
+    }
+
+    @Override
+    public int modifyRequiredAmmo(ItemStack weapon, LivingEntity shooter, int originalCount, int count) {
         return count * arrowsShot;
     }
 

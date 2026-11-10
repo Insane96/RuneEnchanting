@@ -195,6 +195,14 @@ public abstract class Rune {
         return count;
     }
 
+    /**
+     * Ammo the shooter must have (in the projectile stack) to start drawing a bow or loading a crossbow.
+     * Called on both sides, so it must be deterministic (no randomness, unlike {@link #modifyAmmoUse}).
+     */
+    public int modifyRequiredAmmo(ItemStack weapon, LivingEntity shooter, int originalCount, int count) {
+        return count;
+    }
+
     public int modifyProjectileCount(ServerLevel level, ItemStack tool, Entity entity, int originalCount, int count) {
         return count;
     }

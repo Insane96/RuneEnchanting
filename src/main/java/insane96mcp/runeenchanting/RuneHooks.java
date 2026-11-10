@@ -315,6 +315,28 @@ public class RuneHooks extends Feature {
         return count;
     }
 
+    public static int getRequiredAmmo(ItemStack weapon, LivingEntity shooter) {
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(weapon);
+        if (runes == null)
+            return 1;
+        int count = 1;
+        for (Holder<Rune> holder : runes) {
+            count = holder.value().modifyRequiredAmmo(weapon, shooter, 1, count);
+        }
+        return count;
+    }
+
+    /**
+     * Used when starting to draw a bow or load a crossbow: returns {@link ItemStack#EMPTY} if the projectile stack
+     * doesn't have enough ammo for the weapon's runes (e.g. Multishot), so the weapon can't be used at all instead
+     * of playing the whole animation and then failing to shoot/load.
+     */
+    public static ItemStack checkRequiredAmmo(Player player, ItemStack weapon, ItemStack projectile) {
+        if (projectile.isEmpty() || player.hasInfiniteMaterials())
+            return projectile;
+        return projectile.getCount() < getRequiredAmmo(weapon, player) ? ItemStack.EMPTY : projectile;
+    }
+
     public static int modifyProjectileCount(ServerLevel level, ItemStack tool, Entity entity, int originalCount) {
         List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(tool);
         if (runes == null)
