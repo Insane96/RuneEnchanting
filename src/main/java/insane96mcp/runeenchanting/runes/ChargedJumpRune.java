@@ -18,9 +18,9 @@ import javax.annotation.Nullable;
 
 public class ChargedJumpRune extends Rune {
     @Config
-    public static Integer timeToCharge = 8;
+    public static Integer timeToCharge = 5;
     @Config
-    public static Integer maxJumpBoostAmplifier = 7;
+    public static Integer maxJumpBoostAmplifier = 9;
 
     @Override
     public String getName() {

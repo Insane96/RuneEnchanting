@@ -1,5 +1,6 @@
 # Upcoming
 * Increased Thorns damage chance
+* Increased Charged Jump max Jump Boost amplifier and reduced time to jump
 
 # 1.4.4.0
 * Brushes now have 2 sockets and can get durability runes, Reach and Telekinesis (sends the uncovered item directly to your inventory)
