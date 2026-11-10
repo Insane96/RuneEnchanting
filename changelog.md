@@ -1,3 +1,6 @@
+# Upcoming
+* Increased Thorns damage chance
+
 # 1.4.4.0
 * Brushes now have 2 sockets and can get durability runes, Reach and Telekinesis (sends the uncovered item directly to your inventory)
 * Efficiency (+100%), Atmospheric (up to +150% under the sun) and Curse of Inefficiency (-50%) now affect brushing speed by changing the number of brushes required
