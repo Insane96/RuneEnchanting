@@ -1,6 +1,7 @@
 package insane96mcp.runeenchanting.runes;
 
 import insane96mcp.insanelib.core.feature.config.Config;
+import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.RuneHelper;
 import insane96mcp.runeenchanting.network.message.ClientboundEntityGlowMessage;
 import insane96mcp.runeenchanting.setup.RERunes;
@@ -22,21 +23,27 @@ public class VibrationDetectionRune extends Rune {
     public static Double range = 16d;
     @Config(description = "Duration in seconds the sound source glows for")
     public static Double glowDuration = 1d;
+    @Config(min = 0, max = 1, description = "Chance for the glowing effect to be applied")
+    public static Double chance = 0.2d;
 
     @Override
-    public String getName() { return "Vibration Detection"; }
+    public String getName() {
+        return "Vibration Detection";
+    }
 
     @Override
-    public String getDescription() { return "Living entities glow through walls for a moment when they emit a sound nearby, including yourself"; }
+    public String getDescription() {
+        return "Living entities have a chance to glow through walls for a moment when they emit a sound nearby, including yourself";
+    }
 
     @Override
     public @Nullable String getInfo() {
-        return "Range: %s";
+        return "Range: %s. Chance to apply glow: %s%%";
     }
 
     @Override
     public MutableComponent getInfoComponent() {
-        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(range));
+        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(range), RuneEnchanting.NO_DECIMAL_FORMATTER.format(chance * 100f));
     }
 
     @Override
@@ -45,7 +52,9 @@ public class VibrationDetectionRune extends Rune {
     }
 
     public static void onEntitySound(ServerLevel level, Entity source) {
-        if (!(source instanceof LivingEntity) || !Rune.isEnabled(RERunes.VIBRATION_DETECTION))
+        if (!(source instanceof LivingEntity)
+                || !Rune.isEnabled(RERunes.VIBRATION_DETECTION)
+                || source.getRandom().nextFloat() >= 0.25d)
             return;
 
         int durationTicks = (int) (glowDuration * 20d);

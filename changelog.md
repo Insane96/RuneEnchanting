@@ -1,3 +1,6 @@
+# Upcoming
+* Vibration Detection now only has a chance to apply glowing
+
 # 1.4.5.0
 * Atmospheric has been split into two runes. Existing Atmospheric runes become Sunlit
   * Sunlit: gain mining and brushing speed under the sun. Can be applied to mining tools, shears and brushes
