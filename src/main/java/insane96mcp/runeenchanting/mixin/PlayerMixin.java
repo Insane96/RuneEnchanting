@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import insane96mcp.runeenchanting.RuneHooks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Inventory;
@@ -13,6 +14,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import javax.annotation.Nullable;
 
@@ -29,5 +32,13 @@ public class PlayerMixin {
         float f = original.call(inventory, state);
         Player player = (Player) (Object) this;
         return RuneHooks.onMiningSpeed(f, player, player.getMainHandItem(), state, pos);
+    }
+
+    // Player overrides Entity#playSound without calling super, so EntityMixin doesn't catch player sounds
+    @Inject(method = "playSound(Lnet/minecraft/sounds/SoundEvent;FF)V", at = @At("HEAD"))
+    private void runeenchanting$onPlaySound(SoundEvent sound, float volume, float pitch, CallbackInfo ci) {
+        Player player = (Player) (Object) this;
+        if (!player.isSilent())
+            RuneHooks.onEntitySound(player);
     }
 }

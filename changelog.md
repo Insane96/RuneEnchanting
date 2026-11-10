@@ -1,5 +1,7 @@
 # Upcoming
-* Vibration Detection now only has a chance to apply glowing
+* Vibration Detection 
+  * Now only has a chance to apply glowing
+  * Fixed not applying glowing to players
 
 # 1.4.5.0
 * Atmospheric has been split into two runes. Existing Atmospheric runes become Sunlit
