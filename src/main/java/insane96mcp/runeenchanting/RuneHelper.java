@@ -18,6 +18,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LightLayer;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -244,5 +246,30 @@ public class RuneHelper {
                 .map(ItemStack::new)
                 .filter(stack -> rune.value().canBeAppliedTo(stack))
                 .toList();
+    }
+
+    /**
+     * Sky light at the entity's position during the day (sunlight) or the night (moonlight), from 0 to 1 (Light level 12+).
+     * Always 0 in dimensions with fixed time and while thundering, reduced while raining.
+     */
+    public static float getSkyLightRatio(LivingEntity entity, boolean day) {
+        Level level = entity.level();
+        if (level.dimensionType().hasFixedTime() || level.isThundering() || isDayTime(level) != day)
+            return 0f;
+        float skyLight = level.getBrightness(LightLayer.SKY, entity.blockPosition());
+        if (level.isRaining())
+            skyLight *= 0.35f;
+        return Math.min(skyLight, 12f) / 12f;
+    }
+
+    /**
+     * Level#isDay()/isNight()/getSkyDarken() rely on Level's internal skyDarken field, which
+     * ServerLevel refreshes every tick but ClientLevel only sets once at construction time.
+     * That leaves it stale client-side (e.g. always "day" if the world was joined during daytime),
+     * causing mining speed to desync between the client prediction and the server's actual speed.
+     * getDayTime() itself is kept live on both sides every tick, so derive day/night from it instead.
+     */
+    public static boolean isDayTime(Level level) {
+        return level.getDayTime() % 24000L < 12000L;
     }
 }

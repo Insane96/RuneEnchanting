@@ -31,6 +31,7 @@ public class RERunes {
 
     // Tools
     public static final DeferredHolder<Rune, EfficiencyRune> EFFICIENCY = register("efficiency", new EfficiencyRune());
+    public static final DeferredHolder<Rune, SunlitRune> SUNLIT = register("sunlit", new SunlitRune());
     public static final DeferredHolder<Rune, EarthbendRune> EARTHBEND = register("earthbend", new EarthbendRune());
     public static final DeferredHolder<Rune, SilkTouchRune> SILK_TOUCH = register("silk_touch", new SilkTouchRune());
     public static final DeferredHolder<Rune, VeiningRune> VEINING = register("veining", new VeiningRune());
@@ -47,6 +48,7 @@ public class RERunes {
 
     // Weapons
     public static final DeferredHolder<Rune, SharpnessRune> SHARPNESS = register("sharpness", new SharpnessRune());
+    public static final DeferredHolder<Rune, MoonlitRune> MOONLIT = register("moonlit", new MoonlitRune());
     public static final DeferredHolder<Rune, BaneOfHissingRune> BANE_OF_HISSING = register("bane_of_hissing", new BaneOfHissingRune());
     public static final DeferredHolder<Rune, ImpalingRune> IMPALING = register("impaling", new ImpalingRune());
     public static final DeferredHolder<Rune, WaterCoolantRune> WATER_COOLANT = register("water_coolant", new WaterCoolantRune());
@@ -140,7 +142,6 @@ public class RERunes {
 
     // All durability items
     public static final DeferredHolder<Rune, EnduringRune> ENDURING = register("enduring", new EnduringRune());
-    public static final DeferredHolder<Rune, AtmosphericRune> ATMOSPHERIC = register("atmospheric", new AtmosphericRune());
     public static final DeferredHolder<Rune, LapisFueledRune> LAPIS_FUELED = register("lapis_fueled", new LapisFueledRune());
     public static final DeferredHolder<Rune, BloodFueledRune> BLOOD_FUELED = register("blood_fueled", new BloodFueledRune());
     public static final DeferredHolder<Rune, SoulboundRune> SOULBOUND = register("soulbound", new SoulboundRune());
@@ -173,6 +174,8 @@ public class RERunes {
     static {
         //Power has been merged into Sharpness, items with Power are loaded with Sharpness
         RUNES.addAlias(RuneEnchanting.id("power"), RuneEnchanting.id("sharpness"));
+        //Atmospheric has been split into Sunlit and Moonlit, items with Atmospheric are loaded with Sunlit
+        RUNES.addAlias(RuneEnchanting.id("atmospheric"), RuneEnchanting.id("sunlit"));
     }
 
     private static <T extends Rune> DeferredHolder<Rune, T> register(String id, T instance) {

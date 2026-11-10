@@ -1,7 +1,12 @@
 # Upcoming
+* Atmospheric has been split into two runes. Existing Atmospheric runes become Sunlit
+  * Sunlit: gain mining and brushing speed under the sun. Can be applied to mining tools, shears and brushes
+  * Moonlit: gain attack speed under the moon light. Can be applied to weapons
+  * Removed the reduced durability consumption in the rain
 * Increased Thorns damage chance
 * Increased Charged Jump max Jump Boost amplifier and reduced time to jump
 * Dwarfing now applies max bonus mining speed in the Nether
+* Fixed bows and crossbows with Multishot starting to draw/load with fewer arrows than required, then not shooting/loading anything. They now can't be used at all without enough arrows
 
 # 1.4.4.0
 * Brushes now have 2 sockets and can get durability runes, Reach and Telekinesis (sends the uncovered item directly to your inventory)

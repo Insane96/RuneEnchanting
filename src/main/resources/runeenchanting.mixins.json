@@ -7,6 +7,7 @@
         "BowItemMixin",
         "BrushableBlockEntityMixin",
         "ChiseledBookShelfBlockEntityMixin",
+        "CrossbowItemMixin",
         "EnchantedCountIncreaseFunctionMixin",
         "EnchantmentHelperMixin",
         "EnchantRandomlyFunctionMixin",
