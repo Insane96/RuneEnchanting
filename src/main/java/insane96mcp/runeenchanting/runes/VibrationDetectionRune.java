@@ -54,7 +54,7 @@ public class VibrationDetectionRune extends Rune {
     public static void onEntitySound(ServerLevel level, Entity source) {
         if (!(source instanceof LivingEntity)
                 || !Rune.isEnabled(RERunes.VIBRATION_DETECTION)
-                || source.getRandom().nextFloat() >= 0.25d)
+                || source.getRandom().nextFloat() >= chance)
             return;
 
         int durationTicks = (int) (glowDuration * 20d);
