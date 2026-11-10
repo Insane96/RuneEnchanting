@@ -59,11 +59,16 @@ public class DwarfingRune extends Rune {
     }
 
     public static float getBonusMiningSpeed(DiggerItem diggerItem, Player player) {
-        int y = getNormalizedY(player.getBlockY(), player.level());
-        if (y < 0)
-            return 0f;
-        int maxY = player.level().getSeaLevel() - player.level().getMinBuildHeight();
-        float ratio = (float) y / maxY;
+        float ratio = 0f;
+        if (player.level().dimension() == Level.NETHER)
+            ratio = 1f;
+        else if (player.level().dimension() == Level.OVERWORLD) {
+            int depth = getNormalizedY(player.getBlockY(), player.level());
+            if (depth < 0)
+                return 0f;
+            int maxY = player.level().getSeaLevel() - player.level().getMinBuildHeight();
+            ratio = (float) depth / maxY;
+        }
 
         return ratio * maxBonusMiningSpeed.floatValue() * diggerItem.getTier().getSpeed();
     }
