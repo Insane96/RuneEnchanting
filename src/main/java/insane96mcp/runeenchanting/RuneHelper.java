@@ -103,6 +103,54 @@ public class RuneHelper {
         return true;
     }
 
+    public enum ApplyCheck {
+        OK, DISABLED, NOT_APPLICABLE, ALREADY_PRESENT, NO_FREE_SOCKETS, TOO_MANY_CURSES;
+
+        public String getTranslationKey() {
+            return "container.runeenchanting.runic_table.reason." + name().toLowerCase(java.util.Locale.ROOT);
+        }
+    }
+
+    public enum RemoveCheck {
+        OK, NOT_PRESENT, CURSE_LOCKED, WOULD_OVERLOAD;
+
+        public String getTranslationKey() {
+            return "container.runeenchanting.runic_table.reason." + name().toLowerCase(java.util.Locale.ROOT);
+        }
+    }
+
+    ///Whether a player can apply the rune to the item (unlike {@link #addRune}, also checks if the rune is enabled and applicable)
+    public static ApplyCheck canApplyRune(ItemStack stack, Holder<Rune> rune) {
+        if (!Rune.isEnabled(rune))
+            return ApplyCheck.DISABLED;
+        if (!rune.value().canBeAppliedTo(stack))
+            return ApplyCheck.NOT_APPLICABLE;
+        if (stack.getOrDefault(REDataComponents.RUNES, List.of()).contains(rune))
+            return ApplyCheck.ALREADY_PRESENT;
+        if (Rune.isCurse(rune)) {
+            if (countCurses(stack) >= RuneFeature.maxCurses)
+                return ApplyCheck.TOO_MANY_CURSES;
+        }
+        else if (countRunes(stack) >= getSockets(stack))
+            return ApplyCheck.NO_FREE_SOCKETS;
+        return ApplyCheck.OK;
+    }
+
+    ///Whether a player can remove the rune from the item. Curses need extractCurses and, since they grant sockets, must not leave the item overloaded
+    public static RemoveCheck canRemoveRune(ItemStack stack, Holder<Rune> rune) {
+        if (!stack.getOrDefault(REDataComponents.RUNES, List.of()).contains(rune))
+            return RemoveCheck.NOT_PRESENT;
+        if (Rune.isCurse(rune)) {
+            if (!RuneFeature.extractCurses)
+                return RemoveCheck.CURSE_LOCKED;
+            ItemStack result = stack.copy();
+            removeRune(result, rune);
+            if (isOverloaded(result))
+                return RemoveCheck.WOULD_OVERLOAD;
+        }
+        return RemoveCheck.OK;
+    }
+
     public static boolean removeRune(ItemStack stack, Holder<Rune> rune) {
         List<Holder<Rune>> runes = new ArrayList<>(stack.getOrDefault(REDataComponents.RUNES, List.of()));
         if (!runes.remove(rune))

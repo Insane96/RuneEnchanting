@@ -2,6 +2,7 @@ package insane96mcp.runeenchanting.setup;
 
 import insane96mcp.runeenchanting.RuneEnchanting;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -15,4 +16,7 @@ public class REItems {
 
     public static final DeferredHolder<Item, Item> ENCASED_RUNE =
             REGISTRY.register("encased_rune", () -> new EncasedRuneItem(new Item.Properties()));
+
+    public static final DeferredHolder<Item, BlockItem> RUNIC_TABLE =
+            REGISTRY.register("runic_table", () -> new BlockItem(REBlocks.RUNIC_TABLE.get(), new Item.Properties()));
 }

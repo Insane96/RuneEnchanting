@@ -27,6 +27,26 @@ public class RELanguageProvider extends LanguageProvider {
 
         add("item.runeenchanting.rune", "Rune");
         add("item.runeenchanting.encased_rune", "Encased Rune");
+        add("block.runeenchanting.runic_table", "Runic Table");
+        add("container.runeenchanting.runic_table", "Runic Table");
+        add("container.runeenchanting.runic_table.sockets", "Sockets: %s/%s");
+        add("container.runeenchanting.runic_table.search", "Search...");
+        add("container.runeenchanting.runic_table.no_runes", "No runes found");
+        add("container.runeenchanting.runic_table.empty","Click here with runes or shift click them to store them");
+        add("container.runeenchanting.runic_table.hint.insert", "Left click: store all");
+        add("container.runeenchanting.runic_table.hint.insert_one", "Right click: store one");
+        add("container.runeenchanting.runic_table.hint.apply", "Left click: apply to the item");
+        add("container.runeenchanting.runic_table.hint.extract", "Right click: take one");
+        add("container.runeenchanting.runic_table.hint.extract_stack", "Shift + right click: take a stack");
+        add("container.runeenchanting.runic_table.hint.remove", "Click the x to remove it");
+        add("container.runeenchanting.runic_table.reason.disabled", "This rune is disabled");
+        add("container.runeenchanting.runic_table.reason.not_applicable", "Can't be applied to this item");
+        add("container.runeenchanting.runic_table.reason.already_present", "The item already has this rune");
+        add("container.runeenchanting.runic_table.reason.no_free_sockets", "No free sockets");
+        add("container.runeenchanting.runic_table.reason.too_many_curses", "The item can't have more curses");
+        add("container.runeenchanting.runic_table.reason.not_present", "The item doesn't have this rune");
+        add("container.runeenchanting.runic_table.reason.curse_locked", "Curses can't be removed");
+        add("container.runeenchanting.runic_table.reason.would_overload", "Removing this curse would leave the item with too many runes");
         add(RuneEnchanting.lang("encased_rune.tooltip"), "Smelt to get a random rune");
         add(RuneEnchanting.lang("sockets"), "Sockets: %d/%d");
         add(RuneEnchanting.lang("overloaded_runes"), "Too many runes: runes are inactive. Remove them with a grindstone.");

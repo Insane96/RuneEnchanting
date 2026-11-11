@@ -196,9 +196,7 @@ public class RuneFeature extends Feature {
         ItemStack output = event.getLeft().copy();
         Holder<Rune> toApply = event.getRight().get(REDataComponents.STORED_RUNE.value());
         if (toApply == null
-                || !Rune.isEnabled(toApply)
-                || !toApply.value().canBeAppliedTo(output)
-                || (Rune.isCurse(toApply) && RuneHelper.countCurses(output) >= maxCurses))
+                || RuneHelper.canApplyRune(output, toApply) != RuneHelper.ApplyCheck.OK)
             return;
         if (!RuneHelper.addRune(output, toApply))
             return;

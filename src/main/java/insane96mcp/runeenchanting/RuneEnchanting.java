@@ -12,12 +12,14 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Equipable;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -33,7 +35,9 @@ import org.slf4j.Logger;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 @Mod(RuneEnchanting.MOD_ID)
@@ -71,7 +75,10 @@ public class RuneEnchanting {
         RERunes.registerConfigs(modEventBus, modContainer);
         REAttachments.REGISTRY.register(modEventBus);
         REDataComponents.REGISTRY.register(modEventBus);
+        REBlocks.REGISTRY.register(modEventBus);
+        REBlockEntities.REGISTRY.register(modEventBus);
         REItems.REGISTRY.register(modEventBus);
+        REMenus.REGISTRY.register(modEventBus);
         RELootModifiers.REGISTRY.register(modEventBus);
         RELootFunctions.REGISTRY.register(modEventBus);
         RERecipes.REGISTRY.register(modEventBus);
@@ -81,6 +88,7 @@ public class RuneEnchanting {
             modEventBus.addListener(ClientSetup::onBuildCreativeModeTabContents);
             modEventBus.addListener(ClientSetup::onRegisterItemDecorations);
             modEventBus.addListener(ClientSetup::onRegisterClientTooltipComponentFactories);
+            modEventBus.addListener(ClientSetup::onRegisterMenuScreens);
         }
     }
 
@@ -108,10 +116,7 @@ public class RuneEnchanting {
         PackOutput output = event.getGenerator().getPackOutput();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
-        BlockTagsProvider blockTagsProvider = new BlockTagsProvider(output, lookupProvider, MOD_ID, existingFileHelper) {
-            @Override
-            protected void addTags(HolderLookup.Provider provider) {}
-        };
+        BlockTagsProvider blockTagsProvider = new REBlockTagProvider(output, lookupProvider, MOD_ID, existingFileHelper);
         event.getGenerator().addProvider(event.includeServer(), blockTagsProvider);
         event.getGenerator().addProvider(event.includeServer(),
                 new REItemTagProvider(output, lookupProvider, blockTagsProvider.contentsGetter(), MOD_ID, existingFileHelper));
@@ -127,6 +132,8 @@ public class RuneEnchanting {
                 new REGlobalLootModifierProvider(output, lookupProvider));
         event.getGenerator().addProvider(event.includeServer(),
                 new RERecipeProvider(output, lookupProvider));
+        event.getGenerator().addProvider(event.includeServer(),
+                new LootTableProvider(output, Set.of(), List.of(new LootTableProvider.SubProviderEntry(REBlockLootProvider::new, LootContextParamSets.BLOCK)), lookupProvider));
         event.getGenerator().addProvider(event.includeClient(),
                 new RELanguageProvider(output));
     }

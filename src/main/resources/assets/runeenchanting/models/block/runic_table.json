@@ -1,0 +1,9 @@
+{
+    "parent": "minecraft:block/enchanting_table",
+    "textures": {
+        "particle": "runeenchanting:block/runic_table_bottom",
+        "bottom": "runeenchanting:block/runic_table_bottom",
+        "top": "runeenchanting:block/runic_table_top",
+        "side": "runeenchanting:block/runic_table_side"
+    }
+}

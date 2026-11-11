@@ -55,7 +55,15 @@ Registers `RUNES` (`List<Holder<Rune>>`), `SOCKETS` (`Integer`, sockets granted 
 
 ### Items (`setup/REItems.java`)
 
-Registers `RUNE` (`RuneItem`, holds a rune in `STORED_RUNE`) and `ENCASED_RUNE` (`EncasedRuneItem`, smelted into a random rune).
+Registers `RUNE` (`RuneItem`, holds a rune in `STORED_RUNE`), `ENCASED_RUNE` (`EncasedRuneItem`, smelted into a random rune) and the `RUNIC_TABLE` block item.
+
+### Runic Table
+
+A block (`setup/REBlocks`, `REBlockEntities`, `REMenus`; classes in `block/`, `menu/`, `client/`) that stores runes and applies/removes them from items through a GUI. Crafted like the enchanting table with any rune in place of the book.
+- `RunicTableBlockEntity` — unlimited storage (`Object2IntMap<Holder<Rune>>`, saved to NBT). Stored runes drop as rune items when the block is broken. Right-clicking the block with a rune stack inserts the whole stack. No hopper interaction.
+- `RunicTableMenu` — a tool slot and the player inventory (no insert slot: runes are stored by clicking the storage list while holding them, or by shift clicking them in the inventory, which `quickMoveStack` puts straight into the storage). Tool slot is per player, the storage is shared and re-synced to every player viewing the table on change. Server side it validates and runs the actions requested by the screen (`APPLY`, `REMOVE`, `EXTRACT`, `EXTRACT_STACK`, `INSERT`, `INSERT_ONE`) via `ServerboundRunicTableActionMessage`; the storage is synced to the client with `ClientboundRunicTableStorageMessage`.
+- `RunicTableScreen` — scrollable storage list (alphabetical, search box; with a tool in the slot only the runes applicable to it are listed) and the tool's rune list with a remove button. Unlearned curses are shown as "Unknown Curse". Unavailable entries are greyed out and the tooltips explain why. Background (slots, list panels, scrollbar track) is `textures/gui/container/runic_table.png` (256×256, 240×222 used); moving parts are GUI sprites drawn with `blitSprite` from `textures/gui/sprites/container/runic_table/` (`scroller`, `scroller_disabled`, `row_highlighted`, `remove`, `remove_highlighted`, `remove_disabled`, `insert_highlight`; scaling set in the `.png.mcmeta` files); texts are drawn in code.
+- Apply/remove rules live in `RuneHelper.canApplyRune` / `canRemoveRune` (returning `ApplyCheck` / `RemoveCheck` reasons), shared by the screen, the menu and the anvil: the table never overloads an item, curses can be removed only with `extractCurses` and only if the item doesn't become overloaded, disabled runes can still be removed.
 
 ### Data Generation
 
@@ -65,6 +73,8 @@ Registers `RUNE` (`RuneItem`, holds a rune in `STORED_RUNE`) and `ENCASED_RUNE` 
 - `REEnchantmentTagProvider.java` — generates enchantment tags used by the loot/conversion system.
 - `RERuneTagProvider.java` — generates rune tags.
 - `REGlobalLootModifierProvider.java` — generates global loot modifier JSON files.
+- `RERecipeProvider.java` — generates recipes (encased rune, rune reforging, runic table).
+- `REBlockTagProvider.java` / `REBlockLootProvider.java` — block tags (mineable) and the runic table loot table.
 
 ### Mixins
 
@@ -94,7 +104,7 @@ Client-side (in `mixin/client/`):
 
 ### Network
 
-`network/NetworkHandler.java` + `network/message/ClientboundDisableExperienceMessage.java` — syncs the `disableExperience` GameRule value to clients on login and on change. The server reads the GameRule in `ServerAboutToStartEvent` (from `getWorldData()`, levels aren't loaded yet); the client resets it to `true` on logout. `network/message/ServerboundDoubleJumpMessage.java` — client→server message for the DoubleJump rune.
+`network/NetworkHandler.java` + `network/message/ClientboundDisableExperienceMessage.java` — syncs the `disableExperience` GameRule value to clients on login and on change. The server reads the GameRule in `ServerAboutToStartEvent` (from `getWorldData()`, levels aren't loaded yet); the client resets it to `true` on logout. `network/message/ServerboundDoubleJumpMessage.java` — client→server message for the DoubleJump rune. `ClientboundRunicTableStorageMessage` / `ServerboundRunicTableActionMessage` — Runic Table storage sync and actions.
 
 ### Loot System
 

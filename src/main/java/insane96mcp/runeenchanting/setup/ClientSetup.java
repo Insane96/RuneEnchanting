@@ -2,6 +2,7 @@ package insane96mcp.runeenchanting.setup;
 
 import insane96mcp.runeenchanting.RuneFeatureClient;
 import insane96mcp.runeenchanting.RuneHooks;
+import insane96mcp.runeenchanting.client.RunicTableScreen;
 import insane96mcp.runeenchanting.runes.Rune;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
@@ -15,6 +16,7 @@ import net.minecraft.world.item.Items;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
 import net.neoforged.neoforge.client.event.RegisterItemDecorationsEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 
 import java.util.Comparator;
@@ -52,6 +54,10 @@ public class ClientSetup {
         event.register(RuneApplicableItemsTooltip.class, RuneApplicableItemsTooltipComponent::new);
     }
 
+    public static void onRegisterMenuScreens(RegisterMenuScreensEvent event) {
+        event.register(REMenus.RUNIC_TABLE.get(), RunicTableScreen::new);
+    }
+
     public static void onBuildCreativeModeTabContents(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
             for (Holder<Rune> runeHolder : RERunes.REGISTRY.holders().sorted(Comparator.comparing(Rune::isCurse).thenComparing(h -> h.getKey().location().getPath())).toList()) {
@@ -61,6 +67,8 @@ public class ClientSetup {
             }
             event.accept(new ItemStack(REItems.ENCASED_RUNE.get()));
         }
+        if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS)
+            event.accept(REItems.RUNIC_TABLE.get());
         if (RuneFeatureClient.hideEnchantingRelatedItems) {
             event.remove(new ItemStack(Items.ENCHANTING_TABLE), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             event.remove(new ItemStack(Items.EXPERIENCE_BOTTLE), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);

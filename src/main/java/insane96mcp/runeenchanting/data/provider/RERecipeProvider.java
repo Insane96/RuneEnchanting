@@ -39,5 +39,16 @@ public class RERecipeProvider extends RecipeProvider {
                         RuneReforgingRecipe::new)
                 .unlockedBy("has_encased_rune", has(REItems.ENCASED_RUNE.get()))
                 .save(recipeOutput, RuneEnchanting.id("rune_reforging"));
+
+        //Like the enchanting table, with any rune in place of the book
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, REItems.RUNIC_TABLE.get())
+                .pattern(" R ")
+                .pattern("D#D")
+                .pattern("###")
+                .define('R', REItems.RUNE.get())
+                .define('D', Items.DIAMOND)
+                .define('#', Items.OBSIDIAN)
+                .unlockedBy("has_rune", has(REItems.RUNE.get()))
+                .save(recipeOutput);
     }
 }
