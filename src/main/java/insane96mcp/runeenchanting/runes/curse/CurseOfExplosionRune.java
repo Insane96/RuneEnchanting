@@ -5,6 +5,7 @@ import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
 import insane96mcp.runeenchanting.runes.ExplosiveRune;
 import insane96mcp.runeenchanting.runes.Rune;
+import insane96mcp.runeenchanting.setup.RERunes;
 import insane96mcp.runeenchanting.util.REUtils;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
@@ -23,7 +24,7 @@ import javax.annotation.Nullable;
 
 public class CurseOfExplosionRune extends Rune {
     @Config(min = 0.1)
-    public static Double explosionPower = 0.5d;
+    public static Double explosionPower = 0.6d;
     @Config
     public static Boolean destroyBlocks = false;
     @Config(min = 0.05)
@@ -72,9 +73,18 @@ public class CurseOfExplosionRune extends Rune {
         scheduleExplosion(level, attacker);
     }
 
+    @Override
+    public void tickTarget(ServerLevel level, LivingEntity entity) {
+        //The scheduled explosion is ticked by Explosive, this takes over only when Explosive is disabled
+        if (!Rune.isEnabled(RERunes.EXPLOSIVE))
+            ExplosiveRune.tickScheduledExplosion(level, entity);
+    }
+
     /// Schedules (or postpones, if already scheduled) the explosion of the wielder
     private static void scheduleExplosion(ServerLevel level, LivingEntity wielder) {
         long explodeAt = level.getGameTime() + (long) (delaySeconds * 20);
+        if (!ModNBTData.contains(wielder, ExplosiveRune.NBT_TIME))
+            ExplosiveRune.playPrimedSound(level, wielder);
         ModNBTData.put(wielder, ExplosiveRune.NBT_TIME, explodeAt);
         ModNBTData.put(wielder, ExplosiveRune.NBT_POWER, explosionPower.floatValue());
         ModNBTData.put(wielder, ExplosiveRune.NBT_DESTROY_BLOCKS, destroyBlocks);

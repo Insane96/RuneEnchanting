@@ -31,7 +31,11 @@
 * Vibration Detection 
   * Now has only a chance to apply glowing
   * Fixed not applying glowing to players
-* Fixed Explosive and Curse of Explosion blowing up dying entities
+* Explosive and Curse of Explosion
+  * Entities about to explode now emit fuse particles at their feet, more frequently as the explosion approaches, and a primed TNT sound plays when they're marked
+  * Fixed blowing up dying entities
+  * Fixed Curse of Explosion never exploding if Explosive is disabled
+  * Both explosion power changed to 0.6
 
 # 1.4.5.0
 * Atmospheric has been split into two runes. Existing Atmospheric runes become Sunlit
