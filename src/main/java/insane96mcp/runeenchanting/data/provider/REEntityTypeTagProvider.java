@@ -1,15 +1,13 @@
 package insane96mcp.runeenchanting.data.provider;
 
 import insane96mcp.runeenchanting.RuneEnchanting;
-import insane96mcp.runeenchanting.runes.BaneOfHissingRune;
-import insane96mcp.runeenchanting.runes.BaneOfNosesRune;
-import insane96mcp.runeenchanting.runes.SmiteRune;
-import insane96mcp.runeenchanting.runes.WaterCoolantRune;
+import insane96mcp.runeenchanting.runes.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.EntityType;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import javax.annotation.Nullable;
@@ -48,6 +46,10 @@ public class REEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(EntityType.VINDICATOR)
                 .add(EntityType.EVOKER)
                 .add(EntityType.ILLUSIONER);
+        tag(ExecutionerRune.RESISTANT)
+                .addTag(Tags.EntityTypes.BOSSES)
+                .add(EntityType.WARDEN)
+                .add(EntityType.ELDER_GUARDIAN);
     }
 
     @Override

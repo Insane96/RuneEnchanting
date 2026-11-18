@@ -11,6 +11,11 @@
   * With [Stamina](https://www.curseforge.com/minecraft/mc-mods/insane-stamina) installed, sprinting consumes 30% more stamina instead of more hunger
 * Added Life Steal, a weapon, bow and crossbow rune: heals 5% of the damage dealt (after armor and resistances, capped to the target's remaining health)
 * Added True Damage, a weapon, bow and crossbow rune: deals 15% extra damage (of the damage before armor, protection and resistance) that ignores armor, protection and resistance
+* Added Executioner, a weapon, bow and crossbow rune: chance to execute enemies, higher the lower their health (after the hit) and the higher the damage dealt
+  * 4% chance at 0% health every 10 damage dealt (before armor, protection and resistance), capped at 15%. Halved for ranged attacks
+  * 0.4% against bosses, Wardens and Elder Guardians (`runeenchanting:executioner/resistant` entity type tag)
+  * Executions terrify enemies within 6 blocks, giving them Weakness I and Slowness I for 3 seconds
+  * Doesn't work on players
 * Thrown tridents are now consistently treated as ranged attacks for on-hit effects
   * Smite, Bane of Hissing and Water Coolant: `arrowEffects` config option renamed to `rangedEffects`, now applies to thrown tridents too. Water Coolant no longer freezes with thrown tridents by default, Smite and Bane of Hissing now apply their effect with thrown tridents if the option is enabled
   * Thrown tridents now charge Electrocution
