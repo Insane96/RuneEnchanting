@@ -81,6 +81,7 @@ public class RERunes {
     public static final DeferredHolder<Rune, PiercingRune> PIERCING = register("piercing", new PiercingRune());
     public static final DeferredHolder<Rune, QuickChargeRune> QUICK_CHARGE = register("quick_charge", new QuickChargeRune());
     public static final DeferredHolder<Rune, MultishotRune> MULTISHOT = register("multishot", new MultishotRune());
+    public static final DeferredHolder<Rune, SniperRune> SNIPER = register("sniper", new SniperRune());
 
     // Armor
     public static final DeferredHolder<Rune, ProtectionRune> PROTECTION = register("protection", new ProtectionRune());

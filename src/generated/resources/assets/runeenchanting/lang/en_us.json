@@ -280,6 +280,8 @@
   "rune.runeenchanting.smokescreen": "Smokescreen",
   "rune.runeenchanting.smokescreen.description": "Reduces the range at which mobs can detect you",
   "rune.runeenchanting.smokescreen.info": "Detection range reduction: %s%%",
+  "rune.runeenchanting.sniper": "Sniper",
+  "rune.runeenchanting.sniper.description": "Arrows fly perfectly straight",
   "rune.runeenchanting.soul_speed": "Soul Speed",
   "rune.runeenchanting.soul_speed.description": "Speed up walking on soul blocks",
   "rune.runeenchanting.soul_speed.info": "Equivalent to enchantment level %s",
