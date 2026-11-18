@@ -20,6 +20,12 @@ public class LifeStealRune extends Rune {
     @Config(min = 0d, description = "Percentage of the damage dealt (after armor and resistances, capped to the target's remaining health) healed")
     public static Double healPercentage = 0.05d;
 
+    //Run after the other runes so the damage dealt includes their changes (e.g. True Damage)
+    @Override
+    public int getPriority() {
+        return 1;
+    }
+
     @Override
     public String getName() {
         return "Life Steal";

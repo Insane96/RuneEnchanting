@@ -68,6 +68,7 @@ public class RERunes {
 
     // Weapons, Bows and Crossbows
     public static final DeferredHolder<Rune, LifeStealRune> LIFE_STEAL = register("life_steal", new LifeStealRune());
+    public static final DeferredHolder<Rune, TrueDamageRune> TRUE_DAMAGE = register("true_damage", new TrueDamageRune());
     public static final DeferredHolder<Rune, FlameRune> FLAME = register("flame", new FlameRune());
     public static final DeferredHolder<Rune, KnockbackRune> KNOCKBACK = register("knockback", new KnockbackRune());
 
