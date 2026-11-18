@@ -1,6 +1,7 @@
 {
   "values": [
     "#runeenchanting:weapons",
-    "#runeenchanting:ranged_weapons"
+    "#runeenchanting:ranged_weapons",
+    "#minecraft:enchantable/mining"
   ]
 }

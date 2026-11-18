@@ -10,12 +10,14 @@ import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentTarget;
+import net.neoforged.neoforge.event.level.BlockEvent;
 
 import javax.annotation.Nullable;
 
@@ -34,7 +36,7 @@ public class CurseOfExplosionRune extends Rune {
 
     @Override
     public String getDescription() {
-        return "Attacks cause the attacker to explode after a delay";
+        return "Attacking or breaking blocks causes the wielder to explode after a delay. Each attack or broken block resets the delay";
     }
 
     @Override
@@ -45,7 +47,18 @@ public class CurseOfExplosionRune extends Rune {
     @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
         appender.addTag(REItemTagProvider.WEAPONS)
-                .addTag(REItemTagProvider.RANGED_WEAPONS);
+                .addTag(REItemTagProvider.RANGED_WEAPONS)
+                .addTag(ItemTags.MINING_ENCHANTABLE);
+    }
+
+    @Override
+    public void onBlockBreak(BlockEvent.BreakEvent event, ItemStack stack) {
+        if (!(event.getLevel() instanceof ServerLevel level))
+            return;
+        //Instantly broken blocks (grass, flowers, ...) don't count, or the explosion could be delayed for free
+        if (event.getState().getDestroySpeed(level, event.getPos()) <= 0f)
+            return;
+        scheduleExplosion(level, event.getPlayer());
     }
 
     @Override
@@ -56,10 +69,15 @@ public class CurseOfExplosionRune extends Rune {
             return;
         if (!(damageSource.getEntity() instanceof LivingEntity attacker))
             return;
+        scheduleExplosion(level, attacker);
+    }
+
+    /// Schedules (or postpones, if already scheduled) the explosion of the wielder
+    private static void scheduleExplosion(ServerLevel level, LivingEntity wielder) {
         long explodeAt = level.getGameTime() + (long) (delaySeconds * 20);
-        ModNBTData.put(attacker, ExplosiveRune.NBT_TIME, explodeAt);
-        ModNBTData.put(attacker, ExplosiveRune.NBT_POWER, explosionPower.floatValue());
-        ModNBTData.put(attacker, ExplosiveRune.NBT_DESTROY_BLOCKS, destroyBlocks);
+        ModNBTData.put(wielder, ExplosiveRune.NBT_TIME, explodeAt);
+        ModNBTData.put(wielder, ExplosiveRune.NBT_POWER, explosionPower.floatValue());
+        ModNBTData.put(wielder, ExplosiveRune.NBT_DESTROY_BLOCKS, destroyBlocks);
     }
 
     @Override

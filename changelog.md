@@ -22,6 +22,12 @@
   * Smite, Bane of Hissing and Water Coolant: `arrowEffects` config option renamed to `rangedEffects`, now applies to thrown tridents too. Water Coolant no longer freezes with thrown tridents by default, Smite and Bane of Hissing now apply their effect with thrown tridents if the option is enabled
   * Thrown tridents now charge Electrocution
   * Bonus damage is unchanged: thrown tridents still use the melee values
+* Curse of Inefficiency and Curse of Slow Strike have been merged into Curse of Slow Swing, so curses can't be put for free on tools used only as weapons (or vice versa). Existing Curse of Inefficiency and Curse of Slow Strike runes become Curse of Slow Swing
+  * Curse of Slow Swing: -50% mining and brushing speed, -20% attack speed. Can be applied to weapons, mining tools, shears and brushes
+* Curse of Short Arm can now be applied to mining tools and shears too
+* Curse of Explosion
+  * Now also triggers when breaking blocks (except instantly broken ones). Attacking or breaking blocks again resets the delay
+  * Can now be applied to mining tools and shears too
 * Vibration Detection 
   * Now has only a chance to apply glowing
   * Fixed not applying glowing to players

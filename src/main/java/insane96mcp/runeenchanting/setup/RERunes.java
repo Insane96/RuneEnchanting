@@ -156,10 +156,9 @@ public class RERunes {
     public static final DeferredHolder<Rune, CurseOfBindingRune> CURSE_OF_BINDING = register("curse_of_binding", new CurseOfBindingRune());
     public static final DeferredHolder<Rune, CurseOfVanishingRune> CURSE_OF_VANISHING = register("curse_of_vanishing", new CurseOfVanishingRune());
     public static final DeferredHolder<Rune, CurseOfBloodPactRune> CURSE_OF_BLOOD_PACT = register("curse_of_blood_pact", new CurseOfBloodPactRune());
-    public static final DeferredHolder<Rune, CurseOfInefficiencyRune> CURSE_OF_INEFFICIENCY = register("curse_of_inefficiency", new CurseOfInefficiencyRune());
+    public static final DeferredHolder<Rune, CurseOfSlowSwingRune> CURSE_OF_SLOW_SWING = register("curse_of_slow_swing", new CurseOfSlowSwingRune());
     public static final DeferredHolder<Rune, CurseOfShortArmRune> CURSE_OF_SHORT_ARM = register("curse_of_short_arm", new CurseOfShortArmRune());
     public static final DeferredHolder<Rune, CurseOfUnhurriedRune> CURSE_OF_UNHURRIED = register("curse_of_unhurried", new CurseOfUnhurriedRune());
-    public static final DeferredHolder<Rune, CurseOfSlowStrikeRune> CURSE_OF_SLOW_STRIKE = register("curse_of_slow_strike", new CurseOfSlowStrikeRune());
     public static final DeferredHolder<Rune, CurseOfFragilityRune> CURSE_OF_FRAGILITY = register("curse_of_fragility", new CurseOfFragilityRune());
     public static final DeferredHolder<Rune, CurseOfEnderRune> CURSE_OF_ENDER = register("curse_of_ender", new CurseOfEnderRune());
     public static final DeferredHolder<Rune, CurseOfSteelFallRune> CURSE_OF_STEEL_FALL = register("curse_of_steel_fall", new CurseOfSteelFallRune());
@@ -182,6 +181,9 @@ public class RERunes {
         RUNES.addAlias(RuneEnchanting.id("power"), RuneEnchanting.id("sharpness"));
         //Atmospheric has been split into Sunlit and Moonlit, items with Atmospheric are loaded with Sunlit
         RUNES.addAlias(RuneEnchanting.id("atmospheric"), RuneEnchanting.id("sunlit"));
+        //Curse of Inefficiency and Curse of Slow Strike have been merged into Curse of Slow Swing
+        RUNES.addAlias(RuneEnchanting.id("curse_of_inefficiency"), RuneEnchanting.id("curse_of_slow_swing"));
+        RUNES.addAlias(RuneEnchanting.id("curse_of_slow_strike"), RuneEnchanting.id("curse_of_slow_swing"));
     }
 
     private static <T extends Rune> DeferredHolder<Rune, T> register(String id, T instance) {
