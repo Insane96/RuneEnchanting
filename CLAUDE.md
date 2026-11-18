@@ -23,6 +23,7 @@ No dedicated test task exists yet — use `runGameTestServer` for game tests.
 - **NeoForge 21.1.227** — mod loader
 - **InsaneLib 2.5.0.4-alpha** — custom base library providing `Feature`, `ILModConfig`, and `ComponentTranslation` utilities. Source can be found at C:\Users\delvi\source\repos\Insane96\InsaneLib (branch `1.21.1`; `26.1.2` is a different Minecraft version). Since 2.4.34.0 `ILModConfig` supports `ModConfig.Type.SERVER` configs (synced to clients on login and re-synced via `ServerConfigSyncMessage` when the file changes) and automatically registers the config screen for every mod that creates an `ILModConfig`. Since 2.5.0.0 the config type is per feature (`@ConfigType`, defaulting to the module's type), so one module can have features in several config files; modules must be created before the `ILModConfig`s loading their features. Feature names generated from the class name (no `name` in `@LoadFeature`) strip the words "Feature", "Server", "Client" and "Common".
 - **Parchment mappings** (2024.11.17) — human-readable field/method names in decompiled code
+- **Stamina 2.1.0.1** (optional, `compileOnly` from `mavenLocal`) — source in `C:\Users\delvi\source\repos\Insane96\Stamina`. `compat/StaminaCompat` checks `ModList` without touching Stamina classes and, only if installed, registers `compat/StaminaEvents` (listens to `StaminaEvent.Consumed`, used by Sprinty). Stamina itself also has a `compileOnly` on RuneEnchanting (its Vigour / Curse of Weariness runes).
 
 ## Architecture
 
@@ -59,7 +60,7 @@ Registers `RUNE` (`RuneItem`, holds a rune in `STORED_RUNE`), `ENCASED_RUNE` (`E
 
 ### Runic Table
 
-A block (`setup/REBlocks`, `REBlockEntities`, `REMenus`; classes in `block/`, `menu/`, `client/`) that stores runes and applies/removes them from items through a GUI. Crafted like the enchanting table with any rune in place of the book.
+A block (`setup/REBlocks`, `REBlockEntities`, `REMenus`; classes in `block/`, `menu/`, `client/`) that stores runes and applies/removes them from items through a GUI. Crafted like the enchanting table without the book (2 diamonds, 4 obsidian).
 - `RunicTableBlockEntity` — unlimited storage (`Object2IntMap<Holder<Rune>>`, saved to NBT). Stored runes drop as rune items when the block is broken. Right-clicking the block with a rune stack inserts the whole stack. No hopper interaction.
 - `RunicTableMenu` — a tool slot and the player inventory (no insert slot: runes are stored by clicking the storage list while holding them, or by shift clicking them in the inventory, which `quickMoveStack` puts straight into the storage). Tool slot is per player, the storage is shared and re-synced to every player viewing the table on change. Server side it validates and runs the actions requested by the screen (`APPLY`, `REMOVE`, `EXTRACT`, `EXTRACT_STACK`, `INSERT`, `INSERT_ONE`) via `ServerboundRunicTableActionMessage`; the storage is synced to the client with `ClientboundRunicTableStorageMessage`.
 - `RunicTableScreen` — scrollable storage list (alphabetical, search box; with a tool in the slot only the runes applicable to it are listed) and the tool's rune list with a remove button. Unlearned curses are shown as "Unknown Curse". Unavailable entries are greyed out and the tooltips explain why. Background (slots, list panels, scrollbar track) is `textures/gui/container/runic_table.png` (256×256, 240×222 used); moving parts are GUI sprites drawn with `blitSprite` from `textures/gui/sprites/container/runic_table/` (`scroller`, `scroller_disabled`, `row_highlighted`, `remove`, `remove_highlighted`, `remove_disabled`, `insert_highlight`; scaling set in the `.png.mcmeta` files); texts are drawn in code.
@@ -86,6 +87,7 @@ All declared in `runeenchanting.mixins.json`. Server-side:
 - `MobMixin` — hooks `Mob` for mob-specific rune interactions.
 - `AbstractArrowMixin` — hooks arrows for projectile rune effects (Gravity Defying) and calls `RuneHooks.onEnchantmentDamage` on arrow hits, so melee damage runes work with bows/crossbows.
 - `BowItemMixin` — scales the bow draw time by the runes' charging time (Quick Charge, Curse of Slow Charge).
+- `ServerPlayerMixin` — wraps the sprinting on ground `causeFoodExhaustion` (ordinal 3) in `checkMovementStatistics` for Sprinty's extra hunger (skipped when Stamina is installed, which uses extra stamina instead).
 - `ProjectileWeaponItemMixin` — hooks crossbow/bow firing for projectile rune effects.
 - `EnchantWithLevelsFunctionMixin` / `EnchantRandomlyFunctionMixin` — cancels loot-table enchant functions when `disableExperience` is active (replaced by rune loot modifiers).
 - `FishingHookAccessor` / `MobEffectInstanceAccessor` — accessor mixins exposing private fields.

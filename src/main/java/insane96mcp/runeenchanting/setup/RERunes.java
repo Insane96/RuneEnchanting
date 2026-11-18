@@ -111,6 +111,7 @@ public class RERunes {
     public static final DeferredHolder<Rune, SprintPactRune> SPRINT_PACT = register("sprint_pact", new SprintPactRune());
     public static final DeferredHolder<Rune, ChargedJumpRune> CHARGED_JUMP = register("charged_jump", new ChargedJumpRune());
     public static final DeferredHolder<Rune, RetreatRune> RETREAT = register("retreat", new RetreatRune());
+    public static final DeferredHolder<Rune, SprintyRune> SPRINTY = register("sprinty", new SprintyRune());
 
     // Boots
     public static final DeferredHolder<Rune, FeatherFallingRune> FEATHER_FALLING = register("feather_falling", new FeatherFallingRune());

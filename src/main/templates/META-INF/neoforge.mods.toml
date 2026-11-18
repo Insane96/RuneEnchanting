@@ -36,3 +36,10 @@ Find gems and upgrade your tools
     versionRange="${insanelib_version_range}"
     ordering="NONE"
     side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="stamina"
+    type="optional"
+    versionRange="${stamina_version_range}"
+    ordering="NONE"
+    side="BOTH"

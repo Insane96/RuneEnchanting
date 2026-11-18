@@ -40,7 +40,7 @@ public class RERecipeProvider extends RecipeProvider {
                 .unlockedBy("has_encased_rune", has(REItems.ENCASED_RUNE.get()))
                 .save(recipeOutput, RuneEnchanting.id("rune_reforging"));
 
-        //Like the enchanting table, with any rune in place of the book
+        //Like the enchanting table, without the book
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, REItems.RUNIC_TABLE.get())
                 .pattern("D#D")
                 .pattern("###")

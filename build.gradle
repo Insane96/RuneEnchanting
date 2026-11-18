@@ -87,6 +87,7 @@ configurations {
 
 dependencies {
     implementation "maven.modrinth:insanelib:${insanelib_version}"
+    compileOnly("maven.modrinth:stamina:${stamina_version}") { transitive = false }
     implementation(jarJar("io.github.llamalad7:mixinextras-neoforge:0.5.3"))
 }
 
@@ -101,6 +102,7 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             mod_license            : mod_license,
             mod_version            : mod_version,
             insanelib_version_range: insanelib_version_range,
+            stamina_version_range  : stamina_version_range,
     ]
     inputs.properties replaceProperties
     expand replaceProperties

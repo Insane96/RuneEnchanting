@@ -20,6 +20,7 @@
         "MobMixin",
         "PlayerMixin",
         "ProjectileWeaponItemMixin",
+        "ServerPlayerMixin",
         "ThrownTridentMixin"
     ],
     "client": [
