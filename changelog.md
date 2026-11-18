@@ -9,6 +9,7 @@
   * The rune list can be searched and tooltips explain why a rune can't be applied or removed
 * Added Sprinty, a leggings rune: +20% sprint speed, but sprinting consumes 50% more hunger
   * With [Stamina](https://www.curseforge.com/minecraft/mc-mods/insane-stamina) installed, sprinting consumes 30% more stamina instead of more hunger
+* Added Life Steal, a weapon, bow and crossbow rune: heals 5% of the damage dealt (after armor and resistances, capped to the target's remaining health)
 * Vibration Detection 
   * Now has only a chance to apply glowing
   * Fixed not applying glowing to players
