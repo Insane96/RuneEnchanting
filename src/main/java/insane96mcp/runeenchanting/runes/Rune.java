@@ -271,6 +271,17 @@ public abstract class Rune {
         return reduction;
     }
 
+    /**
+     * Called both server and client side (players hooked are pulled on their client), so no level is passed
+     */
+    public float modifyFishingPullStrength(ItemStack stack, Entity owner, Entity pulled, float original, float strength) {
+        return strength;
+    }
+
+    public int modifyFishingPullDurabilityCost(ItemStack stack, Entity owner, Entity pulled, int original, int cost) {
+        return cost;
+    }
+
     public void onItemFished(ItemFishedEvent event, ItemStack stack) {}
 
     public void onItemHurt(HurtItemStackEvent event, ItemStack stack) {}

@@ -135,6 +135,7 @@ public class RERunes {
     // Fishing Rods
     public static final DeferredHolder<Rune, LureRune> LURE = register("lure", new LureRune());
     public static final DeferredHolder<Rune, JuicyBaitRune> JUICY_BAIT = register("juicy_bait", new JuicyBaitRune());
+    public static final DeferredHolder<Rune, PullerRune> PULLER = register("puller", new PullerRune());
 
     // Tools and Weapons
     public static final DeferredHolder<Rune, AdrenalineRune> ADRENALINE = register("adrenaline", new AdrenalineRune());

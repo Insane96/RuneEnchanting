@@ -530,6 +530,28 @@ public class RuneHooks extends Feature {
         return reduction;
     }
 
+    public static float modifyFishingPullStrength(ItemStack stack, Entity owner, Entity pulled, float original) {
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
+        if (runes == null)
+            return original;
+        float strength = original;
+        for (Holder<Rune> holder : runes) {
+            strength = holder.value().modifyFishingPullStrength(stack, owner, pulled, original, strength);
+        }
+        return strength;
+    }
+
+    public static int modifyFishingPullDurabilityCost(ItemStack stack, Entity owner, Entity pulled, int original) {
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
+        if (runes == null)
+            return original;
+        int cost = original;
+        for (Holder<Rune> holder : runes) {
+            cost = holder.value().modifyFishingPullDurabilityCost(stack, owner, pulled, original, cost);
+        }
+        return cost;
+    }
+
     public static int modifyTridentReturnToOwnerAcceleration(ServerLevel level, ItemStack stack, Entity entity, int original) {
         List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
         if (runes == null)
