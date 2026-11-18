@@ -1,7 +1,16 @@
 # Upcoming
+* Added the Runic Table, a block that stores runes and applies or removes them from items
+  * Crafted with 2 diamonds and 4 obsidian (totally original recipe)
+  * Stores an unlimited amount of runes, shared by every player using it. Stored runes are dropped when the table is broken
+  * Store runes by clicking the rune list while holding them (left click: whole stack, right click: one), by shift clicking them in the inventory, or by right-clicking the table with them
+  * Take runes out by right-clicking them in the list (shift + right click for a whole stack)
+  * Put an item in the slot to see only the runes that can be applied to it, left click one to apply it. The item's runes are listed below, with a button to remove them, putting them back in the storage
+  * The table never overloads items. Curses can be removed only if "Extract curses" is enabled and the item doesn't become overloaded
+  * The rune list can be searched and tooltips explain why a rune can't be applied or removed
 * Vibration Detection 
   * Now only has a chance to apply glowing
   * Fixed not applying glowing to players
+* Fixed Explosive and Curse of Explosion blowing up dying entities
 
 # 1.4.5.0
 * Atmospheric has been split into two runes. Existing Atmospheric runes become Sunlit

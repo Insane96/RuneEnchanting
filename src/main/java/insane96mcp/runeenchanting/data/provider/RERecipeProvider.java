@@ -42,10 +42,8 @@ public class RERecipeProvider extends RecipeProvider {
 
         //Like the enchanting table, with any rune in place of the book
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, REItems.RUNIC_TABLE.get())
-                .pattern(" R ")
                 .pattern("D#D")
                 .pattern("###")
-                .define('R', REItems.RUNE.get())
                 .define('D', Items.DIAMOND)
                 .define('#', Items.OBSIDIAN)
                 .unlockedBy("has_rune", has(REItems.RUNE.get()))

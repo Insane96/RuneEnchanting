@@ -7,13 +7,9 @@
     },
     "D": {
       "item": "minecraft:diamond"
-    },
-    "R": {
-      "item": "runeenchanting:rune"
     }
   },
   "pattern": [
-    " R ",
     "D#D",
     "###"
   ],
