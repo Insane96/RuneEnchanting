@@ -71,7 +71,8 @@ public class ExplosiveRune extends Rune {
 
     @Override
     public void tickTarget(ServerLevel level, LivingEntity entity) {
-        if (!ModNBTData.contains(entity, NBT_TIME))
+        if (!ModNBTData.contains(entity, NBT_TIME)
+                || entity.isDeadOrDying())
             return;
         long explodeAt = ModNBTData.get(entity, NBT_TIME, Long.class);
         if (level.getGameTime() < explodeAt)
