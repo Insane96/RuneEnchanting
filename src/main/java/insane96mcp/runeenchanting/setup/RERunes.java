@@ -70,6 +70,7 @@ public class RERunes {
     public static final DeferredHolder<Rune, LifeStealRune> LIFE_STEAL = register("life_steal", new LifeStealRune());
     public static final DeferredHolder<Rune, TrueDamageRune> TRUE_DAMAGE = register("true_damage", new TrueDamageRune());
     public static final DeferredHolder<Rune, ExecutionerRune> EXECUTIONER = register("executioner", new ExecutionerRune());
+    public static final DeferredHolder<Rune, WeakSpotRune> WEAK_SPOT = register("weak_spot", new WeakSpotRune());
     public static final DeferredHolder<Rune, FlameRune> FLAME = register("flame", new FlameRune());
     public static final DeferredHolder<Rune, KnockbackRune> KNOCKBACK = register("knockback", new KnockbackRune());
 

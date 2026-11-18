@@ -16,6 +16,7 @@
   * 0.4% against bosses, Wardens and Elder Guardians (`runeenchanting:executioner/resistant` entity type tag)
   * Executions terrify enemies within 6 blocks, giving them Weakness I and Slowness I for 3 seconds
   * Doesn't work on players
+* Added Weak Spot, a weapon, bow and crossbow rune: increases damage dealt the higher the target's health, up to +70% (+100% with arrows) at full health (current health percentage before the hit, absorption excluded)
 * Thrown tridents are now consistently treated as ranged attacks for on-hit effects
   * Smite, Bane of Hissing and Water Coolant: `arrowEffects` config option renamed to `rangedEffects`, now applies to thrown tridents too. Water Coolant no longer freezes with thrown tridents by default, Smite and Bane of Hissing now apply their effect with thrown tridents if the option is enabled
   * Thrown tridents now charge Electrocution
