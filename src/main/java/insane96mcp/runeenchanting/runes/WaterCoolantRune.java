@@ -30,8 +30,8 @@ public class WaterCoolantRune extends Rune {
     public static Double arrowBonusDamage = 1d;
     @Config
     public static Integer freezeAmount = 5;
-    @Config(description = "If true, arrows freeze too")
-    public static Boolean arrowEffects = false;
+    @Config(description = "If true, ranged attacks (arrows and thrown tridents) freeze too")
+    public static Boolean rangedEffects = false;
 
     @Override
     public String getName() {
@@ -65,7 +65,7 @@ public class WaterCoolantRune extends Rune {
     public void onPostAttack(ServerLevel level, @Nullable ItemStack stack, EnchantmentTarget target, Entity attacked, DamageSource damageSource) {
         if (!(attacked instanceof LivingEntity livingEntity)
                 || !livingEntity.getType().is(SENSITIVE)
-                || (!arrowEffects && REUtils.isArrowHit(damageSource)))
+                || (!rangedEffects && REUtils.isProjectileHit(damageSource)))
             return;
 
         livingEntity.setTicksFrozen(Entity.BASE_TICKS_REQUIRED_TO_FREEZE + 10 + (int) (Entity.FREEZE_HURT_FREQUENCY * 2 * freezeAmount * REUtils.getAttackStrengthScale(damageSource)));

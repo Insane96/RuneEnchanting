@@ -67,7 +67,7 @@ public class RuneHooks extends Feature {
         if (event.getSource().getEntity() instanceof LivingEntity attacker)
             forEquipmentForRunes(attacker, (stack, rune) -> rune.onLivingDamagePre(event, stack, EnchantmentTarget.ATTACKER));
 
-        if (REUtils.isArrowHit(event.getSource()) && event.getSource().getDirectEntity() instanceof AbstractArrow arrow) {
+        if (REUtils.isProjectileHit(event.getSource()) && event.getSource().getDirectEntity() instanceof AbstractArrow arrow) {
             ItemStack weapon = arrow.getWeaponItem();
             if (weapon != null)
                 forRunes(weapon, rune -> rune.onArrowDamagePre(event, arrow, weapon));

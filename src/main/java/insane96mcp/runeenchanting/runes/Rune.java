@@ -147,7 +147,8 @@ public abstract class Rune {
     }
 
     /**
-     * Called when an arrow shot from a weapon with this rune is about to damage an entity. {@code weapon} is the copy of the weapon carried by the arrow, not the actual weapon
+     * Called when an arrow shot from a weapon with this rune, or a thrown trident with this rune, is about to damage an entity.
+     * For arrows {@code weapon} is the copy of the weapon carried by the arrow, not the actual weapon. For thrown tridents it's the trident itself (the stack given back when picked up)
      */
     public void onArrowDamagePre(LivingDamageEvent.Pre event, AbstractArrow arrow, ItemStack weapon) {}
 

@@ -21,6 +21,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentTarget;
@@ -96,10 +97,15 @@ public class ElectrocutionRune extends Rune {
             arrowWeapon.set(REDataComponents.ELECTROCUTION_WEAPON_ID, weaponId);
     }
 
-    /// Arrows charge the weapon that shot them, as long as it's still in the shooter's inventory.
+    /// Arrows charge the weapon that shot them, as long as it's still in the shooter's inventory. Thrown tridents charge themselves.
     @Override
     public void onArrowDamagePre(LivingDamageEvent.Pre event, AbstractArrow arrow, ItemStack weapon) {
         LivingEntity attacked = event.getEntity();
+        if (arrow instanceof ThrownTrident) {
+            if (attacked.level() instanceof ServerLevel level && event.getSource().getEntity() != null)
+                charge(level, weapon, attacked, event.getNewDamage(), event.getSource().getEntity());
+            return;
+        }
         UUID weaponId = weapon.get(REDataComponents.ELECTROCUTION_WEAPON_ID);
         if (!(attacked.level() instanceof ServerLevel level)
                 || weaponId == null

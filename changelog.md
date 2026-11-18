@@ -10,6 +10,10 @@
 * Added Sprinty, a leggings rune: +20% sprint speed, but sprinting consumes 50% more hunger
   * With [Stamina](https://www.curseforge.com/minecraft/mc-mods/insane-stamina) installed, sprinting consumes 30% more stamina instead of more hunger
 * Added Life Steal, a weapon, bow and crossbow rune: heals 5% of the damage dealt (after armor and resistances, capped to the target's remaining health)
+* Thrown tridents are now consistently treated as ranged attacks for on-hit effects
+  * Smite, Bane of Hissing and Water Coolant: `arrowEffects` config option renamed to `rangedEffects`, now applies to thrown tridents too. Water Coolant no longer freezes with thrown tridents by default, Smite and Bane of Hissing now apply their effect with thrown tridents if the option is enabled
+  * Thrown tridents now charge Electrocution
+  * Bonus damage is unchanged: thrown tridents still use the melee values
 * Vibration Detection 
   * Now has only a chance to apply glowing
   * Fixed not applying glowing to players

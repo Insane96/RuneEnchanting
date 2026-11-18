@@ -37,8 +37,8 @@ public class BaneOfHissingRune extends Rune {
     public static Double slownessDurationMin = 1.5d;
     @Config(description = "In seconds")
     public static Double slownessDurationMax = 3d;
-    @Config(description = "If true, arrows apply Slowness too")
-    public static Boolean arrowEffects = false;
+    @Config(description = "If true, ranged attacks (arrows and thrown tridents) apply Slowness too")
+    public static Boolean rangedEffects = false;
 
     @Override
     public String getName() {
@@ -71,7 +71,7 @@ public class BaneOfHissingRune extends Rune {
     @Override
     public void onPostAttack(ServerLevel level, @Nullable ItemStack stack, EnchantmentTarget target, Entity attacked, DamageSource damageSource) {
         if (target != EnchantmentTarget.ATTACKER
-                || (damageSource.getDirectEntity() != damageSource.getEntity() && !(arrowEffects && REUtils.isArrowHit(damageSource)))
+                || (damageSource.getDirectEntity() != damageSource.getEntity() && !(rangedEffects && REUtils.isProjectileHit(damageSource)))
                 || !attacked.getType().is(SENSITIVE)
                 || !(attacked instanceof LivingEntity livingEntity))
             return;

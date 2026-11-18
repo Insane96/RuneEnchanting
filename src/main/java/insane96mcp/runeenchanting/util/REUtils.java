@@ -35,6 +35,14 @@ public class REUtils {
     }
 
     /**
+     * True if the damage was dealt by a projectile: an arrow shot from a bow or crossbow, or a thrown trident.
+     */
+    public static boolean isProjectileHit(DamageSource damageSource) {
+        return damageSource.getDirectEntity() instanceof AbstractArrow
+                && damageSource.getDirectEntity() != damageSource.getEntity();
+    }
+
+    /**
      * True if the item has attack damage modifiers. Bows and crossbows don't, so they don't count as melee weapons.
      */
     public static boolean isMeleeWeapon(ItemStack stack) {
