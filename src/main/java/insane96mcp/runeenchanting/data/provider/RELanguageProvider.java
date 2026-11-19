@@ -57,7 +57,9 @@ public class RELanguageProvider extends LanguageProvider {
         add("advancements.runeenchanting.first_rune.title", "First Rune");
         add("advancements.runeenchanting.first_rune.description", "Obtain a rune");
         add("advancements.runeenchanting.rune_removed.title", "Clean Slate");
-        add("advancements.runeenchanting.rune_removed.description", "Remove a rune from an item with a grindstone");
+        add("advancements.runeenchanting.rune_removed.description", "Remove a rune from an item");
+        add("advancements.runeenchanting.runic_table.title", "Rune Library");
+        add("advancements.runeenchanting.runic_table.description", "Craft a Runic Table to store your runes and apply them to items");
         add("advancements.runeenchanting.curse_learned.title", "Curse Revealed");
         add("advancements.runeenchanting.curse_learned.description", "Use a cursed item enough to discover its curse");
     }

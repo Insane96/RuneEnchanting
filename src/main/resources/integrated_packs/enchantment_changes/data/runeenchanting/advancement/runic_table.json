@@ -1,0 +1,23 @@
+{
+  "display": {
+    "icon": { "id": "runeenchanting:runic_table" },
+    "title": { "translate": "advancements.runeenchanting.runic_table.title" },
+    "description": { "translate": "advancements.runeenchanting.runic_table.description" },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "runeenchanting:first_rune",
+  "criteria": {
+    "has_runic_table": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          { "items": "runeenchanting:runic_table" }
+        ]
+      }
+    }
+  },
+  "requirements": [ [ "has_runic_table" ] ]
+}
