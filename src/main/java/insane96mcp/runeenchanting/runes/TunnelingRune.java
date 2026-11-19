@@ -16,9 +16,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.common.Tags;
@@ -73,23 +71,12 @@ public class TunnelingRune extends Rune {
 
         if (!stack.isCorrectToolForDrops(state)) return;
 
-        Direction face = getTargetedFace(level, player, pos, state);
+        Direction face = RuneHelper.getTargetedBlockHit(level, player, pos, state).getDirection();
 
         for (BlockPos toMine : getAffectedBlocks(level, stack, player, pos, state, face)) {
             if (stack.isEmpty()) break;
             RuneHelper.breakExtraBlock(player, toMine);
         }
-    }
-
-    private static Direction getTargetedFace(Level level, Player player, BlockPos pos, BlockState state) {
-        Vec3 eyePos = player.getEyePosition();
-        Vec3 lookVec = player.getLookAngle();
-        Vec3 endPos = eyePos.add(lookVec.scale(player.blockInteractionRange() + 1d));
-        VoxelShape shape = state.getShape(level, pos);
-        BlockHitResult hit = shape.isEmpty() ? null : shape.clip(eyePos, endPos, pos);
-        if (hit != null) return hit.getDirection();
-        Vec3 toCenter = new Vec3(pos.getX() + 0.5 - eyePos.x, pos.getY() + 0.5 - eyePos.y, pos.getZ() + 0.5 - eyePos.z);
-        return Direction.getNearest(toCenter.x, toCenter.y, toCenter.z);
     }
 
     private static List<BlockPos> getAffectedBlocks(Level level, ItemStack stack, Player player, BlockPos targetPos, BlockState targetState, Direction face) {

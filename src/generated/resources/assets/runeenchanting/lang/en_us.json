@@ -151,6 +151,8 @@
   "rune.runeenchanting.enlightened": "Enlightened",
   "rune.runeenchanting.enlightened.description": "Slightly increases dark vision",
   "rune.runeenchanting.enlightened.info": "Minimum brightness: %s%%",
+  "rune.runeenchanting.exchange": "Exchange",
+  "rune.runeenchanting.exchange.description": "Replaces broken blocks with the ones in the off-hand",
   "rune.runeenchanting.executioner": "Executioner",
   "rune.runeenchanting.executioner.description": "Chance to execute enemies, higher the lower their health and the higher the damage dealt. Executions terrify nearby enemies. Doesn't work on players",
   "rune.runeenchanting.executioner.info": "Execute chance at 0%% health: %s%% (%s%% vs bosses) every %s damage dealt, max %s%%. Ranged attacks: x%s",

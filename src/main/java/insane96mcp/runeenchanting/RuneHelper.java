@@ -6,6 +6,7 @@ import insane96mcp.runeenchanting.setup.REDataComponents;
 import insane96mcp.runeenchanting.setup.REItems;
 import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponents;
@@ -15,11 +16,16 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -44,6 +50,21 @@ public class RuneHelper {
         finally {
             breakingExtraBlock = false;
         }
+    }
+
+    /**
+     * Returns where the player is looking at the block's shape. The state is passed so it works also after the block has been removed. If the look ray misses the shape, the face is the one nearest to the player and the location is the block's center
+     */
+    public static BlockHitResult getTargetedBlockHit(Level level, Player player, BlockPos pos, BlockState state) {
+        Vec3 eyePos = player.getEyePosition();
+        Vec3 endPos = eyePos.add(player.getLookAngle().scale(player.blockInteractionRange() + 1d));
+        VoxelShape shape = state.getShape(level, pos);
+        BlockHitResult hit = shape.isEmpty() ? null : shape.clip(eyePos, endPos, pos);
+        if (hit != null)
+            return hit;
+        Vec3 center = Vec3.atCenterOf(pos);
+        Vec3 toEye = eyePos.subtract(center);
+        return new BlockHitResult(center, Direction.getNearest(toEye.x, toEye.y, toEye.z), pos, false);
     }
 
     public static boolean isBreakingExtraBlock() {

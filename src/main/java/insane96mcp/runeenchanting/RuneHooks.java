@@ -15,6 +15,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.Entity;
@@ -513,6 +514,11 @@ public class RuneHooks extends Feature {
             count = holder.value().modifyPiercingCount(level, firedFromWeapon, pickupItemStack, original, count);
         }
         return count;
+    }
+
+    public static void onBlockDestroyed(ServerPlayer player, BlockPos pos, BlockState state) {
+        ItemStack stack = player.getMainHandItem();
+        forRunes(stack, rune -> rune.onBlockDestroyed(player, stack, pos, state));
     }
 
     public static void onHitBlock(ServerLevel level, ItemStack stack, @Nullable LivingEntity owner, Entity entity, @Nullable EquipmentSlot slot, Vec3 pos, BlockState state, Consumer<Item> onBreak) {

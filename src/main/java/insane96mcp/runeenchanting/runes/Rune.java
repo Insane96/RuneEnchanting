@@ -19,6 +19,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -133,6 +134,9 @@ public abstract class Rune {
     public void onBlockBreak(BlockEvent.BreakEvent event, ItemStack stack) {}
 
     public void onBlockDrops(BlockDropsEvent event, ItemStack stack) {}
+
+    ///Called after a player has broken a block (both normally and through {@link insane96mcp.runeenchanting.RuneHelper#breakExtraBlock}), once the block has been removed. {@code state} is the state of the broken block
+    public void onBlockDestroyed(ServerPlayer player, ItemStack stack, BlockPos pos, BlockState state) {}
 
     public List<BlockPos> getClientAffectedBlocks(Level level, Player player, BlockPos targetPos, BlockState targetState, Direction face, Vec3 clickLocation) {
         return List.of();

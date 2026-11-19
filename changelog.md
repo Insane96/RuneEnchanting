@@ -20,6 +20,8 @@
 * Added Sniper, a bow and crossbow rune: removes arrow inaccuracy (Curse of Inaccuracy still applies)
 * Added Puller, a fishing rod rune: hooked mobs and items are pulled 1.5x harder and pulling them consumes only 1 durability (instead of 5 for mobs and 3 for items)
 * Added Shatterburst, a bow and crossbow rune: arrows shatter on impact into 5 arrows flying in random directions, with 50% base damage. The original arrow breaks
+* Added Exchange, a pickaxe, axe, shovel and hoe rune: broken blocks are replaced with the block in the off-hand (taken from the inventory first, the off-hand stack is used last)
+  * Works also on blocks broken by Veining and Tunneling
   * With piercing, arrows shatter only on the last entity pierced
 * Thrown tridents are now consistently treated as ranged attacks for on-hit effects
   * Smite, Bane of Hissing and Water Coolant: `arrowEffects` config option renamed to `rangedEffects`, now applies to thrown tridents too. Water Coolant no longer freezes with thrown tridents by default, Smite and Bane of Hissing now apply their effect with thrown tridents if the option is enabled
