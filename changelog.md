@@ -1,3 +1,7 @@
+# Upcoming
+* Added Runic Table advancement
+* Step up step height bonus is now configurable
+
 # 1.5.0.0-beta
 * Added the Runic Table, a block that stores runes and applies or removes them from items
   * Crafted with 2 diamonds and 4 obsidian (totally original recipe)

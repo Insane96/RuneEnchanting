@@ -1,5 +1,6 @@
 package insane96mcp.runeenchanting.runes;
 
+import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.tags.ItemTags;
@@ -10,6 +11,8 @@ import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 
 public class StepUpRune extends Rune {
+    @Config(min = 0)
+    public static Double bonusStepHeight = 0.6d;
     @Override
     public String getName() {
         return "Step Up";
@@ -17,7 +20,7 @@ public class StepUpRune extends Rune {
 
     @Override
     public String getDescription() {
-        return "Climb up full blocks";
+        return "Increased Step Height";
     }
 
     @Override
@@ -27,6 +30,6 @@ public class StepUpRune extends Rune {
 
     @Override
     public void addAttributeModifiers(ItemAttributeModifierEvent event) {
-        event.addModifier(Attributes.STEP_HEIGHT, new AttributeModifier(RuneEnchanting.id("step_up"), 0.6, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.bySlot(RuneEnchanting.getEquipmentSlotForItem(event.getItemStack())));
+        event.addModifier(Attributes.STEP_HEIGHT, new AttributeModifier(RuneEnchanting.id("step_up"), bonusStepHeight, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.bySlot(RuneEnchanting.getEquipmentSlotForItem(event.getItemStack())));
     }
 }
