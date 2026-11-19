@@ -1,4 +1,4 @@
-# Upcoming
+# 1.5.0.0-beta
 * Added the Runic Table, a block that stores runes and applies or removes them from items
   * Crafted with 2 diamonds and 4 obsidian (totally original recipe)
   * Stores an unlimited amount of runes, shared by every player using it. Stored runes are dropped when the table is broken
