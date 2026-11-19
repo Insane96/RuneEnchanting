@@ -1,4 +1,4 @@
-# Upcoming
+# 1.5.1.0-beta
 * Added Runic Table advancement
 * Step up step height bonus is now configurable
 
