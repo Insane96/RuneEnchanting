@@ -1,5 +1,6 @@
 {
   "values": [
-    "#minecraft:enchantable/durability"
+    "#minecraft:enchantable/durability",
+    "#runeenchanting:wolf_armor"
   ]
 }

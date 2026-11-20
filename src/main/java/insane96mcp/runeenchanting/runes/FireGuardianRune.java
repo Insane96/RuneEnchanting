@@ -1,6 +1,7 @@
 package insane96mcp.runeenchanting.runes;
 
 import insane96mcp.insanelib.core.feature.config.Config;
+import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
 import insane96mcp.runeenchanting.setup.REDataComponents;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
@@ -45,7 +46,8 @@ public class FireGuardianRune extends Rune {
 
     @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
-        appender.addTag(ItemTags.CHEST_ARMOR_ENCHANTABLE);
+        appender.addTag(ItemTags.CHEST_ARMOR_ENCHANTABLE)
+                .addTag(REItemTagProvider.HORSE_ARMOR);
     }
 
     @Override

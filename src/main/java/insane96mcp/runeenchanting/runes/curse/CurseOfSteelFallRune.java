@@ -2,6 +2,7 @@ package insane96mcp.runeenchanting.runes.curse;
 
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.RuneEnchanting;
+import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
 import insane96mcp.runeenchanting.runes.Rune;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
@@ -34,7 +35,8 @@ public class CurseOfSteelFallRune extends Rune {
 
     @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
-        appender.addTag(ItemTags.FOOT_ARMOR_ENCHANTABLE);
+        appender.addTag(ItemTags.FOOT_ARMOR_ENCHANTABLE)
+                .addTag(REItemTagProvider.HORSE_ARMOR);
     }
 
     @Override

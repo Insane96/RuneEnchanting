@@ -1,0 +1,6 @@
+{
+    "item": "minecraft:wolf_armor",
+    "components": {
+        "runeenchanting:sockets": 4
+    }
+}

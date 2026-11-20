@@ -1,5 +1,7 @@
 {
   "values": [
-    "#minecraft:enchantable/leg_armor"
+    "#minecraft:enchantable/leg_armor",
+    "#runeenchanting:horse_armor",
+    "#runeenchanting:wolf_armor"
   ]
 }

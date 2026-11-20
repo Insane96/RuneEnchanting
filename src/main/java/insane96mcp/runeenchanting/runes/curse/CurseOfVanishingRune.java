@@ -1,5 +1,6 @@
 package insane96mcp.runeenchanting.runes.curse;
 
+import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
 import insane96mcp.runeenchanting.runes.Rune;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.tags.ItemTags;
@@ -20,7 +21,9 @@ public class CurseOfVanishingRune extends Rune {
 
     @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
-        appender.addTag(ItemTags.VANISHING_ENCHANTABLE);
+        appender.addTag(ItemTags.VANISHING_ENCHANTABLE)
+                .addTag(REItemTagProvider.HORSE_ARMOR)
+                .addTag(REItemTagProvider.WOLF_ARMOR);
     }
 
     @Override

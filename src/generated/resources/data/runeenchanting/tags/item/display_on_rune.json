@@ -15,6 +15,8 @@
     "minecraft:crossbow",
     "minecraft:trident",
     "minecraft:shield",
-    "minecraft:elytra"
+    "minecraft:elytra",
+    "minecraft:diamond_horse_armor",
+    "minecraft:wolf_armor"
   ]
 }

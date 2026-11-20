@@ -1,5 +1,6 @@
 package insane96mcp.runeenchanting.runes.curse;
 
+import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
 import insane96mcp.runeenchanting.runes.Rune;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.tags.ItemTags;
@@ -25,7 +26,8 @@ public class CurseOfBindingRune extends Rune {
 
     @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
-        appender.addTag(ItemTags.EQUIPPABLE_ENCHANTABLE);
+        appender.addTag(ItemTags.EQUIPPABLE_ENCHANTABLE)
+                .addTag(REItemTagProvider.WOLF_ARMOR);
     }
 
     @Override

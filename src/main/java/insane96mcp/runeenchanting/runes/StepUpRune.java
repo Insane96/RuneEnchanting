@@ -2,6 +2,7 @@ package insane96mcp.runeenchanting.runes;
 
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.RuneEnchanting;
+import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlotGroup;
@@ -25,7 +26,9 @@ public class StepUpRune extends Rune {
 
     @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
-        appender.addTag(ItemTags.LEG_ARMOR_ENCHANTABLE);
+        appender.addTag(ItemTags.LEG_ARMOR_ENCHANTABLE)
+                .addTag(REItemTagProvider.HORSE_ARMOR)
+                .addTag(REItemTagProvider.WOLF_ARMOR);
     }
 
     @Override

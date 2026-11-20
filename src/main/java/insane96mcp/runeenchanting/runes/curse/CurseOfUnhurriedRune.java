@@ -2,6 +2,7 @@ package insane96mcp.runeenchanting.runes.curse;
 
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.RuneEnchanting;
+import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
 import insane96mcp.runeenchanting.runes.Rune;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
@@ -42,11 +43,13 @@ public class CurseOfUnhurriedRune extends Rune {
 
     @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
-        appender.addTag(ItemTags.LEG_ARMOR_ENCHANTABLE);
+        appender.addTag(ItemTags.LEG_ARMOR_ENCHANTABLE)
+                .addTag(REItemTagProvider.HORSE_ARMOR)
+                .addTag(REItemTagProvider.WOLF_ARMOR);
     }
 
     @Override
     public void addAttributeModifiers(ItemAttributeModifierEvent event) {
-        event.addModifier(Attributes.MOVEMENT_SPEED, new AttributeModifier(RuneEnchanting.id("curse_of_unhurried"), -speedReduction, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), EquipmentSlotGroup.LEGS);
+        event.addModifier(Attributes.MOVEMENT_SPEED, new AttributeModifier(RuneEnchanting.id("curse_of_unhurried"), -speedReduction, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), EquipmentSlotGroup.bySlot(RuneEnchanting.getEquipmentSlotForItem(event.getItemStack())));
     }
 }

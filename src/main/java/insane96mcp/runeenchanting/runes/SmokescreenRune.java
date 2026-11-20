@@ -38,7 +38,7 @@ public class SmokescreenRune extends Rune {
 
     @Override
     public void addAttributeModifiers(ItemAttributeModifierEvent event) {
-        event.addModifier(ILAttributes.MOB_DETECTION_RANGE, new AttributeModifier(RuneEnchanting.id("smokescreen"), -detectionRangeReduction, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.HEAD);
+        event.addModifier(ILAttributes.MOB_DETECTION_RANGE, new AttributeModifier(RuneEnchanting.id("smokescreen"), -detectionRangeReduction, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.bySlot(RuneEnchanting.getEquipmentSlotForItem(event.getItemStack())));
     }
 
     @Override

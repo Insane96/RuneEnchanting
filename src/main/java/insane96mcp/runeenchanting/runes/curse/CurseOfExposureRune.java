@@ -39,7 +39,7 @@ public class CurseOfExposureRune extends Rune {
 
     @Override
     public void addAttributeModifiers(ItemAttributeModifierEvent event) {
-        event.addModifier(ILAttributes.MOB_DETECTION_RANGE, new AttributeModifier(RuneEnchanting.id("curse_of_exposure"), detectionRangeIncrease, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.HEAD);
+        event.addModifier(ILAttributes.MOB_DETECTION_RANGE, new AttributeModifier(RuneEnchanting.id("curse_of_exposure"), detectionRangeIncrease, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.bySlot(RuneEnchanting.getEquipmentSlotForItem(event.getItemStack())));
     }
 
     @Override

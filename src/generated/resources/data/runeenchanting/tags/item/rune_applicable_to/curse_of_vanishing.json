@@ -1,5 +1,7 @@
 {
   "values": [
-    "#minecraft:enchantable/vanishing"
+    "#minecraft:enchantable/vanishing",
+    "#runeenchanting:horse_armor",
+    "#runeenchanting:wolf_armor"
   ]
 }

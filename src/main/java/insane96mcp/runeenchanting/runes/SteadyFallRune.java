@@ -1,13 +1,13 @@
 package insane96mcp.runeenchanting.runes;
 
 import insane96mcp.insanelib.core.feature.config.Config;
+import insane96mcp.runeenchanting.RuneEnchanting;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -61,7 +61,7 @@ public class SteadyFallRune extends Rune {
 
         event.setNewDamage(event.getNewDamage() - reducedDamage);
         stack.hurtAndBreak((int) (reducedDamage * durabilityRatio), serverLevel, entity,
-                item -> entity.onEquippedItemBroken(item, EquipmentSlot.FEET));
+                item -> entity.onEquippedItemBroken(item, RuneEnchanting.getEquipmentSlotForItem(stack)));
     }
 
     @Override

@@ -22,6 +22,8 @@ public class REItemTagProvider extends ItemTagsProvider {
 
     public static final TagKey<Item> WEAPONS = TagKey.create(Registries.ITEM, RuneEnchanting.id("weapons"));
     public static final TagKey<Item> RANGED_WEAPONS = TagKey.create(Registries.ITEM, RuneEnchanting.id("ranged_weapons"));
+    public static final TagKey<Item> HORSE_ARMOR = TagKey.create(Registries.ITEM, RuneEnchanting.id("horse_armor"));
+    public static final TagKey<Item> WOLF_ARMOR = TagKey.create(Registries.ITEM, RuneEnchanting.id("wolf_armor"));
     /**
      * Curated set of representative items used to show which items a rune is compatible with in its tooltip.
      */
@@ -39,10 +41,15 @@ public class REItemTagProvider extends ItemTagsProvider {
                 .add(Items.TRIDENT, Items.MACE);
         tag(RANGED_WEAPONS)
                 .add(Items.BOW, Items.CROSSBOW);
+        tag(HORSE_ARMOR)
+                .add(Items.LEATHER_HORSE_ARMOR, Items.IRON_HORSE_ARMOR, Items.GOLDEN_HORSE_ARMOR, Items.DIAMOND_HORSE_ARMOR);
+        tag(WOLF_ARMOR)
+                .add(Items.WOLF_ARMOR);
         tag(DISPLAY_ON_RUNE)
                 .add(Items.DIAMOND_SWORD, Items.DIAMOND_PICKAXE, Items.DIAMOND_AXE, Items.DIAMOND_SHOVEL, Items.DIAMOND_HOE)
                 .add(Items.DIAMOND_HELMET, Items.DIAMOND_CHESTPLATE, Items.DIAMOND_LEGGINGS, Items.DIAMOND_BOOTS)
-                .add(Items.SHEARS, Items.FISHING_ROD, Items.BOW, Items.CROSSBOW, Items.TRIDENT, Items.SHIELD, Items.ELYTRA);
+                .add(Items.SHEARS, Items.FISHING_ROD, Items.BOW, Items.CROSSBOW, Items.TRIDENT, Items.SHIELD, Items.ELYTRA)
+                .add(Items.DIAMOND_HORSE_ARMOR, Items.WOLF_ARMOR);
         tag(ItemTags.BOOKSHELF_BOOKS).add(REItems.RUNE.get());
         tag(ItemTags.DURABILITY_ENCHANTABLE).addTag(Tags.Items.TOOLS_SHEAR);
         tag(ItemTags.MINING_ENCHANTABLE).addTag(Tags.Items.TOOLS_SHEAR);

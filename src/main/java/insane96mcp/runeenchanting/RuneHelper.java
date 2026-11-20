@@ -81,7 +81,7 @@ public class RuneHelper {
     public static boolean hasRuneOnArmor(LivingEntity entity, Holder<Rune> rune) {
         if (!Rune.isEnabled(rune))
             return false;
-        for (ItemStack stack : entity.getArmorSlots()) {
+        for (ItemStack stack : entity.getArmorAndBodyArmorSlots()) {
             List<Holder<Rune>> runes = stack.get(REDataComponents.RUNES);
             if (runes == null)
                 continue;

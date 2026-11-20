@@ -1,5 +1,7 @@
 {
   "values": [
-    "#minecraft:enchantable/head_armor"
+    "#minecraft:enchantable/head_armor",
+    "#runeenchanting:horse_armor",
+    "#runeenchanting:wolf_armor"
   ]
 }

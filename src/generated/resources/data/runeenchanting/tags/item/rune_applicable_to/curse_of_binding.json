@@ -1,5 +1,6 @@
 {
   "values": [
-    "#minecraft:enchantable/equippable"
+    "#minecraft:enchantable/equippable",
+    "#runeenchanting:wolf_armor"
   ]
 }

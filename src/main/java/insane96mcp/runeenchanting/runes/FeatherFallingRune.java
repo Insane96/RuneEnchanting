@@ -1,6 +1,7 @@
 package insane96mcp.runeenchanting.runes;
 
 import insane96mcp.insanelib.core.feature.config.Config;
+import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.ItemTags;
@@ -13,7 +14,8 @@ public class FeatherFallingRune extends DamageReductionRune {
 
     @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
-        appender.addTag(ItemTags.FOOT_ARMOR_ENCHANTABLE);
+        appender.addTag(ItemTags.FOOT_ARMOR_ENCHANTABLE)
+                .addTag(REItemTagProvider.HORSE_ARMOR);
     }
 
     @Override
