@@ -1,4 +1,4 @@
-# Upcoming
+# 1.5.3.0-beta
 * Added Momentum rune (tools, weapons, trident, leggings, horse armor and wolf armor)
   * Breaking blocks grants Momentum (mining), increasing mining speed by 5% per level, up to level 32
   * Walking with leggings, horse armor or wolf armor grants Momentum (moving), increasing movement speed by 4% per level, up to level 8
