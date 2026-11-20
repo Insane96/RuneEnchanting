@@ -235,7 +235,7 @@
   "rune.runeenchanting.melee_protection.info": "Damage reduction: %s%% (max 80%% combined)",
   "rune.runeenchanting.momentum": "Momentum",
   "rune.runeenchanting.momentum.description": "Mine blocks to gain mining speed, walk to gain movement speed (leggings and horse/wolf armor), attack to gain attack speed",
-  "rune.runeenchanting.momentum.info": "Max Bonus Mining Speed: +%s%%. Max Bonus Movement Speed: +%s%%. Max Bonus Attack Speed: +%s",
+  "rune.runeenchanting.momentum.info": "Max Bonus Mining Speed: +%s%%. Max Bonus Movement Speed: +%s%%. Max Bonus Attack Speed: +%s%%",
   "rune.runeenchanting.moonlit": "Moonlit",
   "rune.runeenchanting.moonlit.description": "Gain attack speed under the moon light",
   "rune.runeenchanting.moonlit.info": "Max Bonus Attack Speed: +%s%%",

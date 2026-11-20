@@ -106,7 +106,7 @@ public class MomentumRune extends Rune {
 
     @Override
     public @Nullable String getInfo() {
-        return "Max Bonus Mining Speed: +%s%%. Max Bonus Movement Speed: +%s%%. Max Bonus Attack Speed: +%s";
+        return "Max Bonus Mining Speed: +%s%%. Max Bonus Movement Speed: +%s%%. Max Bonus Attack Speed: +%s%%";
     }
 
     @Override
@@ -114,7 +114,7 @@ public class MomentumRune extends Rune {
         return Component.translatable(getInfoTranslationKey(),
                 IAttributeExtension.FORMAT.format(maxMiningLevel * REMobEffects.MINING_MOMENTUM_PER_LEVEL * 100d),
                 IAttributeExtension.FORMAT.format(maxMovementLevel * REMobEffects.MOVEMENT_MOMENTUM_PER_LEVEL * 100d),
-                IAttributeExtension.FORMAT.format(maxAttackLevel * REMobEffects.ATTACK_MOMENTUM_PER_LEVEL));
+                IAttributeExtension.FORMAT.format(maxAttackLevel * REMobEffects.ATTACK_MOMENTUM_PER_LEVEL * 100d));
     }
 
     /**

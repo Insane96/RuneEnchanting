@@ -18,7 +18,7 @@ public class REMobEffects {
     // Bonuses per effect level, multiplied by the level (amplifier + 1)
     public static final double MINING_MOMENTUM_PER_LEVEL = 0.05d;
     public static final double MOVEMENT_MOMENTUM_PER_LEVEL = 0.04d;
-    public static final double ATTACK_MOMENTUM_PER_LEVEL = 0.06d;
+    public static final double ATTACK_MOMENTUM_PER_LEVEL = 0.04d;
 
     public static final DeferredHolder<MobEffect, MobEffect> MINING_MOMENTUM = REGISTRY.register("mining_momentum",
             () -> new ILMobEffect(MobEffectCategory.BENEFICIAL, MOMENTUM_COLOR, false)
@@ -28,5 +28,5 @@ public class REMobEffects {
                     .addAttributeModifier(Attributes.MOVEMENT_SPEED, RuneEnchanting.id("effect.movement_momentum"), MOVEMENT_MOMENTUM_PER_LEVEL, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
     public static final DeferredHolder<MobEffect, MobEffect> ATTACK_MOMENTUM = REGISTRY.register("attack_momentum",
             () -> new ILMobEffect(MobEffectCategory.BENEFICIAL, MOMENTUM_COLOR, false)
-                    .addAttributeModifier(Attributes.ATTACK_SPEED, RuneEnchanting.id("effect.attack_momentum"), ATTACK_MOMENTUM_PER_LEVEL, AttributeModifier.Operation.ADD_VALUE));
+                    .addAttributeModifier(Attributes.ATTACK_SPEED, RuneEnchanting.id("effect.attack_momentum"), ATTACK_MOMENTUM_PER_LEVEL, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
 }
