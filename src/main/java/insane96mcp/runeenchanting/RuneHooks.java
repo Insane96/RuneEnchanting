@@ -123,6 +123,9 @@ public class RuneHooks extends Feature {
     @SubscribeEvent
     public void onEquipmentChange(LivingEquipmentChangeEvent event) {
         forRunes(event.getFrom(), rune -> rune.onEquipmentChange(event, event.getFrom()));
+        //Like vanilla, location changed effects are run when an item is equipped
+        if (event.getEntity().level() instanceof ServerLevel level)
+            forRunes(event.getTo(), event.getSlot(), rune -> rune.onLocationChanged(level, event.getTo(), event.getEntity()));
         if (event.getSlot().isArmor())
             updateProjectileProtectionDetectionRange(event.getEntity());
     }
@@ -498,6 +501,10 @@ public class RuneHooks extends Feature {
         for (Holder<Rune> holder : runeHolders())
             if (!activeRunes.contains(holder.value()))
                 holder.value().removeEffects(entity);
+    }
+
+    public static void onLocationChanged(ServerLevel level, LivingEntity entity) {
+        forEquipmentForRunes(entity, (stack, rune) -> rune.onLocationChanged(level, stack, entity));
     }
 
     public static void onEntitySound(Entity source) {

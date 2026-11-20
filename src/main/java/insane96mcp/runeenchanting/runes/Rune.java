@@ -159,6 +159,12 @@ public abstract class Rune {
     public void tickEffects(ServerLevel level, ItemStack stack, LivingEntity entity) {}
 
     /**
+     * Fires when the entity moves to a different block and when the item is equipped, for items in their slot. Same as vanilla's
+     * {@code location_changed} enchantment effects.
+     */
+    public void onLocationChanged(ServerLevel level, ItemStack stack, LivingEntity entity) {}
+
+    /**
      * Fires every 5 ticks for every {@code LivingEntity} that doesn't have this rune active on its equipment (removed,
      * disabled, or on an item with more runes than sockets). Used to remove the effects applied by {@link #tickEffects}
      * (e.g. attribute modifiers).

@@ -1,17 +1,15 @@
 package insane96mcp.runeenchanting.runes;
 
 import insane96mcp.insanelib.core.feature.config.Config;
+import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.neoforged.neoforge.event.enchanting.GetEnchantmentLevelEvent;
 
-import javax.annotation.Nullable;
-
-public class FrostWalkerRune extends Rune {
+public class FrostWalkerRune extends VanillaLocationEnchantmentRune {
     @Config(description = "This rune mimics vanilla Frost Walker of this level")
     public static Integer enchantmentLevelEquivalent = 3;
 
@@ -26,22 +24,17 @@ public class FrostWalkerRune extends Rune {
     }
 
     @Override
-    public @Nullable String getInfo() {
-        return "Equivalent to enchantment level %s";
+    public ResourceKey<Enchantment> getEnchantment() {
+        return Enchantments.FROST_WALKER;
     }
 
     @Override
-    public MutableComponent getInfoComponent() {
-        return Component.translatable(getInfoTranslationKey(), enchantmentLevelEquivalent);
+    public int getEnchantmentLevel() {
+        return enchantmentLevelEquivalent;
     }
 
     @Override
     public void addItemsToApplicableTag(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> appender) {
-        appender.addTag(ItemTags.FOOT_ARMOR_ENCHANTABLE);
-    }
-
-    @Override
-    public void onEnchantmentLevel(GetEnchantmentLevelEvent event) {
-        event.getHolder(Enchantments.FROST_WALKER).ifPresent(frostWalker -> event.getEnchantments().set(frostWalker, enchantmentLevelEquivalent));
+        appender.addTag(ItemTags.FOOT_ARMOR_ENCHANTABLE).addTag(REItemTagProvider.HORSE_ARMOR).addTag(REItemTagProvider.WOLF_ARMOR);
     }
 }
