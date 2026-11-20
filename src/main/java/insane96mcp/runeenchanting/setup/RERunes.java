@@ -141,7 +141,7 @@ public class RERunes {
 
     // Tools and Weapons
     public static final DeferredHolder<Rune, AdrenalineRune> ADRENALINE = register("adrenaline", new AdrenalineRune());
-    //public static final DeferredHolder<Rune, MomentumRune> MOMENTUM = register("momentum", new MomentumRune());
+    public static final DeferredHolder<Rune, MomentumRune> MOMENTUM = register("momentum", new MomentumRune());
 
     // Tools, Weapons, Trident, Bow, Crossbow and Shears
     public static final DeferredHolder<Rune, TelekinesisRune> TELEKINESIS = register("telekinesis", new TelekinesisRune());

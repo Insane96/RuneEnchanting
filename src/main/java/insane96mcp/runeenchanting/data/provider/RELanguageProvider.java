@@ -1,6 +1,7 @@
 package insane96mcp.runeenchanting.data.provider;
 
 import insane96mcp.runeenchanting.RuneEnchanting;
+import insane96mcp.runeenchanting.setup.REMobEffects;
 import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
@@ -26,6 +27,10 @@ public class RELanguageProvider extends LanguageProvider {
         add("death.attack.runeenchanting.electrocution", "%1$s was electrocuted");
 
         add("entity.runeenchanting.shard", "Shard");
+
+        add(REMobEffects.MINING_MOMENTUM.get(), "Momentum (mining)");
+        add(REMobEffects.MOVEMENT_MOMENTUM.get(), "Momentum (moving)");
+        add(REMobEffects.ATTACK_MOMENTUM.get(), "Momentum (attacking)");
 
         add("item.runeenchanting.rune", "Rune");
         add("item.runeenchanting.encased_rune", "Encased Rune");

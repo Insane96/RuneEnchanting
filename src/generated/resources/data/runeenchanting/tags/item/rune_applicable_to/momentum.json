@@ -1,0 +1,13 @@
+{
+  "values": [
+    "#minecraft:pickaxes",
+    "#minecraft:shovels",
+    "#minecraft:axes",
+    "#minecraft:hoes",
+    "#minecraft:swords",
+    "minecraft:trident",
+    "#minecraft:enchantable/leg_armor",
+    "#runeenchanting:horse_armor",
+    "#runeenchanting:wolf_armor"
+  ]
+}

@@ -44,7 +44,7 @@ Before joining a world (and on clients before the server sends them) SERVER conf
 
 `runes/Rune.java` — abstract base class for all runes. Each rune has a `ResourceLocation` ID and a priority. Provides many override points covering mining, damage, projectiles, durability, protection, experience, fishing, and per-tick effects. Supports `@Config`-annotated static fields and an `Enabled` toggle processed via `loadConfig`/`readConfig`. Static helpers `Rune.isCurse(holder)` (curses are identified by the `runeenchanting:curse` rune tag) and `Rune.isEnabled(holder)` (config toggle + `disabled` rune tag). There is no flag to exclude a rune from random generation: random pools (`addRandomRunes`, `createRandomRuneItem`, loot modifiers) can include curses. `removeEffects(LivingEntity)` is called periodically for runes no longer active on the entity, to clean up attribute modifiers.
 
-Concrete runes are in `runes/` and registered in `setup/RERunes.java`. Curses are in the `runes/curse/` sub-package. Rune configs are written to `runeenchanting/runes.toml`. `MomentumRune` exists but is currently commented out in `RERunes`.
+Concrete runes are in `runes/` and registered in `setup/RERunes.java`. Curses are in the `runes/curse/` sub-package. Rune configs are written to `runeenchanting/runes.toml`.
 
 ### Registry (`setup/RERunes.java`)
 
@@ -61,6 +61,10 @@ Registers `RUNE` (`RuneItem`, holds a rune in `STORED_RUNE`), `ENCASED_RUNE` (`E
 ### Entities (`setup/REEntityTypes.java`)
 
 Registers `SHARD` (`entity/ShardProjectile`, a snowball-like `ThrowableItemProjectile` rendered as flint with `ThrownItemRenderer`), shot by Shatterburst. It isn't an `AbstractArrow`, so weapon runes don't apply to it.
+
+### Mob Effects (`setup/REMobEffects.java`)
+
+Registers the three Momentum effects (`mining_momentum`, `movement_momentum`, `attack_momentum`, named "Momentum (mining/moving/attacking)"), applied by `MomentumRune`: each action re-applies the effect one level higher (capped by the rune's config). The per-level bonuses are attribute modifiers fixed at registration (`BLOCK_BREAK_SPEED`, `MOVEMENT_SPEED`, `ATTACK_SPEED`), so they aren't configurable. Not curable with milk. Icons in `textures/mob_effect/`.
 
 ### Runic Table
 
@@ -131,7 +135,7 @@ Global loot modifiers in `data/loot/`:
 
 ### Current Development State
 
-The system is largely wired in. Curses are fully implemented. Spawners drop runes when broken (via `integrated_packs/enchantment_changes` loot table + `SetRandomRuneLootFunction`). `MomentumRune` is implemented but commented out in `RERunes`.
+The system is largely wired in. Curses are fully implemented. Spawners drop runes when broken (via `integrated_packs/enchantment_changes` loot table + `SetRandomRuneLootFunction`).
 
 Don't write code unless prompted or confirmed to do.
 Other mod's source, is in C:\Users\delvi\source\repos\Insane96\

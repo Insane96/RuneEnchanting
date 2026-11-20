@@ -1,9 +1,14 @@
 # Upcoming
+* Added Momentum rune (tools, weapons, trident, leggings, horse armor and wolf armor)
+  * Breaking blocks grants Momentum (mining), increasing mining speed by 5% per level, up to level 32
+  * Walking with leggings, horse armor or wolf armor grants Momentum (moving), increasing movement speed by 4% per level, up to level 8
+  * Fully charged attacks grant Momentum (attacking), increasing attack speed by 0.06 per level, up to level 8
+  * Each action raises the effect level by one and refreshes its duration
 * Slightly enhanced runic table textures 
 * Horse armor and wolf armor can now have runes
   * Horse armor has the same sockets as the player armor of the same material, wolf armor has the sockets of iron armor
-  * Horse armor: Protection runes, Feather Falling, Healthy, Thorns, Magnetic, Respiration, Invulnerability, Fire Guardian, Zippy, Step Up, Retreat, Hoppy, Depth Strider and Curses of Undead, Corrosion, Ender, Static Charge, Unhurried, Unstable Motion, Hop, Steel Fall and Vanishing
-  * Wolf armor: Magic Protection, Enduring, Healthy, Thorns, Magnetic, Respiration, Invulnerability, Zippy, Step Up, Retreat, Hoppy, Depth Strider and Curses of Undead, Corrosion, Ender, Static Charge, Unhurried, Unstable Motion, Hop, Fragility, Vanishing and Binding
+  * Horse armor: Protection runes, Feather Falling, Healthy, Thorns, Magnetic, Respiration, Invulnerability, Fire Guardian, Zippy, Step Up, Retreat, Hoppy, Depth Strider, Momentum and Curses of Undead, Corrosion, Ender, Static Charge, Unhurried, Unstable Motion, Hop, Steel Fall and Vanishing
+  * Wolf armor: Magic Protection, Enduring, Healthy, Thorns, Magnetic, Respiration, Invulnerability, Zippy, Step Up, Retreat, Hoppy, Depth Strider, Momentum and Curses of Undead, Corrosion, Ender, Static Charge, Unhurried, Unstable Motion, Hop, Fragility, Vanishing and Binding
 * Protection no longer reduces poison and wither damage
 
 # 1.5.2.0-beta
