@@ -25,6 +25,8 @@ public class RELanguageProvider extends LanguageProvider {
         add("death.attack.runeenchanting.blood_pact", "%1$s's was consumed by the blood pact");
         add("death.attack.runeenchanting.electrocution", "%1$s was electrocuted");
 
+        add("entity.runeenchanting.shard", "Shard");
+
         add("item.runeenchanting.rune", "Rune");
         add("item.runeenchanting.encased_rune", "Encased Rune");
         add("block.runeenchanting.runic_table", "Runic Table");

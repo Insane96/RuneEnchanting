@@ -78,6 +78,7 @@ public class RuneEnchanting {
         REDataComponents.REGISTRY.register(modEventBus);
         REBlocks.REGISTRY.register(modEventBus);
         REBlockEntities.REGISTRY.register(modEventBus);
+        REEntityTypes.REGISTRY.register(modEventBus);
         REItems.REGISTRY.register(modEventBus);
         REMenus.REGISTRY.register(modEventBus);
         RELootModifiers.REGISTRY.register(modEventBus);
@@ -91,6 +92,7 @@ public class RuneEnchanting {
             modEventBus.addListener(ClientSetup::onRegisterItemDecorations);
             modEventBus.addListener(ClientSetup::onRegisterClientTooltipComponentFactories);
             modEventBus.addListener(ClientSetup::onRegisterMenuScreens);
+            modEventBus.addListener(ClientSetup::onRegisterEntityRenderers);
         }
     }
 

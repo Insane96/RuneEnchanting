@@ -58,6 +58,10 @@ Registers `RUNES` (`List<Holder<Rune>>`), `SOCKETS` (`Integer`, sockets granted 
 
 Registers `RUNE` (`RuneItem`, holds a rune in `STORED_RUNE`), `ENCASED_RUNE` (`EncasedRuneItem`, smelted into a random rune) and the `RUNIC_TABLE` block item.
 
+### Entities (`setup/REEntityTypes.java`)
+
+Registers `SHARD` (`entity/ShardProjectile`, a snowball-like `ThrowableItemProjectile` rendered as flint with `ThrownItemRenderer`), shot by Shatterburst. It isn't an `AbstractArrow`, so weapon runes don't apply to it.
+
 ### Runic Table
 
 A block (`setup/REBlocks`, `REBlockEntities`, `REMenus`; classes in `block/`, `menu/`, `client/`) that stores runes and applies/removes them from items through a GUI. Crafted like the enchanting table without the book (2 diamonds, 4 obsidian).

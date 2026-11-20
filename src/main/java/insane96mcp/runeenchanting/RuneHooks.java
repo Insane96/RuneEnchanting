@@ -192,7 +192,8 @@ public class RuneHooks extends Feature {
     public static ItemStack getKillingWeapon(LivingEntity killer, DamageSource source) {
         if (source.getDirectEntity() instanceof AbstractArrow arrow) {
             ItemStack weaponItem = arrow.getWeaponItem();
-            if (!weaponItem.isEmpty())
+            // Arrows not shot from a weapon (e.g. dispensers, other mods) have none
+            if (weaponItem != null && !weaponItem.isEmpty())
                 return weaponItem;
         }
         return killer.getMainHandItem();

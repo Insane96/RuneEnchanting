@@ -1,3 +1,12 @@
+# Upcoming
+* Shatterburst reworked
+  * Now only triggers when hitting an entity, no longer on blocks
+  * Arrows now shatter into flint shards instead of arrows. Shards deal a fixed 3 damage (`Shard Damage` config option, replacing `Shard Damage Multiplier`) and break on whatever they hit
+  * Shards now fly in a horizontal ring around the entity hit, instead of random directions, with a bit of inaccuracy (new `Shard Inaccuracy` config option)
+  * Shards now fly at 50% of the original arrow's speed on impact, instead of a fixed speed
+    * The `Shard Speed` config option is replaced by `Shard Speed Multiplier`, relative to the arrow's speed
+* Fixed a crash when Shatterburst shards (or other arrows not shot from a weapon) killed a mob
+
 # 1.5.1.0-beta
 * Added Runic Table advancement
 * Step up step height bonus is now configurable

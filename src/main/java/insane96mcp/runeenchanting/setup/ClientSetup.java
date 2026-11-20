@@ -5,6 +5,7 @@ import insane96mcp.runeenchanting.RuneHooks;
 import insane96mcp.runeenchanting.client.RunicTableScreen;
 import insane96mcp.runeenchanting.runes.Rune;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.Holder;
@@ -14,6 +15,7 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
 import net.neoforged.neoforge.client.event.RegisterItemDecorationsEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
@@ -56,6 +58,10 @@ public class ClientSetup {
 
     public static void onRegisterMenuScreens(RegisterMenuScreensEvent event) {
         event.register(REMenus.RUNIC_TABLE.get(), RunicTableScreen::new);
+    }
+
+    public static void onRegisterEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(REEntityTypes.SHARD.get(), ThrownItemRenderer::new);
     }
 
     public static void onBuildCreativeModeTabContents(BuildCreativeModeTabContentsEvent event) {
