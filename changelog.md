@@ -1,4 +1,4 @@
-# Upcoming
+# 1.5.2.0-beta
 * Shatterburst reworked
   * Now only triggers when hitting an entity, no longer on blocks
   * Arrows now shatter into flint shards instead of arrows. Shards deal a fixed 3 damage (`Shard Damage` config option, replacing `Shard Damage Multiplier`) and break on whatever they hit
