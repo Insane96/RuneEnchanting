@@ -1,3 +1,6 @@
+# Upcoming
+* Slightly enhanced runic table textures 
+
 # 1.5.2.0-beta
 * Shatterburst reworked
   * Now only triggers when hitting an entity, no longer on blocks
