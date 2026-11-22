@@ -1,4 +1,4 @@
-# Upcoming
+# 1.5.4.0-beta
 * Other mods can now make the runes of an item inactive (`RuneHelper.registerInactiveCondition`), like overloaded items: runes stop working while curses still apply, and the tooltip shows why
   * Used by Insane's Survival Overhaul: broken (unvanishable) items' runes are inactive until the item is repaired
 
