@@ -277,13 +277,17 @@ public class RuneFeature extends Feature {
                 event.getToolTip().add(Component.translatable(RuneEnchanting.lang("sockets"), noCursesRunesCount, sockets).withStyle(overloaded ? ChatFormatting.RED : ChatFormatting.DARK_PURPLE));
             }
         }
+        Component inactiveTooltip = noCursesRunesCount > 0 ?RuneHelper.getInactiveConditionTooltip(stack) : null;
         if (overloaded)
             event.getToolTip().add(Component.translatable(RuneEnchanting.lang("overloaded_runes")).withStyle(ChatFormatting.RED));
+        else if (inactiveTooltip != null)
+            event.getToolTip().add(inactiveTooltip.copy().withStyle(ChatFormatting.RED));
+        boolean inactive = overloaded || inactiveTooltip != null;
         if (runes != null) {
             Player player = event.getEntity();
             for (Holder<Rune> holder : runes) {
                 boolean isCurse = Rune.isCurse(holder);
-                ChatFormatting color = isCurse ? ChatFormatting.RED : overloaded ? ChatFormatting.DARK_GRAY : ChatFormatting.LIGHT_PURPLE;
+                ChatFormatting color = isCurse ? ChatFormatting.RED : inactive ? ChatFormatting.DARK_GRAY : ChatFormatting.LIGHT_PURPLE;
                 if (isCurse && mustLearnCurses && !CurseKnowledge.isLearned(player, holder)) {
                     event.getToolTip().add(CommonComponents.space().append(getTooltipName(holder, Component.translatable(RuneEnchanting.lang("unknown_curse")), color)));
                     continue;

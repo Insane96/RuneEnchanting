@@ -52,7 +52,7 @@ Custom NeoForge registry with key `runeenchanting:runes`. All rune `DeferredHold
 
 ### Item Components (`setup/REDataComponents.java`)
 
-Registers `RUNES` (`List<Holder<Rune>>`), `SOCKETS` (`Integer`, sockets granted by curses are added on the fly by `RuneHelper.getSockets`), `STORED_RUNE` (the rune held by a rune item) and per-rune state components (`STACKED_DAMAGE`, `ELECTROCUTION_CHARGE`, `ELECTROCUTION_LAST_CHARGED_AT`, `CHARGED_JUMP`, `FIRE_GUARDIAN_LAST_USED`). `STORED_DAMAGE` is no longer written (Recovery stores it on the entity) and is kept registered only to load old items. Items with more runes than sockets are "overloaded": their runes are inactive (curses still apply).
+Registers `RUNES` (`List<Holder<Rune>>`), `SOCKETS` (`Integer`, sockets granted by curses are added on the fly by `RuneHelper.getSockets`), `STORED_RUNE` (the rune held by a rune item) and per-rune state components (`STACKED_DAMAGE`, `ELECTROCUTION_CHARGE`, `ELECTROCUTION_LAST_CHARGED_AT`, `CHARGED_JUMP`, `FIRE_GUARDIAN_LAST_USED`). `STORED_DAMAGE` is no longer written (Recovery stores it on the entity) and is kept registered only to load old items. Items with more runes than sockets are "overloaded": their runes are inactive (curses still apply). Other mods can make runes inactive the same way with `RuneHelper.registerInactiveCondition(Predicate<ItemStack>, Component tooltip)` (used by ISO for broken unvanishable items); `RuneHelper.areRunesInactive` covers both cases and is what `getRunesByPriority` / `hasRune` / `hasRuneOnArmor` check.
 
 ### Items (`setup/REItems.java`)
 

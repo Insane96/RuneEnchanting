@@ -12,6 +12,7 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
@@ -32,10 +33,13 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class RuneHelper {
     private static boolean breakingExtraBlock = false;
+    private static final List<InactiveCondition> INACTIVE_CONDITIONS = new CopyOnWriteArrayList<>();
 
     /**
      * Breaks a block as if the player mined it. Fires {@code BlockEvent.BreakEvent} so protections and claims can cancel it, while runes' {@code onBlockBreak} is skipped to avoid chain reactions
@@ -75,7 +79,7 @@ public class RuneHelper {
         if (!Rune.isEnabled(rune))
             return false;
         List<Holder<Rune>> runes = stack.get(REDataComponents.RUNES);
-        return runes != null && runes.contains(rune) && (Rune.isCurse(rune) || !isOverloaded(stack));
+        return runes != null && runes.contains(rune) && (Rune.isCurse(rune) || !areRunesInactive(stack));
     }
 
     public static boolean hasRuneOnArmor(LivingEntity entity, Holder<Rune> rune) {
@@ -85,7 +89,7 @@ public class RuneHelper {
             List<Holder<Rune>> runes = stack.get(REDataComponents.RUNES);
             if (runes == null)
                 continue;
-            if (runes.contains(rune) && (Rune.isCurse(rune) || !isOverloaded(stack)))
+            if (runes.contains(rune) && (Rune.isCurse(rune) || !areRunesInactive(stack)))
                 return true;
         }
         return false;
@@ -266,6 +270,39 @@ public class RuneHelper {
         return countRunes(stack) > getSockets(stack);
     }
 
+    /**
+     * Registers a condition that makes the runes of an item inactive (curses still apply), like overloaded items.
+     * Meant for other mods, e.g. to disable runes on broken items. Must be registered during mod construction.
+     *
+     * @param tooltip shown in the item's tooltip while the condition applies
+     */
+    public static void registerInactiveCondition(Predicate<ItemStack> condition, Component tooltip) {
+        INACTIVE_CONDITIONS.add(new InactiveCondition(condition, tooltip));
+    }
+
+    /**
+     * Returns the tooltip of the first registered condition that makes the item's runes inactive, null if none applies.
+     * Overloading is not included, use {@link #isOverloaded(ItemStack)}.
+     */
+    @Nullable
+    public static Component getInactiveConditionTooltip(ItemStack stack) {
+        for (InactiveCondition condition : INACTIVE_CONDITIONS) {
+            if (condition.condition().test(stack))
+                return condition.tooltip();
+        }
+        return null;
+    }
+
+    /**
+     * True if the item's runes are inactive (curses still apply): the item is overloaded or a condition registered with
+     * {@link #registerInactiveCondition(Predicate, Component)} applies.
+     */
+    public static boolean areRunesInactive(ItemStack stack) {
+        return isOverloaded(stack) || getInactiveConditionTooltip(stack) != null;
+    }
+
+    private record InactiveCondition(Predicate<ItemStack> condition, Component tooltip) {}
+
     //TODO Just return an empty list if no component is present
     @Nullable
     public static List<Holder<Rune>> getRunesByPriority(ItemStack stack, boolean ignoreStoredRune) {
@@ -273,7 +310,7 @@ public class RuneHelper {
     }
 
     /**
-     * @param includeInactive if true, runes on overloaded items are returned too (e.g. for tooltips)
+     * @param includeInactive if true, inactive runes (see {@link #areRunesInactive(ItemStack)}) are returned too (e.g. for tooltips)
      */
     @Nullable
     public static List<Holder<Rune>> getRunesByPriority(ItemStack stack, boolean ignoreStoredRune, boolean includeInactive) {
@@ -286,10 +323,10 @@ public class RuneHelper {
                 return null;
             runes = List.of(storedRune);
         }
-        boolean overloaded = !includeInactive && isOverloaded(stack);
+        boolean inactive = !includeInactive && areRunesInactive(stack);
         runes = runes.stream()
                 .filter(Rune::isEnabled)
-                .filter(rune -> !overloaded || Rune.isCurse(rune))
+                .filter(rune -> !inactive || Rune.isCurse(rune))
                 .sorted(Comparator.comparingInt(holder -> holder.value().getPriority()))
                 .toList();
         return runes;
