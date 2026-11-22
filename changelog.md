@@ -1,3 +1,7 @@
+# 1.5.4.1-beta
+* Fixed a crash (stack overflow) with Insane's Survival Overhaul's unvanishable items
+  * Conditions registered with `RuneHelper.registerInactiveCondition` no longer affect the max durability runes, so they can safely check the item's durability
+
 # 1.5.4.0-beta
 * Other mods can now make the runes of an item inactive (`RuneHelper.registerInactiveCondition`), like overloaded items: runes stop working while curses still apply, and the tooltip shows why
   * Used by Insane's Survival Overhaul: broken (unvanishable) items' runes are inactive until the item is repaired

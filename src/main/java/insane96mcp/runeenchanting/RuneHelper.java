@@ -273,6 +273,8 @@ public class RuneHelper {
     /**
      * Registers a condition that makes the runes of an item inactive (curses still apply), like overloaded items.
      * Meant for other mods, e.g. to disable runes on broken items. Must be registered during mod construction.
+     * The conditions are not checked when computing the item's max durability (runes that modify it stay active), so
+     * they can safely call {@link ItemStack#getMaxDamage()} / {@link ItemStack#getDamageValue()}.
      *
      * @param tooltip shown in the item's tooltip while the condition applies
      */
@@ -314,6 +316,17 @@ public class RuneHelper {
      */
     @Nullable
     public static List<Holder<Rune>> getRunesByPriority(ItemStack stack, boolean ignoreStoredRune, boolean includeInactive) {
+        return getRunesByPriority(stack, ignoreStoredRune, includeInactive, true);
+    }
+
+    /**
+     * @param includeInactive if true, inactive runes (see {@link #areRunesInactive(ItemStack)}) are returned too (e.g. for tooltips)
+     * @param checkInactiveConditions if false, only overloading makes runes inactive, the conditions registered with
+     *                                {@link #registerInactiveCondition(Predicate, Component)} are ignored. Used when computing
+     *                                the max durability, as conditions may depend on it (infinite recursion otherwise)
+     */
+    @Nullable
+    public static List<Holder<Rune>> getRunesByPriority(ItemStack stack, boolean ignoreStoredRune, boolean includeInactive, boolean checkInactiveConditions) {
         List<Holder<Rune>> runes = stack.get(REDataComponents.RUNES);
         if (runes == null) {
             if (ignoreStoredRune)
@@ -323,7 +336,7 @@ public class RuneHelper {
                 return null;
             runes = List.of(storedRune);
         }
-        boolean inactive = !includeInactive && areRunesInactive(stack);
+        boolean inactive = !includeInactive && (checkInactiveConditions ? areRunesInactive(stack) : isOverloaded(stack));
         runes = runes.stream()
                 .filter(Rune::isEnabled)
                 .filter(rune -> !inactive || Rune.isCurse(rune))

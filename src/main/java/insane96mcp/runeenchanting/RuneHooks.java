@@ -236,7 +236,8 @@ public class RuneHooks extends Feature {
     }
 
     public static int onGetMaxDamage(int original, ItemStack stack) {
-        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack);
+        //Inactive conditions are not checked as they may depend on the max durability (e.g. broken items)
+        List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(stack, true, false, false);
         if (runes == null)
             return original;
         int result = original;
