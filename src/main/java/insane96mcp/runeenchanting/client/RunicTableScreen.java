@@ -136,9 +136,12 @@ public class RunicTableScreen extends AbstractContainerScreen<RunicTableMenu> {
         for (Object2IntMap.Entry<Holder<Rune>> entry : this.menu.getStorage().object2IntEntrySet()) {
             if (!search.isEmpty() && !getDisplayName(entry.getKey()).getString().toLowerCase(Locale.ROOT).contains(search))
                 continue;
-            //With a tool only the runes that can be applied to it are listed
-            if (!tool.isEmpty() && RuneHelper.canApplyRune(tool, entry.getKey()) != RuneHelper.ApplyCheck.OK)
-                continue;
+            //With a tool only the runes that can be applied to it are listed (those lacking a free socket or curse slot are listed but grayed out)
+            if (!tool.isEmpty()) {
+                RuneHelper.ApplyCheck check = RuneHelper.canApplyRune(tool, entry.getKey());
+                if (check != RuneHelper.ApplyCheck.OK && check != RuneHelper.ApplyCheck.NO_FREE_SOCKETS && check != RuneHelper.ApplyCheck.TOO_MANY_CURSES)
+                    continue;
+            }
             storage.add(entry);
         }
         storage.sort(Comparator.comparing(Object2IntMap.Entry::getKey, ALPHABETICAL));
