@@ -1,5 +1,6 @@
 # Upcoming
 * Fixed Earthbend (and other runes raising mining speed on blocks the tool isn't effective on) also applying the Efficiency bonus, making the tool almost as fast as the right one
+* Fixed the runic table's row highlight being opaque white and hiding the hovered rune's name (same for the highlight shown when inserting runes)
 
 # 1.5.4.1-beta
 * Fixed a crash (stack overflow) with Insane's Survival Overhaul's unvanishable items

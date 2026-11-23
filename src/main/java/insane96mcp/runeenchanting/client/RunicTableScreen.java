@@ -1,5 +1,6 @@
 package insane96mcp.runeenchanting.client;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import insane96mcp.runeenchanting.CurseKnowledge;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.RuneFeature;
@@ -54,6 +55,13 @@ public class RunicTableScreen extends AbstractContainerScreen<RunicTableMenu> {
 
     private static ResourceLocation sprite(String name) {
         return RuneEnchanting.id("container/runic_table/" + name);
+    }
+
+    ///blitSprite doesn't enable blending, so a translucent sprite would be drawn opaque
+    private static void blitTranslucentSprite(GuiGraphics guiGraphics, ResourceLocation sprite, int x, int y, int width, int height) {
+        RenderSystem.enableBlend();
+        guiGraphics.blitSprite(sprite, x, y, width, height);
+        RenderSystem.disableBlend();
     }
 
     private static final int TEXT = 0xFFFFFF;
@@ -180,7 +188,7 @@ public class RunicTableScreen extends AbstractContainerScreen<RunicTableMenu> {
             int rowY = y + row * ROW_HEIGHT;
             int buttonX = x + TOOL_LIST_WIDTH - REMOVE_BUTTON_WIDTH;
             if (hoveredRow == index)
-                guiGraphics.blitSprite(ROW_HIGHLIGHTED_SPRITE, x, rowY, buttonX - x, ROW_HEIGHT);
+                blitTranslucentSprite(guiGraphics, ROW_HIGHLIGHTED_SPRITE, x, rowY, buttonX - x, ROW_HEIGHT);
             int color = !Rune.isEnabled(rune) ? TEXT_UNAVAILABLE : Rune.isCurse(rune) ? TEXT_CURSE : TEXT;
             String name = truncate(getDisplayName(rune).getString(), TOOL_LIST_WIDTH - REMOVE_BUTTON_WIDTH - 4);
             guiGraphics.drawString(this.font, name, x + 2, rowY + 2, color, false);
@@ -196,7 +204,7 @@ public class RunicTableScreen extends AbstractContainerScreen<RunicTableMenu> {
         //Holding runes over the list: the whole list is the drop target
         boolean inserting = isCarryingRune() && isOverStorage(mouseX, mouseY);
         if (inserting)
-            guiGraphics.blitSprite(INSERT_HIGHLIGHT_SPRITE, x, y, STORAGE_WIDTH, STORAGE_ROWS * ROW_HEIGHT);
+            blitTranslucentSprite(guiGraphics, INSERT_HIGHLIGHT_SPRITE, x, y, STORAGE_WIDTH, STORAGE_ROWS * ROW_HEIGHT);
         else if (this.visibleStorage.isEmpty()) {
             //Nothing to show (empty storage, or everything hidden by the search or the tool)
             guiGraphics.drawString(this.font, Component.translatable("container.runeenchanting.runic_table.no_runes"), x + 4, y + 4, TEXT_COUNT, false);
@@ -209,7 +217,7 @@ public class RunicTableScreen extends AbstractContainerScreen<RunicTableMenu> {
             Holder<Rune> rune = entry.getKey();
             int rowY = y + row * ROW_HEIGHT;
             if (hovered == row + this.scrollOffset)
-                guiGraphics.blitSprite(ROW_HIGHLIGHTED_SPRITE, x, rowY, STORAGE_WIDTH, ROW_HEIGHT);
+                blitTranslucentSprite(guiGraphics, ROW_HIGHLIGHTED_SPRITE, x, rowY, STORAGE_WIDTH, ROW_HEIGHT);
             String count = "x" + entry.getIntValue();
             int countWidth = this.font.width(count);
             guiGraphics.drawString(this.font, count, x + STORAGE_WIDTH - 2 - countWidth, rowY + 2, TEXT_COUNT, false);
