@@ -1,3 +1,6 @@
+# Upcoming
+* Fixed Earthbend (and other runes raising mining speed on blocks the tool isn't effective on) also applying the Efficiency bonus, making the tool almost as fast as the right one
+
 # 1.5.4.1-beta
 * Fixed a crash (stack overflow) with Insane's Survival Overhaul's unvanishable items
   * Conditions registered with `RuneHelper.registerInactiveCondition` no longer affect the max durability runes, so they can safely check the item's durability

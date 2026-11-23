@@ -106,6 +106,8 @@ Client-side (in `mixin/client/`):
 - `LightTextureMixin` — client light texture hook (used by a rune effect).
 - `LevelRendererAccessor` — accessor for level renderer internals.
 
+Use MixinExtras injectors (`@ModifyExpressionValue`, `@WrapOperation`, `@WrapWithCondition`, `@ModifyReturnValue`, `@Local`, ...) wherever possible instead of plain Mixin ones (`@Redirect`, `@ModifyVariable`, `@Inject` with `cancellable`, `@Overwrite`), as they're compatible with other mods' mixins on the same target.
+
 ### Utilities
 
 - `RuneHelper.java` — `hasRune`, `addRune`, `removeRune`, `clearRunes`, `addRandomRunes`, `createRandomRuneItem` helpers that read/write `REDataComponents.RUNES` and manage `ENCHANTMENT_GLINT_OVERRIDE` (set to `true` with runes, removed — not set to `false` — without, so vanilla enchantments keep their glint). Also `breakExtraBlock`, used by Veining/Tunneling to break blocks like normal player mining.
