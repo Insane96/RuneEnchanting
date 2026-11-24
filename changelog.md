@@ -1,3 +1,6 @@
+# Upcomingn
+* Fixed some runes not showing the bonus applied
+
 # 1.5.4.2-beta
 * The runic table now lists the runes applicable to the item even when it has no free sockets (or too many curses), grayed out, instead of hiding them
 * Fixed Earthbend (and other runes raising mining speed on blocks the tool isn't effective on) also applying the Efficiency bonus, making the tool almost as fast as the right one

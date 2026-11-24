@@ -36,7 +36,7 @@ public class HoppyRune extends Rune {
 
     @Override
     public @Nullable String getInfo() {
-        return "Fall distance reduction: %s";
+        return "Jump strength: +%s%%. Fall distance reduction: %s";
     }
 
     @Override
@@ -58,6 +58,6 @@ public class HoppyRune extends Rune {
 
     @Override
     public MutableComponent getInfoComponent() {
-        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(fallDistanceReduction));
+        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(bonusJumpHeight * 100), IAttributeExtension.FORMAT.format(fallDistanceReduction));
     }
 }

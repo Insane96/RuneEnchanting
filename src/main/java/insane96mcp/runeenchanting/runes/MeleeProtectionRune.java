@@ -2,12 +2,15 @@ package insane96mcp.runeenchanting.runes;
 
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.RuneEnchanting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.neoforged.neoforge.common.extensions.IAttributeExtension;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 
 public class MeleeProtectionRune extends DamageReductionRune {
@@ -28,7 +31,12 @@ public class MeleeProtectionRune extends DamageReductionRune {
 
     @Override
     public String getInfo() {
-        return "Damage reduction: %s%% (max 80%% combined)";
+        return "Damage reduction: %s%% (max 80%% combined). Attack speed: +%s%% (doesn't stack with multiple pieces)";
+    }
+
+    @Override
+    public MutableComponent getInfoComponent() {
+        return Component.translatable(getInfoTranslationKey(), IAttributeExtension.FORMAT.format(damageReduction * 100), IAttributeExtension.FORMAT.format(bonusAttackSpeed * 100));
     }
 
     @Override
