@@ -23,6 +23,8 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 
+import java.util.Set;
+
 public class CurseOfEnderRune extends Rune {
     @Config(min = 0, max = 1)
     public static Double chanceToTeleport = 0.2d;
@@ -76,6 +78,11 @@ public class CurseOfEnderRune extends Rune {
                 SoundEvent soundevent = entity instanceof Fox ? SoundEvents.FOX_TELEPORT : SoundEvents.CHORUS_FRUIT_TELEPORT;
                 level.playSound(null, x, y, z, soundevent, SoundSource.PLAYERS, 1.0F, 1.0F);
                 entity.playSound(soundevent, 1.0F, 1.0F);
+                //Look in a random direction. Absolute rotation (no relative movements) so players get it sent to the client
+                float yRot = entity.getRandom().nextFloat() * 360f - 180f;
+                float xRot = entity.getRandom().nextFloat() * 180f - 90f;
+                entity.teleportTo((ServerLevel) level, entity.getX(), entity.getY(), entity.getZ(), Set.of(), yRot, xRot);
+                entity.setYBodyRot(yRot);
                 break;
             }
         }
