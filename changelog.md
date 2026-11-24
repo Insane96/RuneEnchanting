@@ -3,6 +3,9 @@
   * `runeenchanting:protected_by/<rune>` for Fire, Blast, Projectile, Magic, Melee Protection and Feather Falling
   * `runeenchanting:not_protected_by/protection` for Protection, which instead lists the damage types it doesn't reduce (poison and wither)
   * Melee Protection now only reduces player and mob attacks and stings, no longer any damage dealt directly by a living entity (e.g. Thorns)
+* Curse of Static Charge now attracts lightning strikes while raining, no longer only during thunderstorms (where the odds are doubled), as they could be skipped by sleeping
+  * 1 in 1000 each second while raining, 1 in 500 during thunderstorms
+  * Only strikes when the sky light at the entity's position is at least 5 (configurable), so it doesn't strike under a roof
 * Fixed some runes not showing the bonus applied
 
 # 1.5.4.2-beta

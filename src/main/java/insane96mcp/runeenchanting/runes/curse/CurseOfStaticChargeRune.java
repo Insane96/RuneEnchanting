@@ -13,10 +13,13 @@ import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.LightLayer;
 
 public class CurseOfStaticChargeRune extends Rune {
     @Config(min = 2)
     public static Integer strikeOdds = 1000;
+    @Config(min = 0, max = 15, description = "Minimum sky light at the entity's position for lightning to strike")
+    public static Integer minSkyLight = 5;
 
     @Override
     public String getName() {
@@ -25,12 +28,12 @@ public class CurseOfStaticChargeRune extends Rune {
 
     @Override
     public String getDescription() {
-        return "May attract lightning strikes during thunderstorms";
+        return "May attract lightning strikes while raining, twice as likely during thunderstorms";
     }
 
     @Override
     public String getInfo() {
-        return "Strike odds during thunderstorms: 1 in %s each second";
+        return "Strike odds while raining: 1 in %s each second (1 in %s during thunderstorms)";
     }
 
     @Override
@@ -42,9 +45,13 @@ public class CurseOfStaticChargeRune extends Rune {
 
     @Override
     public void tickEffects(ServerLevel level, ItemStack stack, LivingEntity entity) {
-        if (!level.isThundering()
+        if (!level.isRaining()
                 || (entity.tickCount + entity.getId()) % 20 != 0
-                || entity.getRandom().nextInt(strikeOdds) != 0)
+                || level.getBrightness(LightLayer.SKY, entity.blockPosition()) < minSkyLight)
+            return;
+        //Twice as likely during thunderstorms
+        int odds = level.isThundering() ? strikeOdds / 2 : strikeOdds;
+        if (entity.getRandom().nextInt(odds) != 0)
             return;
 
         LightningBolt bolt = EntityType.LIGHTNING_BOLT.create(level);
@@ -56,6 +63,6 @@ public class CurseOfStaticChargeRune extends Rune {
 
     @Override
     public MutableComponent getInfoComponent() {
-        return Component.translatable(getInfoTranslationKey(), strikeOdds);
+        return Component.translatable(getInfoTranslationKey(), strikeOdds, strikeOdds / 2);
     }
 }
