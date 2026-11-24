@@ -3,8 +3,6 @@ package insane96mcp.runeenchanting.runes;
 import insane96mcp.insanelib.core.feature.config.Config;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.tags.DamageTypeTags;
-import net.minecraft.world.damagesource.DamageSource;
 import net.neoforged.neoforge.common.extensions.IAttributeExtension;
 
 import javax.annotation.Nullable;
@@ -29,11 +27,6 @@ public class ProjectileProtectionRune extends DamageReductionRune {
     @Override
     public float damageReduction() {
         return damageReduction.floatValue();
-    }
-
-    @Override
-    public boolean shouldApply(DamageSource damageSource) {
-        return super.shouldApply(damageSource) && damageSource.is(DamageTypeTags.IS_PROJECTILE);
     }
 
     @Override

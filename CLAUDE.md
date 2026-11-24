@@ -44,6 +44,8 @@ Before joining a world (and on clients before the server sends them) SERVER conf
 
 `runes/Rune.java` — abstract base class for all runes. Each rune has a `ResourceLocation` ID and a priority. Provides many override points covering mining, damage, projectiles, durability, protection, experience, fishing, and per-tick effects. Supports `@Config`-annotated static fields and an `Enabled` toggle processed via `loadConfig`/`readConfig`. Static helpers `Rune.isCurse(holder)` (curses are identified by the `runeenchanting:curse` rune tag) and `Rune.isEnabled(holder)` (config toggle + `disabled` rune tag). There is no flag to exclude a rune from random generation: random pools (`addRandomRunes`, `createRandomRuneItem`, loot modifiers) can include curses. `removeEffects(LivingEntity)` is called periodically for runes no longer active on the entity, to clean up attribute modifiers.
 
+Protection runes extend `DamageReductionRune`: which damage types they reduce is data driven by the damage type tag `runeenchanting:protected_by/<rune>` (whitelist), or `runeenchanting:not_protected_by/<rune>` when `isBlacklist()` is true (only base Protection, which excludes poison and wither). Damage types in `minecraft:bypasses_invulnerability` are never reduced. The tags are generated in `REDamageTypeTagProvider`.
+
 Concrete runes are in `runes/` and registered in `setup/RERunes.java`. Curses are in the `runes/curse/` sub-package. Rune configs are written to `runeenchanting/runes.toml`.
 
 ### Registry (`setup/RERunes.java`)

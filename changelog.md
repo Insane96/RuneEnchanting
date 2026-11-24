@@ -1,4 +1,8 @@
-# Upcomingn
+# Upcoming
+* The damage types reduced by protection runes are now data driven by damage type tags, so data packs can change them (e.g. turning Fire Protection into an elemental protection)
+  * `runeenchanting:protected_by/<rune>` for Fire, Blast, Projectile, Magic, Melee Protection and Feather Falling
+  * `runeenchanting:not_protected_by/protection` for Protection, which instead lists the damage types it doesn't reduce (poison and wither)
+  * Melee Protection now only reduces player and mob attacks and stings, no longer any damage dealt directly by a living entity (e.g. Thorns)
 * Fixed some runes not showing the bonus applied
 
 # 1.5.4.2-beta

@@ -3,9 +3,7 @@ package insane96mcp.runeenchanting.runes;
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
-import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.item.Item;
 
 public class FeatherFallingRune extends DamageReductionRune {
@@ -32,10 +30,5 @@ public class FeatherFallingRune extends DamageReductionRune {
     @Override
     public float damageReduction() {
         return damageReduction.floatValue();
-    }
-
-    @Override
-    public boolean shouldApply(DamageSource damageSource) {
-        return super.shouldApply(damageSource) && damageSource.is(DamageTypeTags.IS_FALL);
     }
 }

@@ -5,9 +5,7 @@ import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.item.Item;
-import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.extensions.IAttributeExtension;
 
 import javax.annotation.Nullable;
@@ -43,11 +41,6 @@ public class MagicProtectionRune extends DamageReductionRune {
         super.addItemsToApplicableTag(appender);
         //Wolf armor already absorbs every other damage type, while magic bypasses it
         appender.addTag(REItemTagProvider.WOLF_ARMOR);
-    }
-
-    @Override
-    public boolean shouldApply(DamageSource damageSource) {
-        return super.shouldApply(damageSource) && damageSource.is(Tags.DamageTypes.IS_MAGIC) && !damageSource.is(Tags.DamageTypes.IS_POISON) && !damageSource.is(Tags.DamageTypes.IS_WITHER);
     }
 
     @Override

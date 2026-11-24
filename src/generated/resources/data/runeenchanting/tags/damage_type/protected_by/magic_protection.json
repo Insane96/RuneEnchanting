@@ -1,0 +1,9 @@
+{
+  "remove": [
+    "#neoforge:is_poison",
+    "#neoforge:is_wither"
+  ],
+  "values": [
+    "#neoforge:is_magic"
+  ]
+}
