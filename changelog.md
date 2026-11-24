@@ -1,4 +1,4 @@
-# Upcoming
+# 1.5.5.0
 * Tools, weapons and armor without sockets set by data packs (e.g. other mods' equipment) now get 2 sockets by default
   * Applies to the items in the `runeenchanting:default_sockets` item tag (the vanilla `enchantable/*` tags, `c:tools` and `c:armors`), excluding the ones in `runeenchanting:no_default_sockets` (vanilla items that have no sockets: shield, elytra, mace, flint and steel, carrot/warped fungus on a stick)
   * Sockets set by data packs (`item_components`) always take priority
