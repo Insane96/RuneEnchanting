@@ -5,9 +5,11 @@ import insane96mcp.insanelib.core.feature.Feature;
 import insane96mcp.insanelib.core.feature.LoadFeature;
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.insanelib.event.HurtItemStackEvent;
+import insane96mcp.insanelib.module.base.items.ItemComponentsReloadListener;
 import insane96mcp.insanelib.util.CurrentAttacker;
 import insane96mcp.insanelib.util.MCUtils;
 import insane96mcp.insanelib.util.MathHelper;
+import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
 import insane96mcp.runeenchanting.network.message.ClientboundDisableExperienceMessage;
 import insane96mcp.runeenchanting.runes.Rune;
 import insane96mcp.runeenchanting.setup.RECriteriaTriggers;
@@ -19,8 +21,10 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -32,6 +36,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
@@ -57,6 +62,7 @@ import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 @LoadFeature(module = RuneEnchanting.MAIN_MODULE, canBeDisabled = false)
 public class RuneFeature extends Feature {
@@ -79,6 +85,8 @@ public class RuneFeature extends Feature {
     public static Integer maxCurses = 1;
     @Config
     public static Double equipmentRuneConversionRatio = 0.5d;
+    @Config(description = "Sockets given to the items in the runeenchanting:default_sockets item tag (e.g. other mods' tools, weapons and armor) that don't get them from data packs. Items in runeenchanting:no_default_sockets are excluded. 0 disables.")
+    public static Integer defaultSockets = 2;
 
     public static Boolean disableExperience = true;
 
@@ -151,6 +159,25 @@ public class RuneFeature extends Feature {
         if (!event.isWasDeath())
             return;
         SoulboundItems.restore(event.getEntity());
+    }
+
+    /**
+     * Programmatic item components provider giving {@link #defaultSockets} to the items in {@link REItemTagProvider#DEFAULT_SOCKETS}.
+     * Data pack item component definitions are applied on top, so the items with sockets set by data packs keep them.
+     * Items that already have sockets as default components (e.g. set by their own mod) are skipped.
+     */
+    public static void addDefaultSockets(RegistryAccess registryAccess, Map<Item, DataComponentPatch> patches) {
+        if (defaultSockets <= 0)
+            return;
+        DataComponentPatch patch = DataComponentPatch.builder().set(REDataComponents.SOCKETS.get(), defaultSockets).build();
+        for (Item item : BuiltInRegistries.ITEM) {
+            Holder.Reference<Item> holder = item.builtInRegistryHolder();
+            if (!holder.is(REItemTagProvider.DEFAULT_SOCKETS)
+                    || holder.is(REItemTagProvider.NO_DEFAULT_SOCKETS)
+                    || ItemComponentsReloadListener.getUnpatchedComponents(item).has(REDataComponents.SOCKETS.get()))
+                continue;
+            patches.put(item, patch);
+        }
     }
 
     /**

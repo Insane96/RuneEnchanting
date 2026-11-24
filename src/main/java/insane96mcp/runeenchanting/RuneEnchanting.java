@@ -2,6 +2,7 @@ package insane96mcp.runeenchanting;
 
 import com.mojang.logging.LogUtils;
 import insane96mcp.insanelib.core.feature.Module;
+import insane96mcp.insanelib.module.base.items.ItemComponentsReloadListener;
 import insane96mcp.insanelib.setup.ILModConfig;
 import insane96mcp.runeenchanting.compat.StaminaCompat;
 import insane96mcp.runeenchanting.data.EnchantmentToRuneReloadListener;
@@ -88,6 +89,7 @@ public class RuneEnchanting {
         RERecipes.REGISTRY.register(modEventBus);
         RECriteriaTriggers.REGISTRY.register(modEventBus);
         StaminaCompat.init();
+        ItemComponentsReloadListener.PROGRAMMATIC_PROVIDERS.add(RuneFeature::addDefaultSockets);
         if (FMLLoader.getDist().isClient()) {
             modEventBus.addListener(ClientSetup::onClientSetup);
             modEventBus.addListener(ClientSetup::onBuildCreativeModeTabContents);

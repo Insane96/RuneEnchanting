@@ -28,6 +28,14 @@ public class REItemTagProvider extends ItemTagsProvider {
      * Curated set of representative items used to show which items a rune is compatible with in its tooltip.
      */
     public static final TagKey<Item> DISPLAY_ON_RUNE = TagKey.create(Registries.ITEM, RuneEnchanting.id("display_on_rune"));
+    /**
+     * Items that get {@code defaultSockets} sockets when data packs don't set them (e.g. other mods' equipment)
+     */
+    public static final TagKey<Item> DEFAULT_SOCKETS = TagKey.create(Registries.ITEM, RuneEnchanting.id("default_sockets"));
+    /**
+     * Items excluded from {@link #DEFAULT_SOCKETS}
+     */
+    public static final TagKey<Item> NO_DEFAULT_SOCKETS = TagKey.create(Registries.ITEM, RuneEnchanting.id("no_default_sockets"));
 
     public REItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTagsLookup, String modId, @Nullable ExistingFileHelper existingFileHelper) {
         super(output, lookupProvider, blockTagsLookup, modId, existingFileHelper);
@@ -50,6 +58,20 @@ public class REItemTagProvider extends ItemTagsProvider {
                 .add(Items.DIAMOND_HELMET, Items.DIAMOND_CHESTPLATE, Items.DIAMOND_LEGGINGS, Items.DIAMOND_BOOTS)
                 .add(Items.SHEARS, Items.FISHING_ROD, Items.BOW, Items.CROSSBOW, Items.TRIDENT, Items.SHIELD, Items.ELYTRA)
                 .add(Items.DIAMOND_HORSE_ARMOR, Items.WOLF_ARMOR);
+        tag(DEFAULT_SOCKETS)
+                .addTag(ItemTags.DURABILITY_ENCHANTABLE)
+                .addTag(ItemTags.ARMOR_ENCHANTABLE)
+                .addTag(ItemTags.WEAPON_ENCHANTABLE)
+                .addTag(ItemTags.MINING_ENCHANTABLE)
+                .addTag(ItemTags.BOW_ENCHANTABLE)
+                .addTag(ItemTags.CROSSBOW_ENCHANTABLE)
+                .addTag(ItemTags.TRIDENT_ENCHANTABLE)
+                .addTag(ItemTags.FISHING_ENCHANTABLE)
+                .addTag(Tags.Items.TOOLS)
+                .addTag(Tags.Items.ARMORS);
+        //Vanilla items that have no sockets
+        tag(NO_DEFAULT_SOCKETS)
+                .add(Items.SHIELD, Items.ELYTRA, Items.MACE, Items.FLINT_AND_STEEL, Items.CARROT_ON_A_STICK, Items.WARPED_FUNGUS_ON_A_STICK);
         tag(ItemTags.BOOKSHELF_BOOKS).add(REItems.RUNE.get());
         tag(ItemTags.DURABILITY_ENCHANTABLE).addTag(Tags.Items.TOOLS_SHEAR);
         tag(ItemTags.MINING_ENCHANTABLE).addTag(Tags.Items.TOOLS_SHEAR);

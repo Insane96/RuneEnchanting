@@ -1,4 +1,7 @@
 # Upcoming
+* Tools, weapons and armor without sockets set by data packs (e.g. other mods' equipment) now get 2 sockets by default
+  * Applies to the items in the `runeenchanting:default_sockets` item tag (the vanilla `enchantable/*` tags, `c:tools` and `c:armors`), excluding the ones in `runeenchanting:no_default_sockets` (vanilla items that have no sockets: shield, elytra, mace, flint and steel, carrot/warped fungus on a stick)
+  * Sockets set by data packs (`item_components`) always take priority
 * The damage types reduced by protection runes are now data driven by damage type tags, so data packs can change them (e.g. turning Fire Protection into an elemental protection)
   * `runeenchanting:protected_by/<rune>` for Fire, Blast, Projectile, Magic, Melee Protection and Feather Falling
   * `runeenchanting:not_protected_by/protection` for Protection, which instead lists the damage types it doesn't reduce (poison and wither)
