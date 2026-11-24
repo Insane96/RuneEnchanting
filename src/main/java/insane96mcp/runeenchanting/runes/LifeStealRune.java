@@ -55,8 +55,7 @@ public class LifeStealRune extends Rune {
     @Override
     public void onLivingDamagePre(LivingDamageEvent.Pre event, ItemStack stack, EnchantmentTarget target) {
         if (target != EnchantmentTarget.ATTACKER
-                || event.getSource().getDirectEntity() != event.getSource().getEntity()
-                || !REUtils.isMeleeWeapon(stack)
+                || !REUtils.isMeleeAttackWith(event.getSource(), stack)
                 || !(event.getSource().getEntity() instanceof LivingEntity attacker))
             return;
 

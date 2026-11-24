@@ -1,7 +1,9 @@
 package insane96mcp.runeenchanting.util;
 
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -48,6 +50,24 @@ public class REUtils {
     public static boolean isMeleeWeapon(ItemStack stack) {
         return stack.getAttributeModifiers().modifiers().stream()
                 .anyMatch(entry -> entry.attribute().equals(Attributes.ATTACK_DAMAGE));
+    }
+
+    /**
+     * True if the damage is a melee attack (player or mob attack, sweeps included) dealt directly by the entity. Other damage dealt directly by the entity (e.g. thorns, magic from other mods' wands) doesn't count.
+     */
+    public static boolean isMeleeAttack(DamageSource damageSource) {
+        return damageSource.getEntity() instanceof LivingEntity
+                && damageSource.getDirectEntity() == damageSource.getEntity()
+                && (damageSource.is(DamageTypes.PLAYER_ATTACK) || damageSource.is(DamageTypes.MOB_ATTACK) || damageSource.is(DamageTypes.MOB_ATTACK_NO_AGGRO));
+    }
+
+    /**
+     * True if the damage is a {@link #isMeleeAttack(DamageSource) melee attack} dealt with the given melee weapon held in the main hand.
+     */
+    public static boolean isMeleeAttackWith(DamageSource damageSource, ItemStack stack) {
+        return isMeleeAttack(damageSource)
+                && ((LivingEntity) damageSource.getEntity()).getMainHandItem() == stack
+                && isMeleeWeapon(stack);
     }
 
     /**

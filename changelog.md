@@ -1,3 +1,9 @@
+# 1.5.5.1
+* Fixed True Damage, Life Steal, Executioner and Electrocution applying to any damage dealt directly by the wielder (e.g. other mods' magic wands, Thorns) instead of only melee attacks
+  * They now also apply only with the weapon held in the main hand
+  * Sweep attacks still count as melee attacks
+* Fixed Vindication releasing the stacked damage on any damage dealt directly by the wearer instead of the next melee attack
+
 # 1.5.5.0
 * Tools, weapons and armor without sockets set by data packs (e.g. other mods' equipment) now get 2 sockets by default
   * Applies to the items in the `runeenchanting:default_sockets` item tag (the vanilla `enchantable/*` tags, `c:tools` and `c:armors`), excluding the ones in `runeenchanting:no_default_sockets` (vanilla items that have no sockets: shield, elytra, mace, flint and steel, carrot/warped fungus on a stick)

@@ -93,9 +93,7 @@ public class ExecutionerRune extends Rune {
     @Override
     public void onLivingDamagePre(LivingDamageEvent.Pre event, ItemStack stack, EnchantmentTarget target) {
         if (target != EnchantmentTarget.ATTACKER
-                || event.getSource().getDirectEntity() != event.getSource().getEntity()
-                || !REUtils.isMeleeWeapon(stack)
-                || !(event.getSource().getEntity() instanceof LivingEntity))
+                || !REUtils.isMeleeAttackWith(event.getSource(), stack))
             return;
 
         tryExecute(event, 1d);

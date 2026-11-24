@@ -6,7 +6,6 @@ import insane96mcp.runeenchanting.util.REUtils;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -50,9 +49,7 @@ public class TrueDamageRune extends Rune {
     @Override
     public void onLivingDamagePre(LivingDamageEvent.Pre event, ItemStack stack, EnchantmentTarget target) {
         if (target != EnchantmentTarget.ATTACKER
-                || event.getSource().getDirectEntity() != event.getSource().getEntity()
-                || !REUtils.isMeleeWeapon(stack)
-                || !(event.getSource().getEntity() instanceof LivingEntity))
+                || !REUtils.isMeleeAttackWith(event.getSource(), stack))
             return;
 
         addTrueDamage(event);

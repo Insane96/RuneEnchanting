@@ -2,6 +2,7 @@ package insane96mcp.runeenchanting.runes;
 
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.setup.REDataComponents;
+import insane96mcp.runeenchanting.util.REUtils;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -54,7 +55,7 @@ public class VindicationRune extends Rune {
     }
 
     public void tryApplyStackedDamage(LivingDamageEvent.Pre event, ItemStack stack, EnchantmentTarget target) {
-        if (event.getSource().getEntity() != event.getSource().getDirectEntity()
+        if (!REUtils.isMeleeAttack(event.getSource())
                 || target != EnchantmentTarget.ATTACKER)
             return;
 

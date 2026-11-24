@@ -76,8 +76,7 @@ public class ElectrocutionRune extends Rune {
         LivingEntity attacked = event.getEntity();
         if (target != EnchantmentTarget.ATTACKER
                 || !(attacked.level() instanceof ServerLevel level)
-                || event.getSource().getDirectEntity() != event.getSource().getEntity()
-                || !REUtils.isMeleeWeapon(stack))
+                || !REUtils.isMeleeAttackWith(event.getSource(), stack))
             return;
 
         charge(level, stack, attacked, event.getNewDamage(), event.getSource().getEntity());
