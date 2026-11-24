@@ -80,6 +80,7 @@ public class RuneEnchanting {
         REBlockEntities.REGISTRY.register(modEventBus);
         REEntityTypes.REGISTRY.register(modEventBus);
         REMobEffects.REGISTRY.register(modEventBus);
+        RESoundEvents.REGISTRY.register(modEventBus);
         REItems.REGISTRY.register(modEventBus);
         REMenus.REGISTRY.register(modEventBus);
         RELootModifiers.REGISTRY.register(modEventBus);
@@ -141,6 +142,8 @@ public class RuneEnchanting {
                 new LootTableProvider(output, Set.of(), List.of(new LootTableProvider.SubProviderEntry(REBlockLootProvider::new, LootContextParamSets.BLOCK)), lookupProvider));
         event.getGenerator().addProvider(event.includeClient(),
                 new RELanguageProvider(output));
+        event.getGenerator().addProvider(event.includeClient(),
+                new RESoundDefinitionsProvider(output, existingFileHelper));
     }
 
     public static EquipmentSlot getEquipmentSlotForItem(ItemStack stack) {

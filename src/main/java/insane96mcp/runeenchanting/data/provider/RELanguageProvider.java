@@ -3,6 +3,7 @@ package insane96mcp.runeenchanting.data.provider;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.setup.REMobEffects;
 import insane96mcp.runeenchanting.setup.RERunes;
+import insane96mcp.runeenchanting.setup.RESoundEvents;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 
@@ -27,6 +28,9 @@ public class RELanguageProvider extends LanguageProvider {
         add("death.attack.runeenchanting.electrocution", "%1$s was electrocuted");
 
         add("entity.runeenchanting.shard", "Shard");
+
+        for (RESoundEvents.SoundInfo sound : RESoundEvents.SOUNDS)
+            add(sound.subtitleKey(), sound.subtitle());
 
         add(REMobEffects.MINING_MOMENTUM.get(), "Momentum (mining)");
         add(REMobEffects.MOVEMENT_MOMENTUM.get(), "Momentum (moving)");

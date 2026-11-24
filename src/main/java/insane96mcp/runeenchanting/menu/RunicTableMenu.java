@@ -12,7 +12,6 @@ import it.unimi.dsi.fastutil.objects.Object2IntMaps;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -156,7 +155,7 @@ public class RunicTableMenu extends AbstractContainerMenu {
             return;
         blockEntity.removeRune(rune, 1);
         toolContainer.setItem(0, result);
-        playSound(SoundEvents.ENCHANTMENT_TABLE_USE);
+        playSound(RESoundEvents.RUNIC_TABLE_APPLY.get());
     }
 
     private void removeRune(ServerPlayer player, Holder<Rune> rune) {
@@ -170,7 +169,7 @@ public class RunicTableMenu extends AbstractContainerMenu {
         toolContainer.setItem(0, result);
         blockEntity.addRune(rune, 1);
         RECriteriaTriggers.RUNE_REMOVED.get().trigger(player);
-        playSound(SoundEvents.GRINDSTONE_USE);
+        playSound(RESoundEvents.RUNIC_TABLE_REMOVE.get());
     }
 
     private void extractRune(ServerPlayer player, Holder<Rune> rune, int amount) {

@@ -4,17 +4,14 @@ import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
 import insane96mcp.runeenchanting.runes.Rune;
+import insane96mcp.runeenchanting.setup.RESoundEvents;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentTarget;
@@ -60,9 +57,6 @@ public class CurseOfEnderRune extends Rune {
                 || event.getNewDamage() <= 0
                 || entity.getRandom().nextFloat() >= chanceToTeleport)
             return;
-        double x = entity.getX();
-        double y = entity.getY();
-        double z = entity.getZ();
 
         Level level = event.getEntity().level();
         for (int i = 0; i < 16; ++i) {
@@ -75,9 +69,7 @@ public class CurseOfEnderRune extends Rune {
             Vec3 vec3 = entity.position();
             level.gameEvent(GameEvent.TELEPORT, vec3, GameEvent.Context.of(entity));
             if (entity.randomTeleport(tpX, tpY, tpZ, true)) {
-                SoundEvent soundevent = entity instanceof Fox ? SoundEvents.FOX_TELEPORT : SoundEvents.CHORUS_FRUIT_TELEPORT;
-                level.playSound(null, x, y, z, soundevent, SoundSource.PLAYERS, 1.0F, 1.0F);
-                entity.playSound(soundevent, 1.0F, 1.0F);
+                level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), RESoundEvents.CURSE_OF_ENDER.get(), entity.getSoundSource(), 1.0F, 1.0F);
                 //Look in a random direction. Absolute rotation (no relative movements) so players get it sent to the client
                 float yRot = entity.getRandom().nextFloat() * 360f - 180f;
                 float xRot = entity.getRandom().nextFloat() * 180f - 90f;

@@ -3,10 +3,10 @@ package insane96mcp.runeenchanting;
 import insane96mcp.runeenchanting.runes.Rune;
 import insane96mcp.runeenchanting.setup.REAttachments;
 import insane96mcp.runeenchanting.setup.RECriteriaTriggers;
+import insane96mcp.runeenchanting.setup.RESoundEvents;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.scores.PlayerTeam;
 
@@ -77,7 +77,7 @@ public class CurseKnowledge {
         player.setData(REAttachments.LEARNED_CURSES, learned);
         removeProgress(player, curse);
         player.displayClientMessage(Component.translatable(RuneEnchanting.lang("curse_learned"), curse.value().getNameComponent()), false);
-        player.playSound(SoundEvents.PLAYER_LEVELUP, 0.5f, 1f);
+        player.playSound(RESoundEvents.CURSE_LEARNED.get(), 0.5f, 1f);
         RECriteriaTriggers.CURSE_LEARNED.get().trigger(player);
     }
 

@@ -1,7 +1,7 @@
 package insane96mcp.runeenchanting.runes;
 
+import insane96mcp.runeenchanting.setup.RESoundEvents;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -72,7 +72,7 @@ public class TelekinesisRune extends Rune {
         int originalCount = itemStack.getCount();
         player.getInventory().add(itemStack);
         if (itemStack.getCount() != originalCount) {
-            player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.2F,
+            player.level().playSound(null, player.getX(), player.getY(), player.getZ(), RESoundEvents.TELEKINESIS.get(), SoundSource.PLAYERS, 0.2F,
                     ((player.level().random.nextFloat() - player.level().random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
         }
         return itemStack.isEmpty();

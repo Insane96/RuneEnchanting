@@ -3,12 +3,12 @@ package insane96mcp.runeenchanting.runes;
 import com.mojang.blaze3d.platform.InputConstants;
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.network.message.ServerboundDoubleJumpMessage;
+import insane96mcp.runeenchanting.setup.RESoundEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
@@ -78,7 +78,7 @@ public class DoubleJumpRune extends Rune {
                     player.getX() - 0.25f + random.nextFloat() * 0.5f, player.getY(),
                     player.getZ() - 0.25f + random.nextFloat() * 0.5f, 0, 0, 0);
         }
-        player.playSound(SoundEvents.FIREWORK_ROCKET_LAUNCH, 0.5f, 2f);
+        player.playSound(RESoundEvents.DOUBLE_JUMP.get(), 0.5f, 2f);
     }
 
     private static boolean canJumpNormally(Player player) {

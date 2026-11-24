@@ -2,13 +2,13 @@ package insane96mcp.runeenchanting.runes;
 
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.insanelib.event.HurtItemStackEvent;
+import insane96mcp.runeenchanting.setup.RESoundEvents;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.ContainerHelper;
@@ -75,7 +75,7 @@ public class LapisFueledRune extends Rune {
             saved++;
             if (event.getRandom().nextFloat() < lapisConsumeChance.floatValue()) {
                 consumeLapis(inventory);
-                SoundEvent sound = lapisCount == 1 ? SoundEvents.BEACON_DEACTIVATE : SoundEvents.AMETHYST_BLOCK_CHIME;
+                SoundEvent sound = lapisCount == 1 ? RESoundEvents.LAPIS_FUELED_RUN_OUT.get() : RESoundEvents.LAPIS_FUELED_CONSUME.get();
                 player.level().playSound(null, player.getX(), player.getY(), player.getZ(), sound, SoundSource.PLAYERS, 0.4f, 1.7f);
             }
         }

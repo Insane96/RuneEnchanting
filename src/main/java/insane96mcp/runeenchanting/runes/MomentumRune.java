@@ -4,6 +4,7 @@ import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
 import insane96mcp.runeenchanting.setup.REMobEffects;
+import insane96mcp.runeenchanting.setup.RESoundEvents;
 import insane96mcp.runeenchanting.util.REUtils;
 import net.minecraft.core.Holder;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
@@ -11,7 +12,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
@@ -127,6 +127,6 @@ public class MomentumRune extends Rune {
         int amplifier = current == null ? 0 : Math.min(current.getAmplifier() + 1, maxLevel - 1);
         entity.addEffect(new MobEffectInstance(effect, duration, amplifier, false, false, true));
         if (amplifier == maxLevel - 1 && (current == null || current.getAmplifier() < amplifier))
-            entity.playSound(SoundEvents.PLAYER_LEVELUP, 0.5f, 1.75f);
+            entity.playSound(RESoundEvents.MOMENTUM.get(), 0.5f, 1.75f);
     }
 }

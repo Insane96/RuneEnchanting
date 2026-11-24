@@ -64,6 +64,10 @@ Registers `RUNE` (`RuneItem`, holds a rune in `STORED_RUNE`), `ENCASED_RUNE` (`E
 
 Registers `SHARD` (`entity/ShardProjectile`, a snowball-like `ThrowableItemProjectile` rendered as flint with `ThrownItemRenderer`), shot by Shatterburst. It isn't an `AbstractArrow`, so weapon runes don't apply to it.
 
+### Sounds (`setup/RESoundEvents.java`)
+
+Every sound played by the mod is registered here with `register(name, vanillaSound, subtitle)`: the sound event plays the vanilla one (`"type": "event"` in `sounds.json`) but has its own subtitle (`subtitles.runeenchanting.<name>`). `sounds.json` and the subtitle translations are generated from `RESoundEvents.SOUNDS` by `RESoundDefinitionsProvider` and `RELanguageProvider`. New sounds should be added here instead of playing `SoundEvents.*` directly (UI sounds like button clicks excluded, they have no subtitle).
+
 ### Mob Effects (`setup/REMobEffects.java`)
 
 Registers the three Momentum effects (`mining_momentum`, `movement_momentum`, `attack_momentum`, named "Momentum (mining/moving/attacking)"), applied by `MomentumRune`: each action re-applies the effect one level higher (capped by the rune's config). The per-level bonuses are attribute modifiers fixed at registration (`BLOCK_BREAK_SPEED`, `MOVEMENT_SPEED`, `ATTACK_SPEED`), so they aren't configurable. Not curable with milk. Icons in `textures/mob_effect/`.

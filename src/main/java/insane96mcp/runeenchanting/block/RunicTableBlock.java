@@ -4,10 +4,10 @@ import com.mojang.serialization.MapCodec;
 import insane96mcp.runeenchanting.menu.RunicTableMenu;
 import insane96mcp.runeenchanting.runes.Rune;
 import insane96mcp.runeenchanting.setup.REDataComponents;
+import insane96mcp.runeenchanting.setup.RESoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -80,7 +80,7 @@ public class RunicTableBlock extends BaseEntityBlock {
         runicTable.addRune(rune, stack.getCount());
         //Doesn't consume the stack in creative
         stack.consume(stack.getCount(), player);
-        level.playSound(null, pos, SoundEvents.CHISELED_BOOKSHELF_INSERT_ENCHANTED, SoundSource.BLOCKS, 1.0F, 1.0F);
+        level.playSound(null, pos, RESoundEvents.RUNIC_TABLE_STORE.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
         return ItemInteractionResult.CONSUME;
     }
 

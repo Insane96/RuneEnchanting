@@ -3,6 +3,7 @@ package insane96mcp.runeenchanting.runes;
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
+import insane96mcp.runeenchanting.setup.RESoundEvents;
 import insane96mcp.runeenchanting.util.REUtils;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
@@ -10,7 +11,6 @@ import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -136,7 +136,7 @@ public class ExecutionerRune extends Rune {
 
         //Armor, protection and resistance have already been applied, only absorption is left
         event.setNewDamage(target.getHealth() + absorption);
-        level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundEvents.PLAYER_ATTACK_CRIT, SoundSource.PLAYERS, 1f, 0.5f);
+        level.playSound(null, target.getX(), target.getY(), target.getZ(), RESoundEvents.EXECUTIONER.get(), SoundSource.PLAYERS, 1f, 0.5f);
         level.sendParticles(ParticleTypes.SOUL, target.getX(), target.getY(0.5d), target.getZ(), 15, target.getBbWidth() / 2f, target.getBbHeight() / 4f, target.getBbWidth() / 2f, 0.05d);
         terrify(level, target, event.getSource().getEntity());
     }

@@ -4,6 +4,7 @@ import insane96mcp.insanelib.core.ModNBTData;
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
+import insane96mcp.runeenchanting.setup.RESoundEvents;
 import insane96mcp.runeenchanting.util.REUtils;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
@@ -11,7 +12,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -116,7 +116,7 @@ public class ExplosiveRune extends Rune {
     }
 
     public static void playPrimedSound(ServerLevel level, Entity entity) {
-        level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.TNT_PRIMED, entity.getSoundSource(), 0.6f, 1.2f);
+        level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), RESoundEvents.EXPLOSIVE.get(), entity.getSoundSource(), 0.6f, 1.2f);
     }
 
     @Override

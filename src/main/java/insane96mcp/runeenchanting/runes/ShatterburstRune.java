@@ -4,13 +4,13 @@ import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
 import insane96mcp.runeenchanting.entity.ShardProjectile;
 import insane96mcp.runeenchanting.mixin.AbstractArrowAccessor;
+import insane96mcp.runeenchanting.setup.RESoundEvents;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -100,7 +100,7 @@ public class ShatterburstRune extends Rune {
             level.addFreshEntity(shard);
         }
         level.sendParticles(ParticleTypes.CRIT, arrow.getX(), arrow.getY(), arrow.getZ(), 8, 0.1d, 0.1d, 0.1d, 0.3d);
-        level.playSound(null, arrow.getX(), arrow.getY(), arrow.getZ(), SoundEvents.SHIELD_BREAK, arrow.getSoundSource(), 0.5f, 1.6f);
+        level.playSound(null, arrow.getX(), arrow.getY(), arrow.getZ(), RESoundEvents.SHATTERBURST.get(), arrow.getSoundSource(), 0.5f, 1.6f);
         arrow.discard();
     }
 }

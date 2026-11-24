@@ -359,5 +359,20 @@
   "runeenchanting.encased_rune.tooltip": "Smelt to get a random rune",
   "runeenchanting.overloaded_runes": "Too many runes: runes are inactive. Remove them with a grindstone.",
   "runeenchanting.sockets": "Sockets: %d/%d",
-  "runeenchanting.unknown_curse": "Unknown Curse"
+  "runeenchanting.unknown_curse": "Unknown Curse",
+  "subtitles.runeenchanting.block.runic_table.apply": "Rune applied",
+  "subtitles.runeenchanting.block.runic_table.remove": "Rune removed",
+  "subtitles.runeenchanting.block.runic_table.store": "Rune stored",
+  "subtitles.runeenchanting.curse_learned": "Curse learned",
+  "subtitles.runeenchanting.rune.curse_of_ender": "Cursed entity teleports",
+  "subtitles.runeenchanting.rune.curse_of_slipperiness": "Item slips",
+  "subtitles.runeenchanting.rune.double_jump": "Player double jumps",
+  "subtitles.runeenchanting.rune.executioner": "Executioner strikes",
+  "subtitles.runeenchanting.rune.explosive": "Explosive rune primes",
+  "subtitles.runeenchanting.rune.fire_guardian": "Fire Guardian activates",
+  "subtitles.runeenchanting.rune.lapis_fueled.consume": "Lapis consumed",
+  "subtitles.runeenchanting.rune.lapis_fueled.run_out": "Lapis runs out",
+  "subtitles.runeenchanting.rune.momentum": "Momentum increases",
+  "subtitles.runeenchanting.rune.shatterburst": "Arrow shatters",
+  "subtitles.runeenchanting.rune.telekinesis": "Item pulled"
 }

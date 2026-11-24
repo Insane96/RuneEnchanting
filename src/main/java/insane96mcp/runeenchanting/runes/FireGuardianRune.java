@@ -3,11 +3,11 @@ package insane96mcp.runeenchanting.runes;
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
 import insane96mcp.runeenchanting.setup.REDataComponents;
+import insane96mcp.runeenchanting.setup.RESoundEvents;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -61,7 +61,7 @@ public class FireGuardianRune extends Rune {
 
         event.getEntity().addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, (int) (resistanceDuration * 20d)));
         stack.set(REDataComponents.FIRE_GUARDIAN_LAST_USED, level.getGameTime());
-        event.getEntity().playSound(SoundEvents.FIRE_EXTINGUISH);
+        event.getEntity().playSound(RESoundEvents.FIRE_GUARDIAN.get());
         event.setNewDamage(0);
     }
 }

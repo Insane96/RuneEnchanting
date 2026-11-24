@@ -7,6 +7,8 @@
   * 1 in 1000 each second while raining, 1 in 500 during thunderstorms
   * Only strikes when the sky light at the entity's position is at least 5 (configurable), so it doesn't strike under a roof
 * Curse of Ender now also makes the entity look in a random direction when it teleports
+* All the sounds played by the mod now have their own subtitles (e.g. "Player double jumps" instead of "Firework launches"), while still playing the vanilla sounds
+  * Curse of Ender now plays the teleport sound only once, where the entity arrives (like vanilla chorus fruits), so the teleported player hears it too
 * Fixed some runes not showing the bonus applied
 
 # 1.5.4.2-beta
