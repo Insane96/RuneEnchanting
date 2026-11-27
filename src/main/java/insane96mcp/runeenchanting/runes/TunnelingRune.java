@@ -3,6 +3,7 @@ package insane96mcp.runeenchanting.runes;
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.RuneHelper;
+import insane96mcp.runeenchanting.data.provider.REBlockTagProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
@@ -69,7 +70,7 @@ public class TunnelingRune extends Rune {
         BlockPos pos = event.getPos();
         BlockState state = event.getState();
 
-        if (!stack.isCorrectToolForDrops(state)) return;
+        if (!RuneHelper.canBreakExtraBlock(stack, state)) return;
 
         Direction face = RuneHelper.getTargetedBlockHit(level, player, pos, state).getDirection();
 
@@ -85,8 +86,9 @@ public class TunnelingRune extends Rune {
         for (BlockPos candidate : candidates) {
             if (result.size() >= additionalBlocks()) break;
             BlockState candidateState = level.getBlockState(candidate);
-            if (candidateState.getDestroySpeed(level, candidate) > 0
-                    && stack.isCorrectToolForDrops(candidateState)
+            //Blocks without hardness (e.g. torches) aren't mined, except the ones shears can break (e.g. grass)
+            if ((candidateState.getDestroySpeed(level, candidate) > 0 || candidateState.is(REBlockTagProvider.EXTRA_BREAKABLE_WITH_SHEARS))
+                    && RuneHelper.canBreakExtraBlock(stack, candidateState)
                     && targetState.getDestroySpeed(level, targetPos) >= candidateState.getDestroySpeed(level, candidate) - 0.5f) {
                 result.add(candidate);
             }
@@ -112,7 +114,7 @@ public class TunnelingRune extends Rune {
     @Override
     public List<BlockPos> getClientAffectedBlocks(Level level, Player player, BlockPos targetPos, BlockState targetState, Direction face, Vec3 clickLocation) {
         ItemStack stack = player.getMainHandItem();
-        if (!stack.isCorrectToolForDrops(targetState)) return List.of();
+        if (!RuneHelper.canBreakExtraBlock(stack, targetState)) return List.of();
 
         return getAffectedBlocks(level, stack, player, targetPos, targetState, face);
     }

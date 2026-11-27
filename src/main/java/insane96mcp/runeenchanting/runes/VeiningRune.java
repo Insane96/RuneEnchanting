@@ -64,7 +64,7 @@ public class VeiningRune extends Rune {
         BlockPos pos = event.getPos();
         BlockState state = event.getState();
 
-        if (!stack.isCorrectToolForDrops(state)) return;
+        if (!RuneHelper.canBreakExtraBlock(stack, state)) return;
 
         for (BlockPos toMine : getAffectedBlocks(level, stack, pos, state)) {
             if (stack.isEmpty()) break;
@@ -86,7 +86,7 @@ public class VeiningRune extends Rune {
                 if (explored.contains(neighbor)) continue;
                 explored.add(neighbor);
                 BlockState neighborState = level.getBlockState(neighbor);
-                if (targetState.is(neighborState.getBlock()) && stack.isCorrectToolForDrops(neighborState)) {
+                if (targetState.is(neighborState.getBlock()) && RuneHelper.canBreakExtraBlock(stack, neighborState)) {
                     result.add(neighbor);
                     toCheck.add(neighbor);
                     if (result.size() >= maxBlocks) break;
@@ -100,7 +100,7 @@ public class VeiningRune extends Rune {
     @Override
     public List<BlockPos> getClientAffectedBlocks(Level level, Player player, BlockPos targetPos, BlockState targetState, Direction face, Vec3 clickLocation) {
         ItemStack stack = player.getMainHandItem();
-        if (!stack.isCorrectToolForDrops(targetState)) return List.of();
+        if (!RuneHelper.canBreakExtraBlock(stack, targetState)) return List.of();
         return getAffectedBlocks(level, stack, targetPos, targetState);
     }
 

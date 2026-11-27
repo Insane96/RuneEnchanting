@@ -1,5 +1,6 @@
 package insane96mcp.runeenchanting;
 
+import insane96mcp.runeenchanting.data.provider.REBlockTagProvider;
 import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
 import insane96mcp.runeenchanting.runes.Rune;
 import insane96mcp.runeenchanting.setup.REDataComponents;
@@ -27,6 +28,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.neoforge.common.Tags;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -69,6 +71,19 @@ public class RuneHelper {
         Vec3 center = Vec3.atCenterOf(pos);
         Vec3 toEye = eyePos.subtract(center);
         return new BlockHitResult(center, Direction.getNearest(toEye.x, toEye.y, toEye.z), pos, false);
+    }
+
+    /**
+     * Whether runes breaking extra blocks (Veining, Tunneling) can break the block with the tool: the tool must be the correct one, or the block must not require one and the tool must mine it faster than by hand.
+     * Shears can also break the blocks in {@link REBlockTagProvider#EXTRA_BREAKABLE_WITH_SHEARS} (e.g. grass, which has no hardness so no tool mines it faster)
+     */
+    public static boolean canBreakExtraBlock(ItemStack stack, BlockState state) {
+        if (stack.isCorrectToolForDrops(state))
+            return true;
+        if (state.requiresCorrectToolForDrops())
+            return false;
+        return stack.getDestroySpeed(state) > 1f
+                || (stack.is(Tags.Items.TOOLS_SHEAR) && state.is(REBlockTagProvider.EXTRA_BREAKABLE_WITH_SHEARS));
     }
 
     public static boolean isBreakingExtraBlock() {

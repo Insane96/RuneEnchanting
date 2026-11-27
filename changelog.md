@@ -2,6 +2,9 @@
 * Added EMI info to items
 * The Runic Table now lists the runes already on the item grayed out instead of hiding them
 * Fixed the first person bow drawing animation not following the charging time changed by Quick Charge and Curse of Slow Charge
+* Fixed Veining and Tunneling not working with shears on anything but cobwebs
+  * They now work on blocks the tool mines faster than by hand without needing the correct tool (e.g. leaves, wool and vines with shears)
+  * Shears can also break the blocks in the `runeenchanting:extra_breakable_with_shears` block tag (grass, ferns, dead bushes, seagrass, hanging roots, nether sprouts, weeping and twisting vines)
 
 # 1.5.5.1
 * Fixed True Damage, Life Steal, Executioner and Electrocution applying to any damage dealt directly by the wielder (e.g. other mods' magic wands, Thorns) instead of only melee attacks

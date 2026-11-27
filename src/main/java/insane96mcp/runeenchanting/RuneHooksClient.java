@@ -114,9 +114,6 @@ public class RuneHooksClient {
         BlockState targetState = mc.level.getBlockState(targetPos);
         ItemStack heldStack = mc.player.getMainHandItem();
 
-        if (!heldStack.isCorrectToolForDrops(targetState))
-            return;
-
         List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(heldStack);
         if (runes == null)
             return;

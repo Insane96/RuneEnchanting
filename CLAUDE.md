@@ -89,7 +89,7 @@ A block (`setup/REBlocks`, `REBlockEntities`, `REMenus`; classes in `block/`, `m
 - `RERuneTagProvider.java` — generates rune tags.
 - `REGlobalLootModifierProvider.java` — generates global loot modifier JSON files.
 - `RERecipeProvider.java` — generates recipes (encased rune, rune reforging, runic table).
-- `REBlockTagProvider.java` / `REBlockLootProvider.java` — block tags (mineable) and the runic table loot table.
+- `REBlockTagProvider.java` / `REBlockLootProvider.java` — block tags (mineable, `extra_breakable_with_shears`) and the runic table loot table.
 
 ### Mixins
 
@@ -117,7 +117,7 @@ Use MixinExtras injectors (`@ModifyExpressionValue`, `@WrapOperation`, `@WrapWit
 
 ### Utilities
 
-- `RuneHelper.java` — `hasRune`, `addRune`, `removeRune`, `clearRunes`, `addRandomRunes`, `createRandomRuneItem` helpers that read/write `REDataComponents.RUNES` and manage `ENCHANTMENT_GLINT_OVERRIDE` (set to `true` with runes, removed — not set to `false` — without, so vanilla enchantments keep their glint). Also `breakExtraBlock`, used by Veining/Tunneling to break blocks like normal player mining.
+- `RuneHelper.java` — `hasRune`, `addRune`, `removeRune`, `clearRunes`, `addRandomRunes`, `createRandomRuneItem` helpers that read/write `REDataComponents.RUNES` and manage `ENCHANTMENT_GLINT_OVERRIDE` (set to `true` with runes, removed — not set to `false` — without, so vanilla enchantments keep their glint). Also `breakExtraBlock`, used by Veining/Tunneling to break blocks like normal player mining, and `canBreakExtraBlock`, which decides which blocks they can break (correct tool, or a block not requiring one that the tool mines faster than by hand, or with shears the `runeenchanting:extra_breakable_with_shears` block tag).
 - `RECommands.java` — command registration (registered via `RuneFeature.onRegisterCommands`). In root package.
 - `RuneHooksClient.java` — client-side event hooks (sprint, rendering, input) in root package.
 
