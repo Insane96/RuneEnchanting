@@ -1,0 +1,9 @@
+{
+    "type": "emi:info",
+    "stacks": [
+        "item:runeenchanting:encased_rune"
+    ],
+    "text": [
+        "emi.info.runeenchanting.encased_rune"
+    ]
+}

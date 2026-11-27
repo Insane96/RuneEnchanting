@@ -1,0 +1,9 @@
+{
+    "type": "emi:info",
+    "stacks": [
+        "item:minecraft:sculk"
+    ],
+    "text": [
+        "emi.info.runeenchanting.sculk"
+    ]
+}

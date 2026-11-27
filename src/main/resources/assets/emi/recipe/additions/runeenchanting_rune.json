@@ -1,0 +1,12 @@
+{
+    "type": "emi:info",
+    "stacks": [
+        "item:runeenchanting:rune"
+    ],
+    "text": [
+        "emi.info.runeenchanting.rune",
+        "emi.info.runeenchanting.rune.sources",
+        "emi.info.runeenchanting.rune.apply",
+        "emi.info.runeenchanting.rune.curses"
+    ]
+}

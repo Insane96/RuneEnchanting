@@ -73,5 +73,14 @@ public class RELanguageProvider extends LanguageProvider {
         add("advancements.runeenchanting.runic_table.description", "Craft a Runic Table to store your runes and apply them to items");
         add("advancements.runeenchanting.curse_learned.title", "Curse Revealed");
         add("advancements.runeenchanting.curse_learned.description", "Use a cursed item enough to discover its curse");
+
+        //EMI info pages, in assets/emi/recipe/additions/
+        add("emi.info.runeenchanting.rune", "Runes replace enchanting. Each Rune gives an item an effect, like an enchantment.");
+        add("emi.info.runeenchanting.rune.sources", "Enchanted books and enchanted items found in chests turn into Runes. Some structures hide their own kinds of Runes, Bottles o' Enchanting in chests may turn into Runes, and Spawners drop several Runes when broken.");
+        add("emi.info.runeenchanting.rune.apply", "To apply a Rune, combine the item with it in an Anvil, or use a Runic Table. Each item has a limited number of Sockets, shown in its tooltip. A Grindstone takes all the Runes off an item and gives them back.");
+        add("emi.info.runeenchanting.rune.curses", "Some Runes are Curses, and you only find out which one after using the item for a while. A Curse gives the item an extra Socket.");
+        add("emi.info.runeenchanting.encased_rune", "Turns two Runes you don't need into a random new one. Smelting it in a Furnace takes a long time.");
+        add("emi.info.runeenchanting.runic_table", "Stores any number of Runes, shared by everyone who uses it. Put an item in its slot to see which stored Runes can go on it, then apply or remove them. Breaking the table drops all the stored Runes.");
+        add("emi.info.runeenchanting.sculk", "Only drops itself when mined with Silk Touch. Otherwise, very rarely, it drops a random Rune, which may be a Curse.");
     }
 }

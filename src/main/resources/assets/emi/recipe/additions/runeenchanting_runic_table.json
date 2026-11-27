@@ -1,0 +1,9 @@
+{
+    "type": "emi:info",
+    "stacks": [
+        "item:runeenchanting:runic_table"
+    ],
+    "text": [
+        "emi.info.runeenchanting.runic_table"
+    ]
+}

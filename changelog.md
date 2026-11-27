@@ -1,3 +1,6 @@
+# Upcoming
+* Added EMI info to items
+
 # 1.5.5.1
 * Fixed True Damage, Life Steal, Executioner and Electrocution applying to any damage dealt directly by the wielder (e.g. other mods' magic wands, Thorns) instead of only melee attacks
   * They now also apply only with the weapon held in the main hand
