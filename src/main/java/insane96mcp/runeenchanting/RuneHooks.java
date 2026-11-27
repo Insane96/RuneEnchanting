@@ -4,6 +4,7 @@ import insane96mcp.insanelib.core.feature.Feature;
 import insane96mcp.insanelib.core.feature.LoadFeature;
 import insane96mcp.insanelib.event.HurtItemStackEvent;
 import insane96mcp.insanelib.setup.ILAttributes;
+import insane96mcp.runeenchanting.compat.SupplementariesCompat;
 import insane96mcp.runeenchanting.mixin.MobEffectInstanceAccessor;
 import insane96mcp.runeenchanting.runes.MagicProtectionRune;
 import insane96mcp.runeenchanting.runes.ProjectileProtectionRune;
@@ -340,7 +341,17 @@ public class RuneHooks extends Feature {
     public static ItemStack checkRequiredAmmo(Player player, ItemStack weapon, ItemStack projectile) {
         if (projectile.isEmpty() || player.hasInfiniteMaterials())
             return projectile;
-        return projectile.getCount() < getRequiredAmmo(weapon, player) ? ItemStack.EMPTY : projectile;
+        return getAvailableAmmo(player, projectile) < getRequiredAmmo(weapon, player) ? ItemStack.EMPTY : projectile;
+    }
+
+    /**
+     * Ammo the shooter actually has in the given projectile stack. Usually the stack's count, but other mods can give
+     * the weapon a copy of the real ammo (e.g. Supplementaries' quiver, which gives a 1 item copy).
+     */
+    public static int getAvailableAmmo(LivingEntity shooter, ItemStack projectile) {
+        if (shooter instanceof Player player)
+            return SupplementariesCompat.getAvailableAmmo(player, projectile);
+        return projectile.getCount();
     }
 
     public static int modifyProjectileCount(ServerLevel level, ItemStack tool, Entity entity, int originalCount) {

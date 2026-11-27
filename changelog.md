@@ -5,6 +5,8 @@
 * Fixed Veining and Tunneling not working with shears on anything but cobwebs
   * They now work on blocks the tool mines faster than by hand without needing the correct tool (e.g. leaves, wool and vines with shears)
   * Shears can also break the blocks in the `runeenchanting:extra_breakable_with_shears` block tag (grass, ferns, dead bushes, seagrass, hanging roots, nether sprouts, weeping and twisting vines)
+* Fixed bows and crossbows with Multishot not being usable with arrows in a Supplementaries quiver
+  * Arrows are counted from the selected slot and the following ones, until a slot with a different arrow type
 
 # 1.5.5.1
 * Fixed True Damage, Life Steal, Executioner and Electrocution applying to any damage dealt directly by the wielder (e.g. other mods' magic wands, Thorns) instead of only melee attacks

@@ -1,5 +1,6 @@
 package insane96mcp.runeenchanting.mixin;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -81,6 +82,19 @@ public class ProjectileWeaponItemMixin {
             return ammoCopy.copyWithCount(1);
         }
         return original.call(weapon, ammo, shooter, intangable);
+    }
+
+    /**
+     * Vanilla fails to shoot if the arrows to consume (more than 1 with the Multishot rune) are more than the ammo
+     * stack's count. Use the arrows actually available instead, as other mods can pass a copy of the real ammo
+     * (e.g. Supplementaries' quiver, which passes a 1 item copy and then consumes the arrows from the quiver).
+     */
+    @ModifyExpressionValue(
+        method = "useAmmo",
+        at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;getCount()I", ordinal = 0)
+    )
+    private static int runeenchanting$availableAmmo(int original, ItemStack weapon, ItemStack ammo, LivingEntity shooter, boolean intangable) {
+        return Math.max(original, RuneHooks.getAvailableAmmo(shooter, ammo));
     }
 
     /**
