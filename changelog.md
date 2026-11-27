@@ -1,4 +1,4 @@
-# Upcoming
+# 1.6.0.0-beta
 * Rebalanced sockets, so that stronger materials no longer get fewer sockets
   * Tools, weapons, armor, bows, crossbows and tridents now have 4 sockets, no matter the material
   * Golden tools, weapons and armor have 5 sockets
