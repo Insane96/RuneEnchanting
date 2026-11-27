@@ -1,5 +1,6 @@
 # Upcoming
 * Added EMI info to items
+* The Runic Table now lists the runes already on the item grayed out instead of hiding them
 
 # 1.5.5.1
 * Fixed True Damage, Life Steal, Executioner and Electrocution applying to any damage dealt directly by the wielder (e.g. other mods' magic wands, Thorns) instead of only melee attacks
