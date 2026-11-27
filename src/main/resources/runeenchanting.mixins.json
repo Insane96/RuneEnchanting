@@ -29,6 +29,7 @@
     "client": [
         "client.AbstractClientPlayerMixin",
         "client.EntityGlowMixin",
+        "client.ItemInHandRendererMixin",
         "client.LevelRendererAccessor",
         "client.LightTextureMixin"
     ],

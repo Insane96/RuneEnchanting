@@ -109,6 +109,7 @@ All declared in `runeenchanting.mixins.json`. Server-side:
 Client-side (in `mixin/client/`):
 - `GuiGraphicsMixin` — suppresses the XP bar rendering when `disableExperience` is active.
 - `AbstractClientPlayerMixin` — makes the bow FOV zoom follow the bow's charging time (the bow `pull` item property is re-registered in `ClientSetup.onClientSetup`).
+- `ItemInHandRendererMixin` — makes the first person bow drawing animation (bow moving towards the camera) follow the bow's charging time.
 - `LightTextureMixin` — client light texture hook (used by a rune effect).
 - `LevelRendererAccessor` — accessor for level renderer internals.
 

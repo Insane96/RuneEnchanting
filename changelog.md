@@ -1,6 +1,7 @@
 # Upcoming
 * Added EMI info to items
 * The Runic Table now lists the runes already on the item grayed out instead of hiding them
+* Fixed the first person bow drawing animation not following the charging time changed by Quick Charge and Curse of Slow Charge
 
 # 1.5.5.1
 * Fixed True Damage, Life Steal, Executioner and Electrocution applying to any damage dealt directly by the wielder (e.g. other mods' magic wands, Thorns) instead of only melee attacks
