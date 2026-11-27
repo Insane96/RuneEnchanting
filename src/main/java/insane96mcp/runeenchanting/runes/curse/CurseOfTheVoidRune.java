@@ -1,8 +1,10 @@
 package insane96mcp.runeenchanting.runes.curse;
 
 import insane96mcp.insanelib.core.feature.config.Config;
+import insane96mcp.runeenchanting.CurseKnowledge;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.runes.Rune;
+import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -37,9 +39,11 @@ public class CurseOfTheVoidRune extends Rune {
 
     @Override
     public void onLivingDrops(LivingDropsEvent event, ItemStack stack) {
-        if (event.getEntity().level().getRandom().nextFloat() >= chanceToVoid)
+        if (event.getDrops().isEmpty()
+                || event.getEntity().level().getRandom().nextFloat() >= chanceToVoid)
             return;
         event.getDrops().clear();
+        CurseKnowledge.reveal(event.getSource().getEntity(), RERunes.CURSE_OF_THE_VOID);
     }
 
     @Override

@@ -1,8 +1,10 @@
 package insane96mcp.runeenchanting.runes.curse;
 
 import insane96mcp.insanelib.core.feature.config.Config;
+import insane96mcp.runeenchanting.CurseKnowledge;
 import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
 import insane96mcp.runeenchanting.runes.Rune;
+import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -51,6 +53,7 @@ public class CurseOfUndeadRune extends Rune {
             return;
 
         entity.setRemainingFireTicks(secondsOnFire * 20);
+        CurseKnowledge.reveal(entity, RERunes.CURSE_OF_UNDEAD);
     }
 
     @Override

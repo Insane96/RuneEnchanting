@@ -312,6 +312,11 @@ public abstract class Rune {
         return this.priority;
     }
 
+    ///Multiplier to the durability damage counted towards learning this curse. Higher for curses that have no moment in which they reveal themselves
+    public int getCurseLearnMultiplier() {
+        return 1;
+    }
+
     public void loadConfig(ModConfigSpec.Builder builder) {
         for (Field field : getClass().getDeclaredFields()) {
             Config annotation = field.getAnnotation(Config.class);

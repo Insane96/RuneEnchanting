@@ -7,6 +7,8 @@ import insane96mcp.runeenchanting.setup.RESoundEvents;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.scores.PlayerTeam;
 
@@ -59,6 +61,26 @@ public class CurseKnowledge {
         Map<Holder<Rune>, Integer> progress = new HashMap<>(current);
         progress.remove(curse);
         player.setData(REAttachments.CURSE_LEARN_PROGRESS, progress);
+    }
+
+    ///The player that learns about the curses on the entity's items: the entity itself if it's a player, or the online owner of a tamed entity (horse and wolf armor)
+    @Nullable
+    public static ServerPlayer getLearner(@Nullable Entity entity) {
+        if (entity instanceof ServerPlayer player)
+            return player;
+        if (entity instanceof OwnableEntity ownable && ownable.getOwner() instanceof ServerPlayer owner)
+            return owner;
+        return null;
+    }
+
+    ///Instantly reveals a curse when its effect shows up on the entity, to the player that learns about the entity's curses (see {@link #getLearner})
+    public static void reveal(@Nullable Entity entity, Holder<Rune> curse) {
+        if (!RuneFeature.mustLearnCurses)
+            return;
+        ServerPlayer player = getLearner(entity);
+        if (player == null || isLearned(player, curse))
+            return;
+        learn(player, curse);
     }
 
     ///Learns a curse for the player and every other online player on the same scoreboard team.

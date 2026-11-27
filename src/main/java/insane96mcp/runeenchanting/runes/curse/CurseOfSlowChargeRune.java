@@ -18,6 +18,11 @@ public class CurseOfSlowChargeRune extends Rune {
     public static Double chargeTimeIncrease = 0.4d;
 
     @Override
+    public int getCurseLearnMultiplier() {
+        return 2;
+    }
+
+    @Override
     public String getName() {
         return "Curse of Slow Charge";
     }

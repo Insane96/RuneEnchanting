@@ -3,8 +3,10 @@ package insane96mcp.runeenchanting.runes.curse;
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.insanelib.event.HurtItemStackEvent;
 import insane96mcp.insanelib.util.MCUtils;
+import insane96mcp.runeenchanting.CurseKnowledge;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.runes.Rune;
+import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
@@ -52,9 +54,11 @@ public class CurseOfBloodPactRune extends Rune {
             if (event.getRandom().nextFloat() < chanceToHurt)
                 damageAmount++;
         }
-        if (damageAmount > 0)
+        if (damageAmount > 0) {
             //Armor durability is consumed inside hurt(), when the invulnerability frames are already active, so they must be ignored or the damage would be discarded
             MCUtils.hurtIgnoreInvulnerability(player, player.damageSources().source(DAMAGE_TYPE), damageAmount);
+            CurseKnowledge.reveal(player, RERunes.CURSE_OF_BLOOD_PACT);
+        }
     }
 
     @Override

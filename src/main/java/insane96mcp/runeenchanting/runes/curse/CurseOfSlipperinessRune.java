@@ -2,9 +2,11 @@ package insane96mcp.runeenchanting.runes.curse;
 
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.insanelib.event.HurtItemStackEvent;
+import insane96mcp.runeenchanting.CurseKnowledge;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
 import insane96mcp.runeenchanting.runes.Rune;
+import insane96mcp.runeenchanting.setup.RERunes;
 import insane96mcp.runeenchanting.setup.RESoundEvents;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
@@ -68,6 +70,7 @@ public class CurseOfSlipperinessRune extends Rune {
         player.drop(stack, true, false);
         player.level().playSound(null, player.getX(), player.getY(), player.getZ(), RESoundEvents.CURSE_OF_SLIPPERINESS.get(), SoundSource.PLAYERS, 1f, 1.5f);
         event.setAmount(0);
+        CurseKnowledge.reveal(player, RERunes.CURSE_OF_SLIPPERINESS);
     }
 
     @Override

@@ -1,9 +1,11 @@
 package insane96mcp.runeenchanting.runes.curse;
 
 import insane96mcp.insanelib.core.feature.config.Config;
+import insane96mcp.runeenchanting.CurseKnowledge;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
 import insane96mcp.runeenchanting.runes.Rune;
+import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -65,8 +67,12 @@ public class CurseOfUnstableMotionRune extends Rune {
             return;
 
         attr.removeModifier(MODIFIER_ID);
-        double amount = SPEEDS.get(random.nextInt(SPEEDS.size())).sample(random);
+        UniformFloat speed = SPEEDS.get(random.nextInt(SPEEDS.size()));
+        double amount = speed.sample(random);
         attr.addOrUpdateTransientModifier(new AttributeModifier(MODIFIER_ID, amount, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+        //Neutral speed changes aren't noticeable
+        if (speed != NEUTRAL)
+            CurseKnowledge.reveal(entity, RERunes.CURSE_OF_UNSTABLE_MOTION);
     }
 
     @Override

@@ -19,6 +19,11 @@ public class CurseOfInaccuracyRune extends Rune {
     public static Double inaccuracyIncrease = 3d;
 
     @Override
+    public int getCurseLearnMultiplier() {
+        return 2;
+    }
+
+    @Override
     public String getName() {
         return "Curse of Inaccuracy";
     }

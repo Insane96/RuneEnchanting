@@ -88,6 +88,7 @@ public class CurseOfExplosionRune extends Rune {
         ModNBTData.put(wielder, ExplosiveRune.NBT_TIME, explodeAt);
         ModNBTData.put(wielder, ExplosiveRune.NBT_POWER, explosionPower.floatValue());
         ModNBTData.put(wielder, ExplosiveRune.NBT_DESTROY_BLOCKS, destroyBlocks);
+        ModNBTData.put(wielder, ExplosiveRune.NBT_FROM_CURSE, true);
     }
 
     @Override

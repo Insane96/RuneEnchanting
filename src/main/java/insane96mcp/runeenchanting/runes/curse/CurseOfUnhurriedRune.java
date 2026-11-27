@@ -22,6 +22,11 @@ public class CurseOfUnhurriedRune extends Rune {
     public static Double speedReduction = 0.1d;
 
     @Override
+    public int getCurseLearnMultiplier() {
+        return 2;
+    }
+
+    @Override
     public String getName() {
         return "Curse of Unhurried";
     }

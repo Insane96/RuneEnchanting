@@ -5,7 +5,10 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
+import insane96mcp.runeenchanting.CurseKnowledge;
+import insane96mcp.runeenchanting.RuneHelper;
 import insane96mcp.runeenchanting.RuneHooks;
+import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvent;
@@ -46,6 +49,14 @@ public class PlayerMixin {
         if (attribute.is(Attributes.MINING_EFFICIENCY) && vanillaDestroySpeed.get() <= 1f)
             return 0d;
         return original.call(player, attribute);
+    }
+
+    @WrapOperation(method = "destroyVanishingCursedItems", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Inventory;removeItemNoUpdate(I)Lnet/minecraft/world/item/ItemStack;"))
+    private ItemStack runeenchanting$revealVanishingCurse(Inventory inventory, int slot, Operation<ItemStack> original) {
+        ItemStack stack = original.call(inventory, slot);
+        if (RuneHelper.hasRune(stack, RERunes.CURSE_OF_VANISHING))
+            CurseKnowledge.reveal((Player) (Object) this, RERunes.CURSE_OF_VANISHING);
+        return stack;
     }
 
     // Player overrides Entity#playSound without calling super, so EntityMixin doesn't catch player sounds

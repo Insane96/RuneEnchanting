@@ -22,6 +22,11 @@ public class CurseOfFragilityRune extends Rune {
     }
 
     @Override
+    public int getCurseLearnMultiplier() {
+        return 2;
+    }
+
+    @Override
     public String getName() {
         return "Curse of Fragility";
     }

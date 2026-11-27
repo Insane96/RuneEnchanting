@@ -1,4 +1,9 @@
 # Upcoming
+* Curses are now discovered faster
+  * Using a cursed item for half as long is enough to discover its curse
+  * Most curses are also discovered as soon as they show their effect (e.g. Curse of Vanishing when the item vanishes on death, Curse of Ender when you get teleported, Curse of Hop when you jump, Curse of Exposure when a mob notices you from farther than it could without the curse)
+  * Curses with no visible effect (Fragility, Inaccuracy, Short Arm, Slow Charge, Slow Swing and Unhurried) are discovered twice as fast by using the item
+  * Curses on horse and wolf armor are discovered by the animal's owner
 * Added EMI info to items
 * The Runic Table now lists the runes already on the item grayed out instead of hiding them
 * Fixed the first person bow drawing animation not following the charging time changed by Quick Charge and Curse of Slow Charge

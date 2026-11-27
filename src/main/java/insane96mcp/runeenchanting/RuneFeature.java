@@ -6,12 +6,14 @@ import insane96mcp.insanelib.core.feature.LoadFeature;
 import insane96mcp.insanelib.core.feature.config.Config;
 import insane96mcp.insanelib.event.HurtItemStackEvent;
 import insane96mcp.insanelib.module.base.items.ItemComponentsReloadListener;
+import insane96mcp.insanelib.setup.ILAttributes;
 import insane96mcp.insanelib.util.CurrentAttacker;
 import insane96mcp.insanelib.util.MCUtils;
 import insane96mcp.insanelib.util.MathHelper;
 import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
 import insane96mcp.runeenchanting.network.message.ClientboundDisableExperienceMessage;
 import insane96mcp.runeenchanting.runes.Rune;
+import insane96mcp.runeenchanting.runes.curse.CurseOfExposureRune;
 import insane96mcp.runeenchanting.setup.RECriteriaTriggers;
 import insane96mcp.runeenchanting.setup.REDataComponents;
 import insane96mcp.runeenchanting.setup.REItems;
@@ -34,6 +36,8 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -54,6 +58,7 @@ import net.neoforged.neoforge.event.AnvilUpdateEvent;
 import net.neoforged.neoforge.event.GrindstoneEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent;
 import net.neoforged.neoforge.event.entity.living.LivingKnockBackEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
@@ -77,8 +82,8 @@ public class RuneFeature extends Feature {
 
     @Config
     public static Boolean mustLearnCurses = true;
-    @Config(description = "Cumulative durability damage a player must deal/take while an item has an unlearned curse before they learn what that curse is")
-    public static Integer curseLearnThreshold = 200;
+    @Config(description = "Cumulative durability damage a player must deal/take while an item has an unlearned curse before they learn what that curse is. Some curses count durability damage more, and most are also revealed instantly when their effect shows up")
+    public static Integer curseLearnThreshold = 100;
     @Config
     public static Boolean extractCurses = true;
     @Config(description = "Maximum number of curses that can be on a single item. 0 disables curses entirely.")
@@ -274,15 +279,43 @@ public class RuneFeature extends Feature {
 
     @SubscribeEvent
     public void onHurtItemStackCurseLearning(HurtItemStackEvent event) {
-        if (!mustLearnCurses || !(event.getLivingEntity() instanceof ServerPlayer player))
+        if (!mustLearnCurses)
+            return;
+        ServerPlayer player = CurseKnowledge.getLearner(event.getLivingEntity());
+        if (player == null)
             return;
         List<Holder<Rune>> runes = RuneHelper.getRunesByPriority(event.getStack(), false);
         if (runes == null)
             return;
         for (Holder<Rune> holder : runes) {
             if (Rune.isCurse(holder))
-                CurseKnowledge.addProgress(player, holder, event.getAmount());
+                CurseKnowledge.addProgress(player, holder, event.getAmount() * holder.value().getCurseLearnMultiplier());
         }
+    }
+
+    ///Reveals Curse of Exposure when a mob starts targeting a player from farther than it could have without the curse
+    @SubscribeEvent
+    public void onChangeTargetExposure(LivingChangeTargetEvent event) {
+        //Brain mobs (piglins, ...) use their own detection ranges instead of the follow range
+        if (!mustLearnCurses
+                || event.getTargetType() != LivingChangeTargetEvent.LivingTargetType.MOB_TARGET
+                || !(event.getEntity() instanceof Mob mob)
+                || !(event.getNewAboutToBeSetTarget() instanceof ServerPlayer player)
+                || mob.getTarget() == player
+                || mob.getLastHurtByMob() == player
+                || CurseKnowledge.isLearned(player, RERunes.CURSE_OF_EXPOSURE)
+                || !RuneHelper.hasRuneOnArmor(player, RERunes.CURSE_OF_EXPOSURE))
+            return;
+        AttributeInstance detectionRange = player.getAttribute(ILAttributes.MOB_DETECTION_RANGE);
+        if (detectionRange == null)
+            return;
+        double totalDetectionRange = detectionRange.getValue();
+        if (totalDetectionRange <= -1d)
+            return;
+        double visibilityWithoutCurse = player.getVisibilityPercent(mob) * (1d + totalDetectionRange - CurseOfExposureRune.detectionRangeIncrease) / (1d + totalDetectionRange);
+        double rangeWithoutCurse = Math.max(mob.getAttributeValue(Attributes.FOLLOW_RANGE) * visibilityWithoutCurse, 2d);
+        if (mob.distanceToSqr(player) > rangeWithoutCurse * rangeWithoutCurse)
+            CurseKnowledge.reveal(player, RERunes.CURSE_OF_EXPOSURE);
     }
 
     @SubscribeEvent

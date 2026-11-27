@@ -1,9 +1,11 @@
 package insane96mcp.runeenchanting.runes.curse;
 
 import insane96mcp.insanelib.core.feature.config.Config;
+import insane96mcp.runeenchanting.CurseKnowledge;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
 import insane96mcp.runeenchanting.runes.Rune;
+import insane96mcp.runeenchanting.setup.RERunes;
 import insane96mcp.runeenchanting.setup.RESoundEvents;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
@@ -75,6 +77,7 @@ public class CurseOfEnderRune extends Rune {
                 float xRot = entity.getRandom().nextFloat() * 180f - 90f;
                 entity.teleportTo((ServerLevel) level, entity.getX(), entity.getY(), entity.getZ(), Set.of(), yRot, xRot);
                 entity.setYBodyRot(yRot);
+                CurseKnowledge.reveal(entity, RERunes.CURSE_OF_ENDER);
                 break;
             }
         }

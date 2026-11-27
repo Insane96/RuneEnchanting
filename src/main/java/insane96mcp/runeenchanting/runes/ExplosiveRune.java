@@ -2,8 +2,10 @@ package insane96mcp.runeenchanting.runes;
 
 import insane96mcp.insanelib.core.ModNBTData;
 import insane96mcp.insanelib.core.feature.config.Config;
+import insane96mcp.runeenchanting.CurseKnowledge;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
+import insane96mcp.runeenchanting.setup.RERunes;
 import insane96mcp.runeenchanting.setup.RESoundEvents;
 import insane96mcp.runeenchanting.util.REUtils;
 import net.minecraft.core.particles.ParticleTypes;
@@ -29,6 +31,8 @@ public class ExplosiveRune extends Rune {
     public static final ResourceLocation NBT_POWER = RuneEnchanting.id("explosive/power");
     public static final ResourceLocation NBT_DESTROY_BLOCKS = RuneEnchanting.id("explosive/destroy_blocks");
     public static final ResourceLocation NBT_ATTACKER = RuneEnchanting.id("explosive/attacker");
+    ///Set when the explosion was scheduled by Curse of Explosion, to reveal the curse when it explodes
+    public static final ResourceLocation NBT_FROM_CURSE = RuneEnchanting.id("explosive/from_curse");
 
     @Config(min = 0.1)
     public static Double explosionPower = 0.6d;
@@ -71,6 +75,7 @@ public class ExplosiveRune extends Rune {
         ModNBTData.put(attacked, NBT_POWER, explosionPower.floatValue());
         ModNBTData.put(attacked, NBT_DESTROY_BLOCKS, destroyBlocks);
         ModNBTData.put(attacked, NBT_ATTACKER, damageSource.getEntity().getUUID());
+        ModNBTData.remove(attacked, NBT_FROM_CURSE);
     }
 
     @Override
@@ -96,12 +101,16 @@ public class ExplosiveRune extends Rune {
         ModNBTData.remove(entity, NBT_DESTROY_BLOCKS);
         UUID attackerUUID = ModNBTData.get(entity, NBT_ATTACKER, UUID.class);
         ModNBTData.remove(entity, NBT_ATTACKER);
+        boolean fromCurse = ModNBTData.contains(entity, NBT_FROM_CURSE);
+        ModNBTData.remove(entity, NBT_FROM_CURSE);
         Entity attacker = attackerUUID != null ? level.getEntity(attackerUUID) : null;
         // The explosion has no source entity, otherwise the attacker would be excluded from its damage. The attacker is only
         // the causing entity of the damage (no direct entity, so it doesn't count as a melee hit) and the one asked for griefing
         boolean griefing = shouldDestroyBlocks && EventHooks.canEntityGrief(level, attacker);
         level.explode(null, level.damageSources().explosion(null, attacker), null, entity.getX(), entity.getY(), entity.getZ(), power, false,
                 griefing ? Level.ExplosionInteraction.BLOCK : Level.ExplosionInteraction.NONE);
+        if (fromCurse)
+            CurseKnowledge.reveal(entity, RERunes.CURSE_OF_EXPLOSION);
     }
 
     /// Fuse-like particles at the entity's feet, more frequent as the explosion approaches

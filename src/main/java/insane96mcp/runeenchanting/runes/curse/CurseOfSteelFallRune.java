@@ -1,9 +1,11 @@
 package insane96mcp.runeenchanting.runes.curse;
 
 import insane96mcp.insanelib.core.feature.config.Config;
+import insane96mcp.runeenchanting.CurseKnowledge;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
 import insane96mcp.runeenchanting.runes.Rune;
+import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -17,6 +19,8 @@ import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 public class CurseOfSteelFallRune extends Rune {
     @Config
     public static Double damageIncrease = 0.5d;
+
+    private static final float MIN_EXTRA_DAMAGE_TO_REVEAL = 2f;
 
     @Override
     public String getName() {
@@ -44,7 +48,11 @@ public class CurseOfSteelFallRune extends Rune {
         if (target != EnchantmentTarget.VICTIM
                 || !event.getSource().is(DamageTypeTags.IS_FALL))
             return;
-        event.setNewDamage(event.getNewDamage() * (1f + damageIncrease.floatValue()));
+        float damage = event.getNewDamage();
+        event.setNewDamage(damage * (1f + damageIncrease.floatValue()));
+        //Revealed only when the extra damage is noticeable (at least 1 heart)
+        if (event.getNewDamage() - damage >= MIN_EXTRA_DAMAGE_TO_REVEAL)
+            CurseKnowledge.reveal(event.getEntity(), RERunes.CURSE_OF_STEEL_FALL);
     }
 
     @Override

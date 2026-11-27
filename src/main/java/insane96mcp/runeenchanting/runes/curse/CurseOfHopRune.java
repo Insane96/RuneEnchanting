@@ -1,9 +1,11 @@
 package insane96mcp.runeenchanting.runes.curse;
 
 import insane96mcp.insanelib.core.feature.config.Config;
+import insane96mcp.runeenchanting.CurseKnowledge;
 import insane96mcp.runeenchanting.RuneEnchanting;
 import insane96mcp.runeenchanting.data.provider.REItemTagProvider;
 import insane96mcp.runeenchanting.runes.Rune;
+import insane96mcp.runeenchanting.setup.RERunes;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -62,6 +64,7 @@ public class CurseOfHopRune extends Rune {
             entity.setDeltaMovement(entity.getDeltaMovement().add(-Mth.sin(radian) * strength, 0.0D, Mth.cos(radian) * strength));
             entity.setJumping(true);
             entity.hurtMarked = true;
+            CurseKnowledge.reveal(entity, RERunes.CURSE_OF_HOP);
         }
     }
 
