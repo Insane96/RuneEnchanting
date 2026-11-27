@@ -1,6 +1,7 @@
 {
     "item": "minecraft:golden_horse_armor",
     "components": {
-        "runeenchanting:sockets": 6
+        "runeenchanting:sockets": 5,
+        "runeenchanting:curse_sockets": 2
     }
 }

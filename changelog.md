@@ -1,4 +1,13 @@
 # Upcoming
+* Rebalanced sockets, so that stronger materials no longer get fewer sockets
+  * Tools, weapons, armor, bows, crossbows and tridents now have 4 sockets, no matter the material
+  * Golden tools, weapons and armor have 5 sockets
+  * Fishing rods, shears and brushes have 3 sockets
+  * Horse and wolf armor follow the same rules as player armor
+  * Other mods' equipment now gets 4 sockets by default instead of 2
+  * Items that had more runes than their new sockets (e.g. wooden, stone, copper, leather and golden ones) become overloaded until some runes are removed
+* Leather and golden equipment can now have 2 curses instead of 1 (and so, with both curses, 2 extra sockets)
+  * Items that can have curses show them in the tooltip and in the Runic Table, next to the sockets (e.g. "Sockets: 4/6 (Curses: 2/2)")
 * Curses are now discovered faster
   * Using a cursed item for half as long is enough to discover its curse
   * Most curses are also discovered as soon as they show their effect (e.g. Curse of Vanishing when the item vanishes on death, Curse of Ender when you get teleported, Curse of Hop when you jump, Curse of Exposure when a mob notices you from farther than it could without the curse)

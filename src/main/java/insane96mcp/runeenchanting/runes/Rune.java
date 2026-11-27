@@ -75,7 +75,7 @@ public abstract class Rune {
     }
 
     public static boolean isEnabled(Holder<Rune> rune) {
-        return rune.value().enabled && !rune.is(RERuneTagProvider.DISABLED);
+        return rune.value().enabled && !rune.is(RERuneTagProvider.DISABLED) && (RuneFeature.enableCurses || !isCurse(rune));
     }
 
     public MutableComponent getNameComponent() {

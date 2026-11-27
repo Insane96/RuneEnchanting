@@ -1,6 +1,7 @@
 {
     "item": "#insanelib:equipment/stone",
     "components": {
-        "runeenchanting:sockets": 5
+        "runeenchanting:sockets": 4,
+        "runeenchanting:curse_sockets": 1
     }
 }

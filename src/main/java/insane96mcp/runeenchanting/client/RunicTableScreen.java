@@ -261,9 +261,15 @@ public class RunicTableScreen extends AbstractContainerScreen<RunicTableMenu> {
         ItemStack tool = this.menu.getTool();
         if (!tool.isEmpty()) {
             Component sockets = Component.translatable("container.runeenchanting.runic_table.sockets", RuneHelper.countRunes(tool), RuneHelper.getSockets(tool));
+            int curseSockets = RuneHelper.getCurseSockets(tool);
             int textX = RunicTableMenu.TOOL_SLOT_X + 20;
-            int textY = RunicTableMenu.TOOL_SLOT_Y + 4;
+            //With the curses line the two lines are centered on the tool slot
+            int textY = curseSockets > 0 ? RunicTableMenu.TOOL_SLOT_Y - 1 : RunicTableMenu.TOOL_SLOT_Y + 4;
             guiGraphics.drawString(this.font, sockets, textX, textY, RuneHelper.isOverloaded(tool) ? TEXT_OVERLOADED : TEXT_DARK, false);
+            if (curseSockets > 0) {
+                Component curses = Component.translatable("container.runeenchanting.runic_table.curses", RuneHelper.countCurses(tool), curseSockets);
+                guiGraphics.drawString(this.font, curses, textX, textY + 10, TEXT_DARK, false);
+            }
         }
     }
 

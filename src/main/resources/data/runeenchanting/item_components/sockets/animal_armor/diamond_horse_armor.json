@@ -1,6 +1,7 @@
 {
     "item": "minecraft:diamond_horse_armor",
     "components": {
-        "runeenchanting:sockets": 3
+        "runeenchanting:sockets": 4,
+        "runeenchanting:curse_sockets": 1
     }
 }

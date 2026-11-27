@@ -86,12 +86,14 @@ public class RuneFeature extends Feature {
     public static Integer curseLearnThreshold = 100;
     @Config
     public static Boolean extractCurses = true;
-    @Config(description = "Maximum number of curses that can be on a single item. 0 disables curses entirely.")
-    public static Integer maxCurses = 1;
+    @Config(description = "If false, curses are disabled: they can't be applied, are never generated and the ones already on items have no effect and give no sockets.")
+    public static Boolean enableCurses = true;
+    @Config(description = "Maximum number of curses that can be on items that don't set it with the runeenchanting:curse_sockets item component (e.g. other mods' equipment).")
+    public static Integer defaultCurseSockets = 1;
     @Config
     public static Double equipmentRuneConversionRatio = 0.5d;
     @Config(description = "Sockets given to the items in the runeenchanting:default_sockets item tag (e.g. other mods' tools, weapons and armor) that don't get them from data packs. Items in runeenchanting:no_default_sockets are excluded. 0 disables.")
-    public static Integer defaultSockets = 2;
+    public static Integer defaultSockets = 4;
 
     public static Boolean disableExperience = true;
 
@@ -334,7 +336,11 @@ public class RuneFeature extends Feature {
         if (sockets > 0 && !stack.is(REItems.RUNE)) {
             if (runesCount > 0 || showExtraInfos(event.getFlags())) {
                 event.getToolTip().add(CommonComponents.space());
-                event.getToolTip().add(Component.translatable(RuneEnchanting.lang("sockets"), noCursesRunesCount, sockets).withStyle(overloaded ? ChatFormatting.RED : ChatFormatting.DARK_PURPLE));
+                int curseSockets = RuneHelper.getCurseSockets(stack);
+                Component socketsLine = curseSockets > 0
+                        ? Component.translatable(RuneEnchanting.lang("sockets_with_curses"), noCursesRunesCount, sockets, RuneHelper.countCurses(stack), curseSockets)
+                        : Component.translatable(RuneEnchanting.lang("sockets"), noCursesRunesCount, sockets);
+                event.getToolTip().add(socketsLine.copy().withStyle(overloaded ? ChatFormatting.RED : ChatFormatting.DARK_PURPLE));
             }
         }
         Component inactiveTooltip = noCursesRunesCount > 0 ?RuneHelper.getInactiveConditionTooltip(stack) : null;

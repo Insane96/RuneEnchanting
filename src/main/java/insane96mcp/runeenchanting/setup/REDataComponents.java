@@ -30,6 +30,13 @@ public class REDataComponents {
                     .networkSynchronized(ByteBufCodecs.INT)
                     .build());
 
+    ///Maximum number of curses the item can have. Items without it use {@code RuneFeature.defaultCurseSockets}
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> CURSE_SOCKETS =
+            REGISTRY.register("curse_sockets", () -> DataComponentType.<Integer>builder()
+                    .persistent(Codec.INT)
+                    .networkSynchronized(ByteBufCodecs.INT)
+                    .build());
+
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Holder<Rune>>> STORED_RUNE =
             REGISTRY.register("stored_rune", () -> DataComponentType.<Holder<Rune>>builder()
                     .persistent(RERunes.REGISTRY.holderByNameCodec())

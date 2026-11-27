@@ -135,7 +135,7 @@ public class RuneHelper {
             return false;
         if (countRunes(stack) >= getSockets(stack) && !Rune.isCurse(rune))
             return false;
-        if (Rune.isCurse(rune) && countCurses(stack) >= RuneFeature.maxCurses)
+        if (Rune.isCurse(rune) && countCurses(stack) >= getCurseSockets(stack))
             return false;
         runes.add(rune);
         stack.set(REDataComponents.RUNES, runes);
@@ -168,7 +168,7 @@ public class RuneHelper {
         if (stack.getOrDefault(REDataComponents.RUNES, List.of()).contains(rune))
             return ApplyCheck.ALREADY_PRESENT;
         if (Rune.isCurse(rune)) {
-            if (countCurses(stack) >= RuneFeature.maxCurses)
+            if (countCurses(stack) >= getCurseSockets(stack))
                 return ApplyCheck.TOO_MANY_CURSES;
         }
         else if (countRunes(stack) >= getSockets(stack))
@@ -275,6 +275,13 @@ public class RuneHelper {
 
     public static int getSockets(ItemStack stack) {
         return stack.getOrDefault(REDataComponents.SOCKETS, 0) + countCurses(stack);
+    }
+
+    ///Maximum number of curses the item can have, 0 if curses are disabled
+    public static int getCurseSockets(ItemStack stack) {
+        if (!RuneFeature.enableCurses)
+            return 0;
+        return stack.getOrDefault(REDataComponents.CURSE_SOCKETS, RuneFeature.defaultCurseSockets);
     }
 
     /**

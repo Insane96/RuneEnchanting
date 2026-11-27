@@ -1,6 +1,7 @@
 {
     "item": "#c:tools/shear",
     "components": {
-        "runeenchanting:sockets": 2
+        "runeenchanting:sockets": 3,
+        "runeenchanting:curse_sockets": 1
     }
 }
